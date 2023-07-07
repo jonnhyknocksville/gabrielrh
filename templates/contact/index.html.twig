@@ -4,6 +4,21 @@
 
 {% block body %}
 
-    {{ form(contact_form) }}
+    <div class="row justify-content-center ">
+        
+        <div class="col-8 border mt-4 ">
+            <h1 class="text-center">Contactez-nous</h1>
+            {% for notice in app.flashes('confirmation') %}
+                <div class="alert alert-success">
+                    {{ notice }}
+                </div>
+            {% endfor %}
+                
+            {{ form(contact_form, {attr: {'novalidate': 'novalidate'}}) }}
+            
+        </div>
+    </div>
+
+    
 
 {% endblock %}
