@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\FormerRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 
 #[ORM\Entity(repositoryClass: FormerRepository::class)]
 class Former

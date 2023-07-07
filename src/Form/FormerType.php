@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class FormerType extends AbstractType
 {
@@ -32,7 +33,20 @@ class FormerType extends AbstractType
                     'Autre' => 'autre',
                 ],
             ])
-            ->add('CV', FileType::class)
+
+            // can only send PDF, PNG, JPG, JPEG in file form
+              ->add('CV', FileType::class,['constraints' => [
+                new File([
+                    'maxSize' => '5M',
+                    'mimeTypes' => [
+                        'image/*',
+                        'application/pdf',
+                        'application/x-pdf',
+                    ],
+                    'mimeTypesMessage' => 'Le fichier n\'est pas valide, assurez vous d\'avoir un fichier au format PDF, PNG, JPG, JPEG)',
+                ]),
+            ]
+        ])
             ->add('message',TextType::class,array('label'=>'Méssage'))
             ->add('Envoyer', SubmitType::class,)
         ;

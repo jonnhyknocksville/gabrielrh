@@ -26,6 +26,7 @@ class FormerController extends AbstractController
             $entityManager->persist($former);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Votre demande a été envoyer');
             return $this->redirectToRoute('app_former');
         }
 
