@@ -35,7 +35,8 @@ class FormerType extends AbstractType
             ])
 
             // can only send PDF, PNG, JPG, JPEG in file form
-              ->add('CV', FileType::class,['constraints' => [
+              ->add('CV', FileType::class,['label'=>'CV',
+                'constraints' => [
                 new File([
                     'maxSize' => '5M',
                     'mimeTypes' => [
