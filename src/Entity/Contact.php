@@ -21,18 +21,44 @@ class Contact
     #[ORM\Column(length: 255)]
     private ?string $first_name = null;
 
+    #[Assert\NotBlank(
+        message: 'Le nom ne peut pas être vide.',
+    )]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[Assert\NotBlank(
+        message: 'L\email ne peut pas être vide.',
+    )]
+    #[Assert\Email(
+        message: 'L\'email {{ value }} n\'est pas valide.',
+    )]
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
+    #[Assert\NotBlank(
+        message: 'Le téléphone ne peut pas être vide.',
+    )]
+    #[Assert\Regex('^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$^',
+    message : "Veuillez renseigner un numéro de téléphone français")]
     #[ORM\Column(length: 255)]
     private ?string $phone = null;
 
+    #[Assert\NotBlank(
+        message: 'L\'objet ne peut pas être vide.',
+    )]
     #[ORM\Column(length: 255)]
     private ?string $Object = null;
 
+    #[Assert\NotBlank(
+        message: 'Le message ne peut pas être vide.',
+    )]
+    #[Assert\Length(
+        min: 2,
+        max: 255,
+        minMessage: 'Votre message doit avoir un minimum de {{ limit }} caracteres',
+        maxMessage: 'Votre message doit avoir un maximum de {{ limit }} caracteres',
+    )]
     #[ORM\Column(type: Types::TEXT)]
     private ?string $message = null;
 

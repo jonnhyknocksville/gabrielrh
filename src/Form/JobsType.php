@@ -67,7 +67,7 @@ class JobsType extends AbstractType
                 
             ])
             ->add('company', TextType::class, [
-                'label' => 'Entrprise',
+                'label' => 'Entreprise',
                 'attr' => array(
                     'placeholder' => 'taper le nom de l\'entreprise qui propose le job'
                 )                

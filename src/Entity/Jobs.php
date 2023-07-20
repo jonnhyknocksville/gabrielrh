@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\JobsRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: JobsRepository::class)]
 class Jobs
@@ -14,45 +15,93 @@ class Jobs
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank(
+        message: 'Le titre ne peut pas être vide.',
+    )]
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
+    #[Assert\NotBlank(
+        message: 'Le salaire ne peut pas être vide.',
+    )]
     #[ORM\Column]
     private ?int $salary = null;
 
+    #[Assert\NotBlank(
+        message: 'Publié le ne peut pas être vide.',
+    )]
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $published_on = null;
 
+    #[Assert\NotBlank(
+        message: 'Mise à jour le ne peut pas être vide.',
+    )]
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $updated_on = null;
 
+    #[Assert\NotBlank(
+        message: 'La description ne peut pas être vide.',
+    )]
+    #[Assert\Length(
+        min: 2,
+        max: 255,
+        minMessage: 'Votre description doit avoir un minimum de {{ limit }} caracteres',
+        maxMessage: 'Votre description doit avoir un maximum de {{ limit }} caracteres',
+    )]
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
+    #[Assert\NotBlank(
+        message: 'La date de début ne peut pas être vide.',
+    )]
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $start_date = null;
 
+    #[Assert\NotBlank(
+        message: 'La date de fin ne peut pas être vide.',
+    )]
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $end_date = null;
 
+    #[Assert\NotBlank(
+        message: 'L\'horaire ne peut pas être vide.',
+    )]
     #[ORM\Column(length: 255)]
     private ?string $schedule = null;
 
+    #[Assert\NotBlank(
+        message: 'L\'entreprise ne peut pas être vide.',
+    )]
     #[ORM\Column(length: 255)]
     private ?string $company = null;
 
+    #[Assert\NotBlank(
+        message: 'l\'expérience demandé ne peut pas être vide.',
+    )]
     #[ORM\Column(length: 255)]
     private ?string $experience = null;
 
+    #[Assert\NotBlank(
+        message: 'l\'adresse ne peut pas être vide.',
+    )]
     #[ORM\Column(length: 255)]
     private ?string $adress = null;
 
+    #[Assert\NotBlank(
+        message: 'le code postal ne peut pas être vide.',
+    )]
     #[ORM\Column(length: 255)]
     private ?string $postal_code = null;
 
+    #[Assert\NotBlank(
+        message: 'la ville ne peut pas être vide.',
+    )]
     #[ORM\Column(length: 255)]
     private ?string $city = null;
 
+    #[Assert\NotBlank(
+        message: 'le type d\élèves ne peut pas être vide.',
+    )]
     #[ORM\Column(length: 255)]
     private ?string $type_of_audience = null;
 
