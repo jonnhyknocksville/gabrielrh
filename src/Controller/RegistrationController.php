@@ -36,7 +36,7 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($this->getUser() == false) {
-            return $this->redirectToRoute('app_who_we_are');
+            return $this->redirectToRoute('app_login');
         }
 
         if ($this->getUser()) {
