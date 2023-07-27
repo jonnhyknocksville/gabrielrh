@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}{{ job.title }}{% endblock %}
+
+
+
+{% block body %}
+
+    <div class="mt-5 pt-5 px-5 d-flex flex-column align-items-center">
+
+        <h1 class="mb-3"> {{ job.title }} </h1>
+
+        <p class="mb-3">Mis à jour le: {{ job.updatedOn|date("d-m-y") }} </p>
+        
+        <button href="" class="btn btn-primary mb-3"> Postuler </button>
+
+        {# directive twig : petite fonctionalité twig qui permet de parser une date #}
+        <div class="mb-3">Publié le: {{ job.publishedOn|date("d-m-y") }} par: {{ job.company }}  </div>
+
+        <p>Description du job: {{ job.description }} </p>
+        <p>Le job commence le: {{ job.startDate|date("d-m-y") }} et fini le: {{ job.endDate|date("d-m-y") }} </p>
+        <p>Horaires du job: {{ job.schedule }} </p>
+        <p>Entreprise: {{ job.company }} </p>
+        <p>Experience demandé: {{ job.experience }} </p>
+        <p>adresse du job: {{ job.adress }} - {{ job.postalCode }} - {{ job.city }}</p>
+        <p>Type d'élèves: {{ job.typeOfAudience }} </p>
+
+        <a href="{{ path('delete_job', {id : job.id}) }}" class="btn btn-danger"> SUPPRIMER </a>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+        Launch demo modal
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+            </div>
+        </div>
+        </div>
+        <a href="{{ path('modify_job', {id : job.id}) }}" class="btn btn-warning"> MODIFIER </a>
+         
+    </div>
+
+    {# <div class="mt-5 mx-auto">
+        <h2> Articles similaires </h2>
+
+        <div class="d-flex">
+            {% for relatedArticle in relatedArticles %} 
+
+                <div class="article d-flex my-3 mx-auto">
+                    <a class="d-flex text-decoration-none text-reset" href="{{ path('show_article_by_id', { id : relatedArticle.id }) }}">
+                        <img src="{{ asset('build/images/' ~ relatedArticle.picture ) }}" />
+                        <div class="d-flex flex-column ps-2">   
+                            <h6>{{ relatedArticle.title }} - {{ relatedArticle.date|date("d-m-Y") }} </h6>
+                            <p>{{ article.chapo }} </p>
+                        </div>
+                    </a>
+                </div>
+
+            {% endfor %}   
+        </div>
+    </div> #}
+
+{% endblock %}
