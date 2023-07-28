@@ -26,32 +26,31 @@
         <p>adresse du job: {{ job.adress }} - {{ job.postalCode }} - {{ job.city }}</p>
         <p>Type d'élèves: {{ job.typeOfAudience }} </p>
 
-        <a href="{{ path('delete_job', {id : job.id}) }}" class="btn btn-danger"> SUPPRIMER </a>
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-        Launch demo modal
+        <button type="button" id="deleteButton" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
+        SUPPRIMER
         </button>
 
         <!-- Modal -->
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
+                <h5 class="modal-title" id="exampleModalCenterTitle">Supression</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                ...
+                Etes vous sûre de vouloir supprimer: {{ job.title }}.
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                <a id="btnSup" href="{{ path('delete_job', {id : job.id}) }}" class="btn btn-danger">Supprimer</a>
             </div>
             </div>
         </div>
         </div>
+
         <a href="{{ path('modify_job', {id : job.id}) }}" class="btn btn-warning"> MODIFIER </a>
          
     </div>

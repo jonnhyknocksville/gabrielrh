@@ -9,6 +9,9 @@
 import './styles/app.scss';
 
 const $ = require('jquery');
+
+// create global $ and jQuery variables
+global.$ = global.jQuery = $;
 // this "modifies" the jquery module: adding behavior to it
 // the bootstrap module doesn't export/return anything
 require('bootstrap');
@@ -19,5 +22,19 @@ require('bootstrap');
 
 $(document).ready(function() {
     $('[data-toggle="popover"]').popover();
+})
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    $("#deleteButton").on('click',function(){
+      $("#myModal").modal("show");
+    });
+    $("#btnSup").on('click',function(){
+        $("#myModal").modal("hide");
+      });
+    
+    
 });
+
 

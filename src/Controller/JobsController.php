@@ -114,9 +114,9 @@ class JobsController extends AbstractController
         // si j'ai un post
         // je récupère le paramètre POST ID
         $id = $request->get('id');
-        $article = $entityManager->getRepository(Articles::class)->find($id);
+        $job = $entityManager->getRepository(Jobs::class)->find($id);
 
-        $entityManager->remove($article);
+        $entityManager->remove($job);
         $entityManager->flush();
 
         // rediriger vers la page d'accueil avec un msg de confirmation
