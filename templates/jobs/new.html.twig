@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}nouveau job{% endblock %}
+
+{% block body %}
+    <div class="row justify-content-center ">
+        
+        <div class="col-8 border mt-4 ">
+            <h1 class="text-center">Creer un job</h1>
+            {% for notice in app.flashes('confirmation') %}
+                <div class="alert alert-success">
+                    {{ notice }}
+                </div>
+            {% endfor %}
+                
+            {{ form(add_jobs_form, {attr: {'novalidate': 'novalidate'}}) }}
+            
+        </div>
+    </div>
+{% endblock %}
