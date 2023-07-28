@@ -8,7 +8,6 @@
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.scss';
 
-console.log("teste");
 
 document.addEventListener('DOMContentLoaded', function() {
     const TButton = document.getElementById('fromButton');
