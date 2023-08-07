@@ -9,27 +9,48 @@
 import './styles/app.scss';
 
 
-document.addEventListener('DOMContentLoaded', function() {
-    const TButton = document.getElementById('fromButton');
-    const TCommande = document.getElementById('fromCommande');
-    const Taccept = document.getElementById('accept');
-    const Tinform = document.getElementById('inform');
-    const Trefuse = document.getElementById('refuse');
 
-    TButton.addEventListener('click', function() {
-        TCommande.style.display = 'block';
-    });
 
-    Taccept.addEventListener('click', function() {
-        TCommande.style.display = 'none';
-    })
 
-    Tinform.addEventListener('click', function() {
-        TCommande.style.display = 'none';
-    })
+//
+// pop up
+//
+// document.addEventListener('DOMContentLoaded', function() {
+//     const TButton = document.getElementById('fromButton');
+//     const TCommande = document.getElementById('fromCommande');
+//     const Taccept = document.getElementById('accept');
+//     const Tinform = document.getElementById('inform');
+//     const Trefuse = document.getElementById('refuse');
+
+//     TButton.addEventListener('click', function() {
+//         TCommande.style.display = 'block';
+//     });
+
+//     Taccept.addEventListener('click', function() {
+//         TCommande.style.display = 'none';
+//     })
+
+//     Tinform.addEventListener('click', function() {
+//         TCommande.style.display = 'none';
+//     })
     
-    Trefuse.addEventListener('click', function() {
-        TCommande.style.display = 'none';
-    })
+//     Trefuse.addEventListener('click', function() {
+//         TCommande.style.display = 'none';
+//     })
 
+// });
+
+//
+
+//
+//counter stat
+//
+
+
+$(document).ready(function($) {
+    console.log('hello world');
+    // $('.count-number').counterUp({
+    //     delay: 10,
+    //     time: 10000
+    // });
 });
