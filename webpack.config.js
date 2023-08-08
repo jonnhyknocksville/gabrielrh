@@ -47,6 +47,10 @@ Encore
     //     config.plugins.push('@babel/a-babel-plugin');
     // })
 
+    .copyFiles({
+        from:'./assets/images',
+    })
+
     // enables and configure @babel/preset-env polyfills
     .configureBabelPresetEnv((config) => {
         config.useBuiltIns = 'usage';
