@@ -3,232 +3,308 @@
 {% block title %}{% endblock %}
 
 {% block body %}
-
-<div class="row justify-content-center text-light my-3">
-    <h2 class="col-8 text-center">Vous êtes formateur, vous voulez avoir plus de contact ?</h2>
-   <iframe class="col-10 text-center"  height="632" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen> </iframe>
-</div>
-
-<div class="row justify-content-center text-light my-3">
-    <a href="{{ path('create_job') }}" class="col-2 mx-5 d-flex justify-content-center"><button class="btn text-bg-primary  " >Chercher formateur</button></a>
-    <a href="{{ path('app_former') }}" class="col-2 mx-5 d-flex justify-content-center"><button class="btn text-bg-primary ">Devenir formateur</button></a>
-</div>
-
-<div class="text-light my-5 bg-secondary mx-3" style="border-radius: 30px;">
-    <div class="row justify-content-center " >
-        <p class="col-4 text-center">Bienvenue chez formation WS !</p>
+<div class="">
+    <div class="row justify-content-center text-light my-3">
+        <h2 class="col-8 text-center">Vous êtes formateur, vous voulez avoir plus de contact ?</h2>
+    <iframe class="col-10 text-center"  height="632" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen> </iframe>
     </div>
-
-    <div class="row justify-content-center " >
-        <p class="col-6 text-center">Voici les diférent raison de choisir nos services</p>
-    </div>
-{# 
-
-
-
-
- #}
-     <div class="my-5">{# counter stat #}
-        <section id="statistic" class="statistic-section one-page-section">
-            <div class="container">
-                <div class="row text-center">
-                    <div class="col-xs-12 col-md-3">
-                        <div class="counter">
-                            <i class=""></i>
-                            <h2 class="count-number">8</h2>
-                            <div class=""></div>
-                            <p class="">Anné d'experience</p>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-md-3">
-                        <div class="counter">
-                            <i class=""></i>
-                            <h2 class=" count-number">10000
-                            </h2>
-                            <div class=""></div>
-                            <p class="">Line Code</p>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-md-3">
-                        <div class="counter">
-                            <i class=""></i>
-                            <h2 class="count-number">6</h2>
-                            <div class=""></div>
-                            <p class="">Years Experience</p>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-md-3">
-                        <div class="counter">
-                            <i class=""></i>
-                            <h2 class="count-number">12</h2>
-                            <div class=""></div>
-                            <p class="">Project</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-</div>
-{# 
-
-
- #}
-{# section link #}
-{# 
-
-
- #}
-
-<div class="row d-flex justify-content-evenly text-light mx-3 bg-secondary py-3" style="border-radius: 30px;">
-    <div class="col-md text-center">
-        <div class="d-flex flex-column justify-content-center" style="border:1px solid #6a8bff; height: 11em;">
-            <h2> Rédaction web </h2>
-            <p> Nous publions régulièrement du <span class="text-info">contenu éditorial</span> sur notre blog <span class="text-info">la Réponse numérique </span>. </p>
-        </div>
-    </div>
-
-    <div class="col-md text-center ">
-        <div class="d-flex flex-column justify-content-center" style="border:1px solid #6a8bff; height: 11em;">
-            <h2> Ingénieurie pédagogique </h2>
-            <p> Nous vous accompagnons dans la conception de vos <span class="text-info">programmes pédagogiques</span>. </p>
-        </div>
-    </div>
-
-    <div class="col-md text-center">
-        <div class="d-flex flex-column justify-content-center" style="border:1px solid #6a8bff;height: 11em;">
-            <h2> Contenu e-learning </h2>
-            <p> Nous vous accompagnons sur la création de contenu pour vos <span class="text-info"> modules e-learning </span>. </p>
-        </div>
-    </div>
-
-    <div class="col-md text-center">
-        <div class="d-flex flex-column justify-content-center" style="border:1px solid #6a8bff;height: 11em;">
-            <h2> Placement formateurs </h2>
-            <p> Nous vous accompagnons dans la <span class="text-info">recherche de formateurs </span> compétents. </p>
-        </div>
-    </div>
-</div>
-{# 
-
-
- #}
-{# button section #}
-{# 
-
-
- #}
-
-<div class="row justify-content-center text-light my-5 bg-secondary py-3 mx-3" style="border-radius: 30px;">
-    <div class="col-md-4 text-center">
-        <a>
-            <div>
-                <p>Professionnels de la formation</p>
-                <img></img>
-            </div>
-            <img src={{asset("build/woman.webp")}} style="max-height:247px;"></img>
-        </a>
-    </div>
-
-    <div class="col-md-4 text-center">
-        <a>
-            <div>
-                <p>Formateurs</p>
-                <img></img>
-            </div>
-            <img src={{asset("build/man.webp")}} style="max-height:247px;"></img>
-        </a>
-    </div>
-</div>
-{# 
-
-
- #}
-{# Section text #}
-{# 
-
-
- #}
-<div class="bg-light d-flex flex-column ">
-    <div class=" d-flex justify-content-start">
-        <div class="row col-lg-8 mx-2 my-3 align-items-center d-flex " style="border:0.3em dashed">
-                    <div class="col-lg-6">
-                        <div class="my-3 text-primary">NOUS CONNAISSONS LES ENJEUX LIÉS AU MARCHÉ DE LA FORMATION</div>
-                        <h3>Plus de 8 ans d'expérience dans le domaine</h3>
-                        <p class="text-justify">Collaborer avec l'Académie WS, c'est collaborer avec une équipe disposant de plus de <span class="text-secondary font-weight-bold">8 ans d'expérience dans la formation digitale </span> avec un grand D. Que ce soit dans l'univers de la programmation, du marketing online ou encore des Systèmes et réseaux, l'Académie WS dispose d'une réelle expertise qui fait ses preuves auprès de nos clients depuis 2015.</p>
-                    </div>
-
-                    <div class="col-lg-6 d-flex justify-content-center d-sm-none d-lg-block">
-                        <img style="max-height:250px" src={{asset("build/8.webp")}} title="Nous vous accompagnons sur vos formats e-learning &amp; blended" alt="Nous vous accompagnons sur vos formats e-learning &amp; blended">
-                    </div>
-        </div>
-    </div>
-
-    <div class="d-flex justify-content-end">
-        <div class="row col-lg-8 mx-2 my-3 d-flex align-items-center" style="border:0.3em dashed ">
-
-                    <div class="col-lg-6 d-flex justify-content-center d-sm-none d-lg-block">
-                        <img style="max-height:250px" src={{asset("build/7.webp")}} title="La mise en place de vidéos pilote pour mesurer l'efficacité de nos vidéos" alt="La mise en place de vidéos pilote pour mesurer l'efficacité de nos vidéos">
-                    </div>
-
-                    <div class="col-lg-6">
-                        <div class="my-3 text-primary">CHEZ L'ACADÉMIE WS VOUS TROUVEREZ UN PANNEL DE FORMATEURS DIFFÉRENTS</div>
-                        <h3>Diversité des profils et des niveaux</h3>
-                        <p class="text-justify">Chez l'Académie, nous collaborons avec des formateurs de toutes horizons et de différents niveaux pour assurer des cours autant auprès de débutant que de professionnels déjà en poste.</p>
-                                        </div>
-        </div>
-    </div>
-
-    <div class="d-flex justify-content-start">
-        <div class="row col-lg-8 mx-2 my-3 d-flex align-items-center" style="border:0.3em dashed">
-                    <div class="col-lg-6">
-                        <div class="my-3 text-primary">NOS FORMATEURS SONT SUIVIS QUOTIDIENNEMENT</div>
-                        <h3>Suivi pédagogique quotidien</h3>
-                        <p class="text-justify">Evidemment une fois le formateur placé, nous ne disparaissons pas mais misons plutôt sur du long terme. C'est pourquoi <span class="text-secondary font-weight-bold">nous assurons un contact régulier avec nos formateurs </span> pour s'assurer du bon déroulement de chaque cours pour pouvoir répondre éfficacement à toute difficulté qu'une classe ou un formateur pourraient rencontrer.</p>
-                                        </div>
-
-                    <div class="col-lg-6 d-flex justify-content-center d-sm-none d-lg-block ">
-                        <img style="max-height:250px" src={{asset("build/6.webp")}} title="Des vidéos mises à jour chaque année !" alt="Des vidéos mises à jour chaque année !">
-                    </div>
-                </div>
-    </div>
-                
-    <div class="d-flex justify-content-end">
-        <div class="row col-lg-8 mx-2 my-3 align-items-center" style="border:0.3em dashed">
-
-                    <div class="col-lg-6 d-flex justify-content-center d-none d-lg-block">
-                        <img style="max-height:250px" src={{asset("build/3.webp")}} title="Des vidéos en marque blanche" alt="Des vidéos en marque blanche">
-                    </div>
-
-                    <div class="col-lg-6 ">
-                        <div class="my-3 text-primary">UNE MONTÉE EN COMPÉTENCE EST ORGANISÉE UNE À DEUX FOIS PAR AN</div>
-                        <h3>Des formateurs formés régulièrement</h3>
-                        <p class="text-justify">Parceque nous sommes conscients que le marché évolue constamment, nous organisons avec nos formateurs des <span class="text-secondary font-weight-bold">sessions de montée en compétence </span> en présentiel, ou en vidéo en utilisant les cours délivrés sur notre plateforme.</p>
-                                        </div>
-                </div>
-    </div>
-
-    <div class="d-flex justify-content-start">
-        <div class="row col-lg-8 mx-2 my-3 align-items-center" style="border:0.3em dashed">
-                    <div class="col-lg-6" >
-                        <div class="my-3 text-primary">L'ACADÉMIE WS CENTRALISE LES SUPPORTS DE COURS DE SES FORMATEURS</div>
-                        <h3>Centralisation du contenu pédagogique</h3>
-                        <p class="text-justify">Pour assurer des supports de qualité, <span class="text-secondary font-weight-bold">l'Académie WS centralise sur sa plateforme tous les exercices, cours théoriques ou travaux pratiques </span> délivrés par nos formateurs pour s'assurer de la qualité des exercices et des contenus délivrés et faciliter le transfert de ces supports auprès de vos apprenants.</p>
-                    </div>
-
-                    <div class="col-lg-6 d-flex justify-content-center d-sm-none d-lg-block">
-                        <img style="max-height:250px" src={{asset("build/2.webp")}} title="Connaissance des différents profils d'apprenants" alt="Connaissance des différents profils d'apprenants">
-                    </div>
-        </div>        
-    </div>
-{# 
-
-
- #}
 
     <div class="row justify-content-center text-light my-3">
-        <a href="{{ path('create_job') }}" class="col-2 mx-5 d-flex justify-content-center"><button class="btn text-bg-primary ">Chercher formateur</button></a>
+        <a href="{{ path('create_job') }}" class="col-2 mx-5 d-flex justify-content-center"><button class="btn text-bg-primary  " >Chercher formateur</button></a>
         <a href="{{ path('app_former') }}" class="col-2 mx-5 d-flex justify-content-center"><button class="btn text-bg-primary ">Devenir formateur</button></a>
+    </div>
+
+    <div class="text-light my-5 bg-secondary mx-3" style="border-radius: 30px;">
+        <div class="row justify-content-center " >
+            <p class="col-4 text-center">Bienvenue chez formation WS !</p>
+        </div>
+
+        <div class="row justify-content-center " >
+            <p class="col-6 text-center">Voici les diférent raison de choisir nos services</p>
+        </div>
+    {# 
+
+
+
+
+    #}
+        <div class="my-5">{# counter stat #}
+            <section id="statistic" class="statistic-section one-page-section">
+                <div class="container">
+                    <div class="row text-center">
+                        <div class="col-xs-12 col-md-3">
+                            <div class="counter">
+                                <i class=""></i>
+                                <h2 class="count-number">8</h2>
+                                <div class=""></div>
+                                <p class="">Anné d'experience</p>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="counter">
+                                <i class=""></i>
+                                <h2 class=" count-number">10000
+                                </h2>
+                                <div class=""></div>
+                                <p class="">Line Code</p>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="counter">
+                                <i class=""></i>
+                                <h2 class="count-number">6</h2>
+                                <div class=""></div>
+                                <p class="">Years Experience</p>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="counter">
+                                <i class=""></i>
+                                <h2 class="count-number">12</h2>
+                                <div class=""></div>
+                                <p class="">Project</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    {# 
+
+
+    #}
+    {# section link #}
+    {# 
+
+
+    #}
+
+    <div class="row d-flex justify-content-evenly text-light mx-3 bg-secondary py-3" style="border-radius: 30px;">
+        <div class="col-md text-center">
+            <div class="d-flex flex-column justify-content-center" style="border:1px solid #6a8bff; height: 11em;">
+                <h2> Rédaction web </h2>
+                <p> Nous publions régulièrement du <span class="text-info">contenu éditorial</span> sur notre blog <span class="text-info">la Réponse numérique </span>. </p>
+            </div>
+        </div>
+
+        <div class="col-md text-center ">
+            <div class="d-flex flex-column justify-content-center" style="border:1px solid #6a8bff; height: 11em;">
+                <h2> Ingénieurie pédagogique </h2>
+                <p> Nous vous accompagnons dans la conception de vos <span class="text-info">programmes pédagogiques</span>. </p>
+            </div>
+        </div>
+
+        <div class="col-md text-center">
+            <div class="d-flex flex-column justify-content-center" style="border:1px solid #6a8bff;height: 11em;">
+                <h2> Contenu e-learning </h2>
+                <p> Nous vous accompagnons sur la création de contenu pour vos <span class="text-info"> modules e-learning </span>. </p>
+            </div>
+        </div>
+
+        <div class="col-md text-center">
+            <div class="d-flex flex-column justify-content-center" style="border:1px solid #6a8bff;height: 11em;">
+                <h2> Placement formateurs </h2>
+                <p> Nous vous accompagnons dans la <span class="text-info">recherche de formateurs </span> compétents. </p>
+            </div>
+        </div>
+    </div>
+    {# 
+
+
+    #}
+    {# button section #}
+    {# 
+
+
+    #}
+
+    <div class="row justify-content-center text-light my-5 bg-secondary py-3 mx-3" style="border-radius: 30px;">
+        <div class="col-md-4 text-center">
+            <a>
+                <div>
+                    <p>Professionnels de la formation</p>
+                    <img></img>
+                </div>
+                <img src={{asset("build/woman.webp")}} style="max-height:247px;"></img>
+            </a>
+        </div>
+
+        <div class="col-md-4 text-center">
+            <a>
+                <div>
+                    <p>Formateurs</p>
+                    <img></img>
+                </div>
+                <img src={{asset("build/man.webp")}} style="max-height:247px;"></img>
+            </a>
+        </div>
+    </div>
+    {# 
+
+
+    #}
+    {# Section text #}
+    {# 
+
+    coriger le media query et tout tester apres faire une autre branche pour la barr nav et le footer
+
+    #}
+    <div class="bg-light d-flex flex-column ">
+        <div class=" d-flex justify-content-start">
+            <div class="row col-lg-8 mx-2 my-3 align-items-center d-flex " style="border:0.3em dashed">
+                        <div class="col-lg-6">
+                            <div class="my-3 text-primary">NOUS CONNAISSONS LES ENJEUX LIÉS AU MARCHÉ DE LA FORMATION</div>
+                            <h3>Plus de 8 ans d'expérience dans le domaine</h3>
+                            <p class="text-justify">Collaborer avec l'Académie WS, c'est collaborer avec une équipe disposant de plus de <span class="text-secondary font-weight-bold">8 ans d'expérience dans la formation digitale </span> avec un grand D. Que ce soit dans l'univers de la programmation, du marketing online ou encore des Systèmes et réseaux, l'Académie WS dispose d'une réelle expertise qui fait ses preuves auprès de nos clients depuis 2015.</p>
+                        </div>
+
+                        <div class="col-lg-6 d-flex justify-content-center d-none d-lg-block">
+                            <img style="max-height:250px" src={{asset("build/8.webp")}} title="Nous vous accompagnons sur vos formats e-learning &amp; blended" alt="Nous vous accompagnons sur vos formats e-learning &amp; blended">
+                        </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-end">
+            <div class="row col-lg-8 mx-2 my-3 d-flex align-items-center" style="border:0.3em dashed ">
+
+                        <div class="col-lg-6 d-flex justify-content-center d-none d-lg-block">
+                            <img style="max-height:250px" src={{asset("build/7.webp")}} title="La mise en place de vidéos pilote pour mesurer l'efficacité de nos vidéos" alt="La mise en place de vidéos pilote pour mesurer l'efficacité de nos vidéos">
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="my-3 text-primary">CHEZ L'ACADÉMIE WS VOUS TROUVEREZ UN PANNEL DE FORMATEURS DIFFÉRENTS</div>
+                            <h3>Diversité des profils et des niveaux</h3>
+                            <p class="text-justify">Chez l'Académie, nous collaborons avec des formateurs de toutes horizons et de différents niveaux pour assurer des cours autant auprès de débutant que de professionnels déjà en poste.</p>
+                                            </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-start">
+            <div class="row col-lg-8 mx-2 my-3 d-flex align-items-center" style="border:0.3em dashed">
+                        <div class="col-lg-6">
+                            <div class="my-3 text-primary">NOS FORMATEURS SONT SUIVIS QUOTIDIENNEMENT</div>
+                            <h3>Suivi pédagogique quotidien</h3>
+                            <p class="text-justify">Evidemment une fois le formateur placé, nous ne disparaissons pas mais misons plutôt sur du long terme. C'est pourquoi <span class="text-secondary font-weight-bold">nous assurons un contact régulier avec nos formateurs </span> pour s'assurer du bon déroulement de chaque cours pour pouvoir répondre éfficacement à toute difficulté qu'une classe ou un formateur pourraient rencontrer.</p>
+                                            </div>
+
+                        <div class="col-lg-6 d-flex justify-content-center d-none d-lg-block ">
+                            <img style="max-height:250px" src={{asset("build/6.webp")}} title="Des vidéos mises à jour chaque année !" alt="Des vidéos mises à jour chaque année !">
+                        </div>
+                    </div>
+        </div>
+                    
+        <div class="d-flex justify-content-end">
+            <div class="row col-lg-8 mx-2 my-3 align-items-center" style="border:0.3em dashed">
+
+                        <div class="col-lg-6 d-flex justify-content-center d-none d-lg-block">
+                            <img style="max-height:250px" src={{asset("build/3.webp")}} title="Des vidéos en marque blanche" alt="Des vidéos en marque blanche">
+                        </div>
+
+                        <div class="col-lg-6 ">
+                            <div class="my-3 text-primary">UNE MONTÉE EN COMPÉTENCE EST ORGANISÉE UNE À DEUX FOIS PAR AN</div>
+                            <h3>Des formateurs formés régulièrement</h3>
+                            <p class="text-justify">Parceque nous sommes conscients que le marché évolue constamment, nous organisons avec nos formateurs des <span class="text-secondary font-weight-bold">sessions de montée en compétence </span> en présentiel, ou en vidéo en utilisant les cours délivrés sur notre plateforme.</p>
+                                            </div>
+                    </div>
+        </div>
+
+        <div class="d-flex justify-content-start">
+            <div class="row col-lg-8 mx-2 my-3 align-items-center" style="border:0.3em dashed">
+                        <div class="col-lg-6" >
+                            <div class="my-3 text-primary">L'ACADÉMIE WS CENTRALISE LES SUPPORTS DE COURS DE SES FORMATEURS</div>
+                            <h3>Centralisation du contenu pédagogique</h3>
+                            <p class="text-justify">Pour assurer des supports de qualité, <span class="text-secondary font-weight-bold">l'Académie WS centralise sur sa plateforme tous les exercices, cours théoriques ou travaux pratiques </span> délivrés par nos formateurs pour s'assurer de la qualité des exercices et des contenus délivrés et faciliter le transfert de ces supports auprès de vos apprenants.</p>
+                        </div>
+
+                        <div class="col-lg-6 d-flex justify-content-center d-none d-lg-block">
+                            <img style="max-height:250px" src={{asset("build/2.webp")}} title="Connaissance des différents profils d'apprenants" alt="Connaissance des différents profils d'apprenants">
+                        </div>
+            </div>        
+        </div>
+    {# 
+
+
+    #}
+
+        <div class="row justify-content-center text-light my-3">
+            <a href="{{ path('create_job') }}" class="col-2 mx-5 d-flex justify-content-center"><button class="btn text-bg-primary ">Chercher formateur</button></a>
+            <a href="{{ path('app_former') }}" class="col-2 mx-5 d-flex justify-content-center"><button class="btn text-bg-primary ">Devenir formateur</button></a>
+        </div>
+    </div>
+
+    <div class="text-light text-center">
+        <p>Nos autres activités</p>
+
+        <h3>"Rejoigner l'academie WS"</h3>
+
+        <p>En complément du placement de formations,l'ACADEMIE WS vous propose son savoir faire.</p>
+
+        <div class="row d-flex">
+            <div class="text-center col-lg-3 col-6">
+                <img>
+                <p>CONTENU E-LEARNING</p>
+                <h3>FORMATION DIGITALES EN VIDEO, SANS BLABLA !</h3>
+                <p>L'ACADEMIE WS est une plateforme de formations vidéo sécialisée dans le digital.</p>
+            </div>
+
+            <div class="text-center col-lg-3 col-6">
+                <img>
+                <p>VIDEO DE FORMATION</p>
+                <h3>PRODUCTIONS DE VOS VIDEOS DE FORMATION PERSONNALISABLES</h3>
+                <p>Nous vous produisons des vidéos de formation sur mesure, en marque blanche.</p>
+            </div>
+
+            <div class="text-center col-lg-3 col-6">
+                <img>
+                <p>INGENIERIE PEDAGOGIQUE</p>
+                <h3>CONCEPTION DE VOS PROGRAMES PEDAGOGIQUES</h3>
+                <p>Nous vous accompagnons dans la conception de vos programmes pédagogiques</p>
+            </div>
+
+            <div class="text-center col-lg-3 col-6">
+                <img>
+                <p>PRODUCTION AUDIOVISUELLE</p>
+                <h3>CAPTATION VIDEO POUR VOS PROJETS AUDIOVISUELS</h3>
+                <p>Nous vous accompagnons dans la captation video de vos futurs projets audiovisuels.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-light text-center">
+        <h2>ILS NOUS ONT FAIT CONFIANCE</h2>
+        <h6>Google avis</h6>
+        <div>
+            <div>
+                <icon></icon>
+                <p></p>
+                <div>
+                    </img>
+                    <p></p>
+                    <p></p>
+                </div>
+            </div>
+
+            <div>
+                <icon></icon>
+                <p></p>
+                <div>
+                    </img>
+                    <p></p>
+                    <p></p>
+                </div>
+            </div>
+
+            <div>
+                <icon></icon>
+                <p></p>
+                <div>
+                    </img>
+                    <p></p>
+                    <p></p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
