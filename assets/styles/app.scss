@@ -9,3 +9,29 @@ $grey:#6b6d7c;
 .color-grey {
     color: #6b6d7c;
 } 
+
+.form-shadow {
+    -webkit-box-shadow: 0px 0px 15px 0px rgba(94, 36, 195, 0.1); 
+    box-shadow: 0px 0px 15px 0px rgba(94, 36, 195, 0.1);
+}
+
+.smallBorderRadius {
+    border-radius: 15px;
+}
+
+.form-circle {
+    height: 80px;
+    width: 80px;
+    position: absolute;
+    border-radius: 50%;
+    top: -50px;
+    -webkit-box-shadow: 0px 0px 15px 0px rgba(94, 36, 195, 0.1); 
+    box-shadow: 0px 0px 15px 0px rgba(94, 36, 195, 0.1);
+    background: url('../images/logo_without_background.png') no-repeat, white;
+    background-size: 100%;
+    border: 5px solid #5e24c3;
+}
+
+.relative {
+    position: relative;
+}

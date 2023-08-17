@@ -4,14 +4,14 @@
 
 {% block title %}Candidature spontanée {{parent()}}{% endblock %}
 
-{% form_theme applicationForm 'bootstrap_4_layout.html.twig' %}
+{% form_theme applicationForm 'bootstrap_5_layout.html.twig' %}
 
 
 {% block body %}
 
 <div class="d-flex align-items-center justify-content-center my-5">
-    <div class="row col-md-6 white justify-content-center white smallBorderRadius p-0 my-5">
-        <div class="form-shadow relative d-flex justify-content-center col-md-12 px-5 py-5">
+    <div class="row col-md-6 white justify-content-center white p-0 my-5">
+        <div class="form-shadow relative d-flex justify-content-center col-md-12 px-5 py-5 smallBorderRadius">
             <div class="form-circle"> </div>
 
             {% for message in app.flashes('message') %}

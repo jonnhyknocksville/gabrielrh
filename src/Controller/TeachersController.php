@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\TeacherApplication;
+use App\Form\TeacherApplicationType;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,15 +26,15 @@ class TeachersController extends AbstractController
     #[Route('/teacher/opportunity', name: 'teacher_opportunity', methods: ['GET', 'POST'])]
     public function new(Request $request, MailerInterface $mailer): Response
     {
-        $jobApplication = new JobApplication();
-        $form = $this->createForm(JobApplicationType::class, $jobApplication);
+        $teacherApplication = new TeacherApplication();
+        $form = $this->createForm(TeacherApplicationType::class, $teacherApplication);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             // Je définis le nom du CV en BDD pour pouvoir le récupérer esnuite grâce à VichUploader.
-            $jobApplication->setNamerCV('CV ' . $jobApplication->getLastName() . " " . $jobApplication->getFirstName());
+            $teacherApplication->setNamerCV('CV ' . $teacherApplication->getLastName() . " " . $teacherApplication->getFirstName());
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($jobApplication);
+            $entityManager->persist($teacherApplication);
             $entityManager->flush();
 
             // Envoie d'un email à Académie WS pour le notifier
@@ -41,14 +43,14 @@ class TeachersController extends AbstractController
                 ->to('contact@academiews.fr')
                 ->subject('Nouvelle demande de Recrutement')
                 ->htmlTemplate('job_application/email.html.twig')
-                ->attachFromPath($jobApplication->getCvFile()->getPath() . "/" . $jobApplication->getCvFile()->getFilename())
+                ->attachFromPath($teacherApplication->getCvFile()->getPath() . "/" . $teacherApplication->getCvFile()->getFilename())
                 ->context([
-                    'name' => $jobApplication->getLastName(),
-                    'firstname' => $jobApplication->getFirstName(),
-                    'adressEmail' => $jobApplication->getEmail(),
-                    'phone' => $jobApplication->getPhone(),
-                    'message' => $jobApplication->getMessage(),
-                    'motif' => $jobApplication->getMotif()
+                    'name' => $teacherApplication->getLastName(),
+                    'firstname' => $teacherApplication->getFirstName(),
+                    'adressEmail' => $teacherApplication->getEmail(),
+                    'phone' => $teacherApplication->getPhone(),
+                    'message' => $teacherApplication->getMessage(),
+                    'motif' => $teacherApplication->getMotif()
                 ]);
 
             $mailer->send($email);
@@ -58,7 +60,7 @@ class TeachersController extends AbstractController
         }
 
         return $this->render('teachers/opportunity.html.twig', [
-            'job_application' => $jobApplication,
+            'job_application' => $teacherApplication,
             'applicationForm' => $form->createView(),
         ]);
     }
