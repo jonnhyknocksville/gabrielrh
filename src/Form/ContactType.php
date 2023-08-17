@@ -3,71 +3,124 @@
 namespace App\Form;
 
 use App\Entity\Contact;
+use Karser\Recaptcha3Bundle\Form\Recaptcha3Type;
+use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TelType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class ContactType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('first_name', TextType::class, [
+            ->add('raison', HiddenType::class, [
+                'row_attr' => [
+                    'class' => 'd-flex flex-column col-md-6 mb-3'
+                ],
+                'attr' => array(
+                    'placeholder' => 'Raison'
+                ),
+                'required' => false,
+                'mapped' => false
+            ])
+            ->add('firstname', TextType::class, [
                 'label' => 'Prénom',
+                'row_attr' => [
+                    'class' => 'd-flex flex-column col-md-6 mb-3'
+                ],
                 'attr' => array(
                     'placeholder' => 'Prénom'
-                )                
-                
+                )
             ])
-            ->add('name', TextType::class, [
+            ->add('lastname', TextType::class, [
                 'label' => 'Nom',
+                'row_attr' => [
+                    'class' => 'd-flex flex-column col-md-6 mb-3'
+                ],
                 'attr' => array(
                     'placeholder' => 'Nom'
                 )
             ])
-            ->add('email', EmailType::class, [
+            ->add('email', TextType::class, [
                 'label' => 'Email',
+                'row_attr' => [
+                    'class' => 'd-flex flex-column col-md-6 mb-3'
+                ],
                 'attr' => array(
                     'placeholder' => 'Email'
                 )
             ])
-            ->add('phone', TelType::class, [                
+            ->add('phone', TextType::class, [
                 'label' => 'Téléphone',
+                'required' => false,
+                'row_attr' => [
+                    'class' => 'd-flex flex-column col-md-6 mb-3'
+                ],
                 'attr' => array(
-                    'placeholder' => 'Téléphone',
+                    'placeholder' => 'Téléphone'
                 )
             ])
-            ->add('Object', ChoiceType::class, [
-                'label' => 'Objet',
-                'placeholder' => 'Choisisser l\'objet de votre demande',
-                'choices' => [
+            ->add('object', ChoiceType::class, [
+                'label' => 'Choisissez un motif', 
+                'placeholder' => '--',
+                'choices'  => [
                     'Je suis un professionnel de la formation' => 'Je suis un professionnel de la formation',
                     'Je cherche un poste en entreprise' => 'Je cherche un poste en entreprise',
                     'Je veux devenir formateur' => 'Je veux devenir formateur',
                     'Je veux devenir partenaire commercial' => 'Je veux devenir partenaire commercial',
-                    'Autres (Merci de le préciser dans le message)' => 'Autres',
-                ]
+                    'Autres' => 'Autres',
+                ],
+                'row_attr' => [
+                    'class' => 'd-flex flex-column col-md-6 mb-3'
+                ],
+                'expanded'=>false,
+                'multiple'=>false,
+                'attr' => array(
+                    'placeholder' => 'Pays'
+                )
+                
             ])
-            ->add('message', TextareaType::class, [                
-                'label' => 'Message',
+            ->add('currentJob', ChoiceType::class, [
+                'label' => 'Votre poste actuel', 
+                'placeholder' => '--',
+                'choices'  => [
+                    'Responsable pédagogique' => 'Responsable pédagogique',
+                    'Directeur/Directrice' => 'Directeur/Directrice',
+                    'Formateurs' => 'Formateurs',
+                    'Autres' => 'Autres',
+                ],
+                'row_attr' => [
+                    'class' => 'd-flex flex-column col-md-6 mb-3'
+                ],
+                'expanded'=>false,
+                'multiple'=>false,
+                'attr' => array(
+                    'placeholder' => 'Pays'
+                )
+                
+            ])
+            ->add('message', TextareaType::class, [
+                'label' => 'Ecrivez votre message',
+                'row_attr' => [
+                    'class' => 'd-flex flex-column col-md-12 mb-3'
+                ],
                 'attr' => array(
                     'placeholder' => 'Message'
                 )
             ])
-            ->add('save', SubmitType::class, [
-                'label' => 'Envoyer votre demande de contact',
-                'attr' => ['class' => 'save btn-primary'],
+            ->add('captcha', Recaptcha3Type::class, [
+                'constraints' => new Recaptcha3(),
+                'action_name' => 'contact',
+                'locale' => 'de',
             ]);
-        ;
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => Contact::class,

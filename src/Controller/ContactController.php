@@ -3,55 +3,64 @@
 namespace App\Controller;
 
 use App\Entity\Contact;
-use App\Form\ContactType;
-use App\Service\MailService;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface;
-use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Form\ContactType;
+
 
 class ContactController extends AbstractController
 {
-    #[Route('/contact', name: 'app_contact')]
-    public function index(Request $request,EntityManagerInterface $entityManager, MailService $mailService): Response
+
+    #[Route('/contact', name: 'app_contact', methods: ['GET', 'POST'])]
+    public function new(Request $request, MailerInterface $mailer): Response
     {
-        $contact = new Contact;
-        $form = $this->createForm(ContactType::class);
+        $contact = new Contact();
+        $form = $this->createForm(ContactType::class, $contact);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
-            $contact = $form->getData();
-            $entityManager->persist($contact);
-            $entityManager->flush();
 
-            // gerer l'envoie de mail
+            // Technique du pot de miel pour empêcher les spams
+            // permet d'empécher les spams de nous harceler de mail
+            if(is_null($form["raison"]->getData()) or empty($form["raison"]->getData())) {
 
-            $mailService->sendMail(
-                [
-                    'firstName' => $contact->getFirstName(),
-                    'name' => $contact->getName(),
-                    'message' => $contact->getMessage()
-                ],
-                $contact->getEmail(),
-                'Message de contact',
-                'emails/signup.html.twig'
-            );                
+                $contact->setIsRead(false);
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($contact);
+                $entityManager->flush();
 
-            $contact = new Contact();
-            $form = $this->createForm(ContactType::class, $contact);
+                // Envoie d'un email à Académie WS pour le notifier
+                $email = (new TemplatedEmail())
+                ->from(new Address('contact@academiews.fr', 'Académie WS - Contact'))
+                ->to('contact@academiews.fr')
+                ->subject('Message de ' . $contact->getFirstname() . ' ' . $contact->getLastname() . ' ' )
+                ->htmlTemplate('contact/email.html.twig')
+                ->context([
+                    'name' => $contact->getLastName(),
+                    'firstname' => $contact->getFirstName(),
+                    'adressEmail' => $contact->getEmail(),
+                    'phone' => ($contact->getPhone() == null) ? "non fourni" : $contact->getPhone(),
+                    'message' => $contact->getMessage(),
+                    'object' => $contact->getObject(),
+                ]);
 
-            $this->addFlash('confirmation', 'votre demande de contact a bien été envoyé !');
+                $mailer->send($email);
 
+                $this->addFlash('success', 'Votre message à bien été envoyé.');
+                return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
+            }
         }
 
-        // $this->redirectToRoute('app_contact');
 
         return $this->render('contact/index.html.twig', [
-            'controller_name' => 'ContactController',
-            'contact_form' => $form,
+            'contact' => $contact,
+            'contactForm' => $form->createView(),
         ]);
     }
+
 }

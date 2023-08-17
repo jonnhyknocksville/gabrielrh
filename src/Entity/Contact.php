@@ -3,9 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ContactRepository;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ContactRepository::class)]
 class Contact
@@ -15,52 +13,29 @@ class Contact
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Assert\NotBlank(
-        message: 'Le prenom ne peut pas être vide.',
-    )]
     #[ORM\Column(length: 255)]
-    private ?string $first_name = null;
+    private ?string $firstName = null;
 
-    #[Assert\NotBlank(
-        message: 'Le nom ne peut pas être vide.',
-    )]
     #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    private ?string $lastName = null;
 
-    #[Assert\NotBlank(
-        message: 'L\email ne peut pas être vide.',
-    )]
-    #[Assert\Email(
-        message: 'L\'email {{ value }} n\'est pas valide.',
-    )]
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
-    #[Assert\NotBlank(
-        message: 'Le téléphone ne peut pas être vide.',
-    )]
-    #[Assert\Regex('^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$^',
-    message : "Veuillez renseigner un numéro de téléphone français")]
     #[ORM\Column(length: 255)]
     private ?string $phone = null;
 
-    #[Assert\NotBlank(
-        message: 'L\'objet ne peut pas être vide.',
-    )]
     #[ORM\Column(length: 255)]
-    private ?string $Object = null;
-
-    #[Assert\NotBlank(
-        message: 'Le message ne peut pas être vide.',
-    )]
-    #[Assert\Length(
-        min: 2,
-        max: 255,
-        minMessage: 'Votre message doit avoir un minimum de {{ limit }} caracteres',
-        maxMessage: 'Votre message doit avoir un maximum de {{ limit }} caracteres',
-    )]
-    #[ORM\Column(type: Types::TEXT)]
     private ?string $message = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $object = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $currentJob = null;
+
+    #[ORM\Column]
+    private ?bool $isRead = null;
 
     public function getId(): ?int
     {
@@ -69,24 +44,24 @@ class Contact
 
     public function getFirstName(): ?string
     {
-        return $this->first_name;
+        return $this->firstName;
     }
 
-    public function setFirstName(string $first_name): static
+    public function setFirstName(string $firstName): static
     {
-        $this->first_name = $first_name;
+        $this->firstName = $firstName;
 
         return $this;
     }
 
-    public function getName(): ?string
+    public function getLastName(): ?string
     {
-        return $this->name;
+        return $this->lastName;
     }
 
-    public function setName(string $name): static
+    public function setLastName(string $lastName): static
     {
-        $this->name = $name;
+        $this->lastName = $lastName;
 
         return $this;
     }
@@ -115,18 +90,6 @@ class Contact
         return $this;
     }
 
-    public function getObject(): ?string
-    {
-        return $this->Object;
-    }
-
-    public function setObject(string $Object): static
-    {
-        $this->Object = $Object;
-
-        return $this;
-    }
-
     public function getMessage(): ?string
     {
         return $this->message;
@@ -135,6 +98,42 @@ class Contact
     public function setMessage(string $message): static
     {
         $this->message = $message;
+
+        return $this;
+    }
+
+    public function getObject(): ?string
+    {
+        return $this->object;
+    }
+
+    public function setObject(string $object): static
+    {
+        $this->object = $object;
+
+        return $this;
+    }
+
+    public function getCurrentJob(): ?string
+    {
+        return $this->currentJob;
+    }
+
+    public function setCurrentJob(string $currentJob): static
+    {
+        $this->currentJob = $currentJob;
+
+        return $this;
+    }
+
+    public function isIsRead(): ?bool
+    {
+        return $this->isRead;
+    }
+
+    public function setIsRead(bool $isRead): static
+    {
+        $this->isRead = $isRead;
 
         return $this;
     }
