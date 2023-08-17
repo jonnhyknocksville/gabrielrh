@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Contact;
+use App\Entity\ProfessionalsNeeds;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Form\FindTeachersType;
 
 class ProfessionalsController extends AbstractController
 {
@@ -20,12 +21,12 @@ class ProfessionalsController extends AbstractController
         ]);
     }
 
-    #[Route('/find/teachers', name: 'find_teachers')]
+    #[Route('/professionals/find', name: 'find_teachers')]
     public function find(Request $request, MailerInterface $mailer): Response
     {
 
-        $contact = new Contact();
-        $form = $this->createForm(TeachersType::class, $contact);
+        $contact = new ProfessionalsNeeds();
+        $form = $this->createForm(FindTeachersType::class, $contact);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -39,7 +40,7 @@ class ProfessionalsController extends AbstractController
             ->from(new Address('contact@academiews.fr', 'Académie WS - Collaboration'))
             ->to('contact@academiews.fr')
             ->subject('Message de ' . $contact->getFirstname() . ' ' . $contact->getLastname() . ' ' )
-            ->htmlTemplate('find_teachers/email.html.twig')
+            ->htmlTemplate('professionals/email.html.twig')
             ->context([
                 'name' => $contact->getLastName(),
                 'firstname' => $contact->getFirstName(),
@@ -57,7 +58,7 @@ class ProfessionalsController extends AbstractController
         }
 
 
-        return $this->render('find_teachers/index.html.twig', [
+        return $this->render('professionals/needs.html.twig', [
             'contact' => $contact,
             'teachersForm' => $form->createView(),
         ]);

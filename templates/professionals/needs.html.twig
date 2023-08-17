@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block meta_description %} Contactez l'Académie WS pour toute question concernant l'univers de la formation digitale.  {% endblock %}
+
+{% block title %}Contact {{parent()}} {% endblock %}
+
+{% form_theme teachersForm 'bootstrap_5_layout.html.twig' %}
+
+
+{% block body %}
+    <div class="d-flex flex-column my-5">
+    	{% for label, messages in app.flashes(['success', 'warning']) %}
+            {% for message in messages %}
+                <div class="col-10 col-sm-10 col-md-6 mx-auto alert alert-{{ label }}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        <div class="form-shadow relative row col-10 col-sm-10 col-md-6 mx-auto white justify-content-center align-items-centerwhite smallBorderRadius p-0 my-5">
+            <div class="form-circle"> </div>
+            {{ form_start(teachersForm, {"attr": {"class": "col-md-12 row px-5 py-5 justify-content-center" } }) }}
+                <div class="col-md-12">
+                    <h1 class="h3 mb-3 font-weight-normal text-center">Vous recherchez un formateur</h1>
+                </div>
+                {{ form_row(teachersForm.firstname) }}
+                {{ form_row(teachersForm.lastname) }}
+                {{ form_row(teachersForm.current_job) }}
+                {{ form_row(teachersForm.company) }}
+                {{ form_row(teachersForm.email) }}
+                {{ form_row(teachersForm.phone) }}
+                {{ form_row(teachersForm.motive) }}
+                {{ form_row(teachersForm.message) }}
+
+                <button type="submit" class="btn btn-lg btn-primary mt-4 col-md-6 buttonBorderRadius">Envoyer</button>
+            {{ form_end(teachersForm) }}
+        </div>
+    </div>
+{% endblock %}
