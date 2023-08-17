@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+
+{% block meta_description %} Vous êtes formateur? Rejoinez l'Académie WS.  {% endblock %}
+
+{% block title %}Devenir formateur {{parent()}} {% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="row col-md-8 mx-auto mt-5">
+            <div class="d-flex col-md-12 text-left">
+                <h1 class="text-left color-grey"> <span style="color:black"> Vous souhaitez intervenir en tant que formateur. </span> </br> Pourquoi devenir formateur chez l'Académie WS ? </h1>
+            </div>
+            <div class="col-md-6 mb-5">
+                <p class="text-justify mb-5"> Vous êtes formateur ou vous souhaitez devenir formateur? vous avez toqué à la bonne porte. Chez l'Académie WS nous délivrons de nombreuses formations liées à l'univers du digital depuis plusieurs années. Pourquoi intégrer notre équipe de formateur? on vous explique tout juste ici ! </p>
+                <a aria-label="Devenir formateur - Académie WS" href="{{ path('teacher_opportunity') }}" class="btn btn-primary" style="color:white !important">DEVENIR FORMATEUR CHEZ L'ACADÉMIE WS</a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row mb-5">
+
+            <div class="row col-md-8 mx-auto my-3 align-items-center">
+
+                <div class="col-md-6 d-flex justify-content-center order-2 order-sm-1">
+                    <img style="max-height:250px" src="{{ asset('build/teacher/1.webp')}}" title="Des vidéos sur mesure et uniques !" alt="Des vidéos sur mesure et uniques !">
+                </div>
+
+                <div class="col-md-6 order-1 order-md-2">
+                    <div class="my-3 text-primary">NOUS TRAVAILLONS AVEC + DE 50 ÉCOLES</div>
+                    <h3>Nous travaillons avec un grand réseau d'écoles et centres de formation</h3>
+                    <p class="text-justify">Ecoles du digital, centres de formation, Entreprises de Services du Numérique... L'Académie WS aujourd'hui intervient auprès de nombreux clients partout en France et ce pour tous les niveaux! Du débutant en reconversion professionnelle ou non, à l'apprenant déjà en poste en entreprise souhaitant monter en compétence, vous trouverez chez l'Académie WS <span class="text-primary fw-bold">tous les profils et tous les niveaux </span>.</p>
+                    {# <a href="{{ path('categories') }}" class="btn btn-secondary" style="color:white !important">Accéder à nos cours</a> #}
+                </div>
+            </div>
+
+            <div class="row col-md-8 mx-auto my-3 align-items-center">
+                <div class="col-md-6" style="border-top:1px solid rgba(94, 36, 195, 0.2);padding-top:2rem;">
+                    <div class="my-3 text-primary">NOUS VOUS AIDONS DANS LA CONSTRUCTION DE VOS COURS</div>
+                    <h3>Nous mettons à disposition des cours et supports pédagogiques pour vos futures interventions</h3>
+                    <p class="text-justify">En intégrant notre équipe de formateurs, <span class="text-primary fw-bold">vous aurez accès à de nombreux cours et supports </span> disponibles que vous pourrez utiliser lors de vos prochaines interventions. Alors, elle est pas belle la vie?</p>
+                    {# <a href="{{ path('learning_paths') }}" class="btn btn-secondary" style="color:white !important">Parcours pédagogiques</a> #}
+                </div>
+
+                <div class="col-md-6 d-flex justify-content-center">
+                    <img style="max-height:250px" src="{{ asset('build/teacher/2.webp')}}" title="Connaissance des différents profils d'apprenants" alt="Connaissance des différents profils d'apprenants">
+                </div>
+            </div>
+
+            <div class="row col-md-8 mx-auto my-3 align-items-center">
+
+                <div class="col-md-6 d-flex justify-content-center order-2 order-sm-1">
+                    <img style="max-height:250px" src="{{ asset('build/teacher/3.webp')}}" title="Des vidéos en marque blanche" alt="Des vidéos en marque blanche">
+                </div>
+
+                <div class="col-md-6 order-1 order-md-2">
+                    <div class="my-3 text-primary" style="border-top:1px solid rgba(94, 36, 195, 0.2);padding-top:2rem;">ACCÈS ILLIMITÉ À NOTRE PLATEFORME DE FORMATIONS VIDÉO</div>
+                    <h3>Accès gratuit et illimité à nos formations vidéo sur notre plateforme !</h3>
+                    <p class="text-justify">En intégrant l'Académie WS, <span class="text-primary fw-bold">nous vous offrons un accès illimité à notre plateforme de formation vidéo </span> pour vous permettre de monter en compétence rapidement et simplement sur une multitude de sujets. Vous pourrez alors vous formez pour mieux former et augmenter le nombre de vos prestations !</p>
+                    {# <a href="{{ path('categories') }}" class="btn btn-secondary" style="color:white !important">Accéder à nos cours</a> #}
+                </div>
+            </div>
+
+            <div class="row col-md-8 mx-auto my-3 align-items-center">
+                <div class="col-md-6" style="border-top:1px solid rgba(94, 36, 195, 0.2);padding-top:2rem;">
+                    <div class="my-3 text-primary">SIMPLIFIEZ VOTRE COMPTABILITÉ</div>
+                    <h3>Nous assurons vos gestions administratives ainsi que les allez-retours avec nos clients</h3>
+                    <p class="text-justify">En intégrant l'Académie WS, vous aurez accès à une interface très simple dans laquelle vous retrouverez vos interventions, vos contrats et dans laquelle vous pourez facilement déposer vos factures. L'objectif, <span class="text-primary fw-bold">centraliser et simplifier vos tâches de gestion et d'administration </span>.</p>
+                    {# <a href="{{ path('categories') }}" class="btn btn-secondary" style="color:white !important">Accéder à nos cours</a> #}
+                </div>
+
+                <div class="col-md-6 d-flex justify-content-center">
+                    <img style="max-height:250px" src="{{ asset('build/teacher/4.webp')}}" title="Des vidéos faites par des formateurs sur le terrain !" alt="Des vidéos faites par des formateurs sur le terrain !">
+                </div>
+            </div>
+
+            <div class="row col-md-8 mx-auto my-3 align-items-center">
+
+                <div class="col-md-6 d-flex justify-content-center order-2 order-sm-1">
+                    <img style="max-height:250px" src="{{ asset('build/teacher/5.webp')}}" title="La possibilité de choisir les vidéos qui vous intéressent" alt="La possibilité de choisir les vidéos qui vous intéressent">
+                </div>
+
+                <div class="col-md-6 order-1 order-md-2" style="border-top:1px solid rgba(94, 36, 195, 0.2);padding-top:2rem;">
+                    <div class="my-3 text-primary">DÉVELOPPEZ VOS COMPÉTENCES ET INTERVENEZ SUR DIFFÉRENTS SUJETS</div>
+                    <h3>Monté(s) en compétence offerte(s) une à deux fois par an</h3>
+                    <p class="text-justify">Chez L'Académie WS, nous proposons à nos formateurs, une à deux fois par an, <span class="text-primary fw-bold">une montée en compétence </span> sur le sujet de leur choix, pour leur permettre d'intervenir sur de nouvelles thématiques ou tout simplement pour mettre à jour leurs connaissances pour garantir le sucès de leurs futures interventions, le tout gratuitement!</p>
+                    {# <a href="{{ path('app_register') }}" class="btn btn-secondary" style="color:white !important">S'inscrire à l'Académie</a> #}
+                </div>
+            </div>
+
+            <div class="row col-md-8 mx-auto my-3 align-items-center">
+                <div class="col-md-6" style="border-top:1px solid rgba(94, 36, 195, 0.2);padding-top:2rem;">
+                    <div class="my-3 text-primary">SUIVI ET ACCOMPAGNEMENT</div>
+                    <h3>Nous vous accompagnons dans chacune de vos formations et assurons un suivi quotidien</h3>
+                    <p class="text-justify">Evidemment, une fois chez le client, vous n'êtes pas livré à vous même, puisque <span class="text-primary fw-bold">nous assurons un suivi quotidien de vos prestations </span>, et nous vous accompagnons également sur la préparation de vos cours si besoin est. Notre objectif, vous faire passer les meilleurs moments possibles en formation !</p>
+                    {# <a href="{{ path('contact') }}" class="btn btn-secondary" style="color:white !important">Demander un tuteur</a> #}
+                </div>
+
+                <div class="col-md-6 d-flex justify-content-center">
+                    <img style="max-height:250px" src="{{ asset('build/teacher/6.webp')}}" title="Des vidéos mises à jour chaque année !" alt="Des vidéos mises à jour chaque année !">
+                </div>
+            </div>
+
+            <div class="row col-md-8 mx-auto my-3 align-items-center">
+
+                <div class="col-md-6 d-none d-md-flex justify-content-center order-2 order-sm-1">
+                    <img style="max-height:250px" src="{{ asset('build/teacher/7.webp')}}" title="La mise en place de vidéos pilote pour mesurer l'efficacité de nos vidéos" alt="La mise en place de vidéos pilote pour mesurer l'efficacité de nos vidéos">
+                </div>
+
+                <div class="col-md-6 order-1 order-md-2" style="border-top:1px solid rgba(94, 36, 195, 0.2);padding-top:2rem;">
+                    <div class="my-3 text-primary">VOUS INTÉGREZ UNE STARTUP JEUNE ET DYNAMIQUE</div>
+                    <h3>Nous organisons régulièrement des événements avec les membres de notre équipe de formateurs !</h3>
+                    <p class="text-justify">En intégrant l'Académie WS, vous intégrez une startup composée de profils divers et variés, de tout âge et de toutes horizons avec un point commun : l'entreprenariat. C'est pourquoi nous tentons chaque année d'organiser des <span class="text-primary fw-bold">événements pour tous nous rencontrer et partager les uns avec les autres </span> nos connaissances et nos conseils et astuces, le tout en prenant du plaisir autour d'un verre par exemple ! </p>
+                    {# <a href="{{ path('app_register') }}" class="btn btn-secondary" style="color:white !important">S'inscrire à l'Académie</a> #}
+                    <a aria-label="Devenir formateur - Académie WS" href="{{ path('teacher_opportunity') }}" class="btn btn-primary mt-3" style="color:white !important">DEVENIR FORMATEUR CHEZ L'ACADÉMIE WS</a>
+                </div>
+            </div>
+
+    </div>
+{% endblock %}
