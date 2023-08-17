@@ -7,6 +7,8 @@
 
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.scss';
+require('@fortawesome/fontawesome-free/css/all.min.css');
+require('@fortawesome/fontawesome-free/js/all.js');
 
 const $ = require('jquery');
 
@@ -38,43 +40,29 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+const loadVideo = (iframe) => {
+  const cid = "UCee3DpFHYPezAlmnkLtPMRg";
+  const channelURL = encodeURIComponent(`https://www.youtube.com/feeds/videos.xml?channel_id=${cid}`)
+  const reqURL = `https://api.rss2json.com/v1/api.json?rss_url=${channelURL}`;
+
+  fetch(reqURL)
+      .then(response => response.json())
+      .then(result => {
+        console.log(result)
+          const videoNumber = iframe.getAttribute('vnum')
+          const link = result.items[videoNumber].link;
+          const id = link.substr(link.indexOf("=") + 1);
+          iframe.setAttribute("src", `https://youtube.com/embed/${id}?modestbranding=1&autohide=1&showinfo=0&controls=0`);
+      })
+      .catch(error => console.log('error', error));
+}
+
+const iframes = document.getElementsByClassName('latestVideoEmbed');
+for (let i = 0, len = iframes.length; i < len; i++) {
+  loadVideo(iframes[i]);
+}
 
 
-
-
-//
-// pop up
-//
-// document.addEventListener('DOMContentLoaded', function() {
-//     const TButton = document.getElementById('fromButton');
-//     const TCommande = document.getElementById('fromCommande');
-//     const Taccept = document.getElementById('accept');
-//     const Tinform = document.getElementById('inform');
-//     const Trefuse = document.getElementById('refuse');
-
-//     TButton.addEventListener('click', function() {
-//         TCommande.style.display = 'block';
-//     });
-
-//     Taccept.addEventListener('click', function() {
-//         TCommande.style.display = 'none';
-//     })
-
-//     Tinform.addEventListener('click', function() {
-//         TCommande.style.display = 'none';
-//     })
-    
-//     Trefuse.addEventListener('click', function() {
-//         TCommande.style.display = 'none';
-//     })
-
-// });
-
-//
-
-//
-//counter stat
-//
 
 
 $(document).ready(function($) {

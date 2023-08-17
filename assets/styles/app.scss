@@ -1,13 +1,35 @@
 $primary: #fc4364;
 $secondary: #5e24c3;
+$secondaryDark:#0e0331;
 $info:#6a8bff;
-
 $grey:#6b6d7c;
+$greyLight:#ededed;
+$dark: #101829;
 
 @import "~bootstrap/scss/bootstrap";
 
+ul {
+    list-style: none;
+}
+
 .color-grey {
-    color: #6b6d7c;
+    color: $grey
+} 
+
+.bg-grey {
+    background-color: $grey
+}
+
+.bg-grey-light {
+    background-color: $greyLight;
+}
+
+.bg-dark {
+    background-color: $dark
+} 
+
+.bg-secondary-dark {
+    background-color: $secondaryDark
 } 
 
 .form-shadow {
@@ -34,4 +56,82 @@ $grey:#6b6d7c;
 
 .relative {
     position: relative;
+}
+
+
+// DÉVELOPPER SON E-LEARNING
+
+#e-learning ul li svg {
+    font-size: 2rem;
+    margin-right: 1rem;
+}
+
+
+.main-contact-bar .first-part {
+    border-bottom: 1px solid #53125d;
+    border-top: 1px solid #53125d;
+
+}
+
+.triangle-left {
+    border-bottom: 138px solid #53125d;
+    border-left: 137px solid transparent;
+    display: inline-block;
+    height: 0;
+    width: 0;
+}
+
+.contact-bar {
+    background: linear-gradient(90deg,#53125d,#321858 80%);
+    height: 100%;
+    width: 100%;
+}
+
+.text-with-gradient {
+    -webkit-text-fill-color: transparent;
+    background: linear-gradient(90deg,#1e8bff,#6955ff 45%,#a83af5 50%,#c03ada 75%);
+    -webkit-background-clip: text;
+    letter-spacing: 1px;
+    word-spacing: 2px;
+}
+
+.main-contact-bar {
+
+    .contact {
+        position: absolute;
+        left: 50%;
+        top: 40%
+    }
+
+    .first-part {
+        border-top:1px solid #53125d;
+        border-bottom:1px solid #53125d;
+    }
+
+    .second-part {
+        border-top:1px solid #53125d;
+    }
+
+}
+
+
+a svg {
+    font-size: 1.5rem !important;
+}
+
+.navbar {
+    border-bottom: 1px solid hsla(0,0%,100%,.1);
+    left: 0;
+    max-height: 70px;
+    position: fixed!important;
+    top: 0;
+    z-index: 999999;
+}
+
+.border-right {
+    border-right: 1px solid #dee2e6 !important;
+}
+
+.icon-xl {
+    font-size: 65px;
 }

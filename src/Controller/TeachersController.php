@@ -23,7 +23,7 @@ class TeachersController extends AbstractController
     }
 
 
-    #[Route('/teacher/opportunity', name: 'teacher_opportunity', methods: ['GET', 'POST'])]
+    #[Route('/teachers/opportunity', name: 'teacher_opportunity', methods: ['GET', 'POST'])]
     public function new(Request $request, MailerInterface $mailer): Response
     {
         $teacherApplication = new TeacherApplication();

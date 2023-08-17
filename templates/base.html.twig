@@ -21,10 +21,13 @@
             </div>
         {% endfor %}
         
+        {% include 'navbar/index.html.twig' %}
+
+    <div class="container-fluid px-0" style="padding-top:70px">
         {% block body %}
             
-
-            
         {% endblock %}
+
+    </div>
     </body>
 </html>
