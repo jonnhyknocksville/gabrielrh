@@ -14,9 +14,16 @@
         {% endblock %}
     </head>
     <body>
+        {% for notice in app.flashes('confirmation') %}
+            <div class="alert alert-success">
+                {{ notice }}
+            </div>
+        {% endfor %}
+        
         {% block body %}
+            
+
+            
         {% endblock %}
-        
-        
     </body>
 </html>
