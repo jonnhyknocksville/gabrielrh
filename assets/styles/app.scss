@@ -1,16 +1,22 @@
+$primary : #130430;
+$secondary: #100326;
+
 @import "~bootstrap/scss/bootstrap";
 
-body {
-    background-color: rgb(248, 245, 245);
+//  bg-secondary = #100326 ;
 
-     div.test{
-            display:none;
-            background-color: rgb(255, 255, 255);
-            color: rgb(0, 0, 0);
-            border-color: rgb(51, 146, 255);
-            position: fixed;
-            bottom: 0;
-            right: 0;
-            padding: 1em 1.8em;
-    }
-}
+// body {
+
+    
+
+//     //  div.test{
+//     //         display:none;
+//     //         background-color: rgb(255, 255, 255);
+//     //         color: rgb(0, 0, 0);
+//     //         border-color: rgb(51, 146, 255);
+//     //         position: fixed;
+//     //         bottom: 0;
+//     //         right: 0;
+//     //         padding: 1em 1.8em;
+//     // }
+// }
