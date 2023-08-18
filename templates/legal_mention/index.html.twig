@@ -1,20 +1,36 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello LegalMentionController!{% endblock %}
+{% block meta_description %} Ce site est édité par l'Académie WS, plateforme de formation en ligne dans l'univers du digital. {% endblock %}
+
+{% block title %}Nos mentions légales {{parent()}}{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+<div class="row mx-auto justify-content-center">
+    <div class="col-md-6 py-5" id="legal-mentions">
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Applications/MAMP/htdocs/fws/fws/src/Controller/LegalMentionController.php'|file_link(0) }}">src/Controller/LegalMentionController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Applications/MAMP/htdocs/fws/fws/templates/legal_mention/index.html.twig'|file_link(0) }}">templates/legal_mention/index.html.twig</a></code></li>
-    </ul>
+    <p class="font-weight-bold"> Dernière mise à jour le jeudi 9 Juin 2022</p>
+
+    <h2>Mentions Légales</h2>
+
+    <p> La société Académie WS est une société à responsabilité limitée au capital de 1 500 € immatriculée au RCS de Paris sous le n. 888 707 692 et dont le siège social est situé au 6 rue de Calais 75009 Paris, France (N° TVA intracommunautaire : FR 038 887 076 92). 
+    <p> L'Académie WS est représentée par Mlle. Habby Habbani, sa gérante.
+
+    <p> L'Académie WS est un établissement privé d’enseignement à distance qui fournit des prestations de formations en ligne via sa plateforme.<br/>
+    Le responsable de production est Samih Habbani.<br/>
+    Le site est hébergé par OVH dont l’adresse est la suivante :  2, rue Kellermann, 59100 Roubaix. France.</p>
+
+    <p class="font-weight-bold"> Pour nous contacter </p>
+
+    <p><b> Par téléphone</b> : +33 7 82 14 81 41 <br/>
+    <b>Par email</b> : contact@academiews.fr<br/>
+    <b>Par courrier</b> : Web Start, 6 rue de Calais - 75009 Paris, France</p>
+    <b>Notre blog</b> : <a target="_blank" aria-label="La réponse numérique - Blog officiel de l'Académie WS" href="https://www.lareponsenumerique.fr/"> www.lareponsenumerique.fr </a> </p>
+    <p>Vous bénéficiez d’un droit d’accès et de rectification aux informations qui vous concernent, que vous pouvez exercer par courrier à l'adresse suivante : Web Start - Protection des données 6 rue de Calais 75009 Paris France.<br/>
+    Vous pouvez également vous opposer au traitement des données vous concernant.</p>
+
+    <p>Pour plus d’informations sur tous vos droits vous pouvez consulter notre Politique de Protection des Données Personnelles.</p>
+
+    </div>
 </div>
 {% endblock %}
