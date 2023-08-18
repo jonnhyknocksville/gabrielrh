@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ProfessionalProcessController extends AbstractController
 {
-    #[Route('/professional/process', name: 'app_professional_process')]
+    #[Route('/professionals/process', name: 'app_professional_process')]
     public function index(): Response
     {
         return $this->render('professional_process/index.html.twig', [
