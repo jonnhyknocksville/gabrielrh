@@ -11,6 +11,20 @@ $violet : #22092a;
 
 @import "~bootstrap/scss/bootstrap";
 
+///////
+/// ///
+/// ///
+/// COMMON CSS
+/// 
+
+* {
+    font-family: 'Nunito', sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+}
+
 a {
     color: $linkColor!important;
     text-decoration: none;
@@ -19,6 +33,12 @@ a {
 ul {
     list-style: none;
 }
+
+///////
+/// ///
+/// ///
+/// COMMON CLASSES
+/// 
 
 .color-grey {
     color: $grey
@@ -114,7 +134,11 @@ ul {
 }
 
 
-// DÉVELOPPER SON E-LEARNING
+///////
+/// ///
+/// ///
+/// DÉVELOPPER SON ELEARING
+/// 
 
 #e-learning ul li svg {
     font-size: 2rem;
