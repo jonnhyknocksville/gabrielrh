@@ -4,9 +4,17 @@ $secondaryDark:#0e0331;
 $info:#6a8bff;
 $grey:#6b6d7c;
 $greyLight:#ededed;
-$dark: #101829;
+$dark: #130431;
+$linkColor:#4d4d4d;
+
+$violet : #22092a;
 
 @import "~bootstrap/scss/bootstrap";
+
+a {
+    color: $linkColor!important;
+    text-decoration: none;
+}
 
 ul {
     list-style: none;
@@ -29,7 +37,7 @@ ul {
 } 
 
 .bg-secondary-dark {
-    background-color: $secondaryDark
+    background: $secondaryDark !important;
 } 
 
 .form-shadow {
@@ -56,6 +64,53 @@ ul {
 
 .relative {
     position: relative;
+}
+
+.card.bg-none {
+    border: none !important;
+    background: none !important;
+}
+
+.bg-violet {
+
+    background-color: $violet;
+
+}
+
+/////
+/// 
+/// 
+/// HOME
+/// 
+/// 
+
+.addedValue {
+    font-size: 40px;
+    font-weight: 500;
+}
+
+.categories:before {
+    background: $secondaryDark;
+    content: "";
+    height: 130px;
+    left: 0;
+    position: absolute;
+    -webkit-transform: skewY(-4deg);
+    -ms-transform: skewY(-4deg);
+    transform: skewY(-4deg);
+    width: 100%;
+    top: -60px;
+    -webkit-box-shadow: 0px 0px 15px 0px rgba(94, 36, 195, 0.1); 
+    box-shadow: 0px 0px 15px 0px rgba(94, 36, 195, 0.1);
+}
+
+.text-with-gradient {
+    -webkit-text-fill-color: transparent;
+    background: linear-gradient(90deg,#1e8bff,#6955ff 45%,#a83af5 50%,#c03ada 75%);
+    -webkit-background-clip: text;
+    letter-spacing: 1px;
+    word-spacing: 2px;
+    z-index: 9999;
 }
 
 
@@ -85,14 +140,6 @@ ul {
     background: linear-gradient(90deg,#53125d,#321858 80%);
     height: 100%;
     width: 100%;
-}
-
-.text-with-gradient {
-    -webkit-text-fill-color: transparent;
-    background: linear-gradient(90deg,#1e8bff,#6955ff 45%,#a83af5 50%,#c03ada 75%);
-    -webkit-background-clip: text;
-    letter-spacing: 1px;
-    word-spacing: 2px;
 }
 
 .main-contact-bar {
@@ -134,4 +181,18 @@ a svg {
 
 .icon-xl {
     font-size: 65px;
+}
+
+
+
+///
+/// 
+///  FOOTER
+/// 
+/// 
+/// 
+
+.footer-contact-part div:nth-child(2) {
+    border-left: 1px solid rgba(0,0,0,.2);
+    border-right: 1px solid rgba(0,0,0,.2);
 }

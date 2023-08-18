@@ -6,13 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class CookieController extends AbstractController
+class CookiesController extends AbstractController
 {
-    #[Route('/cookie', name: 'app_cookie')]
+    #[Route('/cookies', name: 'app_cookies')]
     public function index(): Response
     {
-        return $this->render('cookie/index.html.twig', [
-            'controller_name' => 'CookieController',
+        return $this->render('cookies/index.html.twig', [
+            'controller_name' => 'CookiesController',
         ]);
     }
 }
