@@ -69,6 +69,10 @@ ul {
     border-radius: 15px;
 }
 
+.text-justify {
+    text-align: justify;
+}
+
 .form-circle {
     height: 80px;
     width: 80px;
@@ -89,6 +93,7 @@ ul {
 .card.bg-none {
     border: none !important;
     background: none !important;
+    box-shadow: none;
 }
 
 .bg-violet {
@@ -233,5 +238,15 @@ a svg {
     background: none !important;
 }
 
+.rotate-90 {
+    rotate: 90deg;
+}
 
+.rotate-180 {
+    rotate: 180deg;
+}
+
+.rotate-270 {
+    rotate: 270deg;
+}
 /// 
