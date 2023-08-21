@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block meta_description %} Candidature spontanée chez l'Académie WS. {% endblock %}
+
+{% block title %}Candidature spontanée {{parent()}}{% endblock %}
+
+{% form_theme applicationForm 'bootstrap_5_layout.html.twig' %}
+
+
+{% block body %}
+
+<div class="d-flex align-items-center justify-content-center my-5">
+    <div class="row col-md-6 white justify-content-center white p-0 my-5">
+        <div class="form-shadow relative d-flex justify-content-center col-md-12 px-5 py-5 smallBorderRadius">
+            <div class="form-circle"> </div>
+
+            {% for message in app.flashes('message') %}
+                <div class="row">
+                    <div class="col-md-12 alert alert-success" role="alert">
+                        {{message}}
+                    </div>
+                </div>
+            {% endfor %}
+
+
+            {{ form_start(applicationForm, {'attr': {'id': 'form-job-application', 'class':'row justify-content-center'} }) }}
+
+                <div class="col-12 mb-4">
+                    <h2 class="text-center">Devenir Formateur chez l'Académie WS</h2>
+                </div>
+
+                {{ form_row(applicationForm.firstName) }}
+                {{ form_row(applicationForm.lastName) }}
+                {{ form_row(applicationForm.email) }}
+                {{ form_row(applicationForm.phone) }}
+                {{ form_row(applicationForm.cvFile) }}
+                {{ form_row(applicationForm.diploma) }}
+                {{ form_row(applicationForm.yearsExperience) }}
+                {{ form_row(applicationForm.mobility) }}
+
+                <button type="submit" class="btn btn-lg btn-primary mt-4 col-md-6 buttonBorderRadius" >Envoyer</button>
+            {{ form_end(applicationForm) }}
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

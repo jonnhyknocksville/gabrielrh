@@ -7,7 +7,7 @@
     {# Qui sommes-nous? #}
 
     <section>
-        <h1 class="my-5 text-white text-center"> Trouver le formateur idéal pour une formation réussie ! </h1>
+        <h1 class="my-5 text-white text-center"> Trouvez le formateur idéal pour une formation réussie ! </h1>
 
         <div class="d-flex flex-column col-md-6 mx-auto">
 
@@ -97,7 +97,7 @@
                 <p class="text-light text-center col-md-8">Notre mission est d'aider les débutants comme les professionnels du monde digital à développer leurs compétences techniques, en <span class="text-primary fw600"> programmation </span>, en <span class="text-primary fw600"> marketing online </span> et bien d'autres sujets pour qu'ils puissent intégrer des projets innovants, lucratifs et potentiellement changer leur vie pour le meilleur !</p>
             </div>
 
-            <ul class="row col-md-8 pt-3 pb-5">
+            <ul class="row col-md-8 pt-3">
                 <li class="col-6 col-md-3 d-flex flex-column align-items-center p-3">
                     <span class="addedValue" style="color:#1e8bff">10</span>
                     <p class="text-light">Années d'expérience</p>
@@ -115,6 +115,11 @@
                     <p class="text-light">Cours en vidéo</p>
                 </li>
             </ul>
+
+            <div class="d-flex justify-content-center mb-5">
+                <a aria-label="Notre offre pour les particuliers - Académie WS" class="mt-5 font-weight-bold btn btn-outline-secondary text-white mx-3" href="{{path('professionals')}}" id="our-offer" role="button">CHERCHER UN FORMATEUR</a>
+                <a aria-label="Notre offre pour les particuliers - Académie WS" class="mt-5 font-weight-bold btn btn-outline-primary text-white mx-3" href="{{path('teachers')}}" role="button">NOS OFFRES ACTUELLES</a>
+            </div>
 
         </div>
 
@@ -136,7 +141,7 @@
                 {# <a aria-label="Développement Front End - Académie WS" href="/categories/1">
                     </a> #}
                 <div class="course-card card form-shadow bg-none">
-                    <a aria-label="Développement Front End - Académie WS" href="/categories/1">
+                    <a aria-label="Développement Front End - Académie WS" href="{{path('app_themes_details', {id:1})}}">
                         <img class="card-img-top smallBorderRadius" src="{{ asset('build/categories/front-end.png')}}" alt="Développement Front End" title="Développement Front End">
                     </a>
                     
@@ -146,17 +151,17 @@
                             <h5 class="card-title fw-bold text-light">Développement Front End</h5>
                             <p class="card-text mb-3 text-info">Découvrez les technologies front-end les plus demandées du marché et créez vos premières pages web!</p>
                         </a>
-                        {# <a aria-label="Développement Front End - Académie WS" style="color:white !important" href="/categories/1" class="btn btn-primary">Accéder aux cours</a> #}
+                        {# <a aria-label="Développement Front End - Académie WS" style="color:white !important" href="{{path('app_themes_details', {id:1})}}" class="btn btn-primary">Accéder aux cours</a> #}
                     </div>
                 </div>
             
             </div>
 
             <div class="col-md-3 p-3">
-                {# <a aria-label="Développement Front End - Académie WS" href="/categories/1">
+                {# <a aria-label="Développement Front End - Académie WS" href="{{path('app_themes_details', {id:1})}}">
                     </a> #}
                 <div class="course-card card form-shadow bg-none">
-                    <a aria-label="Développement Front End - Académie WS" href="/categories/1">
+                    <a aria-label="Développement Front End - Académie WS" href="{{path('app_themes_details', {id:1})}}">
                         <img class="card-img-top smallBorderRadius" src="{{ asset('build/categories/back-end.png')}}" alt="Développement Front End" title="Développement Front End">
                     </a>
                     
@@ -166,17 +171,17 @@
                             <h5 class="card-title fw-bold text-light">Développement Front End</h5>
                             <p class="card-text mb-3 text-info">Découvrez les technologies front-end les plus demandées du marché et créez vos premières pages web!</p>
                         </a>
-                        {# <a aria-label="Développement Front End - Académie WS" style="color:white !important" href="/categories/1" class="btn btn-primary">Accéder aux cours</a> #}
+                        {# <a aria-label="Développement Front End - Académie WS" style="color:white !important" href="{{path('app_themes_details', {id:1})}}" class="btn btn-primary">Accéder aux cours</a> #}
                     </div>
                 </div>
             
             </div>
 
             <div class="col-md-3 p-3">
-                {# <a aria-label="Développement Front End - Académie WS" href="/categories/1">
+                {# <a aria-label="Développement Front End - Académie WS" href="{{path('app_themes_details', {id:1})}}">
                     </a> #}
                 <div class="course-card card form-shadow bg-none">
-                    <a aria-label="Développement Front End - Académie WS" href="/categories/1">
+                    <a aria-label="Développement Front End - Académie WS" href="{{path('app_themes_details', {id:1})}}">
                         <img class="card-img-top smallBorderRadius" src="{{ asset('build/categories/reseaux-systemes.png')}}" alt="Développement Front End" title="Développement Front End">
                     </a>
                     
@@ -186,17 +191,17 @@
                             <h5 class="card-title fw-bold text-light">Développement Front End</h5>
                             <p class="card-text mb-3 text-info">Découvrez les technologies front-end les plus demandées du marché et créez vos premières pages web!</p>
                         </a>
-                        {# <a aria-label="Développement Front End - Académie WS" style="color:white !important" href="/categories/1" class="btn btn-primary">Accéder aux cours</a> #}
+                        {# <a aria-label="Développement Front End - Académie WS" style="color:white !important" href="{{path('app_themes_details', {id:1})}}" class="btn btn-primary">Accéder aux cours</a> #}
                     </div>
                 </div>
             
             </div>
             
             <div class="col-md-3 p-3">
-                {# <a aria-label="Développement Front End - Académie WS" href="/categories/1">
+                {# <a aria-label="Développement Front End - Académie WS" href="{{path('app_themes_details', {id:1})}}">
                     </a> #}
                 <div class="course-card card form-shadow bg-none">
-                    <a aria-label="Développement Front End - Académie WS" href="/categories/1">
+                    <a aria-label="Développement Front End - Académie WS" href="{{path('app_themes_details', {id:1})}}">
                         <img class="card-img-top smallBorderRadius" src="{{ asset('build/categories/back-end.png')}}" alt="Développement Front End" title="Développement Front End">
                     </a>
                     
@@ -206,7 +211,7 @@
                             <h5 class="card-title fw-bold text-light">Développement Front End</h5>
                             <p class="card-text mb-3 text-info">Découvrez les technologies front-end les plus demandées du marché et créez vos premières pages web!</p>
                         </a>
-                        {# <a aria-label="Développement Front End - Académie WS" style="color:white !important" href="/categories/1" class="btn btn-primary">Accéder aux cours</a> #}
+                        {# <a aria-label="Développement Front End - Académie WS" style="color:white !important" href="{{path('app_themes_details', {id:1})}}" class="btn btn-primary">Accéder aux cours</a> #}
                     </div>
                 </div>
             
@@ -214,6 +219,7 @@
 
             <div class="d-flex justify-content-center">
                 <a aria-label="Notre offre pour les particuliers - Académie WS" class="font-weight-bold btn btn-outline-secondary text-white mx-3" href="{{path('app_themes')}}" id="our-offer" role="button">+ THÉMATIQUES</a>
+                <a aria-label="Notre offre pour les particuliers - Académie WS" class="font-weight-bold btn btn-outline-primary text-white mx-3" href="{{path('app_jobs')}}" id="our-offer" role="button">NOS OFFRES</a>
             </div>
         </div>
 

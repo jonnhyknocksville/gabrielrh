@@ -35,11 +35,10 @@
 					PAIEMENT EN FIN DE MOIS</p>
 			</div>
 
-			<div class="col-md-12 d-flex justify-content-center">
-				<a class="text-light smallBorderRadius colorWhite btn btn-outline-primary pull-right border-radius-btn mt-5 fw600 d-flex align-items-center" href="">
-					<i class="fa-solid fa-share me-2"></i>Partager la mission</a>
-				<a class="ms-3 text-light smallBorderRadius colorWhite btn btn-outline-secondary pull-right border-radius-btn mt-5 fw600 d-flex align-items-center" href="">
-					<i class="far fa-play-circle me-2"></i>Accépter la mission</a>
+			<div class="col-md-12 d-flex justify-content-center align-items-center mt-5">
+                <button class="btn btn-outline-primary text-light py-2 smallBorderRadius" data-bs-toggle="modal" data-bs-target="#article-social-networks"><i class="fa-solid fa-share me-2"></i> PARTAGER LA MISSION </button>
+				<a class="ms-3 text-light smallBorderRadius colorWhite btn btn-outline-secondary pull-right py-2 d-flex align-items-center" href="{{path('app_jobs_application', {id : 1})}}">
+					<i class="far fa-play-circle me-2"></i>Accepter la mission</a>
 			</div>
 
 		</div>
@@ -90,11 +89,10 @@
 					</div>
 				</div>
 
-				<div class="col-md-12 d-flex justify-content-center">
-					<a class="text-light smallBorderRadius colorWhite btn btn-outline-primary pull-right border-radius-btn mt-5 fw600 d-flex align-items-center" href="">
-						<i class="fa-solid fa-share me-2"></i>Partager la mission</a>
-					<a class="ms-3 text-light smallBorderRadius colorWhite btn btn-outline-secondary pull-right border-radius-btn mt-5 fw600 d-flex align-items-center" href="">
-						<i class="far fa-play-circle me-2"></i>Accepter la mission</a>
+				<div class="col-md-12 d-flex align-items-center justify-content-center mt-5">
+                    <button class="btn btn-outline-primary text-light py-2 smallBorderRadius" data-bs-toggle="modal" data-bs-target="#article-social-networks"><i class="fa-solid fa-share me-2"></i> PARTAGER LA MISSION </button>
+                    <a class="ms-3 text-light smallBorderRadius colorWhite btn btn-outline-secondary pull-right border-radius-btn d-flex align-items-center" href="{{path('app_jobs_application', {id : 1})}}">
+                            <i class="far fa-play-circle me-2"></i>Accepter la mission</a>
 				</div>
 
 			</div>
@@ -402,140 +400,112 @@
             <div class="row mx-auto col-md-10 p-3">
 
                 <div class="col-md-3 p-3">
-                        {# <a aria-label="Développement Front End - Académie WS" href="/categories/1">
-                            </a> #}
+
+                    <a href="{{ path('app_jobs_details', { id : 1}) }}">
                         <div class="course-card card form-shadow bg-secondary-dark p-3 smallBorderRadius">
 
-                            <div class="d-flex justify-content-between">
-                                <p>
-                                    <span>  
-                                        <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
-                                        <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
-                                        <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
-                                        <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
-                                        <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
-                                    </span>
-                                </p>
-
-                                <i class="text-primary fa-brands fa-google"></i>
-
+                            <div class="d-flex flex-column justify-content-between mb-3">
+                                <p class="text-light m-0 fw-bold"> Formateur en informatique H/F </p>
+                                <p class="m-0 text-light smallSize fst-italic"><i class="fa-solid fa-location-dot me-1"></i> Paris </p>
                             </div>
 
+                            <div class="mb-3">
+                                <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> 20 000€/an </span>
+                                <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> CDI </span>
+                                <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> Lundi au vendredi </span>
+                            </div>
                             
                             <div class="card-body p-0">
-                                <h5 class="card-title fw-bold text-light">Développement Front End</h5>
+                                <p class="text-light"><i class="text-primary fa-solid fa-share"></i> Posutler chez Formation WS </p>
                                 <p class="card-text mb-3 text-info">Vraiment un très bon concept et bien élaboré</p>
-                                <div class="d-flex align-items-center"> 
-                                    <img style="width:2.5rem; height:2.5rem" src="{{ asset('build/samih.png')}}" />
-                                    <p class="text-light ms-3 my-0 fst-italic"> Samih Habbani </p>
-                                </div>
+                                
+                                <span class="text-light smallSize fst-italic"> Offre publiée le 12 Sept 91 </span>
                             </div>
 
-                        </div>
-                    
-                    </div>
+                        </div>                    
+                    </a>                    
+                </div>
 
-                    <div class="col-md-3 p-3">
-                        {# <a aria-label="Développement Front End - Académie WS" href="/categories/1">
-                            </a> #}
+                <div class="col-md-3 p-3">
+
+                    <a href="{{ path('app_jobs_details', { id : 1}) }}">
                         <div class="course-card card form-shadow bg-secondary-dark p-3 smallBorderRadius">
 
-                            <div class="d-flex justify-content-between">
-                                <p>
-                                    <span>  
-                                        <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
-                                        <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
-                                        <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
-                                        <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
-                                        <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
-                                    </span>
-                                </p>
-
-                                <i class="text-primary fa-brands fa-google"></i>
-
+                            <div class="d-flex flex-column justify-content-between mb-3">
+                                <p class="text-light m-0 fw-bold"> Formateur en informatique H/F </p>
+                                <p class="m-0 text-light smallSize fst-italic"><i class="fa-solid fa-location-dot me-1"></i> Paris </p>
                             </div>
 
+                            <div class="mb-3">
+                                <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> 20 000€/an </span>
+                                <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> CDI </span>
+                                <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> Lundi au vendredi </span>
+                            </div>
                             
                             <div class="card-body p-0">
-                                <h5 class="card-title fw-bold text-light">Développement Front End</h5>
+                                <p class="text-light"><i class="text-primary fa-solid fa-share"></i> Posutler chez Formation WS </p>
                                 <p class="card-text mb-3 text-info">Vraiment un très bon concept et bien élaboré</p>
-                                <div class="d-flex align-items-center"> 
-                                    <img style="width:2.5rem; height:2.5rem" src="{{ asset('build/samih.png')}}" />
-                                    <p class="text-light ms-3 my-0 fst-italic"> Samih Habbani </p>
-                                </div>
+                                
+                                <span class="text-light smallSize fst-italic"> Offre publiée le 12 Sept 91 </span>
                             </div>
 
-                        </div>
-                    
-                    </div>
+                        </div>                    
+                    </a>                    
+                </div>
 
-                    <div class="col-md-3 p-3">
-                        {# <a aria-label="Développement Front End - Académie WS" href="/categories/1">
-                            </a> #}
+                <div class="col-md-3 p-3">
+
+                    <a href="{{ path('app_jobs_details', { id : 1}) }}">
                         <div class="course-card card form-shadow bg-secondary-dark p-3 smallBorderRadius">
 
-                            <div class="d-flex justify-content-between">
-                                <p>
-                                    <span>  
-                                        <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
-                                        <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
-                                        <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
-                                        <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
-                                        <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
-                                    </span>
-                                </p>
-
-                                <i class="text-primary fa-brands fa-google"></i>
-
+                            <div class="d-flex flex-column justify-content-between mb-3">
+                                <p class="text-light m-0 fw-bold"> Formateur en informatique H/F </p>
+                                <p class="m-0 text-light smallSize fst-italic"><i class="fa-solid fa-location-dot me-1"></i> Paris </p>
                             </div>
 
+                            <div class="mb-3">
+                                <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> 20 000€/an </span>
+                                <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> CDI </span>
+                                <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> Lundi au vendredi </span>
+                            </div>
                             
                             <div class="card-body p-0">
-                                <h5 class="card-title fw-bold text-light">Développement Front End</h5>
+                                <p class="text-light"><i class="text-primary fa-solid fa-share"></i> Posutler chez Formation WS </p>
                                 <p class="card-text mb-3 text-info">Vraiment un très bon concept et bien élaboré</p>
-                                <div class="d-flex align-items-center"> 
-                                    <img style="width:2.5rem; height:2.5rem" src="{{ asset('build/samih.png')}}" />
-                                    <p class="text-light ms-3 my-0 fst-italic"> Samih Habbani </p>
-                                </div>
+                                
+                                <span class="text-light smallSize fst-italic"> Offre publiée le 12 Sept 91 </span>
                             </div>
 
-                        </div>
-                    
-                    </div>
+                        </div>                    
+                    </a>                    
+                </div>
 
-                    <div class="col-md-3 p-3">
-                        {# <a aria-label="Développement Front End - Académie WS" href="/categories/1">
-                            </a> #}
+                <div class="col-md-3 p-3">
+
+                    <a href="{{ path('app_jobs_details', { id : 1}) }}">
                         <div class="course-card card form-shadow bg-secondary-dark p-3 smallBorderRadius">
 
-                            <div class="d-flex justify-content-between">
-                                <p>
-                                    <span>  
-                                        <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
-                                        <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
-                                        <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
-                                        <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
-                                        <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
-                                    </span>
-                                </p>
-
-                                <i class="text-primary fa-brands fa-google"></i>
-
+                            <div class="d-flex flex-column justify-content-between mb-3">
+                                <p class="text-light m-0 fw-bold"> Formateur en informatique H/F </p>
+                                <p class="m-0 text-light smallSize fst-italic"><i class="fa-solid fa-location-dot me-1"></i> Paris </p>
                             </div>
 
+                            <div class="mb-3">
+                                <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> 20 000€/an </span>
+                                <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> CDI </span>
+                                <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> Lundi au vendredi </span>
+                            </div>
                             
                             <div class="card-body p-0">
-                                <h5 class="card-title fw-bold text-light">Développement Front End</h5>
+                                <p class="text-light"><i class="text-primary fa-solid fa-share"></i> Posutler chez Formation WS </p>
                                 <p class="card-text mb-3 text-info">Vraiment un très bon concept et bien élaboré</p>
-                                <div class="d-flex align-items-center"> 
-                                    <img style="width:2.5rem; height:2.5rem" src="{{ asset('build/samih.png')}}" />
-                                    <p class="text-light ms-3 my-0 fst-italic"> Samih Habbani </p>
-                                </div>
+                                
+                                <span class="text-light smallSize fst-italic"> Offre publiée le 12 Sept 91 </span>
                             </div>
 
-                        </div>
-                    
-                    </div>
+                        </div>                    
+                    </a>                    
+                </div>
 
             </div>
 
@@ -576,6 +546,55 @@
         </div>
 
 	</div>
+
+    {# PARTAGER L'OFFRE D'EMPLOI #}
+
+    <div class="modal fade" id="article-social-networks" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+            <div class="modal-header bg-secondary">
+                <h1 class="modal-title fs-5 text-light" id="exampleModalToggleLabel">Partager l'article</h1>
+                <button type="button" class="btn-close btn-info" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4 bg-secondary-dark">
+                <ul class="d-flex justify-content-around"> 
+                    <li>
+                        <a aria-label="Partagez l'article intitulé '' sur Twitter." href="https://twitter.com/share?url=https://www.lareponsenumerique.fr/article/1&via=lareponsenumerique&text="
+                        onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
+                            target="_blank" title="Share on Twitter">
+                            <i style="color:#1DA1F2;height:2rem" class="fa-brands fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a aria-label="Partagez l'article intitulé '' sur Linkedin." href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.lareponsenumerique.fr/article/1"
+                            onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
+                            target="_blank" title="Share on Linkedin">  
+                            <i style="color:#1DA1F2;height:2rem" class="px-2 fa-brands fa-linkedin"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a aria-label="Partagez l'article intitulé '' sur Facebook." href="https://www.facebook.com/sharer/sharer.php?u=https://www.lareponsenumerique.fr/article/1"
+                            onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
+                            target="_blank" title="Share on Facebook">                                    
+                            <i style="color:#3b5998;height:2rem" class="fa-brands fa-facebook"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a aria-label="Partagez l'article intitulé '' par email." href="mailto:?subject=Académie WS - &amp;body=La Rubrique du numérique -  - https://www.lareponsenumerique.fr/1" title="Share by Email"
+                            onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
+                            target="_blank" title="Share by email">                                    
+                            <i style="height:2rem" class="text-secondary fa-solid fa-envelope"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="d-flex px-3 pb-3 bg-secondary-dark">
+                <input type="text" class="px-5 py-3 w-100" id="clipboard" value="https://www.academiews.fr/article/1" >
+                <button aria-label="Copiez le lien de l'article intitulé '' sur Linkedin." class="text-light px-3 bg-secondary btn-clipboard">COPIER</button>
+            </div>
+            </div>
+        </div>
+    </div>
 
 
 {% endblock %}
