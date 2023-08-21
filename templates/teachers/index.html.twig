@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block meta_description %} Vous êtes formateur? Rejoinez l'Académie WS.  {% endblock %}
-
+{% block meta_description %} Vous êtes formateur? Rejoinez la Formation WS.  {% endblock %}
 {% block title %}Devenir formateur {{parent()}} {% endblock %}
 
 {% block body %}
@@ -11,12 +10,12 @@
     <div class="col-md-12 mx-auto row py-5" style="background:linear-gradient(0deg,#31092a,#0e0331)">
 
         <div class="col-md-12">
-            <h1 class="text-center text-white"> DÉVELOPPEZ VOS FORMATS E-LEARNING ET BLENDED </h1>
-            <h2 class="text-center text-primary fw400"> Renforcez l'intervention des formateurs avec nos vidéos  </h2>
+            <h1 class="text-center text-white"> DEVELOPPEZ VOTRE CARRIÈRE DE FORMATEUR CHEZ NOUS </h1>
+            <h2 class="text-center text-primary fw400"> Profitez de notre réseau d'écoles et centres de formation  </h2>
         </div>
 
         <div class="col-md-12">
-            <p class="text-center text-white"> EN MARQUE BLANCHE <span class="text-primary">//</span> SUR MESURE <span class="text-primary">//</span> SOUS LICENSE <span class="text-primary">//</span> SOUS ABONNEMENT</p>
+            <p class="text-center text-white"> MISSION TOUTE L'ANNÉE <span class="text-primary">//</span> RÉGLEMENT SOUS 30 JOURS <span class="text-primary">//</span> SÉCURITÉ CONTRACTUELLE <span class="text-primary">//</span> LIBERTÉ</p>
         </div>
 
         <div class="col-md-12 d-flex justify-content-center">
@@ -28,7 +27,7 @@
     <div class="row">
         <div class="row col-md-8 mx-auto mt-5">
             <div class="d-flex col-md-12 text-left">
-                <h1 class="text-left color-grey"> <span style="color:black"> Vous souhaitez intervenir en tant que formateur. </span> </br> Pourquoi devenir formateur chez l'Académie WS ? </h1>
+                <h1 class="text-left color-grey"> <span style="color:black"> Vous souhaitez intervenir en tant que formateur. </span> </br> Pourquoi devenir formateur chez Formation WS ? </h1>
             </div>
             <div class="col-md-6 mb-5">
                 <p class="text-justify mb-5"> Vous êtes formateur ou vous souhaitez devenir formateur? vous avez toqué à la bonne porte. Chez l'Académie WS nous délivrons de nombreuses formations liées à l'univers du digital depuis plusieurs années. Pourquoi intégrer notre équipe de formateur? on vous explique tout juste ici ! </p>
@@ -138,4 +137,38 @@
             </div>
 
     </div>
+
+        {# NEWSLETTER #}
+
+        <div class="row mx-auto py-5 px-5 bg-secondary-dark" id="newsletter">
+
+            <div class="col-md-8">
+                <h2 class="text-light pt-5 pb-3"> Recevez par email les dernières offres </h2>
+                    <form method="POST">
+                        <div class="d-flex pb-3">
+                            <input type="text" placeholder="Entrez votre adresse email" class="col-8 newsletter text-light px-5 py-3" name="newsletter" >
+                            <input class="text-light px-3 bg-info" type="submit" value="JE M'INSCRIS">
+                        </div>
+                        <div class="d-flex pb-3">
+                            <div class="mx-3">
+                                <input type="radio" id="test1" value="1" name="frequence" checked>
+                                <label class="text-light" for="test1">Chaque matin</label>
+                            </div>
+                            <div class="mx-3">
+                                <input type="radio" id="test2" value="2" name="frequence">
+                                <label class="text-light" for="test2">Chaque semaine</label>
+                            </div>
+                        </div>
+
+                        <p class="col-12 col-md-7 text-light fst-italic"> En cliquant sur "S'inscrire", vous acceptez les CGU ainsi que notre politique de confidentialité décrivant la finalité des traitements de vos données personnelles. </p>
+
+                    </form>
+
+            </div>
+
+            <div class="d-flex col-md-4 align-items-end illustration-part">
+                <img alt="Abonnez-vous à la newsletter de la réponse numérique" title="Newsletter de la réponse numérique" class="w-100" src="{{ asset('build/newsletter.webp') }}">
+            </div>
+
+        </div>
 {% endblock %}

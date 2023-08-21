@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ThemesController!{% endblock %}
+{% block meta_description %} La Formation WS intervient dans de nombreux domaines liés à l'univers du digital, comme la programamtion, le marketing ou encore le droit. {% endblock %}
+{% block title %}Nos domaines d'intervention {{parent()}}{% endblock %}
 
 {% block body %}
 
@@ -16,7 +17,8 @@
         </div>
 
         <div class="col-md-12 d-flex justify-content-center">
-            <a class="text-light smallBorderRadius colorWhite btn btn-secondary pull-right border-radius-btn mt-5 fw600 d-flex align-items-center" href=""><i class="far fa-play-circle me-2"></i>Accéder à nos formations vidéo</a>
+            <a class="text-light smallBorderRadius colorWhite btn btn-outline-primary pull-right border-radius-btn mt-5 fw600 d-flex align-items-center me-3" href="{{ path('find_teachers') }}"><i class="far fa-play-circle me-2"></i>COMMANDER UN FORMATEUR</a>
+            <a class="text-light smallBorderRadius colorWhite btn btn-outline-secondary pull-right border-radius-btn mt-5 fw600 d-flex align-items-center" href="{{ path('teacher_opportunity') }}"><i class="far fa-play-circle me-2"></i>DEVENIR FORMATEUR</a>
         </div>
 
     </div>

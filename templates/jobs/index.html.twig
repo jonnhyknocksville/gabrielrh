@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello JobsController!{% endblock %}
+{% block meta_description %} Découvrez nos missions actuelles. {% endblock %}
+{% block title %}Nos missions actuelles {{parent()}} {% endblock %}
 
 {% block body %}
 
@@ -27,9 +28,11 @@
 			</div>
 
 			<div class="col-md-12 d-flex justify-content-center">
-				<btn class="text-light smallBorderRadius colorWhite btn btn-outline-primary pull-right border-radius-btn mt-5 fw600 d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#article-social-networks">
+				<btn class="text-light smallBorderRadius colorWhite btn btn-outline-primary pull-right border-radius-btn mt-5 d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#article-social-networks">
+					<i class="fa-solid fa-share me-2"></i>PROPOSER UNE MISSION</btn>
+                <btn class="ms-3 text-light smallBorderRadius colorWhite btn btn-outline-primary pull-right border-radius-btn mt-5 d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#article-social-networks">
 					<i class="fa-solid fa-share me-2"></i>Partager nos missions</btn>
-				<a class="ms-3 text-light smallBorderRadius colorWhite btn btn-outline-secondary pull-right border-radius-btn mt-5 fw600 d-flex align-items-center" href="{{ path('teacher_opportunity') }}">
+				<a class="ms-3 text-light smallBorderRadius colorWhite btn btn-outline-secondary pull-right border-radius-btn mt-5 d-flex align-items-center" href="{{ path('teacher_opportunity') }}">
 					<i class="far fa-play-circle me-2"></i>Candidature spontanée</a>
 			</div>
 
@@ -41,7 +44,7 @@
                 &lt; NOS DERNIÈRES OFFRES /&gt; 
             </div>
             
-            <h2 class="text-center text-light"> D'autres offres sont succeptibles de vous intéresser </h2>
+            <h2 class="text-center text-light"> Sélectionnez l'offre qui vous ressemble </h2>
 
             <div class="row mx-auto col-md-10 p-3">
 

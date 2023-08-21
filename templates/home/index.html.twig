@@ -1,6 +1,7 @@
 {% extends 'base-dark.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block meta_description %} La société Formation WS est spécialisée dans le placement de formateur et de consultant dans le monde du digital. {% endblock %}
+{% block title %}Accueil {{parent()}} {% endblock %}
 
 {% block body %}
 
@@ -27,8 +28,8 @@
             #}
 
             <div class="d-flex justify-content-center">
-                <a aria-label="Notre offre pour les particuliers - Académie WS" class="mt-5 font-weight-bold btn btn-secondary text-white mx-3" href="{{path('professionals')}}" id="our-offer" role="button">CHERCHER UN FORMATEUR</a>
-                <a aria-label="Notre offre pour les particuliers - Académie WS" class="mt-5 font-weight-bold btn btn-primary text-white mx-3" href="{{path('teachers')}}" role="button">DEVENIR FORMATEUR</a>
+                <a aria-label="Commander un formateur - Formation WS" class="mt-5 font-weight-bold btn btn-secondary text-white mx-3" href="{{path('professionals')}}" role="button">CHERCHER UN FORMATEUR</a>
+                <a aria-label="Devenir formateur - Formation WS" class="mt-5 font-weight-bold btn btn-primary text-white mx-3" href="{{path('teachers')}}" role="button">DEVENIR FORMATEUR</a>
             </div>
         </div>
     </section>
@@ -41,44 +42,44 @@
                 <div class="col-md-6 col-lg-3">
                     <div class="row ">
                         <div class="col-5 text-right text-light border-right py-3">
-                            <div class="m-auto"><i class="fa-solid fa-chalkboard-user icon-xl"></i></div>
+                            <div class="m-auto"><i class="fa-solid fa-magnifying-glass icon-xl"></i></div>
                         </div>
                         <div class="col-7 text-left py-3">
-                            <h2 class="text-danger font-weight-bold font40">+2000</h2>
-                            <p class="text-light mb-1">Tutoriels</p>
+                            <h2 class="text-danger font-weight-bold font40">Sourcing</h2>
+                            <p class="text-light mb-1">des profils</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3">
                     <div class="row">
                         <div class="col-5 text-right text-light border-right py-3">
-                            <div class="m-auto"><i class="fa-solid fa-flask icon-xl"></i></div>
+                            <div class="m-auto"><i class="fa-solid fa-medal icon-xl"></i></div>
                         </div>
                         <div class="col-7 text-left py-3">
-                            <h2 class="text-danger font-weight-bold font40">+200</h2>
-                            <p class="text-light mb-1">Motion Design</p>
+                            <h2 class="text-danger font-weight-bold font40">Coaching</h2>
+                            <p class="text-light mb-1">pédagogique</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3">
                     <div class="row">
                         <div class="col-5 text-right text-light border-right py-3">
-                            <div class="m-auto"><i class="fa-solid fa-display icon-xl"></i></div>
+                            <div class="m-auto"><i class="fa-solid fa-check icon-xl"></i></div>
                         </div>
                         <div class="col-7 text-left py-3">
-                            <h2 class="text-danger font-weight-bold font40">+100</h2>
-                            <p class="text-light mb-1">Fond vert</p>
+                            <h2 class="text-danger font-weight-bold font40">Validation</h2>
+                            <p class="text-light mb-1">technique</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3">
                     <div class="row">
                         <div class="col-5 text-right text-light border-right py-3">
-                            <div class="m-auto"><i class="fa-solid fa-industry icon-xl"></i></div>
+                            <div class="m-auto"><i class="fa-solid fa-thumbs-up icon-xl"></i></div>
                         </div>
                         <div class="col-7 text-left py-3">
-                            <h2 class="text-danger font-weight-bold font40">+200</h2>
-                            <p class="text-light mb-1">Projet fil rouge</p>
+                            <h2 class="text-danger font-weight-bold font40">Formation</h2>
+                            <p class="text-light mb-1">garantie</p>
                         </div>
                     </div>
                 </div>
@@ -94,7 +95,7 @@
         <div class="row justify-content-center flex-column align-items-center backGroundColorGrey mt-5 mb-5">
             <div class="d-flex flex-column align-items-center justify-content-center pt-5">
                 <h2 class="text-light text-center mb-5"> La société Formation WS est spécialisée dans le placement de formateur ! </h2>
-                <p class="text-light text-center col-md-8">Notre mission est d'aider les débutants comme les professionnels du monde digital à développer leurs compétences techniques, en <span class="text-primary fw600"> programmation </span>, en <span class="text-primary fw600"> marketing online </span> et bien d'autres sujets pour qu'ils puissent intégrer des projets innovants, lucratifs et potentiellement changer leur vie pour le meilleur !</p>
+                <p class="text-light text-center col-md-8">Notre mission est d'aider les professionnels de la formation à trouver le bon formateur pour permettre à leurs apprenants de développer leurs compétences techniques, en <span class="text-primary fw600"> programmation </span>, en <span class="text-primary fw600"> marketing online </span> et bien d'autres sujets pour qu'ils puissent intégrer des projets innovants, lucratifs et potentiellement changer leur vie pour le meilleur !</p>
             </div>
 
             <ul class="row col-md-8 pt-3">
@@ -103,22 +104,22 @@
                     <p class="text-light">Années d'expérience</p>
                 </li>
                 <li class="col-6 col-md-3 d-flex flex-column align-items-center p-3">
-                    <span class="addedValue" style="color:#6955ff">30</span>
+                    <span class="addedValue" style="color:#6955ff">+30</span>
                     <p class="text-light">Formateurs expérimentés</p>
                 </li>
                 <li class="col-6 col-md-3 d-flex flex-column align-items-center p-3">
-                    <span class="addedValue" style="color:#a83af5">10m+</span>
+                    <span class="addedValue" style="color:#a83af5">+10m</span>
                     <p class="text-light">Apprenants par an</p>
                 </li>
                 <li class="col-6 col-md-3 d-flex flex-column align-items-center p-3">
-                    <span class="addedValue" style="color:#c03ada">+28</span>
-                    <p class="text-light">Cours en vidéo</p>
+                    <span class="addedValue" style="color:#c03ada">+20</span>
+                    <p class="text-light">Clients qui nous font confiance</p>
                 </li>
             </ul>
 
             <div class="d-flex justify-content-center mb-5">
-                <a aria-label="Notre offre pour les particuliers - Académie WS" class="mt-5 font-weight-bold btn btn-outline-secondary text-white mx-3" href="{{path('professionals')}}" id="our-offer" role="button">CHERCHER UN FORMATEUR</a>
-                <a aria-label="Notre offre pour les particuliers - Académie WS" class="mt-5 font-weight-bold btn btn-outline-primary text-white mx-3" href="{{path('teachers')}}" role="button">NOS OFFRES ACTUELLES</a>
+                <a aria-label="Commander un formateur - Formation WS" class="mt-5 font-weight-bold btn btn-outline-secondary text-white mx-3" href="{{path('professionals')}}" role="button">CHERCHER UN FORMATEUR</a>
+                <a aria-label="Devenir formateur - Formation WS" class="mt-5 font-weight-bold btn btn-outline-primary text-white mx-3" href="{{path('teachers')}}" role="button">NOS OFFRES ACTUELLES</a>
             </div>
 
         </div>
@@ -138,8 +139,6 @@
         <div class="row mx-auto col-md-10 p-3">
 
             <div class="col-md-3 p-3">
-                {# <a aria-label="Développement Front End - Académie WS" href="/categories/1">
-                    </a> #}
                 <div class="course-card card form-shadow bg-none">
                     <a aria-label="Développement Front End - Académie WS" href="{{path('app_themes_details', {id:1})}}">
                         <img class="card-img-top smallBorderRadius" src="{{ asset('build/categories/front-end.png')}}" alt="Développement Front End" title="Développement Front End">
@@ -151,15 +150,12 @@
                             <h5 class="card-title fw-bold text-light">Développement Front End</h5>
                             <p class="card-text mb-3 text-info">Découvrez les technologies front-end les plus demandées du marché et créez vos premières pages web!</p>
                         </a>
-                        {# <a aria-label="Développement Front End - Académie WS" style="color:white !important" href="{{path('app_themes_details', {id:1})}}" class="btn btn-primary">Accéder aux cours</a> #}
                     </div>
                 </div>
             
             </div>
 
             <div class="col-md-3 p-3">
-                {# <a aria-label="Développement Front End - Académie WS" href="{{path('app_themes_details', {id:1})}}">
-                    </a> #}
                 <div class="course-card card form-shadow bg-none">
                     <a aria-label="Développement Front End - Académie WS" href="{{path('app_themes_details', {id:1})}}">
                         <img class="card-img-top smallBorderRadius" src="{{ asset('build/categories/back-end.png')}}" alt="Développement Front End" title="Développement Front End">
@@ -171,15 +167,12 @@
                             <h5 class="card-title fw-bold text-light">Développement Front End</h5>
                             <p class="card-text mb-3 text-info">Découvrez les technologies front-end les plus demandées du marché et créez vos premières pages web!</p>
                         </a>
-                        {# <a aria-label="Développement Front End - Académie WS" style="color:white !important" href="{{path('app_themes_details', {id:1})}}" class="btn btn-primary">Accéder aux cours</a> #}
                     </div>
                 </div>
             
             </div>
 
             <div class="col-md-3 p-3">
-                {# <a aria-label="Développement Front End - Académie WS" href="{{path('app_themes_details', {id:1})}}">
-                    </a> #}
                 <div class="course-card card form-shadow bg-none">
                     <a aria-label="Développement Front End - Académie WS" href="{{path('app_themes_details', {id:1})}}">
                         <img class="card-img-top smallBorderRadius" src="{{ asset('build/categories/reseaux-systemes.png')}}" alt="Développement Front End" title="Développement Front End">
@@ -191,15 +184,12 @@
                             <h5 class="card-title fw-bold text-light">Développement Front End</h5>
                             <p class="card-text mb-3 text-info">Découvrez les technologies front-end les plus demandées du marché et créez vos premières pages web!</p>
                         </a>
-                        {# <a aria-label="Développement Front End - Académie WS" style="color:white !important" href="{{path('app_themes_details', {id:1})}}" class="btn btn-primary">Accéder aux cours</a> #}
                     </div>
                 </div>
             
             </div>
             
             <div class="col-md-3 p-3">
-                {# <a aria-label="Développement Front End - Académie WS" href="{{path('app_themes_details', {id:1})}}">
-                    </a> #}
                 <div class="course-card card form-shadow bg-none">
                     <a aria-label="Développement Front End - Académie WS" href="{{path('app_themes_details', {id:1})}}">
                         <img class="card-img-top smallBorderRadius" src="{{ asset('build/categories/back-end.png')}}" alt="Développement Front End" title="Développement Front End">
@@ -211,15 +201,14 @@
                             <h5 class="card-title fw-bold text-light">Développement Front End</h5>
                             <p class="card-text mb-3 text-info">Découvrez les technologies front-end les plus demandées du marché et créez vos premières pages web!</p>
                         </a>
-                        {# <a aria-label="Développement Front End - Académie WS" style="color:white !important" href="{{path('app_themes_details', {id:1})}}" class="btn btn-primary">Accéder aux cours</a> #}
                     </div>
                 </div>
             
             </div>
 
             <div class="d-flex justify-content-center">
-                <a aria-label="Notre offre pour les particuliers - Académie WS" class="font-weight-bold btn btn-outline-secondary text-white mx-3" href="{{path('app_themes')}}" id="our-offer" role="button">+ THÉMATIQUES</a>
-                <a aria-label="Notre offre pour les particuliers - Académie WS" class="font-weight-bold btn btn-outline-primary text-white mx-3" href="{{path('app_jobs')}}" id="our-offer" role="button">NOS OFFRES</a>
+                <a aria-label="Nos domaines d'intervention - Formation WS" class="font-weight-bold btn btn-outline-secondary text-white mx-3" href="{{path('app_themes')}}" role="button">+ THÉMATIQUES</a>
+                <a aria-label="Notre offres de mission - Formation WS" class="font-weight-bold btn btn-outline-primary text-white mx-3" href="{{path('app_jobs')}}" role="button">NOS OFFRES</a>
             </div>
         </div>
 
@@ -291,7 +280,7 @@
                 <i class="text-primary fa-solid fa-star"></i>
                 <i class="text-primary fa-solid fa-star"></i>
 
-                4.9 sur 5 basé sur <a class="text-info" href=""> +75 avis</a>
+                4.9 sur 5 basé sur <a class="text-info" href="https://www.google.com/search?q=academie+ws&oq=academie+w&aqs=chrome.0.35i39i650j46i175i199i512j69i57j69i59j46i175i199i512j69i60l3.1534j0j7&sourceid=chrome&ie=UTF-8#lrd=0x47e66ffa2afcfa71:0xbdeea1c321822bb9,1,,,,"> +75 avis</a>
 
             <p>
         </div>
@@ -299,8 +288,6 @@
         <div class="row mx-auto col-md-10 p-3">
 
             <div class="col-md-3 p-3">
-                    {# <a aria-label="Développement Front End - Académie WS" href="/categories/1">
-                        </a> #}
                     <div class="course-card card form-shadow bg-secondary-dark p-3 smallBorderRadius">
 
                         <div class="d-flex justify-content-between">
@@ -333,8 +320,6 @@
                 </div>
 
                 <div class="col-md-3 p-3">
-                    {# <a aria-label="Développement Front End - Académie WS" href="/categories/1">
-                        </a> #}
                     <div class="course-card card form-shadow bg-secondary-dark p-3 smallBorderRadius">
 
                         <div class="d-flex justify-content-between">
@@ -367,8 +352,6 @@
                 </div>
 
                 <div class="col-md-3 p-3">
-                    {# <a aria-label="Développement Front End - Académie WS" href="/categories/1">
-                        </a> #}
                     <div class="course-card card form-shadow bg-secondary-dark p-3 smallBorderRadius">
 
                         <div class="d-flex justify-content-between">
@@ -401,8 +384,6 @@
                 </div>
 
                 <div class="col-md-3 p-3">
-                    {# <a aria-label="Développement Front End - Académie WS" href="/categories/1">
-                        </a> #}
                     <div class="course-card card form-shadow bg-secondary-dark p-3 smallBorderRadius">
 
                         <div class="d-flex justify-content-between">
