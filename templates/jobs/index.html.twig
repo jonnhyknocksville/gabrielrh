@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello JobsController!{% endblock %}
+
+{% block body %}
+
+		<div class="col-md-12 mx-auto row py-5" style="background:linear-gradient(0deg,#31092a,#0e0331)">
+
+			<div class="col-md-12">
+				<h1 class="text-center text-white">
+					NOS DERNIÈRES OFFRES
+				</h1>
+				<h2 class="text-center text-primary fw400">
+					CHEZ FORMATION WS
+				</h2>
+			</div>
+
+			<div class="col-md-12">
+				<p class="text-center text-white">
+					EN REMOTE
+					<span class="text-primary">//</span>
+					SOUS CONTRAT
+					<span class="text-primary">//</span>
+					CHEZ LE CLIENT
+					<span class="text-primary">//</span>
+					PAIEMENT EN FIN DE MOIS</p>
+			</div>
+
+			<div class="col-md-12 d-flex justify-content-center">
+				<a class="text-light smallBorderRadius colorWhite btn btn-outline-primary pull-right border-radius-btn mt-5 fw600 d-flex align-items-center" href="">
+					<i class="fa-solid fa-share me-2"></i>Partager nos missions</a>
+				<a class="ms-3 text-light smallBorderRadius colorWhite btn btn-outline-secondary pull-right border-radius-btn mt-5 fw600 d-flex align-items-center" href="">
+					<i class="far fa-play-circle me-2"></i>Candidature spontanée</a>
+			</div>
+
+		</div>
+
+        <section class="bg-violet row mx-auto flex-column justify-content-center align-items-center py-5">
+
+            <div class="text-with-gradient text-center pB-5 relative">
+                &lt; NOS DERNIÈRES OFFRES /&gt; 
+            </div>
+            
+            <h2 class="text-center text-light"> D'autres offres sont succeptibles de vous intéresser </h2>
+
+            <div class="row mx-auto col-md-10 p-3">
+
+                <div class="col-md-3 p-3">
+
+                    <a href="{{ path('app_jobs_details', { id : 1}) }}">
+                        <div class="course-card card form-shadow bg-secondary-dark p-3 smallBorderRadius">
+
+                            <div class="d-flex flex-column justify-content-between mb-3">
+                                <p class="text-light m-0 fw-bold"> Formateur en informatique H/F </p>
+                                <p class="m-0 text-light smallSize fst-italic"><i class="fa-solid fa-location-dot me-1"></i> Paris </p>
+                            </div>
+
+                            <div class="mb-3">
+                                <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> 20 000€/an </span>
+                                <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> CDI </span>
+                                <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> Lundi au vendredi </span>
+                            </div>
+                            
+                            <div class="card-body p-0">
+                                <p class="text-light"><i class="text-primary fa-solid fa-share"></i> Posutler chez Formation WS </p>
+                                <p class="card-text mb-3 text-info">Vraiment un très bon concept et bien élaboré</p>
+                                
+                                <span class="text-light smallSize fst-italic"> Offre publiée le 12 Sept 91 </span>
+                            </div>
+
+                        </div>                    
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <div class="row mx-auto py-5 px-5 bg-secondary-dark" id="newsletter">
+
+            <div class="col-md-8">
+                <h2 class="text-light pt-5 pb-3"> Recevez par email les dernières offres </h2>
+                    <form method="POST">
+                        <div class="d-flex pb-3">
+                            <input type="text" placeholder="Entrez votre adresse email" class="col-8 newsletter text-light px-5 py-3" name="newsletter" >
+                            <input class="text-light px-3 bg-info" type="submit" value="JE M'INSCRIS">
+                        </div>
+                        <div class="d-flex pb-3">
+                            <div class="mx-3">
+                                <input type="radio" id="test1" value="1" name="frequence" checked>
+                                <label class="text-light" for="test1">Chaque matin</label>
+                            </div>
+                            <div class="mx-3">
+                                <input type="radio" id="test2" value="2" name="frequence">
+                                <label class="text-light" for="test2">Chaque semaine</label>
+                            </div>
+                        </div>
+
+                        <p class="col-12 col-md-7 text-light fst-italic"> En cliquant sur "S'inscrire", vous acceptez les CGU ainsi que notre politique de confidentialité décrivant la finalité des traitements de vos données personnelles. </p>
+
+                    </form>
+
+            </div>
+
+            <div class="d-flex col-md-4 align-items-end illustration-part">
+                <img alt="Abonnez-vous à la newsletter de la réponse numérique" title="Newsletter de la réponse numérique" class="w-100" src="{{ asset('build/newsletter.webp') }}">
+            </div>
+
+        </div>
+
+{% endblock %}
