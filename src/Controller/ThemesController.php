@@ -15,4 +15,12 @@ class ThemesController extends AbstractController
             'controller_name' => 'ThemesController',
         ]);
     }
+
+    #[Route('/themes/{id}', name: 'app_themes_details')]
+    public function get(): Response
+    {
+        return $this->render('themes/details.html.twig', [
+            'controller_name' => 'ThemesController',
+        ]);
+    }
 }
