@@ -48,32 +48,34 @@
 
             <div class="row mx-auto col-md-10 p-3">
 
-                <div class="col-md-3 p-3">
 
-                    <a href="{{ path('app_jobs_details', { id : 1}) }}">
-                        <div class="course-card card form-shadow bg-secondary-dark p-3 smallBorderRadius">
+                {% for job in jobs %}
+                    <div class="col-md-3 p-3">
+                        <a href="{{ path('app_jobs_details', { id : job.id}) }}">
+                            <div class="course-card card form-shadow bg-secondary-dark p-3 smallBorderRadius">
 
-                            <div class="d-flex flex-column justify-content-between mb-3">
-                                <p class="text-light m-0 fw-bold"> Formateur en informatique H/F </p>
-                                <p class="m-0 text-light smallSize fst-italic"><i class="fa-solid fa-location-dot me-1"></i> Paris </p>
-                            </div>
+                                <div class="d-flex flex-column justify-content-between mb-3">
+                                    <p class="text-light m-0 fw-bold"> {{job.title}} </p>
+                                    <p class="m-0 text-light smallSize fst-italic"><i class="fa-solid fa-location-dot me-1"></i> {{job.city}} </p>
+                                </div>
 
-                            <div class="mb-3">
-                                <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> 20 000€/an </span>
-                                <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> CDI </span>
-                                <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> Lundi au vendredi </span>
-                            </div>
-                            
-                            <div class="card-body p-0">
-                                <p class="text-light"><i class="text-primary fa-solid fa-share"></i> Posutler chez Formation WS </p>
-                                <p class="card-text mb-3 text-info">Vraiment un très bon concept et bien élaboré</p>
+                                <div class="mb-3">
+                                    <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> {{job.salary}} </span>
+                                    <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> {{ job.contract }} </span>
+                                    <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> {{ job.schedule }} </span>
+                                </div>
                                 
-                                <span class="text-light smallSize fst-italic"> Offre publiée le 12 Sept 91 </span>
-                            </div>
+                                <div class="card-body p-0">
+                                    <p class="text-light"><i class="text-primary fa-solid fa-share"></i> Posutler chez Formation WS </p>
+                                    <p class="card-text mb-3 text-info">{{ job.description }}</p>
+                                    
+                                    <span class="text-light smallSize fst-italic"> Offre publiée le {{ job.updatedAt }} </span>
+                                </div>
 
-                        </div>                    
-                </div>
-
+                            </div>                    
+                        </a>             
+                    </div>
+                {% endfor %}
             </div>
 
         </section>

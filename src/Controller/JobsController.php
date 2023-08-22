@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\JobApplication;
+use App\Entity\Jobs;
 use App\Form\JobApplicationType;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,14 +12,18 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Persistence\ManagerRegistry as PersistenceManagerRegistry; 
 
 class JobsController extends AbstractController
 {
     #[Route('/jobs', name: 'app_jobs')]
-    public function index(): Response
+    public function index(PersistenceManagerRegistry $doctrine): Response
     {
+
+        $jobs = $doctrine->getRepository(Jobs::class)->findAll();
+
         return $this->render('jobs/index.html.twig', [
-            'controller_name' => 'JobsController',
+            'jobs' => $jobs,
         ]);
     }
 
