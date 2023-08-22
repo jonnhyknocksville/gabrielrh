@@ -17,7 +17,7 @@
 
 			<div class="col-md-12">
 				<h1 class="text-center text-white">
-					INTITULÉ DU JOB
+					{{ job.title }}
 				</h1>
 				<h2 class="text-center text-primary fw400">
 					COMPÉTENCES DU JOB ET OBJECTIFS
@@ -37,7 +37,7 @@
 
 			<div class="col-md-12 d-flex justify-content-center align-items-center mt-5">
                 <button class="btn btn-outline-primary text-light py-2 smallBorderRadius" data-bs-toggle="modal" data-bs-target="#article-social-networks"><i class="fa-solid fa-share me-2"></i> PARTAGER LA MISSION </button>
-				<a class="ms-3 text-light smallBorderRadius colorWhite btn btn-outline-secondary pull-right py-2 d-flex align-items-center" href="{{path('app_jobs_application', {id : 1})}}">
+				<a class="ms-3 text-light smallBorderRadius colorWhite btn btn-outline-secondary pull-right py-2 d-flex align-items-center" href="{{path('app_jobs_application', {id : job.id})}}">
 					<i class="far fa-play-circle me-2"></i>Accepter la mission</a>
 			</div>
 
@@ -48,17 +48,10 @@
 
 			<div class="col-12 col-md-8 row">
 				<div class="col-12 col-md-6">
-					<h2 class="text-light">
-						Description du poste !</h2>
-					<p class="text-light">
-						Vous êtes sur le point d'entrer en formation et vous ne savez pas comment vous préparer? Vous ne savez pas par où commencer? Ces vidéos sont faites pour vous !</p>
-					<p class="text-light">
-						Développez grâce à ces vidéos le bon mindset pour réussir au mieux votre formation. Vous aurez besoin principalement de trois choses : un bon état d'esprit, une bonne culture web générale et les outils nécessaires pour atteindre vos objectifs.</p>
-					<p class="text-light">
-						C'est parce que notre équipe est constamment sur le terrain auprès de nos apprenants que ces vidéos ont été développées.
-					</p>
-					<p class="text-light">
-						Que vous soyez expérimenté ou non, ces vidéos renforceront votre aptitude à apprendre de manière intensive des concepts complexes pour atteindre vos objectifs !</p>
+					<h2 class="text-light"> {{ job.titleDescription }} </h2>
+                    {% for description in job.description %}
+                        <p class="text-light"> {{ description }} </p>
+                    {% endfor %}
 				</div>
 				<div class="col-12 col-md-6 row justify-content-end my-5 my-md-0">
 					<div class="icon-box col-md-10 bg-grey-light py-4 px-3 d-flex flex-column justify-content-between form-shadow smallBorderRadius">
@@ -66,23 +59,23 @@
 						<ul class="d-flex h-100 flex-column justify-content-between">
 							<li class="d-flex align-items-center text-dark my-2 my-md-0">
 								<i class="fa-solid fa-suitcase"></i>
-								SOUS CONTRAT
+								{{job.contract}}
 							</li>
 							<li class="d-flex align-items-center text-dark my-2 my-md-0">
 								<i class="fa-solid fa-money-bill"></i>
-								200-350€
+								{{ job.salary }}€
 							</li>
 							<li class="d-flex align-items-center text-dark my-2 my-md-0">
 								<i class="fa-solid fa-location-dot"></i>
-								ON REMOTE
+								{{ job.location }}
 							</li>
 							<li class="d-flex align-items-center text-dark my-2 my-md-0">
 								<i class="fa-solid fa-calendar-xmark"></i>
-								POUR LE MOIS DE FÉVRIER 2023
+								{{ job.date |date("m/d/Y") }}
 							</li>
 							<li class="d-flex align-items-center text-dark my-2 my-md-0">
 								<i class="fa-solid fa-clock"></i>
-								9h00 - 12h30 / 13h30 - 17h00
+								{{ job.schedule }}
 							</li>
 						</ul>
 
@@ -91,7 +84,7 @@
 
 				<div class="col-md-12 d-flex align-items-center justify-content-center mt-5">
                     <button class="btn btn-outline-primary text-light py-2 smallBorderRadius" data-bs-toggle="modal" data-bs-target="#article-social-networks"><i class="fa-solid fa-share me-2"></i> PARTAGER LA MISSION </button>
-                    <a class="ms-3 text-light smallBorderRadius colorWhite btn btn-outline-secondary pull-right border-radius-btn d-flex align-items-center" href="{{path('app_jobs_application', {id : 1})}}">
+                    <a class="ms-3 text-light smallBorderRadius colorWhite btn btn-outline-secondary pull-right border-radius-btn d-flex align-items-center" href="{{path('app_jobs_application', {id : job.id})}}">
                             <i class="far fa-play-circle me-2"></i>Accepter la mission</a>
 				</div>
 
@@ -122,20 +115,16 @@
 					<i class="fa-solid fa-bullseye me-3"></i>
 					Vos principales missions :
 				</h4>
-				<p class="text-light">
-					Vous concevrez et développerez des applicatifs logiciels en mode projet, de la phase d’étude à la recette finale, dans le cadre d’une refonte importante de notre logiciel d’acquisition de données.</p>
+				<p class="text-light"> {{ job.missionDescription }} </p>
 				<ul>
-					<li class="text-light">
-						<i class="fas fa-check mx-3 text-light"></i>
-						Préparer votre entrée en formation
-					</li>
-					<li class="text-light my-2">
-						<i class="fas fa-check mx-3 text-light"></i>
-						Développer votre culture digitale
-					</li>
-					<li class="text-light">
-						<i class="fas fa-check mx-3 text-light"></i>
-						Installer votre environment de travail</li>
+
+                    {% for mission in job.mainMissions %}
+                        <li class="text-light">
+                            <i class="fas fa-check mx-3 text-light"></i>
+                            {{ mission }}
+                        </li>
+                    {% endfor %}
+
 				</ul>
 			</div>
 
@@ -148,31 +137,14 @@
 					<i class="fa-solid fa-user-tie me-3"></i>
 					Profil recherché :
 				</h4>
-				<p class="text-light">
-					D’une formation BAC+2 en informatique a minima, vous justifiez d’une solide expérience dans le développement d’applications Web dans un environnement Microsoft .Net et idéalement de bonnes notions en automatisme ou informatique industrielle.
-				</p>
+				<p class="text-light"> {{ job.profileDescription }} </p>
 				<ul class="text-light">
-					<li class="my-2">
-						<i class="fas fa-check mx-3"></i>
-						Comprendre le système de Grid de Bootstrap</li>
-					<li class="my-2">
-						<i class="fas fa-check mx-3"></i>
-						Gérer la technologie flex box avec Bootstrap</li>
-					<li>
-						<i class="fas fa-check mx-3"></i>
-						Gérer le responsive web design de vos pages web avec les classes Bootstrap</li>
-					<li class="my-2">
-						<i class="fas fa-check mx-3"></i>
-						Maitriser les composants principaux du framework</li>
-					<li class="my-2">
-						<i class="fas fa-check mx-3"></i>
-						Maitriser les classes principales du framework</li>
-					<li class="my-2">
-						<i class="fas fa-check mx-3"></i>
-						Gérer facilement les marges internes et externes avec les classes Bootstrap</li>
-					<li class="my-2">
-						<i class="fas fa-check mx-3"></i>
-						Et plus encore!</li>
+                    {% for requirement in job.profileRequirements %}
+                        <li class="my-2">
+                            <i class="fas fa-check mx-3"></i>
+                            {{ requirement }}
+                        </li>
+                    {% endfor %}
 				</ul>
 
 
@@ -190,18 +162,12 @@
 					Informations :
 				</h4>
 				<ul class="text-light">
-					<li class="my-2">
-						<i class="fas fa-check-circle mx-3"></i>Toute personne souhaitant démarrer une carrière d'intégrateur web ou développeur web front</li>
-					<li class="my-2">
-						<i class="fas fa-check-circle mx-3"></i>Toute personne souhaitant acquérir de bonnes bases en Bootstrap</li>
-					<li class="my-2">
-						<i class="fas fa-check-circle mx-3"></i>Toute personnes familière avec les langages de programmation ou l'univers du web</li>
-					<li class="my-2">
-						<i class="fas fa-check-circle mx-3"></i>Toute personne en recherche de bonnes pratiques</li>
-					<li class="my-2">
-						<i class="fas fa-check-circle mx-3"></i>Toute personne voulant vérifier ses acquis ou se mettre à jour avec les versions actuelles</li>
-					<li class="my-2">
-						<i class="fas fa-check-circle mx-3"></i>Toute personne voulant créer des sites web rapidement et facilement maintenable</li>
+                    {% for information in job.informations %}
+                        <li class="my-2">
+                            <i class="fas fa-check-circle mx-3"></i>
+                            {{ information }}
+                        </li>
+                    {% endfor %}
 				</ul>
 			</div>
 
@@ -220,168 +186,25 @@
             </h2>
 
 
-            <div class="row mx-auto col-md-10 p-3">
+            <div class="row mx-auto col-md-10 p-3" id="job-advantage">
 
-                <div class="col-md-3 p-3">
-                    <div class="bg-none card p-4 form-shadow align-items-center">
-                        <a aria-label="Développement Front End - Académie WS" class="pb-3" href="/categories/1">
-                            <svg class="svg-inline--fa fa-user-plus text-light icon-xl" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user-plus" role="img" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 640 512" data-fa-i2svg="">
-                                <path fill="currentColor" d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"></path>
-                            </svg>
-                            <!-- <i class="text-light fa-solid fa-user-plus icon-xl"></i> Font Awesome fontawesome.com -->
-                        </a>
-
-                        <div class="card-body p-0">
-
-                            <a aria-label="Développement Front End - Académie WS" href="">
-                                <h5 class="card-title fw-bold text-light">Développement Front End</h5>
-                                <p class="card-text text-info text-justify">Découvrez les technologies front-end les plus demandées du marché et créez vos premières pages web!</p>
+                {% for advantage in job.advantages %}
+                    <div class="col-md-3 p-3">
+                        <div class="bg-none card p-4 form-shadow align-items-center">
+                            <a aria-label="Développement Front End - Académie WS" class="pb-3" href="/categories/1">
+                                {{ advantage.logo | raw }}
                             </a>
+
+                            <div class="card-body p-0">
+                                <a aria-label="Développement Front End - Académie WS" href="">
+                                    <h5 class="card-title fw-bold text-light text-center">{{ advantage.title }}</h5>
+                                    <p class="card-text text-info text-center">{{ advantage.description }}</p>
+                                </a>
+                            </div>
                         </div>
+
                     </div>
-
-                </div>
-
-                <div class="col-md-3 p-3">
-                    <div class="bg-none card p-4 form-shadow align-items-center">
-                        <a aria-label="Développement Front End - Académie WS" class="pb-3" href="/categories/1">
-                            <svg class="svg-inline--fa fa-user-plus text-light icon-xl" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user-plus" role="img" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 640 512" data-fa-i2svg="">
-                                <path fill="currentColor" d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"></path>
-                            </svg>
-                            <!-- <i class="text-light fa-solid fa-user-plus icon-xl"></i> Font Awesome fontawesome.com -->
-                        </a>
-
-                        <div class="card-body p-0">
-
-                            <a aria-label="Développement Front End - Académie WS" href="">
-                                <h5 class="card-title fw-bold text-light">Développement Front End</h5>
-                                <p class="card-text text-info text-justify">Découvrez les technologies front-end les plus demandées du marché et créez vos premières pages web!</p>
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-md-3 p-3">
-                    <div class="bg-none card p-4 form-shadow align-items-center">
-                        <a aria-label="Développement Front End - Académie WS" class="pb-3" href="/categories/1">
-                            <svg class="svg-inline--fa fa-user-plus text-light icon-xl" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user-plus" role="img" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 640 512" data-fa-i2svg="">
-                                <path fill="currentColor" d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"></path>
-                            </svg>
-                            <!-- <i class="text-light fa-solid fa-user-plus icon-xl"></i> Font Awesome fontawesome.com -->
-                        </a>
-
-                        <div class="card-body p-0">
-
-                            <a aria-label="Développement Front End - Académie WS" href="">
-                                <h5 class="card-title fw-bold text-light">Développement Front End</h5>
-                                <p class="card-text text-info text-justify">Découvrez les technologies front-end les plus demandées du marché et créez vos premières pages web!</p>
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-md-3 p-3">
-                    <div class="bg-none card p-4 form-shadow align-items-center">
-                        <a aria-label="Développement Front End - Académie WS" class="pb-3" href="/categories/1">
-                            <svg class="svg-inline--fa fa-user-plus text-light icon-xl" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user-plus" role="img" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 640 512" data-fa-i2svg="">
-                                <path fill="currentColor" d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"></path>
-                            </svg>
-                            <!-- <i class="text-light fa-solid fa-user-plus icon-xl"></i> Font Awesome fontawesome.com -->
-                        </a>
-
-                        <div class="card-body p-0">
-
-                            <a aria-label="Développement Front End - Académie WS" href="">
-                                <h5 class="card-title fw-bold text-light">Développement Front End</h5>
-                                <p class="card-text text-info text-justify">Découvrez les technologies front-end les plus demandées du marché et créez vos premières pages web!</p>
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-
-
-                <div class="col-md-3 p-3">
-                    <div class="bg-none card p-4 form-shadow align-items-center">
-                        <a aria-label="Développement Front End - Académie WS" class="pb-3" href="/categories/1">
-                            <svg class="svg-inline--fa fa-user-plus text-light icon-xl" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user-plus" role="img" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 640 512" data-fa-i2svg="">
-                                <path fill="currentColor" d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"></path>
-                            </svg>
-                            <!-- <i class="text-light fa-solid fa-user-plus icon-xl"></i> Font Awesome fontawesome.com -->
-                        </a>
-
-                        <div class="card-body p-0">
-
-                            <a aria-label="Développement Front End - Académie WS" href="">
-                                <h5 class="card-title fw-bold text-light">Développement Front End</h5>
-                                <p class="card-text text-info text-justify">Découvrez les technologies front-end les plus demandées du marché et créez vos premières pages web!</p>
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-md-3 p-3">
-                    <div class="bg-none card p-4 form-shadow align-items-center">
-                        <a aria-label="Développement Front End - Académie WS" class="pb-3" href="/categories/1">
-                            <svg class="svg-inline--fa fa-user-plus text-light icon-xl" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user-plus" role="img" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 640 512" data-fa-i2svg="">
-                                <path fill="currentColor" d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"></path>
-                            </svg>
-                            <!-- <i class="text-light fa-solid fa-user-plus icon-xl"></i> Font Awesome fontawesome.com -->
-                        </a>
-
-                        <div class="card-body p-0">
-
-                            <a aria-label="Développement Front End - Académie WS" href="">
-                                <h5 class="card-title fw-bold text-light">Développement Front End</h5>
-                                <p class="card-text text-info text-justify">Découvrez les technologies front-end les plus demandées du marché et créez vos premières pages web!</p>
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-md-3 p-3">
-                    <div class="bg-none card p-4 form-shadow align-items-center">
-                        <a aria-label="Développement Front End - Académie WS" class="pb-3" href="/categories/1">
-                            <svg class="svg-inline--fa fa-user-plus text-light icon-xl" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user-plus" role="img" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 640 512" data-fa-i2svg="">
-                                <path fill="currentColor" d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"></path>
-                            </svg>
-                            <!-- <i class="text-light fa-solid fa-user-plus icon-xl"></i> Font Awesome fontawesome.com -->
-                        </a>
-
-                        <div class="card-body p-0">
-
-                            <a aria-label="Développement Front End - Académie WS" href="">
-                                <h5 class="card-title fw-bold text-light">Développement Front End</h5>
-                                <p class="card-text text-info text-justify">Découvrez les technologies front-end les plus demandées du marché et créez vos premières pages web!</p>
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-md-3 p-3">
-                    <div class="bg-none card p-4 form-shadow align-items-center">
-                        <a aria-label="Développement Front End - Académie WS" class="pb-3" href="/categories/1">
-                            <svg class="svg-inline--fa fa-user-plus text-light icon-xl" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user-plus" role="img" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 640 512" data-fa-i2svg="">
-                                <path fill="currentColor" d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"></path>
-                            </svg>
-                            <!-- <i class="text-light fa-solid fa-user-plus icon-xl"></i> Font Awesome fontawesome.com -->
-                        </a>
-
-                        <div class="card-body p-0">
-
-                            <a aria-label="Développement Front End - Académie WS" href="">
-                                <h5 class="card-title fw-bold text-light">Développement Front End</h5>
-                                <p class="card-text text-info text-justify">Découvrez les technologies front-end les plus demandées du marché et créez vos premières pages web!</p>
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
+                {% endfor %}
 
             </div>
 
@@ -399,113 +222,34 @@
 
             <div class="row mx-auto col-md-10 p-3">
 
-                <div class="col-md-3 p-3">
+                {% for relatedJob in relatedJobs %}
+                    <div class="col-md-3 p-3">
 
-                    <a href="{{ path('app_jobs_details', { id : 1}) }}">
-                        <div class="course-card card form-shadow bg-secondary-dark p-3 smallBorderRadius">
+                        <a href="{{ path('app_jobs_details', { id : relatedJob.id }) }}">
+                            <div class="course-card card form-shadow bg-secondary-dark p-3 smallBorderRadius">
 
-                            <div class="d-flex flex-column justify-content-between mb-3">
-                                <p class="text-light m-0 fw-bold"> Formateur en informatique H/F </p>
-                                <p class="m-0 text-light smallSize fst-italic"><i class="fa-solid fa-location-dot me-1"></i> Paris </p>
-                            </div>
+                                <div class="d-flex flex-column justify-content-between mb-3">
+                                    <p class="text-light m-0 fw-bold"> {{ relatedJob.title  }} </p>
+                                    <p class="m-0 text-light smallSize fst-italic"><i class="fa-solid fa-location-dot me-1"></i> {{ relatedJob.city  }} </p>
+                                </div>
 
-                            <div class="mb-3">
-                                <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> 20 000€/an </span>
-                                <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> CDI </span>
-                                <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> Lundi au vendredi </span>
-                            </div>
-                            
-                            <div class="card-body p-0">
-                                <p class="text-light"><i class="text-primary fa-solid fa-share"></i> Posutler chez Formation WS </p>
-                                <p class="card-text mb-3 text-info">Vraiment un très bon concept et bien élaboré</p>
+                                <div class="mb-3">
+                                    <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> {{ relatedJob.salary  }} </span>
+                                    <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> {{ relatedJob.contract  }} </span>
+                                    <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> {{ relatedJob.schedule  }} </span>
+                                </div>
                                 
-                                <span class="text-light smallSize fst-italic"> Offre publiée le 12 Sept 91 </span>
-                            </div>
+                                <div class="card-body p-0">
+                                    <p class="text-light"><i class="text-primary fa-solid fa-share"></i> Posutler chez Formation WS </p>
+                                    <p class="card-text mb-3 text-info">Vraiment un très bon concept et bien élaboré</p>
+                                    
+                                    <span class="text-light smallSize fst-italic"> Offre publiée le {{ relatedJob.date | date("d-m-Y")  }} </span>
+                                </div>
 
-                        </div>                    
-                    </a>                    
-                </div>
-
-                <div class="col-md-3 p-3">
-
-                    <a href="{{ path('app_jobs_details', { id : 1}) }}">
-                        <div class="course-card card form-shadow bg-secondary-dark p-3 smallBorderRadius">
-
-                            <div class="d-flex flex-column justify-content-between mb-3">
-                                <p class="text-light m-0 fw-bold"> Formateur en informatique H/F </p>
-                                <p class="m-0 text-light smallSize fst-italic"><i class="fa-solid fa-location-dot me-1"></i> Paris </p>
-                            </div>
-
-                            <div class="mb-3">
-                                <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> 20 000€/an </span>
-                                <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> CDI </span>
-                                <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> Lundi au vendredi </span>
-                            </div>
-                            
-                            <div class="card-body p-0">
-                                <p class="text-light"><i class="text-primary fa-solid fa-share"></i> Posutler chez Formation WS </p>
-                                <p class="card-text mb-3 text-info">Vraiment un très bon concept et bien élaboré</p>
-                                
-                                <span class="text-light smallSize fst-italic"> Offre publiée le 12 Sept 91 </span>
-                            </div>
-
-                        </div>                    
-                    </a>                    
-                </div>
-
-                <div class="col-md-3 p-3">
-
-                    <a href="{{ path('app_jobs_details', { id : 1}) }}">
-                        <div class="course-card card form-shadow bg-secondary-dark p-3 smallBorderRadius">
-
-                            <div class="d-flex flex-column justify-content-between mb-3">
-                                <p class="text-light m-0 fw-bold"> Formateur en informatique H/F </p>
-                                <p class="m-0 text-light smallSize fst-italic"><i class="fa-solid fa-location-dot me-1"></i> Paris </p>
-                            </div>
-
-                            <div class="mb-3">
-                                <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> 20 000€/an </span>
-                                <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> CDI </span>
-                                <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> Lundi au vendredi </span>
-                            </div>
-                            
-                            <div class="card-body p-0">
-                                <p class="text-light"><i class="text-primary fa-solid fa-share"></i> Posutler chez Formation WS </p>
-                                <p class="card-text mb-3 text-info">Vraiment un très bon concept et bien élaboré</p>
-                                
-                                <span class="text-light smallSize fst-italic"> Offre publiée le 12 Sept 91 </span>
-                            </div>
-
-                        </div>                    
-                    </a>                    
-                </div>
-
-                <div class="col-md-3 p-3">
-
-                    <a href="{{ path('app_jobs_details', { id : 1}) }}">
-                        <div class="course-card card form-shadow bg-secondary-dark p-3 smallBorderRadius">
-
-                            <div class="d-flex flex-column justify-content-between mb-3">
-                                <p class="text-light m-0 fw-bold"> Formateur en informatique H/F </p>
-                                <p class="m-0 text-light smallSize fst-italic"><i class="fa-solid fa-location-dot me-1"></i> Paris </p>
-                            </div>
-
-                            <div class="mb-3">
-                                <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> 20 000€/an </span>
-                                <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> CDI </span>
-                                <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> Lundi au vendredi </span>
-                            </div>
-                            
-                            <div class="card-body p-0">
-                                <p class="text-light"><i class="text-primary fa-solid fa-share"></i> Posutler chez Formation WS </p>
-                                <p class="card-text mb-3 text-info">Vraiment un très bon concept et bien élaboré</p>
-                                
-                                <span class="text-light smallSize fst-italic"> Offre publiée le 12 Sept 91 </span>
-                            </div>
-
-                        </div>                    
-                    </a>                    
-                </div>
+                            </div>                    
+                        </a>                    
+                    </div>
+                {% endfor %}
 
             </div>
 

@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\CategoriesRepository;
+use App\Repository\AdvantagesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CategoriesRepository::class)]
-class Categories
+#[ORM\Entity(repositoryClass: AdvantagesRepository::class)]
+class Advantages
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -21,7 +21,10 @@ class Categories
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
-    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Jobs::class)]
+    #[ORM\Column(length: 255)]
+    private ?string $logo = null;
+
+    #[ORM\ManyToMany(targetEntity: Jobs::class, mappedBy: 'advantages')]
     private Collection $jobs;
 
     public function __construct()
@@ -58,6 +61,18 @@ class Categories
         return $this;
     }
 
+    public function getLogo(): ?string
+    {
+        return $this->logo;
+    }
+
+    public function setLogo(string $logo): static
+    {
+        $this->logo = $logo;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Jobs>
      */
@@ -70,7 +85,7 @@ class Categories
     {
         if (!$this->jobs->contains($job)) {
             $this->jobs->add($job);
-            $job->setCategory($this);
+            $job->addAdvantage($this);
         }
 
         return $this;
@@ -79,10 +94,7 @@ class Categories
     public function removeJob(Jobs $job): static
     {
         if ($this->jobs->removeElement($job)) {
-            // set the owning side to null (unless already changed)
-            if ($job->getCategory() === $this) {
-                $job->setCategory(null);
-            }
+            $job->removeAdvantage($this);
         }
 
         return $this;

@@ -67,9 +67,9 @@
                                 
                                 <div class="card-body p-0">
                                     <p class="text-light"><i class="text-primary fa-solid fa-share"></i> Posutler chez Formation WS </p>
-                                    <p class="card-text mb-3 text-info">{{ job.description }}</p>
+                                    <p class="card-text mb-3 text-info">{{ job.titleDescription }}</p>
                                     
-                                    <span class="text-light smallSize fst-italic"> Offre publiée le {{ job.updatedAt }} </span>
+                                    <span class="text-light smallSize fst-italic"> Offre publiée le {{ job.updatedAt |date("m/d/Y") }} </span>
                                 </div>
 
                             </div>                    

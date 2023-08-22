@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\JobsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -62,11 +64,16 @@ class Jobs
     #[ORM\Column]
     private array $informations = [];
 
-    #[ORM\Column]
-    private array $advantages = [];
-
     #[ORM\ManyToOne(inversedBy: 'jobs')]
     private ?Categories $category = null;
+
+    #[ORM\ManyToMany(targetEntity: Advantages::class, inversedBy: 'jobs')]
+    private Collection $advantages;
+
+    public function __construct()
+    {
+        $this->advantages = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -265,18 +272,6 @@ class Jobs
         return $this;
     }
 
-    public function getAdvantages(): array
-    {
-        return $this->advantages;
-    }
-
-    public function setAdvantages(array $advantages): static
-    {
-        $this->advantages = $advantages;
-
-        return $this;
-    }
-
     public function getCategory(): ?Categories
     {
         return $this->category;
@@ -285,6 +280,30 @@ class Jobs
     public function setCategory(?Categories $category): static
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Advantages>
+     */
+    public function getAdvantages(): Collection
+    {
+        return $this->advantages;
+    }
+
+    public function addAdvantage(Advantages $advantage): static
+    {
+        if (!$this->advantages->contains($advantage)) {
+            $this->advantages->add($advantage);
+        }
+
+        return $this;
+    }
+
+    public function removeAdvantage(Advantages $advantage): static
+    {
+        $this->advantages->removeElement($advantage);
 
         return $this;
     }

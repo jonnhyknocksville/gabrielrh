@@ -28,10 +28,16 @@ class JobsController extends AbstractController
     }
 
     #[Route('/jobs/{id}', name: 'app_jobs_details')]
-    public function get(): Response
+    public function get(PersistenceManagerRegistry $doctrine, int $id): Response
     {
+        $job = $doctrine->getRepository(Jobs::class)->findBy(['id' => $id]);
+        $idCategory = $job[0]->getCategory()->getId();
+
+        $relatedJobs = $doctrine->getRepository(Jobs::class)->findBy(['category' => $idCategory]);
+
         return $this->render('jobs/details.html.twig', [
-            'controller_name' => 'JobsController',
+            'job' => $job[0],
+            'relatedJobs' => $relatedJobs
         ]);
     }
 
