@@ -418,3 +418,31 @@ a svg {
     }
 
 }
+
+/////
+/// 
+///  navigation
+/// 
+/// 
+
+.navigation {
+
+    .page-link {
+        background-color: transparent !important;
+        border-color: $secondary;
+        color: $light;
+    }
+
+    .page-item.active {
+        .page-link {
+            color: $secondary;
+        }
+    }
+
+    .page-item.disabled {
+        .page-link {
+            color: $grey;
+        }
+    }
+
+}

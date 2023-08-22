@@ -33,17 +33,18 @@ class CoursesCrudController extends AbstractCrudController
             TextField::new('title'),
             TextField::new('description'),
             ImageField::new('logo')
-            ->setUploadDir('public/')
+            ->setUploadDir('public/build/')
             ->setBasePath($this->params->get('app.path.courses_images'))
             ->setUploadedFileNamePattern('[slug]-[contenthash].[extension]')
-            ->setRequired(false),
+            ->setRequired(false)
+            ->hideWhenUpdating(),
             AssociationField::new('theme'),
             TextField::new('heading'),
             TextField::new('titleIntroduction'),
-            ArrayField::new('introduction'),
-            ArrayField::new('objectives'),
-            ArrayField::new('learningPath'),
-            ArrayField::new('public'),
+            ArrayField::new('introduction')->hideOnIndex(),
+            ArrayField::new('objectives')->hideOnIndex(),
+            ArrayField::new('learningPath')->hideOnIndex(),
+            ArrayField::new('public')->hideOnIndex(),
             ArrayField::new('requirements')
         ];
     }

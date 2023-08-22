@@ -40,7 +40,7 @@
                 <div class="col-md-3 p-3">
                     <div class="course-card card form-shadow bg-none">
                         <a aria-label="{{ theme.title }} - Formation WS" href="{{ path('app_courses_details', {id: theme.id}) }}">
-                            <img class="card-img-top smallBorderRadius" src="{{ asset(theme.logo)}}" alt="{{ theme.title }}" title="{{ theme.title }}">
+                            <img class="card-img-top smallBorderRadius" src="{{ asset('build/courses/' ~ theme.logo)}}" alt="{{ theme.title }}" title="{{ theme.title }}">
                         </a>
                         
                         <div class="card-body">
@@ -55,6 +55,10 @@
                 </div>
 
             {% endfor %}
+
+            <div class="pb-5 col-md-8 navigation">
+                {{ knp_pagination_render(themes) }}
+            </div>  
 
             <div class="d-flex justify-content-center">
                 <a aria-label="Commander un formateur - Formation WS" class="mt-5 font-weight-bold btn btn-secondary text-white mx-3" href="{{path('professionals')}}" id="our-offer" role="button">CHERCHER UN FORMATEUR</a>
