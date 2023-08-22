@@ -34,9 +34,9 @@ class ContactController extends AbstractController
                 $entityManager->persist($contact);
                 $entityManager->flush();
 
-                // Envoie d'un email à Académie WS pour le notifier
+                // Envoie d'un email à Formation WS pour le notifier
                 $email = (new TemplatedEmail())
-                ->from(new Address('contact@academiews.fr', 'Académie WS - Contact'))
+                ->from(new Address('contact@academiews.fr', 'Formation WS - Contact'))
                 ->to('contact@academiews.fr')
                 ->subject('Message de ' . $contact->getFirstname() . ' ' . $contact->getLastname() . ' ' )
                 ->htmlTemplate('contact/email.html.twig')

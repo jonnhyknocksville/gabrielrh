@@ -102,7 +102,7 @@
 
 		<div class="col-md-12 d-flex justify-content-center py-5">
 
-			<div class="col-md-6">
+			<div class="col-md-6" id="video_introduction">
 				<div class="text-with-gradient text-center pB-5 relative">
 					&lt; INTRODUCTION AU SUJET /&gt;
 				</div>
@@ -110,7 +110,7 @@
 				<h2 class="text-center text-light">
 					NOTRE EXPERTISE EN {{ course.title }}
 				</h2>
-				<iframe src="https://player.vimeo.com/video/796631243?h=92f039be20" width="100%" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+				{{course.videoIntroduction | raw }}
 			</div>
 
 		</div>
@@ -279,7 +279,7 @@
 							</li>
 						</a>
 
-						<a class="m-3 "aria-label="L’histoire des langages informatiques - Académie WS" href="/courseProgression/2/1">
+						<a class="m-3 "aria-label="L’histoire des langages informatiques - Formation WS" href="/courseProgression/2/1">
 							<li class="d-flex align-items-center item">
 
 								<div class="d-flex align-items-center justify-content-between w-100 title-container">
@@ -295,7 +295,7 @@
 							</li>
 						</a>
 
-						<a class="m-3 "aria-label="Configurer son éditeur de texte - Académie WS" href="/courseProgression/3/1">
+						<a class="m-3 "aria-label="Configurer son éditeur de texte - Formation WS" href="/courseProgression/3/1">
 							<li class="d-flex align-items-center item">
 
 								<div class="d-flex align-items-center justify-content-between w-100 title-container">
@@ -311,7 +311,7 @@
 							</li>
 						</a>
 
-						<a class="m-3 "aria-label="Installer un environnement de travail - Académie WS" href="/courseProgression/4/1">
+						<a class="m-3 "aria-label="Installer un environnement de travail - Formation WS" href="/courseProgression/4/1">
 							<li class="d-flex align-items-center item">
 
 								<div class="d-flex align-items-center justify-content-between w-100 title-container">
@@ -327,7 +327,7 @@
 							</li>
 						</a>
 
-						<a class="m-3 "aria-label="Les  Raccourcis clavier - Académie WS" href="/courseProgression/5/1">
+						<a class="m-3 "aria-label="Les  Raccourcis clavier - Formation WS" href="/courseProgression/5/1">
 							<li class="d-flex align-items-center item">
 
 								<div class="d-flex align-items-center justify-content-between w-100 title-container">
@@ -343,7 +343,7 @@
 							</li>
 						</a>
 
-						<a class="m-3 "aria-label="L’histoire du Web - Académie WS" href="/courseProgression/6/1">
+						<a class="m-3 "aria-label="L’histoire du Web - Formation WS" href="/courseProgression/6/1">
 							<li class="d-flex align-items-center item">
 
 								<div class="d-flex align-items-center justify-content-between w-100 title-container">

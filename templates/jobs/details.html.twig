@@ -191,12 +191,12 @@
                 {% for advantage in job.advantages %}
                     <div class="col-md-3 p-3">
                         <div class="bg-none card p-4 form-shadow align-items-center">
-                            <a aria-label="Développement Front End - Académie WS" class="pb-3" href="/categories/1">
+                            <a aria-label="{{ advantage.title }} - Formation WS" class="pb-3" href="/categories/1">
                                 {{ advantage.logo | raw }}
                             </a>
 
                             <div class="card-body p-0">
-                                <a aria-label="Développement Front End - Académie WS" href="">
+                                <a aria-label="{{ advantage.title }} - Formation WS" href="">
                                     <h5 class="card-title fw-bold text-light text-center">{{ advantage.title }}</h5>
                                     <p class="card-text text-info text-center">{{ advantage.description }}</p>
                                 </a>
@@ -324,7 +324,7 @@
                         </a>
                     </li>
                     <li>
-                        <a aria-label="Partagez l'article intitulé '' par email." href="mailto:?subject=Académie WS - &amp;body=La Rubrique du numérique -  - https://www.lareponsenumerique.fr/1" title="Share by Email"
+                        <a aria-label="Partagez l'article intitulé '' par email." href="mailto:?subject=Formation WS - &amp;body=La Rubrique du numérique -  - https://www.lareponsenumerique.fr/1" title="Share by Email"
                             onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
                             target="_blank" title="Share by email">                                    
                             <i style="height:2rem" class="text-secondary fa-solid fa-envelope"></i>

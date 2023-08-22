@@ -141,12 +141,12 @@
             {% for theme in themes %}
                 <div class="col-md-3 p-3">
                     <div class="course-card card form-shadow bg-none">
-                        <a aria-label="Développement Front End - Académie WS" href="{{path('app_themes_details', {id:theme.id})}}">
-                            <img class="card-img-top smallBorderRadius" src="{{ asset('build/categories/'~ theme.picture)}}" alt="Développement Front End" title="Développement Front End">
+                        <a aria-label="{{theme.title}} - Formation WS" href="{{path('app_themes_details', {id:theme.id})}}">
+                            <img class="card-img-top smallBorderRadius" src="{{ asset('build/categories/'~ theme.picture)}}" alt="{{theme.title}}" title="{{theme.title}}">
                         </a>
                         
                         <div class="card-body">
-                            <a aria-label="Développement Front End - Académie WS" href="{{path('app_themes_details', {id:theme.id})}}">
+                            <a aria-label="{{theme.title}} - Formation WS" href="{{path('app_themes_details', {id:theme.id})}}">
                                 <h5 class="card-title fw-bold text-light">{{theme.title}}</h5>
                                 <p class="card-text mb-3 text-info">{{theme.description}}</p>
                             </a>
@@ -386,7 +386,7 @@
                 <div class="contact-bar d-flex justify-content-center">
                     <div class="contact">
                         <h3 class="d-flex d-md-none text-with-gradient">Vous êtes un professionnel ?</h3>
-                        <a aria-label="Accéder à notre offre professionnelle - Académie WS" href="{{ path('app_elearning') }}" class="font-weight-bold btn btn-outline-info text-white">DÉCOUVREZ NOS FORMATIONS VIDÉO</a>
+                        <a aria-label="Accéder à notre offre professionnelle - Formation WS" href="{{ path('app_elearning') }}" class="font-weight-bold btn btn-outline-info text-white">DÉCOUVREZ NOS FORMATIONS VIDÉO</a>
                     </div>
                 </div>
             </div>

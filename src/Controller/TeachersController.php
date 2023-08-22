@@ -37,9 +37,9 @@ class TeachersController extends AbstractController
             $entityManager->persist($teacherApplication);
             $entityManager->flush();
 
-            // Envoie d'un email à Académie WS pour le notifier
+            // Envoie d'un email à Formation WS pour le notifier
             $email = (new TemplatedEmail())
-                ->from(new Address('contact@academiews.fr', 'Académie WS - Recrutement'))
+                ->from(new Address('contact@academiews.fr', 'Formation WS - Recrutement'))
                 ->to('contact@academiews.fr')
                 ->subject('Nouvelle demande de Recrutement')
                 ->htmlTemplate('job_application/email.html.twig')

@@ -46,6 +46,9 @@ class Courses
     #[ORM\Column]
     private array $requirements = [];
 
+    #[ORM\Column(length: 255)]
+    private ?string $videoIntroduction = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -179,6 +182,18 @@ class Courses
     public function setRequirements(array $requirements): static
     {
         $this->requirements = $requirements;
+
+        return $this;
+    }
+
+    public function getVideoIntroduction(): ?string
+    {
+        return $this->videoIntroduction;
+    }
+
+    public function setVideoIntroduction(string $videoIntroduction): static
+    {
+        $this->videoIntroduction = $videoIntroduction;
 
         return $this;
     }
