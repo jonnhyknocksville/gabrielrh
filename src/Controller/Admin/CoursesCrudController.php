@@ -31,7 +31,7 @@ class CoursesCrudController extends AbstractCrudController
     {
         return [
             TextField::new('title'),
-            TextEditorField::new('description'),
+            TextField::new('description'),
             ImageField::new('logo')
             ->setUploadDir('public/')
             ->setBasePath($this->params->get('app.path.courses_images'))

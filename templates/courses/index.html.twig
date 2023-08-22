@@ -17,22 +17,22 @@
 
 			<div class="col-md-12">
 				<h1 class="text-center text-white">
-					FORMEZ VOS APPRENANTS EN HTML5 AVEC NOS FORMATEURS
+					FORMEZ VOS APPRENANTS EN {{ course.title }} AVEC NOS FORMATEURS
 				</h1>
 				<h2 class="text-center text-primary fw400">
-					Renforcez l'intervention des formateurs avec nos vidéos
+					Découvrez notre expertise en {{ course.title }}
 				</h2>
 			</div>
 
 			<div class="col-md-12">
 				<p class="text-center text-white">
-					EN MARQUE BLANCHE
+					EXPERTISE
 					<span class="text-primary">//</span>
-					SUR MESURE
+					PÉDAGOGIE
 					<span class="text-primary">//</span>
-					SOUS LICENSE
+					PUBLIC
 					<span class="text-primary">//</span>
-					SOUS ABONNEMENT</p>
+					RÉUSSITE</p>
 			</div>
 
 			<div class="col-md-12 d-flex justify-content-center">
@@ -49,45 +49,40 @@
 
 			<div class="col-12 col-md-8 row">
 				<div class="col-12 col-md-6">
-					<h2 class="text-light">
-						Préparez votre entrée en formation et atteignez vos objectifs !</h2>
-					<p class="text-light">
-						Vous êtes sur le point d'entrer en formation et vous ne savez pas comment vous préparer? Vous ne savez pas par où commencer? Ces vidéos sont faites pour vous !</p>
-					<p class="text-light">
-						Développez grâce à ces vidéos le bon mindset pour réussir au mieux votre formation. Vous aurez besoin principalement de trois choses : un bon état d'esprit, une bonne culture web générale et les outils nécessaires pour atteindre vos objectifs.</p>
-					<p class="text-light">
-						C'est parce que notre équipe est constamment sur le terrain auprès de nos apprenants que ces vidéos ont été développées.
-					</p>
-					<p class="text-light">
-						Que vous soyez expérimenté ou non, ces vidéos renforceront votre aptitude à apprendre de manière intensive des concepts complexes pour atteindre vos objectifs !</p>
+					<h2 class="text-light">{{ course.titleIntroduction }}</h2>
+
+					{% for p in course.introduction  %}
+						<p class="text-light">{{p}}</p>
+					{% endfor %}
 				</div>
+
 				<div class="col-12 col-md-6 row justify-content-end my-5 my-md-0">
 					<div class="icon-box col-md-10 bg-grey-light py-4 px-3 d-flex flex-column justify-content-between form-shadow smallBorderRadius">
 
 						<ul class="d-flex h-100 flex-column justify-content-between">
-							<li class="text-dark my-2 my-md-0">
-								<i class="text-dark fas fa-layer-group"></i>
-								MISE À JOUR
+							<li class="d-flex align-items-center text-dark my-3">
+								<i class="fa-solid fa-pen"></i>
+								COURS MISE À JOUR EN 2023
 							</li>
-							<li class="text-dark my-2 my-md-0">
-								<i class="text-dark fas fa-calendar-times"></i>
-								VIDÉOS THÉORIQUES
+							<li class="d-flex align-items-center text-dark my-3">
+								<i class="fa-solid fa-chalkboard-user"></i>
+								CONCEPTS THÉORIQUES
 							</li>
-							<li class="text-dark my-2 my-md-0">
-								<i class="text-dark fas fa-clock"></i>
-								EXERCICES CORRIGÉS EN VIDÉO
+							<li class="d-flex align-items-center text-dark my-3">
+								<i class="fa-solid fa-dumbbell"></i>
+								EXERCICES CORRIGÉS
 							</li>
-							<li class="text-dark my-2 my-md-0">
-								<i class="text-dark fas fa-book"></i>
-								TRAVAUX PRATIQUES EN VIDÉO
+							<li class="d-flex align-items-center text-dark my-3">
+								<i class="fa-solid fa-briefcase"></i>
+								TRAVAUX PRATIQUES
 							</li>
-							<li class="text-dark my-2 my-md-0">
-								<i class="text-dark fas fa-arrow-circle-down"></i>
+							<li class="d-flex align-items-center text-dark my-3">
+								<i class="fa-solid fa-cookie-bite"></i>
 								QCM - SUPPORTS PDF FOURNIS
 							</li>
-							<li class="text-dark my-2 my-md-0">
-								<i class="text-dark fas fa-tablet-alt"></i>
-								CODE DÉVELOPPÉ DANS LES VIDÉOS
+							<li class="d-flex align-items-center text-dark my-3">
+								<i class="fa-solid fa-code"></i>
+								CODE DÉVELOPPÉ 
 							</li>
 						</ul>
 
@@ -113,7 +108,7 @@
 				</div>
 
 				<h2 class="text-center text-light">
-					DECOUVREZ NOTRE EXPERTISE EN HTML5
+					NOTRE EXPERTISE EN {{ course.title }}
 				</h2>
 				<iframe src="https://player.vimeo.com/video/796631243?h=92f039be20" width="100%" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 			</div>
@@ -128,17 +123,12 @@
 					Avec nos formateurs, vos apprenants seront capables de:
 				</h4>
 				<ul>
-					<li class="text-light">
-						<i class="fas fa-check mx-3 text-light"></i>
-						Préparer votre entrée en formation
-					</li>
-					<li class="text-light my-2">
-						<i class="fas fa-check mx-3 text-light"></i>
-						Développer votre culture digitale
-					</li>
-					<li class="text-light">
-						<i class="fas fa-check mx-3 text-light"></i>
-						Installer votre environment de travail</li>
+					{% for objective in course.objectives  %}
+						<li class="text-light">
+							<i class="fas fa-check mx-3 text-light"></i>
+							{{ objective }}
+						</li>
+					{% endfor %}
 				</ul>
 			</div>
 
@@ -151,29 +141,15 @@
 					Appréciez la pédagogie de nos formateurs !
 				</h4>
 				<ul class="text-light">
-					<li class="my-2">
-						<i class="fas fa-check mx-3"></i>
-						Comprendre le système de Grid de Bootstrap</li>
-					<li class="my-2">
-						<i class="fas fa-check mx-3"></i>
-						Gérer la technologie flex box avec Bootstrap</li>
-					<li>
-						<i class="fas fa-check mx-3"></i>
-						Gérer le responsive web design de vos pages web avec les classes Bootstrap</li>
-					<li class="my-2">
-						<i class="fas fa-check mx-3"></i>
-						Maitriser les composants principaux du framework</li>
-					<li class="my-2">
-						<i class="fas fa-check mx-3"></i>
-						Maitriser les classes principales du framework</li>
-					<li class="my-2">
-						<i class="fas fa-check mx-3"></i>
-						Gérer facilement les marges internes et externes avec les classes Bootstrap</li>
-					<li class="my-2">
-						<i class="fas fa-check mx-3"></i>
-						Et plus encore!</li>
-				</ul>
 
+					{% for l in course.learningPath  %}
+						<li class="my-2">
+							<i class="fas fa-check mx-3"></i>
+							{{ l }}
+						</li>
+					{% endfor %}
+
+				</ul>
 
 				<h5 class="mt-4 fw600 font-italic text-light">
 					Notre équipe de formateurs décortique chaque sujet pour vous offrir des formations ludiques et intéractives, facil d'accès.
@@ -189,18 +165,11 @@
 					Qui nos formateurs peuvent former?
 				</h4>
 				<ul class="text-light">
-					<li class="my-2">
-						<i class="fas fa-check-circle mx-3"></i>Toute personne souhaitant démarrer une carrière d'intégrateur web ou développeur web front</li>
-					<li class="my-2">
-						<i class="fas fa-check-circle mx-3"></i>Toute personne souhaitant acquérir de bonnes bases en Bootstrap</li>
-					<li class="my-2">
-						<i class="fas fa-check-circle mx-3"></i>Toute personnes familière avec les langages de programmation ou l'univers du web</li>
-					<li class="my-2">
-						<i class="fas fa-check-circle mx-3"></i>Toute personne en recherche de bonnes pratiques</li>
-					<li class="my-2">
-						<i class="fas fa-check-circle mx-3"></i>Toute personne voulant vérifier ses acquis ou se mettre à jour avec les versions actuelles</li>
-					<li class="my-2">
-						<i class="fas fa-check-circle mx-3"></i>Toute personne voulant créer des sites web rapidement et facilement maintenable</li>
+					{% for public in course.public  %}
+						<li class="my-2">
+							<i class="fas fa-check-circle mx-3"></i>{{ public }}
+						</li>
+					{% endfor %}
 				</ul>
 			</div>
 
@@ -268,12 +237,12 @@
 		<div class=" col-md-12 py-5" id="requirements">
 
 			<div class="text-light offset-md-3 col-md-8 d-flex flex-column">
-				<h3>
-					Prérequis</h3>
-				<p>
-					N'hésitez pas à regarder nos vidéos en
-					<span class="text-primary fw600">HTML5</span>
-					si vous ne maitrisez pas les différents éléments du DOM. Pour le reste, tout ce dont vous avez besoin de savoir pour maitriser le langage CSS3 vous sera expliqué pas à pas!</p>
+				<h3>Prérequis</h3>
+
+				{% for requirement in course.requirements %}
+					<p><i class="fa-regular fa-star mx-3"></i> {{ requirement }} </p>
+
+				{% endfor %}
 			</div>
 
 		</div>

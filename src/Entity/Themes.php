@@ -27,6 +27,9 @@ class Themes
     #[ORM\OneToMany(mappedBy: 'theme', targetEntity: Courses::class)]
     private Collection $courses;
 
+    #[ORM\Column(length: 255)]
+    private ?string $picture = null;
+
     public function __construct()
     {
         $this->courses = new ArrayCollection();
@@ -101,5 +104,21 @@ class Themes
         }
 
         return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(string $picture): static
+    {
+        $this->picture = $picture;
+
+        return $this;
+    }
+
+    public function __toString(){
+        return $this->title;
     }
 }

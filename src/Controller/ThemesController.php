@@ -2,25 +2,34 @@
 
 namespace App\Controller;
 
+use App\Entity\Courses;
+use App\Entity\Themes;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Persistence\ManagerRegistry as PersistenceManagerRegistry; 
 
 class ThemesController extends AbstractController
 {
     #[Route('/themes', name: 'app_themes')]
-    public function index(): Response
+    public function index(PersistenceManagerRegistry $doctrine): Response
     {
+        // Récupération des thèmes
+        $themes = $doctrine->getRepository(Themes::class)->findAll();
         return $this->render('themes/index.html.twig', [
-            'controller_name' => 'ThemesController',
+            'themes' => $themes,
         ]);
     }
 
     #[Route('/themes/{id}', name: 'app_themes_details')]
-    public function get(): Response
+    public function get(PersistenceManagerRegistry $doctrine, $id): Response
     {
+
+        // Récupération des courses
+        $themes = $doctrine->getRepository(Courses::class)->findBy(['theme' => $id]);
+
         return $this->render('themes/details.html.twig', [
-            'controller_name' => 'ThemesController',
+            'themes' => $themes,
         ]);
     }
 }
