@@ -3,6 +3,9 @@
 {% block meta_description %} La société Formation WS est spécialisée dans le placement de formateur et de consultant dans le monde du digital. {% endblock %}
 {% block title %}Accueil {{parent()}} {% endblock %}
 
+{% form_theme pro_need 'bootstrap_5_layout.html.twig' %}
+
+
 {% block body %}
 
     {# Qui sommes-nous? #}
@@ -10,11 +13,25 @@
     <section>
         <h1 class="my-5 text-white text-center"> Trouvez le formateur idéal pour une formation réussie ! </h1>
 
-        <div class="d-flex flex-column col-md-6 mx-auto">
+        <div class="row d-flex col-md-10 mx-auto">
 
-            <div class="form-shadow" style="padding:56.25% 0 0 0;position:relative;">
+            <div class="col-md-6 form-shadow" style="padding:28% 0 0 0;position:relative;">
                 <iframe src="https://player.vimeo.com/video/835006242?h=1b1d19f4e7" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="00 - La syntaxe en PHP">
                 </iframe>
+            </div>
+
+            <div class="col-md-6 px-5" id="home-form">
+                {{ form_start(pro_need, {"attr": {"class": "bg-violet form-shadow h-100 col-md-12 row px-5 py-5 justify-content-center text-light" } }) }}
+                    <div class="col-md-12">
+                        <h1 class="h3 mb-3 font-weight-normal text-center">Commandez une intervention formateur</h1>
+                    </div>
+                    {{ form_row(pro_need.profil, {'attr': {'class': 'bg-none'}}) }}
+                    {{ form_row(pro_need.date, {'attr': {'class': 'bg-none'}}) }}
+                    {{ form_row(pro_need.localisation, {'attr': {'class': 'bg-none'}}) }}
+                    {{ form_row(pro_need.theme, {'attr': {'class': 'bg-none'}}) }}
+
+                    <button type="submit" class="text-light btn btn-lg btn-outline-info mt-4 col-md-6 buttonBorderRadius">Je commande</button>
+                {{ form_end(pro_need, {'render_rest': false}) }}
             </div>
             
             <script src="https://player.vimeo.com/api/player.js"></script>
@@ -36,7 +53,7 @@
 
     {# Résumé de qui nous sommes #}
 
-    <section class="section bg-secondary-dark text-center my-5 py-5 form-shadow">
+    <section class="section bg-secondary text-center my-5 py-5 form-shadow">
         <div class="container">
             <div class="row text-center">
                 <div class="col-md-6 col-lg-3">
@@ -170,7 +187,7 @@
     NOTRE JOB
     Recrutement > Coaching > Planification #}
 
-    <section class="section bg-violet text-center py-5 form-shadow">
+    <section class="section bg-secondary text-center py-5 form-shadow">
         <div class="container">
             <div class="row text-center justify-content-center">
                 <div class="col-md-6 col-lg-4">
@@ -216,7 +233,7 @@
     <section class="row mx-auto flex-column justify-content-center align-items-center py-5">
 
         <div class="text-with-gradient text-center pB-5 relative">
-            &lt; LEURS AVIS /&gt; 
+            &lt; ECOLES ET ORGANISMES DE FORMATION /&gt; 
         </div>
         
         <h2 class="text-center text-light"> Ce que vos étudiants pensent de notre travail </h2>
@@ -455,6 +472,184 @@
             </a>
         </div>
 
+
+    </section>
+
+    <section>
+        <div class="row main-contact-bar m-0 p-0">
+
+            <div class="bg-secondary-dark col-md-6 align-items-center first-part justify-content-center d-none d-md-flex">
+                    <h3 class="text-with-gradient">Devenez formateur et partenaire commercial</h3>
+            </div>
+
+
+            <div class="col-12 col-md-6 p-0 relative second-part d-flex">
+                <div class="bg-secondary-dark triangle-left"></div>
+
+                <div class="contact-bar d-flex justify-content-center">
+                    <div class="contact">
+                        <h3 class="d-flex d-md-none text-with-gradient">Vous êtes un professionnel ?</h3>
+                        <a aria-label="Accéder à notre offre professionnelle - Formation WS" href="{{ path('app_partners') }}" class="font-weight-bold btn btn-outline-info text-white">DÉCOUVREZ NOTRE OFFRE</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="row mx-auto flex-column justify-content-center align-items-center py-5">
+
+        <div class="text-with-gradient text-center pB-5 relative">
+            &lt; LEUR AVIS CHEZ NOUS /&gt; 
+        </div>
+        
+        <h2 class="text-center text-light"> Ce que nos formateurs pensent de leur expérience chez nous </h2>
+
+        <div>
+            <p class="text-light text-center my-3">
+                EXCELLENT
+                <i class="text-primary fa-solid fa-star"></i>
+                <i class="text-primary fa-solid fa-star"></i>
+                <i class="text-primary fa-solid fa-star"></i>
+                <i class="text-primary fa-solid fa-star"></i>
+                <i class="text-primary fa-solid fa-star"></i>
+
+                4.9 sur 5 basé sur <a class="text-info" href="https://www.google.com/search?q=academie+ws&oq=academie+w&aqs=chrome.0.35i39i650j46i175i199i512j69i57j69i59j46i175i199i512j69i60l3.1534j0j7&sourceid=chrome&ie=UTF-8#lrd=0x47e66ffa2afcfa71:0xbdeea1c321822bb9,1,,,,"> +75 avis</a>
+
+            <p>
+        </div>
+
+        <div class="row mx-auto col-md-10 p-3">
+
+            <div class="col-md-3 p-3">
+                    <div class="course-card card form-shadow bg-secondary-dark p-3 smallBorderRadius">
+
+                        <div class="d-flex justify-content-between">
+                            <p>
+                                <span>  
+                                    <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
+                                    <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
+                                    <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
+                                    <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
+                                    <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
+                                </span>
+                            </p>
+
+                            <i class="text-primary fa-brands fa-google"></i>
+
+                        </div>
+
+                        
+                        <div class="card-body p-0">
+                            <h5 class="card-title fw-bold text-light">Développement Front End</h5>
+                            <p class="card-text mb-3 text-info">Vraiment un très bon concept et bien élaboré</p>
+                            <div class="d-flex align-items-center"> 
+                                <img style="width:2.5rem; height:2.5rem" src="{{ asset('build/samih.png')}}" />
+                                <p class="text-light ms-3 my-0 fst-italic"> Samih Habbani </p>
+                            </div>
+                        </div>
+
+                    </div>
+                
+                </div>
+
+                <div class="col-md-3 p-3">
+                    <div class="course-card card form-shadow bg-secondary-dark p-3 smallBorderRadius">
+
+                        <div class="d-flex justify-content-between">
+                            <p>
+                                <span>  
+                                    <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
+                                    <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
+                                    <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
+                                    <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
+                                    <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
+                                </span>
+                            </p>
+
+                            <i class="text-primary fa-brands fa-google"></i>
+
+                        </div>
+
+                        
+                        <div class="card-body p-0">
+                            <h5 class="card-title fw-bold text-light">Développement Front End</h5>
+                            <p class="card-text mb-3 text-info">Vraiment un très bon concept et bien élaboré</p>
+                            <div class="d-flex align-items-center"> 
+                                <img style="width:2.5rem; height:2.5rem" src="{{ asset('build/samih.png')}}" />
+                                <p class="text-light ms-3 my-0 fst-italic"> Samih Habbani </p>
+                            </div>
+                        </div>
+
+                    </div>
+                
+                </div>
+
+                <div class="col-md-3 p-3">
+                    <div class="course-card card form-shadow bg-secondary-dark p-3 smallBorderRadius">
+
+                        <div class="d-flex justify-content-between">
+                            <p>
+                                <span>  
+                                    <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
+                                    <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
+                                    <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
+                                    <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
+                                    <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
+                                </span>
+                            </p>
+
+                            <i class="text-primary fa-brands fa-google"></i>
+
+                        </div>
+
+                        
+                        <div class="card-body p-0">
+                            <h5 class="card-title fw-bold text-light">Développement Front End</h5>
+                            <p class="card-text mb-3 text-info">Vraiment un très bon concept et bien élaboré</p>
+                            <div class="d-flex align-items-center"> 
+                                <img style="width:2.5rem; height:2.5rem" src="{{ asset('build/samih.png')}}" />
+                                <p class="text-light ms-3 my-0 fst-italic"> Samih Habbani </p>
+                            </div>
+                        </div>
+
+                    </div>
+                
+                </div>
+
+                <div class="col-md-3 p-3">
+                    <div class="course-card card form-shadow bg-secondary-dark p-3 smallBorderRadius">
+
+                        <div class="d-flex justify-content-between">
+                            <p>
+                                <span>  
+                                    <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
+                                    <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
+                                    <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
+                                    <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
+                                    <i style="font-size:0.5rem" class="text-primary fa-solid fa-star"></i>
+                                </span>
+                            </p>
+
+                            <i class="text-primary fa-brands fa-google"></i>
+
+                        </div>
+
+                        
+                        <div class="card-body p-0">
+                            <h5 class="card-title fw-bold text-light">Développement Front End</h5>
+                            <p class="card-text mb-3 text-info">Vraiment un très bon concept et bien élaboré</p>
+                            <div class="d-flex align-items-center"> 
+                                <img style="width:2.5rem; height:2.5rem" src="{{ asset('build/samih.png')}}" />
+                                <p class="text-light ms-3 my-0 fst-italic"> Samih Habbani </p>
+                            </div>
+                        </div>
+
+                    </div>
+                
+                </div>
+
+        </div>
 
     </section>
 

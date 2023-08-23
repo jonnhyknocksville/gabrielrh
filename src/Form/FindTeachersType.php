@@ -83,6 +83,46 @@ class FindTeachersType extends AbstractType
                     'placeholder' => 'Téléphone'
                 )
             ])
+            ->add('profil', TextType::class, [
+                'label' => 'Quel profil?',
+                'required' => false,
+                'row_attr' => [
+                    'class' => 'd-flex flex-column col-md-6 mb-3'
+                ],
+                'attr' => array(
+                    'placeholder' => 'Téléphone'
+                )
+            ])
+            ->add('date', TextType::class, [
+                'label' => 'Quand?',
+                'required' => false,
+                'row_attr' => [
+                    'class' => 'd-flex flex-column col-md-6 mb-3'
+                ],
+                'attr' => array(
+                    'placeholder' => 'Téléphone'
+                )
+            ])
+            ->add('localisation', TextType::class, [
+                'label' => 'Ou?',
+                'required' => false,
+                'row_attr' => [
+                    'class' => 'd-flex flex-column col-md-6 mb-3'
+                ],
+                'attr' => array(
+                    'placeholder' => 'Téléphone'
+                )
+            ])
+            ->add('theme', TextType::class, [
+                'label' => 'Pour quelle thématique?',
+                'required' => false,
+                'row_attr' => [
+                    'class' => 'd-flex flex-column col-md-6 mb-3'
+                ],
+                'attr' => array(
+                    'placeholder' => 'Téléphone'
+                )
+            ])
             ->add('motive', ChoiceType::class, [
                 'label' => 'Choisissez un motif', 
                 'placeholder' => '--',

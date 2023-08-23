@@ -66,6 +66,10 @@ ul {
     background: $secondaryDark !important;
 } 
 
+.bg-none {
+    background: none;
+}
+
 .form-shadow {
     -webkit-box-shadow: 0px 0px 15px 0px rgba(94, 36, 195, 0.1); 
     box-shadow: 0px 0px 15px 0px rgba(94, 36, 195, 0.1);
@@ -114,6 +118,15 @@ ul {
 /// HOME
 /// 
 /// 
+//
+
+#home-form {
+
+    input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: $info;
+      }
+    
+}
 
 .addedValue {
     font-size: 40px;

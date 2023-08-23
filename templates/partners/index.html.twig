@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block meta_description %} Vous êtes formateur? devenez apporteur d'affaires chez chez Formation WS.  {% endblock %}
+
+{% block title %}Devenir partenaire commercial {{parent()}} {% endblock %}
+
+{% block body %}
+
+    <div class="col-md-12 mx-auto row py-5" style="background:linear-gradient(0deg,#31092a,#0e0331)">
+
+        <div class="col-md-12">
+            <h1 class="text-center text-white"> DEVENEZ PARTENAIRE COMMERCIAL E-LEARNING </h1>
+            <h2 class="text-center text-primary"> Proposez à vos clients nos modules e-elearning  </h2>
+        </div>
+
+        <div class="col-md-12">
+            <p class="text-center text-white"> EN MARQUE BLANCHE <span class="text-primary">//</span> SUR MESURE <span class="text-primary">//</span> SOUS LICENSE <span class="text-primary">//</span> OU SOUS ABONNEMENT</p>
+        </div>
+
+        <div class="col-md-12 d-flex justify-content-center">
+            <a class="text-light smallBorderRadius colorWhite btn btn-secondary pull-right border-radius-btn mt-5 fw600 d-flex align-items-center" href="{{ path('app_contact') }}"><i class="far fa-play-circle me-2"></i>DEVENIR PARTENAIRE COMMERCIAL</a>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="row col-md-8 mx-auto mt-5">
+            <div class="d-flex col-md-12 text-left">
+                <h1 class="text-left color-grey"> <span style="color:black"> Vous êtes formateur... </span> </br> Pourquoi devenir notre partenaire commercial? </h1>
+            </div>
+            <div class="col-md-6 mb-5">
+                <p class="text-justify mb-5"> Vous êtes formateur et vous intervenez sur différentes thématiques chez vos clients, et vous souhaitez augmenter votre TJM? vous avez toqué à la bonne porte ! Chez l'Académie WS nous vous proposons de devenir apporteur d'affaires? Comment? on vous explique tout juste ici ! </p>
+                <a aria-label="Devenir partenaire commercial - Formation WS" href="{{ path('app_contact') }}" class="btn btn-primary" style="color:white !important">DEVENIR PARTENAIRE COMMERCIAL</a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row mb-5">
+
+            <div class="row col-md-8 mx-auto my-3 align-items-center">
+
+                <div class="col-md-6 d-flex justify-content-center order-2 order-sm-1">
+                    <img style="max-height:250px" src="{{ asset('uploads/images/partners/1.webp')}}" title="Des vidéos sur mesure et uniques !" alt="Des vidéos sur mesure et uniques !">
+                </div>
+
+                <div class="col-md-6 order-1 order-md-2">
+                    <div class="my-3 text-primary">FONCTIONNEMENT</div>
+                    <h3>Vous devenez apporteur d'affaires</h3>
+                    <p class="text-justify">Le principe est simple, chez l'Académie WS, nous produisons du contenu vidéo et e-learning et le proposons à nos clients (centres de formation, écoles du digital, ESN...). Nous vous proposons de devenir apporteur d'affaires et de profiter de vos interventions chez vos clients pour proposer nos vidéos. Si votre client nous commande des vidéos, <span class="text-primary font-weight-bold">vous touchez une commission sur chaque vente ! </span> Elle est pas belle la vie?</p>
+                    {# <a href="{{ path('categories') }}" class="btn btn-secondary" style="color:white !important">Accéder à nos cours</a> #}
+                </div>
+            </div>
+
+            <div class="row col-md-8 mx-auto my-3 align-items-center">
+                <div class="col-md-6" style="border-top:1px solid rgba(94, 36, 195, 0.2);padding-top:2rem;">
+                    <div class="my-3 text-primary">AVANTAGES</div>
+                    <h3>Vous n'avez rien à faire !</h3>
+                    <p class="text-justify">Pour réussir une vente, rien de plus simple, <span class="text-primary font-weight-bold">vous avez simplement besoin de montrer notre plateforme et nos vidéos à vos clients </span>, on gère tout le reste (échanges avec le client, devis, facturations, livraisons, service après vente...) L'avantage? vous optimisez vos interventions en dégageant des revenus extras, sans efforts.</p>
+                    {# <a href="{{ path('learning_paths') }}" class="btn btn-secondary" style="color:white !important">Parcours pédagogiques</a> #}
+                </div>
+
+                <div class="col-md-6 d-flex justify-content-center">
+                    <img style="max-height:250px" src="{{ asset('uploads/images/partners/2.webp')}}" title="Connaissance des différents profils d'apprenants" alt="Connaissance des différents profils d'apprenants">
+                </div>
+            </div>
+
+            <div class="row col-md-8 mx-auto my-3 align-items-center">
+
+                <div class="col-md-6 d-flex justify-content-center order-2 order-sm-1">
+                    <img style="max-height:250px" src="{{ asset('uploads/images/teacher/3.webp')}}" title="Des vidéos en marque blanche" alt="Des vidéos en marque blanche">
+                </div>
+
+                <div class="col-md-6 order-1 order-md-2">
+                    <div class="my-3 text-primary" style="border-top:1px solid rgba(94, 36, 195, 0.2);padding-top:2rem;">AVANTAGES++</div>
+                    <h3>Accès gratuit à notre plateforme</h3>
+                    <p class="text-justify">En plus d'optimiser vos TJM, nous vous donnons un <span class="text-primary font-weight-bold">accès gratuit à notre plateforme pour vous permettre de monter en compétence </span> sur plus de sujets, d'avoir accès à du contenu pédagogique pour multiplier vos interventions !</p>
+                    {# <a href="{{ path('categories') }}" class="btn btn-secondary" style="color:white !important">Accéder à nos cours</a> #}
+                    <a aria-label="Devenir formateur - Académie WS" href="{{ path('app_contact') }}" class="btn btn-primary" style="color:white !important">DEVENIR PARTENAIRE COMMERCIAL</a>
+                </div>
+            </div>
+
+    </div>
+{% endblock %}
