@@ -23,7 +23,11 @@
             </div>
         {% endfor %}
         
-        {% include 'navbar/index.html.twig' %}
+        {% if app.user %}
+            {% include 'navbar/teacher-nav.html.twig' %}
+        {% else %}
+            {% include 'navbar/index.html.twig' %}
+        {% endif %}
 
     <div class="container-fluid px-0" style="padding-top:70px;background:linear-gradient(0deg,#31092a,#0e0331);">
 

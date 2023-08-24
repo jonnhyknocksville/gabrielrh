@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CoursesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CoursesRepository::class)]
@@ -48,6 +50,14 @@ class Courses
 
     #[ORM\Column(length: 255)]
     private ?string $videoIntroduction = null;
+
+    #[ORM\OneToMany(mappedBy: 'course', targetEntity: Mission::class)]
+    private Collection $missions;
+
+    public function __construct()
+    {
+        $this->missions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -196,5 +206,39 @@ class Courses
         $this->videoIntroduction = $videoIntroduction;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Mission>
+     */
+    public function getMissions(): Collection
+    {
+        return $this->missions;
+    }
+
+    public function addMission(Mission $mission): static
+    {
+        if (!$this->missions->contains($mission)) {
+            $this->missions->add($mission);
+            $mission->setCourse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMission(Mission $mission): static
+    {
+        if ($this->missions->removeElement($mission)) {
+            // set the owning side to null (unless already changed)
+            if ($mission->getCourse() === $this) {
+                $mission->setCourse(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString(){
+        return $this->title;
     }
 }

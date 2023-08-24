@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon planning - Formation WS{% endblock %}
+
+{% block javascripts %}
+    {{parent()}}
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js" integrity="sha256-dHUNnePy81fXq4D/wfu7cPsEIP7zl6MvLb84jtZf+UY=" crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block body %}
+    <div class="row col-md-10 mx-auto p-5">
+        <div id="calendar-holder"></div>
+    </div>
+
+
+    {% if mission is defined %}
+        <section class="m-5 p-5" id="mission">
+
+            <div class="col-12 row justify-content-center">
+                <div class="icon-box col-md-10 bg-grey-light d-flex flex-column justify-content-between form-shadow smallBorderRadius">
+
+                    <h1 class="p-5"> Voici les détails de votre intervention </h1>
+
+                    <ul class="d-flex h-100 flex-column justify-content-between">
+                        <li class="d-flex align-items-center text-dark my-2 fw-bold"> <i class="fa-solid fa-user-tie icon-m me-3"></i> <span class="fw-normal fst-italic"> Client </span> : {{ mission.client.name }}  </li>
+                        <li class="d-flex align-items-center text-dark my-2 fw-bold"> <i class="fa-solid fa-person-chalkboard icon-m me-3"></i> <span class="fw-normal fst-italic"> Cours </span> : {{ mission.course.title }}  </li>
+                        <li class="d-flex align-items-center text-dark my-2 fw-bold"> <i class="fa-solid fa-play icon-m me-3"></i> <span class="fw-normal fst-italic"> Heure d'arrivée </span> : {{ mission.startTime }}  </li>
+                        <li class="d-flex align-items-center text-dark my-2 fw-bold"> <i class="fa-solid fa-calendar-days icon-m me-3"></i> <span class="fw-normal fst-italic"> Horaires </span> : {{ mission.scheduleTime }}  </li>
+                        <li class="d-flex align-items-center text-dark my-2 fw-bold"> <i class="fa-solid fa-clock icon-m me-3"></i> <span class="fw-normal fst-italic"> Nombre d'heures </span> : {{ mission.hours }}  </li>
+                        <li class="d-flex align-items-center text-dark my-2 fw-bold"> <i class="fa-solid fa-hat-cowboy icon-m me-3"></i> <span class="fw-normal fst-italic"> Responsable </span> : {{ mission.client.personInCharge }}  </li>
+                        <li class="d-flex align-items-center text-dark my-2 fw-bold"> <i class="fa-solid fa-phone icon-m me-3"></i> <span class="fw-normal fst-italic"> Téléphone </span> : {{ mission.client.phone }}  </li>
+                        <li class="d-flex align-items-center text-dark my-2 fw-bold"> <i class="fa-solid fa-location-crosshairs icon-m me-3"></i> <span class="fw-normal fst-italic"> Adresse </span> : {{ mission.client.address }} - {{ mission.client.postalCode }} {{ mission.client.city }}  </li>
+                        <li class="d-flex align-items-center text-dark my-2 fw-bold"> <i class="fa-solid fa-location-dot icon-m me-3"></i> <span class="fw-normal fst-italic"> Intervention </span> : {{ mission.intervention }}  </li>
+                        <li class="d-flex align-items-center text-dark my-2 fw-bold"> <i class="fa-solid fa-asterisk icon-m me-3"></i> <span class="fw-normal fst-italic"> Référence </span> : {{ mission.missionReference }}  </li>
+                        <li class="d-flex align-items-center text-dark my-2 fw-bold"> <i class="fa-solid fa-money-bill icon-m me-3"></i> <span class="fw-normal fst-italic"> Tarif </span> : {{ mission.remuneration }}  </li>
+                    </ul>
+
+                </div>
+            </div>
+
+        </section>
+    {% endif  %}
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', () => {
+
+    var calendarEl = document.getElementById('calendar-holder');
+    
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        locale:"fr",
+        editable: false,
+        timeZone: 'Europe/Paris',
+        headerToolbar: {
+            start: 'prev,next today',
+            center: 'title',
+            end: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        events: {{ data|raw }},
+
+    });
+    calendar.render();
+
+    if (/\d/.test(window.location.href)) {
+        $('html, body').animate({
+        scrollTop: $("#mission").offset().top
+        }, 100);
+    }
+
+
+});
+
+</script>
+
+
+{% endblock %}

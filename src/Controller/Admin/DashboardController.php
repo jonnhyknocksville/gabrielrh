@@ -5,9 +5,11 @@ namespace App\Controller\Admin;
 
 use App\Entity\Advantages;
 use App\Entity\Categories;
+use App\Entity\Clients;
 use App\Entity\Contact;
 use App\Entity\Courses;
 use App\Entity\Jobs;
+use App\Entity\Mission;
 use App\Entity\ProfessionalsNeeds;
 use App\Entity\TeacherApplication;
 use App\Entity\Themes;
@@ -61,5 +63,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-list', User::class);
         yield MenuItem::linkToCrud('Nos catégories', 'fas fa-list', Categories::class);
         yield MenuItem::linkToCrud('Advantages', 'fas fa-list', Advantages::class);
+        yield MenuItem::linkToCrud('Clients', 'fas fa-list', Clients::class);
+        yield MenuItem::linkToCrud('Missions', 'fas fa-list', Mission::class);
     }
 }
