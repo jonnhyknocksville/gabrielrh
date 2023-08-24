@@ -36,6 +36,9 @@ class Clients
     #[ORM\Column(length: 255)]
     private ?string $phone = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $backgroundColor = null;
+
     public function __construct()
     {
         $this->missions = new ArrayCollection();
@@ -148,6 +151,18 @@ class Clients
     public function setPhone(string $phone): static
     {
         $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getBackgroundColor(): ?string
+    {
+        return $this->backgroundColor;
+    }
+
+    public function setBackgroundColor(string $backgroundColor): static
+    {
+        $this->backgroundColor = $backgroundColor;
 
         return $this;
     }

@@ -30,6 +30,7 @@ class MissionCrudController extends AbstractCrudController
             TextField::new('intervention'),
             TextField::new('missionReference'),
             TextField::new('remuneration'),
+            TextField::new('backgroundColor'),
         ];
     }
     

@@ -24,7 +24,8 @@ class CalendarController extends AbstractController
                 "title" => $mission->getClient()->getName() . " - " . $mission->getCourse()->getTitle() ,
                 "start" => $mission->getBeginAt()->format("Y-m-d"),
                 "end" => $mission->getEndAt()->format("Y-m-d"),
-                "url" => $request->getUri() . "/". $mission->getId()
+                "url" => $request->getUri() . "/". $mission->getId(),
+                "backgroundColor" => $mission->getClient()->getBackgroundColor()
             ];
         }
         $data = json_encode($miss);
