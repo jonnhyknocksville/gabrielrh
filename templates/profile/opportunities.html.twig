@@ -5,8 +5,9 @@
 {% block body %}
     
     <div class="p-5">
-        <h1 class="text-light fst-italic text-center mt-5"> Voici nos offres actuelle succeptibles de t'intéresser </h1>
+        <h1 class="text-light fst-italic text-center mt-5"> Voici nos offres actuelles succeptibles de t'intéresser </h1>
 
+        <div class="row">
         {% for job in jobs %}
             <div class="col-md-3 p-3">
                 <a href="{{ path('app_jobs_details', { id : job.id}) }}">
@@ -27,13 +28,15 @@
                             <p class="text-light"><i class="text-primary fa-solid fa-share"></i> Posutler chez Formation WS </p>
                             <p class="card-text mb-3 text-info">{{ job.titleDescription }}</p>
                             
-                            <span class="text-light smallSize fst-italic"> Offre publiée le {{ job.updatedAt |date("m/d/Y") }} </span>
+                            <button class="btn btn-outline-secondary text-light"> ACCEPTER LA MISSION </button>
+                            {# <span class="text-light smallSize fst-italic"> Offre publiée le {{ job.updatedAt |date("m/d/Y") }} </span> #}
                         </div>
 
                     </div>                    
                 </a>             
             </div>
         {% endfor %}
+        </div>
     </div>
 
 {% endblock %}

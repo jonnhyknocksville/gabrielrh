@@ -110,9 +110,12 @@ class ProfileController extends AbstractController
             $listCoursesId[] = $course->getId();
         }
 
+        foreach ($listCoursesId as $key => $val) {
+            $listCoursesId[$key] = "'". $val . "'";
+        }
+
         $in = implode("," , $listCoursesId);
         $jobs = $doctrine->getRepository(Jobs::class)->findJobsByCourses($in);
-
         return $this->render('profile/opportunities.html.twig', [
             'jobs' => $jobs,
         ]);

@@ -38,12 +38,22 @@ class JobsRepository extends ServiceEntityRepository
 
    public function findJobsByCourses($listCoursesId)
    {
-    return $this->createQueryBuilder('j')
-                ->andWhere('j.course IN (:listCoursesId)')
-                ->setParameter('listCoursesId', $listCoursesId)
-                ->setMaxResults(10)
-                ->getQuery()
-                ->getResult()
-            ;
+    // return $this->createQueryBuilder('j')
+    //             ->andWhere('j.course IN (:listCoursesId)')
+    //             ->setParameter('listCoursesId', $listCoursesId)
+    //             ->setMaxResults(10)
+    //             ->getQuery()
+    //             ->getArrayResult()
+    //         ;
+
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            "SELECT j
+            FROM App\Entity\Jobs j
+            WHERE j.course IN($listCoursesId) "
+        )->setMaxResults(8);
+
+        return $query->getArrayResult();
    }
 }
