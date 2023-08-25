@@ -24,13 +24,13 @@ class MissionCrudController extends AbstractCrudController
             AssociationField::new('user'),
             DateField::new('beginAt'),
             DateField::new('endAt'),
-            TextField::new('startTime'),
+            TextField::new('startTime'), 
             TextField::new('scheduleTime'),
             TextField::new('hours'),
             TextField::new('intervention'),
             TextField::new('missionReference'),
             TextField::new('remuneration'),
-            TextField::new('backgroundColor'),
+            // TextField::new('backgroundColor'),
         ];
     }
     

@@ -55,7 +55,7 @@ class CalendarController extends AbstractController
                 "title" => $mission->getClient()->getName() . " - " . $mission->getCourse()->getTitle() ,
                 "start" => $mission->getBeginAt()->format("Y-m-d"),
                 "end" => $mission->getEndAt()->format("Y-m-d"),
-                "url" => $request->getUri()
+                "url" => $request->getUri() . "/". $mission->getId()
             ];
         }
 

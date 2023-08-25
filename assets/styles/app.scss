@@ -476,3 +476,28 @@ a svg {
         width: 100% !important;
     }
 }
+
+
+////
+/// 
+///  PROFILE
+/// 
+/// 
+/// 
+
+.course-sidebar {
+    position: fixed;
+    height: 100%;
+    width: 350px;
+    min-width: 350px;
+    background-color: #f7f7f7;
+    padding-left: 0px;
+    padding-right: 0px;
+    border-right: 1px solid #d7dadb;
+    overflow: scroll;
+    z-index: 100;
+    box-shadow: 0px 6px 20px rgb(32 39 45 / 15%);
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+}
