@@ -46,10 +46,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Courses::class, inversedBy: 'users')]
     private Collection $courses;
 
+    #[ORM\Column(length: 255)]
+    private ?string $kbis = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $vigilance = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $identity = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $diplomas = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $cv = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: StaffApplication::class)]
+    private Collection $staffApplications;
+
     public function __construct()
     {
         $this->missions = new ArrayCollection();
         $this->courses = new ArrayCollection();
+        $this->staffApplications = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -217,6 +236,96 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeCourse(Courses $course): static
     {
         $this->courses->removeElement($course);
+
+        return $this;
+    }
+
+    public function getKbis(): ?string
+    {
+        return $this->kbis;
+    }
+
+    public function setKbis(string $kbis): static
+    {
+        $this->kbis = $kbis;
+
+        return $this;
+    }
+
+    public function getVigilance(): ?string
+    {
+        return $this->vigilance;
+    }
+
+    public function setVigilance(string $vigilance): static
+    {
+        $this->vigilance = $vigilance;
+
+        return $this;
+    }
+
+    public function getIdentity(): ?string
+    {
+        return $this->identity;
+    }
+
+    public function setIdentity(string $identity): static
+    {
+        $this->identity = $identity;
+
+        return $this;
+    }
+
+    public function getDiplomas(): ?string
+    {
+        return $this->diplomas;
+    }
+
+    public function setDiplomas(string $diplomas): static
+    {
+        $this->diplomas = $diplomas;
+
+        return $this;
+    }
+
+    public function getCv(): ?string
+    {
+        return $this->cv;
+    }
+
+    public function setCv(string $cv): static
+    {
+        $this->cv = $cv;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, StaffApplication>
+     */
+    public function getStaffApplications(): Collection
+    {
+        return $this->staffApplications;
+    }
+
+    public function addStaffApplication(StaffApplication $staffApplication): static
+    {
+        if (!$this->staffApplications->contains($staffApplication)) {
+            $this->staffApplications->add($staffApplication);
+            $staffApplication->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStaffApplication(StaffApplication $staffApplication): static
+    {
+        if ($this->staffApplications->removeElement($staffApplication)) {
+            // set the owning side to null (unless already changed)
+            if ($staffApplication->getUser() === $this) {
+                $staffApplication->setUser(null);
+            }
+        }
 
         return $this;
     }

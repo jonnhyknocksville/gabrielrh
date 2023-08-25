@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Jobs;
+use App\Entity\StaffApplication;
 use App\Entity\User;
 use App\Form\ChangePasswordType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -86,9 +87,11 @@ class ProfileController extends AbstractController
             'skills' => $skills,
         ]);
     }
-    #[Route('/profile/address', name: 'app_profile_address')]
+    #[Route('/profile/infos', name: 'app_profile_infos')]
     public function address(Request $request): Response
     {
+
+
 
         return $this->render('profile/address.html.twig', [
             'controller_name' => 'ProfileController',
@@ -116,9 +119,43 @@ class ProfileController extends AbstractController
 
         $in = implode("," , $listCoursesId);
         $jobs = $doctrine->getRepository(Jobs::class)->findJobsByCourses($in);
+
+        $staffApplication = $doctrine->getRepository(StaffApplication::class)->findBy(["user" => $this->getUser()->getUserIdentifier()]);
+        $listJobsApplied = [];
+        foreach ($staffApplication as $val) {
+            $listJobsApplied[] = $val->getJob()->getId();
+        }
+
         return $this->render('profile/opportunities.html.twig', [
             'jobs' => $jobs,
+            'staffApplication' => $staffApplication,
+            'listJobsApplied' => $listJobsApplied
         ]);
+    }
+
+
+
+    #[Route('/profile/opportunities/{id}', name: 'app_profile_application')]
+    public function accept_opportunity(Request $request, 
+    PersistenceManagerRegistry $doctrine, 
+    PaginatorInterface $paginator,
+    EntityManagerInterface $entityManager,
+    int $id): Response
+    {
+
+        $staffApplication = new StaffApplication();
+        $job = $doctrine->getRepository(Jobs::class)->findBy(["id" => $id])[0];
+        $staffApplication->setDate(new \DateTime);
+        $staffApplication->setUser($this->getUser());
+        $staffApplication->setJob($job);
+
+        $entityManager->persist($staffApplication);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Vous avez bien été postulé pour cette mission !');
+
+        return $this->redirectToRoute('app_jobs_for_you');
+
     }
 
     

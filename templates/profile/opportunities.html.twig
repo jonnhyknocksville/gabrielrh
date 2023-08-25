@@ -7,6 +7,8 @@
     <div class="p-5">
         <h1 class="text-light fst-italic text-center mt-5"> Voici nos offres actuelles succeptibles de t'intéresser </h1>
 
+        {% include 'flash.html.twig' %}
+
         <div class="row">
         {% for job in jobs %}
             <div class="col-md-3 p-3">
@@ -28,7 +30,11 @@
                             <p class="text-light"><i class="text-primary fa-solid fa-share"></i> Posutler chez Formation WS </p>
                             <p class="card-text mb-3 text-info">{{ job.titleDescription }}</p>
                             
-                            <button class="btn btn-outline-secondary text-light"> ACCEPTER LA MISSION </button>
+                            {% if job.id in listJobsApplied %}
+                                <i class="fa-solid fa-circle-check text-success"></i>
+                            {% else %}
+                                <a href="{{ path('app_profile_application', { id : job.id}) }}" class="btn btn-outline-secondary text-light"> ACCEPTER LA MISSION </a>
+                            {% endif %}
                             {# <span class="text-light smallSize fst-italic"> Offre publiée le {{ job.updatedAt |date("m/d/Y") }} </span> #}
                         </div>
 

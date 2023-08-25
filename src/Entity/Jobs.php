@@ -73,9 +73,13 @@ class Jobs
     #[ORM\ManyToOne(inversedBy: 'jobs')]
     private ?Courses $course = null;
 
+    #[ORM\OneToMany(mappedBy: 'job', targetEntity: StaffApplication::class)]
+    private Collection $staffApplications;
+
     public function __construct()
     {
         $this->advantages = new ArrayCollection();
+        $this->staffApplications = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -322,4 +326,39 @@ class Jobs
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, StaffApplication>
+     */
+    public function getStaffApplications(): Collection
+    {
+        return $this->staffApplications;
+    }
+
+    public function addStaffApplication(StaffApplication $staffApplication): static
+    {
+        if (!$this->staffApplications->contains($staffApplication)) {
+            $this->staffApplications->add($staffApplication);
+            $staffApplication->setJob($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStaffApplication(StaffApplication $staffApplication): static
+    {
+        if ($this->staffApplications->removeElement($staffApplication)) {
+            // set the owning side to null (unless already changed)
+            if ($staffApplication->getJob() === $this) {
+                $staffApplication->setJob(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString(){
+        return $this->title;
+    }
+    
 }
