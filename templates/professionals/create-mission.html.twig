@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block meta_description %} Candidature spontanée chez la Formation WS. {% endblock %}
+{% block title %}Créer une mission {{parent()}}{% endblock %}
+
+{% form_theme missionForm 'bootstrap_5_layout.html.twig' %}
+
+
+{% block body %}
+
+<div class="d-flex align-items-center justify-content-center my-5">
+    <div class="row col-md-6 white justify-content-center white p-0 my-5">
+        <div class="form-shadow relative d-flex justify-content-center col-md-12 px-5 py-5 smallBorderRadius">
+            <div class="form-circle"> </div>
+
+            {% for message in app.flashes('message') %}
+                <div class="row">
+                    <div class="col-md-12 alert alert-success" role="alert">
+                        {{message}}
+                    </div>
+                </div>
+            {% endfor %}
+
+
+            {{ form_start(missionForm, {'attr': {'id': 'form-job-application', 'class':'row justify-content-center'} }) }}
+
+                <div class="col-12 mb-4">
+                    <h2 class="text-center">Devenir Formateur chez la Formation WS</h2>
+                </div>
+
+
+            {{ form_end(missionForm) }}
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
