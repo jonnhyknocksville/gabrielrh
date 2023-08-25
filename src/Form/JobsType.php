@@ -3,9 +3,13 @@
 namespace App\Form;
 
 use App\Entity\Advantages;
+use App\Entity\Categories;
 use App\Entity\Jobs;
 use App\Repository\AdvantagesRepository;
+use App\Repository\CategoriesRepository;
+use Doctrine\DBAL\Types\JsonType;
 use Doctrine\ORM\QueryBuilder;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -35,42 +39,104 @@ class JobsType extends AbstractType
                 'row_attr' => [
                     'class' => 'd-flex flex-column col-md-6 mb-3'
                 ],
-                'label' => 'Titre de la mission',
+                'label' => 'Ville où est la mission',
                 'attr' => array(
-                    'placeholder' => 'Titre de la mission'
+                    'placeholder' => 'Ville où est la mission'
                 )
             ])
-            ->add('salary')
-            ->add('contract')
-            ->add('description')
+            ->add('salary', ChoiceType::class, [
+                'label' => 'Taux horaire', 
+                'placeholder' => 'Choisissez un taux horaire',
+                'choices'  => [
+                    "20€/H" => "20€/H",
+                    "25€/H" => "25€/H",
+                    "30€/H" => "30€/H",
+                    "35€/H" => "35€/H",
+                    "40€/H" => "40€/H",
+                    "45€/H" => "45€/H",
+                    "50€/H" => "50€/H",
+                    "55€/H" => "55€/H",
+                    "60€/H" => "60€/H",
+                    "65€/H" => "65€/H",
+                    'Autres' => 'Autres',
+                ],
+                'row_attr' => [
+                    'class' => 'd-flex flex-column col-md-6 mb-3'
+                ],
+                'expanded'=>false,
+                'multiple'=>false,
+                'attr' => array(
+                    'placeholder' => 'Pays'
+                )
+                
+            ])
+            ->add('contract', ChoiceType::class, [
+                'label' => 'Type de contrat', 
+                'placeholder' => 'Choisissez un type de contrat',
+                'choices'  => [
+                    "CDI" => "CDI",
+                    "CDD" => "CDD",
+                    "FREELANCE" => "FREELANCE",
+                    'Autres' => 'Autres',
+                ],
+                'row_attr' => [
+                    'class' => 'd-flex flex-column col-md-6 mb-3'
+                ],
+                'expanded'=>false,
+                'multiple'=>false,
+                'attr' => array(
+                    'placeholder' => 'Pays'
+                )
+                
+            ])
+            ->add('location', ChoiceType::class, [
+                'label' => 'Type de contrat', 
+                'placeholder' => 'Choisissez un type de contrat',
+                'choices'  => [
+                    "SUR PLACE" => "SUR PLACE",
+                    "HYBRIDE" => "HYBRIDE",
+                    "A DISTANCE" => "A DISTANCE",
+                    'Autres' => 'Autres',
+                ],
+                'row_attr' => [
+                    'class' => 'd-flex flex-column col-md-6 mb-3'
+                ],
+                'expanded'=>false,
+                'multiple'=>false,
+                'attr' => array(
+                    'placeholder' => 'Pays'
+                )
+                
+            ])
             ->add('titleDescription', TextType::class, [
                 'row_attr' => [
-                    'class' => 'd-flex flex-column col-md-6 mb-3'
+                    'class' => 'd-flex flex-column col-md-12 mb-3'
                 ],
-                'label' => 'Titre de la mission',
+                'label' => 'Titre de la description',
                 'attr' => array(
-                    'placeholder' => 'Titre de la mission'
+                    'placeholder' => 'Précisez un titre pour la description du poste'
                 )
             ])
-            ->add('location', TextType::class, [
+            ->add('description', TextareaType::class, [
+                'mapped' => false,
                 'row_attr' => [
-                    'class' => 'd-flex flex-column col-md-6 mb-3'
+                    'class' => 'd-flex flex-column col-md-12 mb-3'
                 ],
-                'label' => 'Titre de la mission',
+                'label' => 'Description du poste',
                 'attr' => array(
-                    'placeholder' => 'Titre de la mission'
-                )
+                    'placeholder' => 'Décrivez le poste en 5-6 paragraphes maximum'
+                ),
             ])
             ->add('date', DateType::class, [
                 'row_attr' => [
                     'class' => 'd-flex flex-column col-md-6 mb-3'
                 ],
-                'label' => 'Titre de la mission',
+                'label' => 'Date de début de mission',
                 'attr' => array(
-                    'placeholder' => 'Titre de la mission'
+                    'placeholder' => 'Date du début de la mission'
                 )
             ])
-            ->add('schedule',ChoiceType::class, [
+            ->add('schedule', ChoiceType::class, [
                 'label' => 'Horaires', 
                 'placeholder' => 'Choisissez les horaires',
                 'choices'  => [
@@ -84,29 +150,70 @@ class JobsType extends AbstractType
                     'Autres' => 'Autres',
                 ],
                 'row_attr' => [
-                    'class' => 'd-flex flex-column col-md-12 mb-3'
+                    'class' => 'd-flex flex-column col-md-6 mb-3'
                 ],
                 'expanded'=>false,
                 'multiple'=>false,
                 'attr' => array(
                     'placeholder' => 'Pays'
                 )
-                
             ])
             ->add('missionDescription', TextareaType::class, [
                 'row_attr' => [
                     'class' => 'd-flex flex-column col-md-6 mb-3'
                 ],
-                'label' => 'Titre de la mission',
+                'label' => 'Décrivez la mission en ligne',
                 'attr' => array(
-                    'placeholder' => 'Titre de la mission'
+                    'placeholder' => 'Décrivez les missions principales en une ligne'
                 )
             ])
-            ->add('mainMissions')
-            ->add('profileDescription')
-            ->add('profileRequirements')
-            ->add('informations')
-            ->add('category')
+            ->add('mainMissions', TextareaType::class, [
+                'mapped' => false,
+                'row_attr' => [
+                    'class' => 'd-flex flex-column col-md-6 mb-3'
+                ],
+                'label' => 'Mission(s) principales',
+                'attr' => array(
+                    'placeholder' => 'Séparez chaque mission par un tiret (-)'
+                )
+            ])
+            ->add('profileDescription', TextType::class, [
+                'row_attr' => [
+                    'class' => 'd-flex flex-column col-md-12 mb-3'
+                ],
+                'label' => 'Profil recherché',
+                'attr' => array(
+                    'placeholder' => 'Décrivez en une phrase simple le profil recherché'
+                )
+            ])
+            ->add('profileRequirements', TextareaType::class, [
+                'mapped' => false,
+                'row_attr' => [
+                    'class' => 'd-flex flex-column col-md-6 mb-3'
+                ],
+                'label' => 'Compétences recherchées',
+                'attr' => array(
+                    'placeholder' => 'Séparez chaque compétence par un tiret (-)'
+                )
+            ])
+            ->add('informations', TextareaType::class, [
+                'mapped' => false,
+                'row_attr' => [
+                    'class' => 'd-flex flex-column col-md-6 mb-3'
+                ],
+                'label' => 'Informations clés du poste',
+                'attr' => array(
+                    'placeholder' => 'Séparez chaque information par un tiret (-)'
+                )
+            ])
+            ->add('category', EntityType::class, array(
+                'label' => "Choisissez une catégorie",
+                'placeholder' => "Choisissez une catégorie",
+                'class' => Categories::class,
+                'query_builder' => function (CategoriesRepository $er) {
+                     return $er->createQueryBuilder('c');
+                },
+            ))
             ->add('advantages', EntityType::class, [
                 'class' => Advantages::class,
                 'query_builder' => function (AdvantagesRepository $er): QueryBuilder {
@@ -118,7 +225,14 @@ class JobsType extends AbstractType
                 'expanded' => true
                 
             ])
-            ->add('course')
+            ->add('course', EntityType::class, array(
+                'label' => "Choisissez une thématique",
+                'placeholder' => "Choisissez une thématique",
+                'class' => Categories::class,
+                'query_builder' => function (CategoriesRepository $er) {
+                     return $er->createQueryBuilder('c');
+                },
+            ))
             ->add('submit', SubmitType::class, array(
                 'attr' => array(
                     'class' => 'btn btn-lg btn-primary mt-4 buttonBorderRadius text-center',
