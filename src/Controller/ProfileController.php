@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Jobs;
 use App\Entity\User;
 use App\Form\ChangePasswordType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -91,6 +92,29 @@ class ProfileController extends AbstractController
 
         return $this->render('profile/address.html.twig', [
             'controller_name' => 'ProfileController',
+        ]);
+    }
+
+    #[Route('/profile/opportunities', name: 'app_jobs_for_you')]
+    public function opportunities(Request $request, 
+    PersistenceManagerRegistry $doctrine, 
+    PaginatorInterface $paginator): Response
+    {
+
+        $user = $this->getUser();
+        $user = $doctrine->getRepository(User::class)->findBy(["id" => $user->getUserIdentifier()])[0];
+        
+        $listCoursesId = [];
+
+        foreach($user->getCourses() as $course) {
+            $listCoursesId[] = $course->getId();
+        }
+
+        $in = implode("," , $listCoursesId);
+        $jobs = $doctrine->getRepository(Jobs::class)->findJobsByCourses($in);
+
+        return $this->render('profile/opportunities.html.twig', [
+            'jobs' => $jobs,
         ]);
     }
 

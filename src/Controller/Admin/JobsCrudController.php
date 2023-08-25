@@ -24,6 +24,7 @@ class JobsCrudController extends AbstractCrudController
             TextField::new('title'),
             TextField::new('city'),
             TextField::new('salary'),
+            AssociationField::new('course'),
             TextField::new('contract'),
             ArrayField::new('description'),
             TextField::new('titleDescription'),

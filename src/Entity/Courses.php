@@ -57,10 +57,14 @@ class Courses
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'courses')]
     private Collection $users;
 
+    #[ORM\OneToMany(mappedBy: 'course', targetEntity: Jobs::class)]
+    private Collection $jobs;
+
     public function __construct()
     {
         $this->missions = new ArrayCollection();
         $this->users = new ArrayCollection();
+        $this->jobs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -268,6 +272,36 @@ class Courses
     {
         if ($this->users->removeElement($user)) {
             $user->removeCourse($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Jobs>
+     */
+    public function getJobs(): Collection
+    {
+        return $this->jobs;
+    }
+
+    public function addJob(Jobs $job): static
+    {
+        if (!$this->jobs->contains($job)) {
+            $this->jobs->add($job);
+            $job->setCourse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJob(Jobs $job): static
+    {
+        if ($this->jobs->removeElement($job)) {
+            // set the owning side to null (unless already changed)
+            if ($job->getCourse() === $this) {
+                $job->setCourse(null);
+            }
         }
 
         return $this;

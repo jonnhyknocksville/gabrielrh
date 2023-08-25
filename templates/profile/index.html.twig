@@ -7,18 +7,95 @@
     {# TODO #}
 
     {# Afficher ses infos perso #}
-    {# modifier ses infos persos #}
-    {# modifier son mdp #}
 
     {# créer un lien mdp perdu depuis la page de login #}
-    {#  afficher la page profil que si t'es connecté #}
 
     {# optimiser le backoffice pour créer des missions #}
     {# mettre des menus déroulant pour les horaires - la rémunération.... #}
 
-    {# ajouter des couleurs aux événement dans le calendar #}
+    <h1 class="text-light fst-italic text-center mt-5"> Bienvenue sur ton profil {{app.user.firstName}} </h1>
+
+        <section class="bg-secondary-dark justify-content-center align-items-center flex-column relative pb-5">
 
 
+        <div class="text-with-gradient text-center py-5 relative">
+            &lt; QUE PUIS-JE FAIRE POUR VOUS? /&gt; 
+        </div>
+
+
+        <div class="row mx-auto col-md-10 p-3">
+
+            <div class="col-md-3 p-3">
+                <div class="bg-none card p-4 form-shadow align-items-center">
+                    <a aria-label="RDV AVEC LE FORMATEUR - Formation WS" class="pb-3" href="/categories/1">
+                        <i class="fa-solid fa-clock icon-xl text-light"></i>
+                    </a>
+                    
+                    <div class="card-body p-0">
+                    
+                        <a aria-label="RDV AVEC LE FORMATEUR - Formation WS" href="">
+                            <h5 class="card-title fw-bold text-light text-center">MON PLANNING</h5>
+                            <p class="card-text text-info text-center">Accéder à mon planning</p>
+                        </a>
+                    </div>
+                </div>
+            
+            </div>
+
+            <div class="col-md-3 p-3">
+                <div class="bg-none card p-4 form-shadow align-items-center">
+                    <a aria-label="SÉRÉNITÉ - Formation WS" class="pb-3" href="/categories/1">
+                        <i class="fa-solid fa-shield-halved icon-xl text-light"></i>
+                    </a>
+                    
+                    <div class="card-body p-0">
+                    
+                        <a aria-label="SÉRÉNITÉ - Formation WS" href="">
+                            <h5 class="card-title fw-bold text-light text-center">MES CONTRATS</h5>
+                                <p class="card-text text-info text-center">Accéder à mes contrats</p>
+                        </a>
+                    </div>
+                </div>
+            
+            </div>
+
+            <div class="col-md-3 p-3">
+                <div class="bg-none card p-4 form-shadow align-items-center">
+                    <a aria-label="SÉRÉNITÉ - Formation WS" class="pb-3" href="/categories/1">
+                        <i class="fa-solid fa-file-contract icon-xl text-light"></i>
+                    </a>
+                    
+                    <div class="card-body p-0">
+                    
+                        <a aria-label="SÉRÉNITÉ - Formation WS" href="">
+                            <h5 class="card-title fw-bold text-light text-center">MES SPÉCIALITÉS</h5>
+                            <p class="card-text text-info text-center">Mes interventions</p>
+                        </a>
+                    </div>
+                </div>
+            
+            </div>
+            
+            <div class="col-md-3 p-3">
+                <div class="bg-none card p-4 form-shadow align-items-center">
+                    <a aria-label="ACOMPAGNEMENT - Formation WS" class="pb-3" href="/categories/1">
+                        <i class="fa-solid fa-handshake-angle icon-xl text-light"></i>
+                    </a>
+                    
+                    <div class="card-body p-0">
+                    
+                        <a aria-label="ACOMPAGNEMENT - Formation WS" href="">
+                            <h5 class="card-title fw-bold text-light text-center">SE FORMER</h5>
+                            <p class="card-text text-info text-center">Accéder a l'Académie WS</p>
+                        </a>
+                    </div>
+                </div>
+            
+            </div>
+
+        </div>
+
+    </section>
 
 
 {% endblock %}

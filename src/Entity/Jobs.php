@@ -70,6 +70,9 @@ class Jobs
     #[ORM\ManyToMany(targetEntity: Advantages::class, inversedBy: 'jobs')]
     private Collection $advantages;
 
+    #[ORM\ManyToOne(inversedBy: 'jobs')]
+    private ?Courses $course = null;
+
     public function __construct()
     {
         $this->advantages = new ArrayCollection();
@@ -304,6 +307,18 @@ class Jobs
     public function removeAdvantage(Advantages $advantage): static
     {
         $this->advantages->removeElement($advantage);
+
+        return $this;
+    }
+
+    public function getCourse(): ?Courses
+    {
+        return $this->course;
+    }
+
+    public function setCourse(?Courses $course): static
+    {
+        $this->course = $course;
 
         return $this;
     }

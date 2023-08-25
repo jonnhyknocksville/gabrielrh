@@ -36,13 +36,14 @@ class JobsRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Jobs
-//    {
-//        return $this->createQueryBuilder('j')
-//            ->andWhere('j.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+   public function findJobsByCourses($listCoursesId)
+   {
+    return $this->createQueryBuilder('j')
+                ->andWhere('j.course IN (:listCoursesId)')
+                ->setParameter('listCoursesId', $listCoursesId)
+                ->setMaxResults(10)
+                ->getQuery()
+                ->getResult()
+            ;
+   }
 }

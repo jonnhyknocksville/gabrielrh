@@ -1,0 +1,39 @@
+{% extends 'base-profile.html.twig' %}
+
+{% block title %}Hello ProfileController!{% endblock %}
+
+{% block body %}
+    
+    <div class="p-5">
+        <h1 class="text-light fst-italic text-center mt-5"> Voici nos offres actuelle succeptibles de t'intéresser </h1>
+
+        {% for job in jobs %}
+            <div class="col-md-3 p-3">
+                <a href="{{ path('app_jobs_details', { id : job.id}) }}">
+                    <div class="course-card card form-shadow bg-violet p-3 smallBorderRadius">
+
+                        <div class="d-flex flex-column justify-content-between mb-3">
+                            <p class="text-light m-0 fw-bold"> {{job.title}} </p>
+                            <p class="m-0 text-light smallSize fst-italic"><i class="fa-solid fa-location-dot me-1"></i> {{job.city}} </p>
+                        </div>
+
+                        <div class="mb-3">
+                            <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> {{job.salary}} </span>
+                            <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> {{ job.contract }} </span>
+                            <span class="btn btn-info p-0 px-1 m-1 smallSize fst-italic fw-bold"> {{ job.schedule }} </span>
+                        </div>
+                        
+                        <div class="card-body p-0">
+                            <p class="text-light"><i class="text-primary fa-solid fa-share"></i> Posutler chez Formation WS </p>
+                            <p class="card-text mb-3 text-info">{{ job.titleDescription }}</p>
+                            
+                            <span class="text-light smallSize fst-italic"> Offre publiée le {{ job.updatedAt |date("m/d/Y") }} </span>
+                        </div>
+
+                    </div>                    
+                </a>             
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
