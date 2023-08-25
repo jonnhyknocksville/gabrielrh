@@ -13,6 +13,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Form\Extension\Core\Type\{PasswordType, RepeatedType};
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 
 
 class UserCrudController extends AbstractCrudController
@@ -46,6 +47,7 @@ class UserCrudController extends AbstractCrudController
             TextField::new('firstName'),
             TextField::new('lastName'),
             TextField::new('email'),
+            AssociationField::new('courses'),
             ChoiceField::new('roles')->setChoices([
                 'USER' => 'ROLE_USER',
                 'ADMIN' => 'ROLE_ADMIN',

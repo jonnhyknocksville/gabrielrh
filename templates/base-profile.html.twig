@@ -16,7 +16,7 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
-    <body>
+    <body class="bg-secondary-dark">
         {% for notice in app.flashes('confirmation') %}
             <div class="alert alert-success">
                 {{ notice }}
@@ -31,10 +31,14 @@
 
     <div class="container-fluid px-0">
 
-        {% block body %}
-            
-        {% endblock %}
+        {% include 'profile/nav.html.twig' %}
 
+        <div class="" style="margin-left:350px; padding-top:70px">
+            {% block body %}
+                
+            {% endblock %}
+
+        </div>
     </div>
     </body>
 </html>

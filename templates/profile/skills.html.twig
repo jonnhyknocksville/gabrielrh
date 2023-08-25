@@ -3,9 +3,40 @@
 {% block title %}Hello ProfileController!{% endblock %}
 
 {% block body %}
-
-       {% include 'profile/nav.html.twig' %}
  
+
+	<div class="col-md-12 d-flex justify-content-center py-5">
+
+        <div class="row mx-auto col-md-10 p-3">
+
+            {% for skill in skills %}
+
+                <div class="col-md-3 p-3">
+                    <div class="course-card card form-shadow bg-none">
+                        <a aria-label="{{ skill.title }} - Formation WS" href="{{ path('app_courses_details', {id: skill.id}) }}">
+                            <img class="card-img-top smallBorderRadius" src="{{ asset('build/courses/' ~ skill.logo)}}" alt="{{ skill.title }}" title="{{ skill.title }}">
+                        </a>
+                        
+                        <div class="card-body">
+                        
+                            <a aria-label="{{ skill.title }} - Formation WS" href="">
+                                <h5 class="card-title fw-bold text-light">{{ skill.title }}</h5>
+                            </a>
+                        </div>
+                    </div>
+                
+                </div>
+
+            {% endfor %}
+
+            <div class="pb-5 col-md-12 navigation">
+                {{ knp_pagination_render(skills) }}
+            </div>  
+
+        </div>
+
+
+    </div>
 
 
 {% endblock %}

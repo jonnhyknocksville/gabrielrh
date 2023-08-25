@@ -54,9 +54,13 @@ class Courses
     #[ORM\OneToMany(mappedBy: 'course', targetEntity: Mission::class)]
     private Collection $missions;
 
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'courses')]
+    private Collection $users;
+
     public function __construct()
     {
         $this->missions = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -240,5 +244,32 @@ class Courses
 
     public function __toString(){
         return $this->title;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): static
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->addCourse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): static
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeCourse($this);
+        }
+
+        return $this;
     }
 }
