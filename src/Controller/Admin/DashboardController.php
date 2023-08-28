@@ -8,6 +8,8 @@ use App\Entity\Categories;
 use App\Entity\Clients;
 use App\Entity\Contact;
 use App\Entity\Courses;
+use App\Entity\FaqTeachers;
+use App\Entity\JobApplication;
 use App\Entity\Jobs;
 use App\Entity\Mission;
 use App\Entity\ProfessionalsNeeds;
@@ -55,18 +57,30 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+
+        yield MenuItem::section('Nos domaines d\'intervention');
         yield MenuItem::linkToCrud('Nos cours', 'fas fa-list', Courses::class);
         yield MenuItem::linkToCrud('Nos thématiques', 'fas fa-list', Themes::class);
-        yield MenuItem::linkToCrud('Nos offres', 'fas fa-list', Jobs::class);
-        yield MenuItem::linkToCrud('Besoins pros', 'fas fa-list', ProfessionalsNeeds::class);
-        yield MenuItem::linkToCrud('Candidatures', 'fas fa-list', TeacherApplication::class);
-        yield MenuItem::linkToCrud('Contact', 'fas fa-list', Contact::class);
-        yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-list', User::class);
         yield MenuItem::linkToCrud('Nos catégories', 'fas fa-list', Categories::class);
+
+
+        yield MenuItem::section('Nos offres actuelles');
+        yield MenuItem::linkToCrud('Nos offres', 'fas fa-list', Jobs::class);
         yield MenuItem::linkToCrud('Advantages', 'fas fa-list', Advantages::class);
-        yield MenuItem::linkToCrud('Clients', 'fas fa-list', Clients::class);
+        yield MenuItem::linkToCrud('FAQ', 'fas fa-list', FaqTeachers::class);
+        yield MenuItem::linkToCrud('Candidatures spontanée', 'fas fa-list', TeacherApplication::class);
+        yield MenuItem::linkToCrud('Réponses à une offre', 'fas fa-list', JobApplication::class);
+        
+        yield MenuItem::section('Staff');
+        yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-list', User::class);
         yield MenuItem::linkToCrud('Missions', 'fas fa-list', Mission::class);
         yield MenuItem::linkToCrud('StaffApplication', 'fas fa-list', StaffApplication::class);
-        yield MenuItem::linkToCrud('FAQ', 'fas fa-list', FaqTeachersCrudController::class);
+
+        yield MenuItem::section('Clients');
+        yield MenuItem::linkToCrud('Besoins pros', 'fas fa-list', ProfessionalsNeeds::class);
+        yield MenuItem::linkToCrud('Clients', 'fas fa-list', Clients::class);
+
+        yield MenuItem::section('Prise de contact');
+        yield MenuItem::linkToCrud('Contact', 'fas fa-list', Contact::class);
     }
 }
