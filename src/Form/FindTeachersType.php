@@ -6,6 +6,9 @@ use App\Entity\ProfessionalsNeeds;
 use Karser\Recaptcha3Bundle\Form\Recaptcha3Type;
 use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -90,17 +93,17 @@ class FindTeachersType extends AbstractType
                     'class' => 'd-flex flex-column col-md-6 mb-3'
                 ],
                 'attr' => array(
-                    'placeholder' => 'Téléphone'
+                    'placeholder' => 'Quel profil?'
                 )
             ])
-            ->add('date', TextType::class, [
+            ->add('date', DateType::class, [
                 'label' => 'Quand?',
                 'required' => false,
                 'row_attr' => [
                     'class' => 'd-flex flex-column col-md-6 mb-3'
                 ],
                 'attr' => array(
-                    'placeholder' => 'Téléphone'
+                    'placeholder' => 'Pour quand?'
                 )
             ])
             ->add('localisation', TextType::class, [
@@ -151,6 +154,15 @@ class FindTeachersType extends AbstractType
                     'placeholder' => 'Vos besoins'
                 )
             ])
+            ->add('submit', SubmitType::class, array(
+                'attr' => array(
+                    'class' => 'btn btn-lg btn-primary mt-4 text-light smallBorderRadius text-center',
+                ),
+                'label' => 'Demander un formateur',
+                'row_attr' => [
+                    'class' => 'text-center mb-0'
+                ]
+            ))
             ->add('captcha', Recaptcha3Type::class, [
                 'constraints' => new Recaptcha3(),
                 'action_name' => 'contact',

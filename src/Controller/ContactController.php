@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Contact;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
@@ -16,8 +18,16 @@ use App\Form\ContactType;
 class ContactController extends AbstractController
 {
 
+    private $params;
+
+    public function __construct(ParameterBagInterface $params)
+    {
+        $this->params = $params;
+    }
+
+
     #[Route('/contact', name: 'app_contact', methods: ['GET', 'POST'])]
-    public function new(Request $request, MailerInterface $mailer): Response
+    public function new(Request $request, MailerInterface $mailer, EntityManagerInterface $entityManager): Response
     {
         $contact = new Contact();
         $form = $this->createForm(ContactType::class, $contact);
@@ -25,26 +35,21 @@ class ContactController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // Technique du pot de miel pour empêcher les spams
-            // permet d'empécher les spams de nous harceler de mail
-            if(is_null($form["raison"]->getData()) or empty($form["raison"]->getData())) {
-
                 $contact->setIsRead(false);
-                $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($contact);
                 $entityManager->flush();
 
                 // Envoie d'un email à Formation WS pour le notifier
                 $email = (new TemplatedEmail())
-                ->from(new Address('contact@academiews.fr', 'Formation WS - Contact'))
-                ->to('contact@academiews.fr')
+                ->from(new Address($this->params->get('app.mail_address'), 'Formation WS - Contact'))
+                ->to($this->params->get('app.mail_address'))
                 ->subject('Message de ' . $contact->getFirstname() . ' ' . $contact->getLastname() . ' ' )
                 ->htmlTemplate('contact/email.html.twig')
                 ->context([
                     'name' => $contact->getLastName(),
                     'firstname' => $contact->getFirstName(),
                     'adressEmail' => $contact->getEmail(),
-                    'phone' => ($contact->getPhone() == null) ? "non fourni" : $contact->getPhone(),
+                    'phone' => $contact->getPhone(),
                     'message' => $contact->getMessage(),
                     'object' => $contact->getObject(),
                 ]);
@@ -52,8 +57,8 @@ class ContactController extends AbstractController
                 $mailer->send($email);
 
                 $this->addFlash('success', 'Votre message à bien été envoyé.');
-                return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
-            }
+                return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+
         }
 
 

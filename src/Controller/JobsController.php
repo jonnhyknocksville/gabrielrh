@@ -7,6 +7,7 @@ use App\Entity\Jobs;
 use App\Form\JobApplicationType;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
@@ -16,6 +17,14 @@ use Doctrine\Persistence\ManagerRegistry as PersistenceManagerRegistry;
 
 class JobsController extends AbstractController
 {
+
+    private $params;
+
+    public function __construct(ParameterBagInterface $params)
+    {
+        $this->params = $params;
+    }
+
     #[Route('/jobs', name: 'app_jobs')]
     public function index(PersistenceManagerRegistry $doctrine): Response
     {
@@ -64,8 +73,8 @@ class JobsController extends AbstractController
 
             // Envoie d'un email à Formation WS pour le notifier
             // $email = (new TemplatedEmail())
-            //     ->from(new Address('contact@academiews.fr', 'Formation WS - Recrutement'))
-            //     ->to('contact@academiews.fr')
+            //     ->from(new Address($this->params->get('app.mail_address'), 'Formation WS - Recrutement'))
+            //     ->to($this->params->get('app.mail_address'))
             //     ->subject('Nouvelle demande de Recrutement')
             //     ->htmlTemplate('job_application/email.html.twig')
             //     ->attachFromPath($jobApplication->getCvFile()->getPath() . "/" . $jobApplication->getCvFile()->getFilename())

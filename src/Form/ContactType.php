@@ -18,16 +18,6 @@ class ContactType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('raison', HiddenType::class, [
-                'row_attr' => [
-                    'class' => 'd-flex flex-column col-md-6 mb-3'
-                ],
-                'attr' => array(
-                    'placeholder' => 'Raison'
-                ),
-                'required' => false,
-                'mapped' => false
-            ])
             ->add('firstname', TextType::class, [
                 'label' => 'Prénom',
                 'row_attr' => [
@@ -57,7 +47,6 @@ class ContactType extends AbstractType
             ])
             ->add('phone', TextType::class, [
                 'label' => 'Téléphone',
-                'required' => false,
                 'row_attr' => [
                     'class' => 'd-flex flex-column col-md-6 mb-3'
                 ],
