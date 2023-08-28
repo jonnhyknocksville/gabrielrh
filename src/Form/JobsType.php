@@ -4,16 +4,16 @@ namespace App\Form;
 
 use App\Entity\Advantages;
 use App\Entity\Categories;
+use App\Entity\Courses;
 use App\Entity\Jobs;
 use App\Repository\AdvantagesRepository;
 use App\Repository\CategoriesRepository;
-use Doctrine\DBAL\Types\JsonType;
+use App\Repository\CoursesRepository;
 use Doctrine\ORM\QueryBuilder;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -136,6 +136,22 @@ class JobsType extends AbstractType
                     'placeholder' => 'Date du début de la mission'
                 )
             ])
+
+            ->add('updatedAt', DateType::class, [
+                'row_attr' => [
+                    'class' => 'd-flex flex-column col-md-12 mb-3'
+                ],
+                'label' => 'Mis à jour le',
+                'attr' => array(
+                    'placeholder' => 'Mis à jour le'
+                )
+            ])
+
+            ->add('available', CheckboxType::class, [
+                'row_attr' => [
+                    'class' => 'd-flex flex-column col-md-6 mb-3'
+                ],
+            ])
             ->add('schedule', ChoiceType::class, [
                 'label' => 'Horaires', 
                 'placeholder' => 'Choisissez les horaires',
@@ -217,8 +233,8 @@ class JobsType extends AbstractType
             ->add('course', EntityType::class, array(
                 'label' => "Choisissez une thématique",
                 'placeholder' => "Choisissez une thématique",
-                'class' => Categories::class,
-                'query_builder' => function (CategoriesRepository $er) {
+                'class' => Courses::class,
+                'query_builder' => function (CoursesRepository $er) {
                      return $er->createQueryBuilder('c');
                 },
             ))
