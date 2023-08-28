@@ -76,10 +76,14 @@ class Jobs
     #[ORM\OneToMany(mappedBy: 'job', targetEntity: StaffApplication::class)]
     private Collection $staffApplications;
 
+    #[ORM\OneToMany(mappedBy: 'job', targetEntity: JobApplication::class)]
+    private Collection $jobApplications;
+
     public function __construct()
     {
         $this->advantages = new ArrayCollection();
         $this->staffApplications = new ArrayCollection();
+        $this->jobApplications = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -359,6 +363,36 @@ class Jobs
 
     public function __toString(){
         return $this->title;
+    }
+
+    /**
+     * @return Collection<int, JobApplication>
+     */
+    public function getJobApplications(): Collection
+    {
+        return $this->jobApplications;
+    }
+
+    public function addJobApplication(JobApplication $jobApplication): static
+    {
+        if (!$this->jobApplications->contains($jobApplication)) {
+            $this->jobApplications->add($jobApplication);
+            $jobApplication->setJob($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJobApplication(JobApplication $jobApplication): static
+    {
+        if ($this->jobApplications->removeElement($jobApplication)) {
+            // set the owning side to null (unless already changed)
+            if ($jobApplication->getJob() === $this) {
+                $jobApplication->setJob(null);
+            }
+        }
+
+        return $this;
     }
     
 }

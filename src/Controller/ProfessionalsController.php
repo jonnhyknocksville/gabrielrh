@@ -69,7 +69,7 @@ class ProfessionalsController extends AbstractController
     }
 
 
-    #[Route('/professionals/create/mission', name: 'find_teachers')]
+    #[Route('/professionals/create/mission', name: 'app_create_mission')]
     public function create_mission(Request $request,
      MailerInterface $mailer,
      EntityManagerInterface $entityManager,

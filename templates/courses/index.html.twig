@@ -239,10 +239,14 @@
 			<div class="text-light offset-md-3 col-md-8 d-flex flex-column">
 				<h3>Prérequis</h3>
 
-				{% for requirement in course.requirements %}
-					<p><i class="fa-regular fa-star mx-3"></i> {{ requirement }} </p>
+				{% if course.requirements is not null %}
+					{% for requirement in course.requirements %}
+						<p><i class="fa-regular fa-star mx-3"></i> {{ requirement }} </p>
 
-				{% endfor %}
+					{% endfor %}
+				{% else %}
+					<p><i class="fa-solid fa-thumbs-up mx-3"></i></i> Pas de pré-requis particulier pour ce cours ! </p>
+				{% endif %}
 			</div>
 
 		</div>

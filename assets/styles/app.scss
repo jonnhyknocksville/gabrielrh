@@ -391,6 +391,8 @@ a svg {
 
 #article-social-networks {
 
+    z-index: 9999999999;
+
     svg {
         transition: transform .7s ease-in-out;
       }
@@ -510,4 +512,66 @@ a svg {
 
 .cursor-pointer {
     cursor: pointer;
+}
+
+///
+/// 
+/// RESPONSIVE WEB DESIGN
+/// 
+/// 
+
+html, body {
+    overflow-x: hidden;
+  }
+body {
+    position: relative
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 601px) {
+
+
+
+}
+
+@media only screen and (max-width: 767px) {
+
+
+   
+}
+
+/* Large devices (laptops/desktops/large screen, 768px and up) */
+@media only screen and (min-width: 768px) {
+
+
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+
+}
+
+@media only screen and (max-width: 991px) {
+
+    #container-iframe-home {
+        padding:57% 0 0 0 !important;
+    }
+
+
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+
+    
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+
 }

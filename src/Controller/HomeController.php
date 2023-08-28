@@ -26,7 +26,7 @@ class HomeController extends AbstractController
         }
 
         // Récupération des thèmes
-        $themes = $doctrine->getRepository(Themes::class)->findAll();
+        $themes = $doctrine->getRepository(Themes::class)->findMax6();
         return $this->render('home/index.html.twig', [
             'themes' => $themes,
             'pro_need' => $form

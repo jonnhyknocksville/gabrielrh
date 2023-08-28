@@ -21,20 +21,17 @@ class ThemesRepository extends ServiceEntityRepository
         parent::__construct($registry, Themes::class);
     }
 
-//    /**
-//     * @return Themes[] Returns an array of Themes objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('t.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+   /**
+    * @return Themes[] Returns an array of Themes objects
+    */
+   public function findMax6(): array
+   {
+       return $this->createQueryBuilder('t')
+           ->setMaxResults(8)
+           ->getQuery()
+           ->getResult()
+       ;
+   }
 
 //    public function findOneBySomeField($value): ?Themes
 //    {

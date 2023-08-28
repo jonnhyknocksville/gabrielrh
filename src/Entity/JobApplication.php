@@ -39,6 +39,9 @@ class JobApplication
     private ?string $cv = null;
 
     #[ORM\Column(length: 255)]
+    private $namerCV;
+
+    #[ORM\Column(length: 255)]
     private ?string $motivation = null;
 
     #[ORM\Column(length: 255)]
@@ -49,6 +52,9 @@ class JobApplication
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $updatedAt = null;
+
+    #[ORM\ManyToOne(inversedBy: 'jobApplications')]
+    private ?Jobs $job = null;
 
     public function setCvFile(?File $imageFile = null): void
     {
@@ -187,6 +193,30 @@ class JobApplication
     public function setDiploma(string $diploma): static
     {
         $this->diploma = $diploma;
+
+        return $this;
+    }
+
+    public function getJob(): ?Jobs
+    {
+        return $this->job;
+    }
+
+    public function setJob(?Jobs $job): static
+    {
+        $this->job = $job;
+
+        return $this;
+    }
+
+    public function getNamerCV(): ?string
+    {
+        return $this->namerCV;
+    }
+
+    public function setNamerCV(string $namerCV): self
+    {
+        $this->namerCV = $namerCV;
 
         return $this;
     }

@@ -42,43 +42,52 @@ class JobsController extends AbstractController
     }
 
     #[Route('/jobs/application/{id}', name: 'app_jobs_application')]
-    public function apply(Request $request, MailerInterface $mailer): Response
+    public function apply(Request $request, MailerInterface $mailer, PersistenceManagerRegistry $doctrine, $id): Response
     {
-        $teacherApplication = new JobApplication();
-        $form = $this->createForm(JobApplicationType::class, $teacherApplication);
+        $jobApplication = new JobApplication();
+        $form = $this->createForm(JobApplicationType::class, $jobApplication, ['allow_extra_fields' =>true]);
         $form->handleRequest($request);
 
+        $jobInfo = $doctrine->getRepository(Jobs::class)->findBy(['id' => $id])[0];
+
+        // dd($form->getErrors());
         if ($form->isSubmitted() && $form->isValid()) {
-            // Je définis le nom du CV en BDD pour pouvoir le récupérer esnuite grâce à VichUploader.
-            $teacherApplication->setNamerCV('CV ' . $teacherApplication->getLastName() . " " . $teacherApplication->getFirstName());
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($teacherApplication);
+
+            $id_job = $form['job']->getData();
+            $job = $doctrine->getRepository(Jobs::class)->findBy(['id' => $id_job])[0];
+            $jobApplication->setJob($job);
+            $jobApplication->setNamerCV($jobApplication->getLastName() . "_" . $jobApplication->getFirstName());
+
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist($jobApplication);
             $entityManager->flush();
 
             // Envoie d'un email à Formation WS pour le notifier
-            $email = (new TemplatedEmail())
-                ->from(new Address('contact@academiews.fr', 'Formation WS - Recrutement'))
-                ->to('contact@academiews.fr')
-                ->subject('Nouvelle demande de Recrutement')
-                ->htmlTemplate('job_application/email.html.twig')
-                ->attachFromPath($teacherApplication->getCvFile()->getPath() . "/" . $teacherApplication->getCvFile()->getFilename())
-                ->context([
-                    'name' => $teacherApplication->getLastName(),
-                    'firstname' => $teacherApplication->getFirstName(),
-                    'adressEmail' => $teacherApplication->getEmail(),
-                    'phone' => $teacherApplication->getPhone(),
-                    'message' => $teacherApplication->getMessage(),
-                    'motif' => $teacherApplication->getMotif()
-                ]);
+            // $email = (new TemplatedEmail())
+            //     ->from(new Address('contact@academiews.fr', 'Formation WS - Recrutement'))
+            //     ->to('contact@academiews.fr')
+            //     ->subject('Nouvelle demande de Recrutement')
+            //     ->htmlTemplate('job_application/email.html.twig')
+            //     ->attachFromPath($jobApplication->getCvFile()->getPath() . "/" . $jobApplication->getCvFile()->getFilename())
+            //     ->context([
+            //         'name' => $jobApplication->getLastName(),
+            //         'firstname' => $jobApplication->getFirstName(),
+            //         'adressEmail' => $jobApplication->getEmail(),
+            //         'phone' => $jobApplication->getPhone(),
+            //         'message' => $jobApplication->getMessage(),
+            //         'motif' => $jobApplication->getMotif()
+            //     ]);
 
-            $mailer->send($email);
+            // $mailer->send($email);
 
             $this->addFlash('success', 'Votre message à bien été envoyé.');
-            return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('jobs/application.html.twig', [
-            'job_application' => $teacherApplication,
+            'job_application' => $jobApplication,
+            'jobInfo' => $jobInfo,
+            'id_job' => $id,
             'applicationForm' => $form->createView(),
         ]);
     }

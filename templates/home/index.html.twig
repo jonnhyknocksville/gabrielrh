@@ -1,7 +1,7 @@
 {% extends 'base-dark.html.twig' %}
 
 {% block meta_description %} La société Formation WS est spécialisée dans le placement de formateur et de consultant dans le monde du digital. {% endblock %}
-{% block title %}Accueil {{parent()}} {% endblock %}
+{% block title %}Placement de formateurs {{parent()}} {% endblock %}
 
 {% form_theme pro_need 'bootstrap_5_layout.html.twig' %}
 
@@ -13,14 +13,14 @@
     <section>
         <h1 class="my-5 text-white text-center"> Trouvez le formateur idéal pour une formation réussie ! </h1>
 
-        <div class="row d-flex col-md-10 mx-auto">
+        <div class="row d-flex col-md-10 mx-auto p-2">
 
-            <div class="col-md-6 form-shadow" style="padding:28% 0 0 0;position:relative;">
+            <div class="col-12 col-lg-6 form-shadow" id="container-iframe-home" style="padding:28% 0 0 0;position:relative;">
                 <iframe src="https://player.vimeo.com/video/835006242?h=1b1d19f4e7" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="00 - La syntaxe en PHP">
                 </iframe>
             </div>
 
-            <div class="col-md-6 px-5" id="home-form">
+            <div class="d-flex justify-content-center col-12 col-lg-6 mt-5 mt-lg-0 px-lg-5" id="home-form">
                 {{ form_start(pro_need, {"attr": {"class": "bg-violet form-shadow h-100 col-md-12 row px-5 py-5 justify-content-center text-light" } }) }}
                     <div class="col-md-12">
                         <h1 class="h3 mb-3 font-weight-normal text-center">Commandez une intervention formateur</h1>
@@ -136,7 +136,7 @@
 
             <div class="d-flex justify-content-center mb-5">
                 <a aria-label="Commander un formateur - Formation WS" class="mt-5 font-weight-bold btn btn-outline-secondary text-white mx-3" href="{{path('professionals')}}" role="button">CHERCHER UN FORMATEUR</a>
-                <a aria-label="Devenir formateur - Formation WS" class="mt-5 font-weight-bold btn btn-outline-primary text-white mx-3" href="{{path('teachers')}}" role="button">NOS OFFRES ACTUELLES</a>
+                <a aria-label="Devenir formateur - Formation WS" class="mt-5 font-weight-bold btn btn-outline-primary text-white mx-3" href="{{path('app_jobs')}}" role="button">NOS OFFRES ACTUELLES</a>
             </div>
 
         </div>
@@ -274,11 +274,11 @@
 
                         
                         <div class="card-body p-0">
-                            <h5 class="card-title fw-bold text-light">Développement Front End</h5>
-                            <p class="card-text mb-3 text-info">Vraiment un très bon concept et bien élaboré</p>
+                            <h5 class="card-title fw-bold text-light">Développeur web mobile</h5>
+                            <p class="card-text mb-3 text-info">Formateurs de qualité, bonne pédagogie qui m'a permis de devenir développeur web. Merci !</p>
                             <div class="d-flex align-items-center"> 
-                                <img style="width:2.5rem; height:2.5rem" src="{{ asset('build/samih.png')}}" />
-                                <p class="text-light ms-3 my-0 fst-italic"> Samih Habbani </p>
+                                <img style="width:2.5rem; height:2.5rem" class="smallBorderRadius" src="{{ asset('build/anton.jpeg')}}" />
+                                <p class="text-light ms-3 my-0 fst-italic"> Anton Voleanin </p>
                             </div>
                         </div>
 
@@ -306,11 +306,11 @@
 
                         
                         <div class="card-body p-0">
-                            <h5 class="card-title fw-bold text-light">Développement Front End</h5>
-                            <p class="card-text mb-3 text-info">Vraiment un très bon concept et bien élaboré</p>
+                            <h5 class="card-title fw-bold text-light">Concepteur développeur d'application</h5>
+                            <p class="card-text mb-3 text-info">Des formateurs à la page, pédagogue qui aiment transmettre. Bravo.</p>
                             <div class="d-flex align-items-center"> 
-                                <img style="width:2.5rem; height:2.5rem" src="{{ asset('build/samih.png')}}" />
-                                <p class="text-light ms-3 my-0 fst-italic"> Samih Habbani </p>
+                                <img style="width:2.5rem; height:2.5rem" class="smallBorderRadius" src="{{ asset('build/antoine.jpg')}}" />
+                                <p class="text-light ms-3 my-0 fst-italic"> Antoine Lalouat </p>
                             </div>
                         </div>
 
@@ -338,11 +338,11 @@
 
                         
                         <div class="card-body p-0">
-                            <h5 class="card-title fw-bold text-light">Développement Front End</h5>
-                            <p class="card-text mb-3 text-info">Vraiment un très bon concept et bien élaboré</p>
+                            <h5 class="card-title fw-bold text-light">Montage vidéo premier pro</h5>
+                            <p class="card-text mb-3 text-info">Superbe formation en montage vidéo sur la suite adobe. Formateurs patients et professionnels.</p>
                             <div class="d-flex align-items-center"> 
-                                <img style="width:2.5rem; height:2.5rem" src="{{ asset('build/samih.png')}}" />
-                                <p class="text-light ms-3 my-0 fst-italic"> Samih Habbani </p>
+                                <img style="width:2.5rem; height:2.5rem" class="smallBorderRadius" src="{{ asset('build/elodie.jpeg')}}" />
+                                <p class="text-light ms-3 my-0 fst-italic" > Elodie Debuire </p>
                             </div>
                         </div>
 
@@ -370,11 +370,11 @@
 
                         
                         <div class="card-body p-0">
-                            <h5 class="card-title fw-bold text-light">Développement Front End</h5>
-                            <p class="card-text mb-3 text-info">Vraiment un très bon concept et bien élaboré</p>
+                            <h5 class="card-title fw-bold text-light">Droit multimédia</h5>
+                            <p class="card-text mb-3 text-info">Bonne transmission des connaissances pour la rédaction de RGPD en ligne. J'ai beaucoup appris. Merci !</p>
                             <div class="d-flex align-items-center"> 
-                                <img style="width:2.5rem; height:2.5rem" src="{{ asset('build/samih.png')}}" />
-                                <p class="text-light ms-3 my-0 fst-italic"> Samih Habbani </p>
+                                <img style="width:2.5rem; height:2.5rem" class="smallBorderRadius" src="{{ asset('build/s-cacheux.jpeg')}}" />
+                                <p class="text-light ms-3 my-0 fst-italic"> S. Cacheux </p>
                             </div>
                         </div>
 
@@ -445,7 +445,7 @@
                     </div>
 
                     <div class="d-flex justify-content-center">
-                        <a class="px-3 py-3 smallBorderRadius btn btn-outline-secondary d-flex align-items-center text-light" href="">
+                        <a class="px-3 py-3 smallBorderRadius btn btn-outline-secondary d-flex align-items-center text-light" href="{{path('app_elearning')}}">
                             <i class="fa-solid fa-plus me-2"></i>
                             En SAVOIR PLUS SUR NOS FORMATIONS VIDÉOS
                         </a>                
@@ -541,11 +541,11 @@
 
                         
                         <div class="card-body p-0">
-                            <h5 class="card-title fw-bold text-light">Développement Front End</h5>
-                            <p class="card-text mb-3 text-info">Vraiment un très bon concept et bien élaboré</p>
+                            <h5 class="card-title fw-bold text-light">Formatrice en montage vidéo</h5>
+                            <p class="card-text mb-3 text-info">Bonne équipe, bonne ambiance et des prestations proposées régulièrement ! ps : formatrice depuis 2 ans</p>
                             <div class="d-flex align-items-center"> 
-                                <img style="width:2.5rem; height:2.5rem" src="{{ asset('build/samih.png')}}" />
-                                <p class="text-light ms-3 my-0 fst-italic"> Samih Habbani </p>
+                                <img style="width:2.5rem; height:2.5rem" class="smallBorderRadius" src="{{ asset('build/s-cacheux.jpeg')}}" />
+                                <p class="text-light ms-3 my-0 fst-italic"> Shaade H. </p>
                             </div>
                         </div>
 
@@ -573,11 +573,11 @@
 
                         
                         <div class="card-body p-0">
-                            <h5 class="card-title fw-bold text-light">Développement Front End</h5>
-                            <p class="card-text mb-3 text-info">Vraiment un très bon concept et bien élaboré</p>
+                            <h5 class="card-title fw-bold text-light">Formateur en management</h5>
+                            <p class="card-text mb-3 text-info">Equipe sérieuse, emploi du temps prévu à l'avance, aucun retard sur les paiements, je recommande.</p>
                             <div class="d-flex align-items-center"> 
-                                <img style="width:2.5rem; height:2.5rem" src="{{ asset('build/samih.png')}}" />
-                                <p class="text-light ms-3 my-0 fst-italic"> Samih Habbani </p>
+                                <img style="width:2.5rem; height:2.5rem" class="smallBorderRadius" src="{{ asset('build/monkid.jpeg')}}" />
+                                <p class="text-light ms-3 my-0 fst-italic"> Monkid B. </p>
                             </div>
                         </div>
 
@@ -605,11 +605,11 @@
 
                         
                         <div class="card-body p-0">
-                            <h5 class="card-title fw-bold text-light">Développement Front End</h5>
-                            <p class="card-text mb-3 text-info">Vraiment un très bon concept et bien élaboré</p>
+                            <h5 class="card-title fw-bold text-light">Formateur en programmation</h5>
+                            <p class="card-text mb-3 text-info">J'ai démarré ma carrière chez formation ws depuis 2 ans, formations au top, équipe professionnelle, merci !</p>
                             <div class="d-flex align-items-center"> 
-                                <img style="width:2.5rem; height:2.5rem" src="{{ asset('build/samih.png')}}" />
-                                <p class="text-light ms-3 my-0 fst-italic"> Samih Habbani </p>
+                                <img style="width:2.5rem; height:2.5rem" class="smallBorderRadius" src="{{ asset('build/quentin.jpeg')}}" />
+                                <p class="text-light ms-3 my-0 fst-italic"> Quentin V. </p>
                             </div>
                         </div>
 
@@ -637,11 +637,11 @@
 
                         
                         <div class="card-body p-0">
-                            <h5 class="card-title fw-bold text-light">Développement Front End</h5>
-                            <p class="card-text mb-3 text-info">Vraiment un très bon concept et bien élaboré</p>
+                            <h5 class="card-title fw-bold text-light">Formatrice en droit</h5>
+                            <p class="card-text mb-3 text-info">Bonne organisation, équipe au petit soin, liberté de choisir nos plannings, je recommande !</p>
                             <div class="d-flex align-items-center"> 
-                                <img style="width:2.5rem; height:2.5rem" src="{{ asset('build/samih.png')}}" />
-                                <p class="text-light ms-3 my-0 fst-italic"> Samih Habbani </p>
+                                <img style="width:2.5rem; height:2.5rem" class="smallBorderRadius" src="{{ asset('build/leila.jpeg')}}" />
+                                <p class="text-light ms-3 my-0 fst-italic"> Sara H. </p>
                             </div>
                         </div>
 
