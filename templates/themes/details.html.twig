@@ -45,7 +45,7 @@
                         
                         <div class="card-body">
                         
-                            <a aria-label="{{ theme.title }} - Formation WS" href="">
+                            <a aria-label="{{ theme.title }} - Formation WS" href="{{ path('app_courses_details', {id: theme.id}) }}"">
                                 <h5 class="card-title fw-bold text-light">{{ theme.title }}</h5>
                                 <p class="card-text mb-3 text-info">{{ theme.description }}</p>
                             </a>

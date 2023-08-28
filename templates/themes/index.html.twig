@@ -42,7 +42,7 @@
                         </a>
                         
                         <div class="card-body">
-                            <a aria-label="{{ theme.title }} - Formation WS" href="">
+                            <a aria-label="{{ theme.title }} - Formation WS" href="{{ path('app_themes_details', {id: theme.id}) }}">
                                 <h5 class="card-title fw-bold text-light">{{ theme.title }}</h5>
                                 <p class="card-text mb-3 text-info">{{ theme.description }}</p>
                             </a>
@@ -52,7 +52,7 @@
                 </div>
             {% endfor %}
 
-            <div class="pb-5 col-md-8 navigation">
+            <div class="pb-5 col-md-12 navigation">
                 {{ knp_pagination_render(themes) }}
             </div>  
 

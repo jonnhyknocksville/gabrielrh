@@ -191,15 +191,13 @@
                 {% for advantage in job.advantages %}
                     <div class="col-md-3 p-3">
                         <div class="bg-none card p-4 form-shadow align-items-center">
-                            <a aria-label="{{ advantage.title }} - Formation WS" class="pb-3" href="/categories/1">
+                            <a aria-label="{{ advantage.title }} - Formation WS" class="pb-3" href="{{path('app_jobs_application', {id : job.id})}}">
                                 {{ advantage.logo | raw }}
                             </a>
 
                             <div class="card-body p-0">
-                                <a aria-label="{{ advantage.title }} - Formation WS" href="">
-                                    <h5 class="card-title fw-bold text-light text-center">{{ advantage.title }}</h5>
-                                    <p class="card-text text-info text-center">{{ advantage.description }}</p>
-                                </a>
+                                <h5 class="card-title fw-bold text-light text-center">{{ advantage.title }}</h5>
+                                <p class="card-text text-info text-center">{{ advantage.description }}</p>
                             </div>
                         </div>
 
