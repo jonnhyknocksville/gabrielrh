@@ -17,11 +17,18 @@ class HomeController extends AbstractController
     public function index(Request $request, PersistenceManagerRegistry $doctrine): Response
     {
 
-        $contact = new ProfessionalsNeeds();
-        $form = $this->createForm(FindTeachersType::class, $contact);
+        $need = new ProfessionalsNeeds();
+        $form = $this->createForm(FindTeachersType::class, $need);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            return $this->redirectToRoute('find_teachers_pre_field', 
+            array('profile' => $need->getProfil(), 
+            'date' => $need->getDate()->format('Y-m-d'), 
+            'city' => $need->getLocalisation(), 
+            'theme' => $need->getTheme()->getId() ));
+
 
         }
 

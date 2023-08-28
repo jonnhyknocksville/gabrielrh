@@ -2,9 +2,14 @@
 
 namespace App\Form;
 
+use App\Entity\Categories;
 use App\Entity\ProfessionalsNeeds;
+use App\Repository\CategoriesRepository;
+use App\Repository\ThemesRepository;
 use Karser\Recaptcha3Bundle\Form\Recaptcha3Type;
 use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3;
+use Proxies\__CG__\App\Entity\Themes;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -50,7 +55,7 @@ class FindTeachersType extends AbstractType
             ])
             ->add('current_job', ChoiceType::class, [
                 'label' => 'Choisissez un poste', 
-                'placeholder' => '--',
+                'placeholder' => 'Quel est votre poste actuel?',
                 'choices'  => [
                     'Responsable pédagogique' => 'Responsable pédagogique',
                     'Directeur/Directrice' => 'Directeur/Directrice',
@@ -86,15 +91,19 @@ class FindTeachersType extends AbstractType
                     'placeholder' => 'Téléphone'
                 )
             ])
-            ->add('profil', TextType::class, [
-                'label' => 'Quel profil?',
-                'required' => false,
+            ->add('profil', ChoiceType::class, [
+                'label' => 'Quel profil?', 
+                'placeholder' => 'Choisissez un profil',
+                'choices'  => [
+                    'Formateur' => 'Formateur',
+                    'Consultant' => 'Consultant',
+                    'Autres' => 'Autres',
+                ],
                 'row_attr' => [
                     'class' => 'd-flex flex-column col-md-6 mb-3'
                 ],
-                'attr' => array(
-                    'placeholder' => 'Quel profil?'
-                )
+                'expanded'=>false,
+                'multiple'=>false,
             ])
             ->add('date', DateType::class, [
                 'label' => 'Quand?',
@@ -104,28 +113,32 @@ class FindTeachersType extends AbstractType
                 ],
                 'attr' => array(
                     'placeholder' => 'Pour quand?'
-                )
+                ),
+                'placeholder' => array('year' => 'Année', 'month' => 'Mois', 'day' => 'Jour' )
             ])
             ->add('localisation', TextType::class, [
-                'label' => 'Ou?',
+                'label' => 'Où?',
                 'required' => false,
                 'row_attr' => [
                     'class' => 'd-flex flex-column col-md-6 mb-3'
                 ],
                 'attr' => array(
-                    'placeholder' => 'Téléphone'
+                    'placeholder' => 'Où?'
                 )
             ])
-            ->add('theme', TextType::class, [
-                'label' => 'Pour quelle thématique?',
-                'required' => false,
+            ->add('theme', EntityType::class, array(
+                'label' => "Choisissez une thématique",
+                'placeholder' => "Choisissez une thématique",
                 'row_attr' => [
                     'class' => 'd-flex flex-column col-md-6 mb-3'
                 ],
-                'attr' => array(
-                    'placeholder' => 'Téléphone'
-                )
-            ])
+                'class' => Themes::class,
+                'query_builder' => function (ThemesRepository $er) {
+                     return $er->createQueryBuilder('c');
+                },
+                'choice_label' => 'title',
+                'choice_value' => 'id',
+            ))
             ->add('motive', ChoiceType::class, [
                 'label' => 'Choisissez un motif', 
                 'placeholder' => '--',

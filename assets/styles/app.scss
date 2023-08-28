@@ -34,6 +34,12 @@ ul {
     list-style: none;
 }
 
+legend {
+    margin-bottom: 0.5rem !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
 ///////
 /// ///
 /// ///
@@ -157,6 +163,9 @@ ul {
     z-index: 9999;
 }
 
+#find_teachers_date_day, #find_teachers_date_month, #find_teachers_date_year {
+    background: $info;
+} 
 
 ///////
 /// ///

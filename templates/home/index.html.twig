@@ -26,10 +26,12 @@
                     <div class="col-md-12">
                         <h1 class="h3 mb-3 font-weight-normal text-center">Commandez une intervention formateur</h1>
                     </div>
-                    {{ form_row(pro_need.profil, {'attr': {'class': 'bg-none'}}) }}
-                    {{ form_row(pro_need.date, {'attr': {'class': 'bg-none'}}) }}
+                    {{ form_row(pro_need.profil, {'attr': {'class': 'bg-none text-info'}}) }}
+                    {{ form_row(pro_need.date, {'attr': {'class': 'bg-info text-light'}}) }}
                     {{ form_row(pro_need.localisation, {'attr': {'class': 'bg-none'}}) }}
-                    {{ form_row(pro_need.theme, {'attr': {'class': 'bg-none'}}) }}
+                    {{ form_row(pro_need.theme, {'attr': {'class': 'bg-none text-info'}}) }}
+                    {{ form_row(pro_need.captcha) }}
+                    {{ form_row(pro_need._token) }}
 
                     <button type="submit" class="text-light btn btn-lg btn-outline-info mt-4 col-md-6 buttonBorderRadius">Je commande</button>
                 {{ form_end(pro_need, {'render_rest': false}) }}

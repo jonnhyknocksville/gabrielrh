@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Jobs;
 use App\Entity\ProfessionalsNeeds;
+use App\Entity\Themes;
 use App\Form\JobsType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -73,9 +74,67 @@ class ProfessionalsController extends AbstractController
         return $this->render('professionals/needs.html.twig', [
             'contact' => $contact,
             'teachersForm' => $form->createView(),
+            'prefilled' => false
         ]);
     }
 
+    #[Route('/professionals/find/{profile}/{date}/{city}/{theme}', name: 'find_teachers_pre_field')]
+    public function preField(Request $request, 
+    MailerInterface $mailer, 
+    EntityManagerInterface $entityManager,
+    PersistenceManagerRegistry $doctrine,
+    $profile, $date, $city, $theme): Response
+    {
+
+        $need = new ProfessionalsNeeds();
+
+        $need->setProfil($profile);
+        $need->setDate(new \DateTime($date));
+        $need->setLocalisation($city);
+        $theme = $doctrine->getRepository(Themes::class)->findBy(["id" => $theme])[0];
+        $need->setTheme($theme);
+        $need->setMotive('J\'ai besoin de formateurs');
+        $need->setMessage('Pouvez-vous me trouver un formateur en... ');
+        
+        // dd($need);
+
+        $form = $this->createForm(FindTeachersType::class, $need);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $entityManager->persist($need);
+            $entityManager->flush();
+
+            // // Envoie d'un email à Formation WS pour le notifier
+            // $email = (new TemplatedEmail())
+            // ->from(new Address($this->params->get('app.mail_address'), 'Formation WS - Collaboration'))
+            // ->to($this->params->get('app.mail_address'))
+            // ->subject('Message de ' . $need->getFirstname() . ' ' . $need->getLastname() . ' ' )
+            // ->htmlTemplate('professionals/email.html.twig')
+            // ->context([
+            //     'name' => $need->getLastName(),
+            //     'firstname' => $need->getFirstName(),
+            //     'adressEmail' => $need->getEmail(),
+            //     'phone' => ($need->getPhone() == null) ? "non fourni" : $need->getPhone(),
+            //     'message' => $need->getMessage(),
+            //     'poste' => $need->getCurrentJob(),
+            //     'object' => $need->getMotive(),
+            // ]);
+
+            // $mailer->send($email);
+
+            $this->addFlash('success', 'Votre message à bien été envoyé.');
+            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('professionals/needs.html.twig', [
+            'contact' => $need,
+            'teachersForm' => $form->createView(),
+            'prefilled' => true
+        ]);
+
+    }
 
     #[Route('/professionals/create/mission', name: 'app_create_mission')]
     public function create_mission(Request $request,

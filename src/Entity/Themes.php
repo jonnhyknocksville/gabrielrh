@@ -30,9 +30,13 @@ class Themes
     #[ORM\Column(length: 255)]
     private ?string $picture = null;
 
+    #[ORM\OneToMany(mappedBy: 'theme', targetEntity: ProfessionalsNeeds::class)]
+    private Collection $professionalsNeeds;
+
     public function __construct()
     {
         $this->courses = new ArrayCollection();
+        $this->professionalsNeeds = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -120,5 +124,35 @@ class Themes
 
     public function __toString(){
         return $this->title;
+    }
+
+    /**
+     * @return Collection<int, ProfessionalsNeeds>
+     */
+    public function getProfessionalsNeeds(): Collection
+    {
+        return $this->professionalsNeeds;
+    }
+
+    public function addProfessionalsNeed(ProfessionalsNeeds $professionalsNeed): static
+    {
+        if (!$this->professionalsNeeds->contains($professionalsNeed)) {
+            $this->professionalsNeeds->add($professionalsNeed);
+            $professionalsNeed->setTheme($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProfessionalsNeed(ProfessionalsNeeds $professionalsNeed): static
+    {
+        if ($this->professionalsNeeds->removeElement($professionalsNeed)) {
+            // set the owning side to null (unless already changed)
+            if ($professionalsNeed->getTheme() === $this) {
+                $professionalsNeed->setTheme(null);
+            }
+        }
+
+        return $this;
     }
 }

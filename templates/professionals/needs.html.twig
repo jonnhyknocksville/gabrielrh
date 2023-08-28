@@ -22,14 +22,25 @@
                 <div class="col-md-12">
                     <h1 class="h3 mb-3 font-weight-normal text-center">Vous recherchez un formateur</h1>
                 </div>
-                {{ form_row(teachersForm.firstname) }}
-                {{ form_row(teachersForm.lastname) }}
-                {{ form_row(teachersForm.current_job) }}
-                {{ form_row(teachersForm.company) }}
-                {{ form_row(teachersForm.email) }}
-                {{ form_row(teachersForm.phone) }}
+
+                {% if prefilled == true %}
+                    <p class="text-center fst-italic my-3 text-success"> Vous y êtes presque, encore quelques informations nous sont essentielles pour vous aider dans votre recherche !</p>
+                {% endif %}
+
+                {{ form_row(teachersForm.firstname, {'attr': {'class':  prefilled == true ? 'border-danger' : ''}}) }}
+                {{ form_row(teachersForm.lastname, {'attr': {'class':  prefilled == true ? 'border-danger' : ''}}) }}
+                {{ form_row(teachersForm.current_job, {'attr': {'class':  prefilled == true ? 'border-danger' : ''}}) }}
+                {{ form_row(teachersForm.company, {'attr': {'class':  prefilled == true ? 'border-danger' : ''}}) }}
+                {{ form_row(teachersForm.email, {'attr': {'class':  prefilled == true ? 'border-danger' : ''}}) }}
+                {{ form_row(teachersForm.phone, {'attr': {'class':  prefilled == true ? 'border-danger' : ''}}) }}
+
+
                 {{ form_row(teachersForm.motive) }}
                 {{ form_row(teachersForm.message) }}
+                {{ form_row(teachersForm.profil) }}
+                {{ form_row(teachersForm.date) }}
+                {{ form_row(teachersForm.localisation) }}
+                {{ form_row(teachersForm.theme) }}
 
             {{ form_end(teachersForm) }}
         </div>

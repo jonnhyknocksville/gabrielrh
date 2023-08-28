@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity; 
 
 use App\Repository\ProfessionalsNeedsRepository;
 use Doctrine\DBAL\Types\Types;
@@ -45,10 +45,10 @@ class ProfessionalsNeeds
     private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $theme = null;
-
-    #[ORM\Column(length: 255)]
     private ?string $localisation = null;
+
+    #[ORM\ManyToOne(inversedBy: 'professionalsNeeds')]
+    private ?Themes $theme = null;
 
     public function getId(): ?int
     {
@@ -175,18 +175,6 @@ class ProfessionalsNeeds
         return $this;
     }
 
-    public function getTheme(): ?string
-    {
-        return $this->theme;
-    }
-
-    public function setTheme(string $theme): static
-    {
-        $this->theme = $theme;
-
-        return $this;
-    }
-
     public function getLocalisation(): ?string
     {
         return $this->localisation;
@@ -195,6 +183,18 @@ class ProfessionalsNeeds
     public function setLocalisation(string $localisation): static
     {
         $this->localisation = $localisation;
+
+        return $this;
+    }
+
+    public function getTheme(): ?Themes
+    {
+        return $this->theme;
+    }
+
+    public function setTheme(?Themes $theme): static
+    {
+        $this->theme = $theme;
 
         return $this;
     }
