@@ -71,4 +71,11 @@ $(document).ready(function($) {
     //     delay: 10,
     //     time: 10000
     // });
+
+    $(".add-element").click(function() {
+     const elemToDuplicate = $(this).prev().find("input[type=text]").clone();
+     console.log(elemToDuplicate);
+     $(this).prev().append(elemToDuplicate);
+    });
+
 });

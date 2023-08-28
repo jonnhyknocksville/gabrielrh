@@ -81,7 +81,10 @@ class ProfessionalsController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                // Je définis le nom du CV en BDD pour pouvoir le récupérer esnuite grâce à VichUploader.
+
+
+                // arranger les données
+
                 $entityManager = $doctrine->getManager();
                 $entityManager->persist($proMission);
                 $entityManager->flush();

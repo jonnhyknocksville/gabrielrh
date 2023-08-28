@@ -90,8 +90,8 @@ class JobsType extends AbstractType
                 
             ])
             ->add('location', ChoiceType::class, [
-                'label' => 'Type de contrat', 
-                'placeholder' => 'Choisissez un type de contrat',
+                'label' => 'Lieu de réalisation', 
+                'placeholder' => 'Comment se fera la prestation?',
                 'choices'  => [
                     "SUR PLACE" => "SUR PLACE",
                     "HYBRIDE" => "HYBRIDE",
@@ -99,7 +99,7 @@ class JobsType extends AbstractType
                     'Autres' => 'Autres',
                 ],
                 'row_attr' => [
-                    'class' => 'd-flex flex-column col-md-6 mb-3'
+                    'class' => 'd-flex flex-column col-md-12 mb-3'
                 ],
                 'expanded'=>false,
                 'multiple'=>false,
@@ -129,7 +129,7 @@ class JobsType extends AbstractType
             ])
             ->add('date', DateType::class, [
                 'row_attr' => [
-                    'class' => 'd-flex flex-column col-md-6 mb-3'
+                    'class' => 'd-flex flex-column col-md-12 mb-3'
                 ],
                 'label' => 'Date de début de mission',
                 'attr' => array(
@@ -140,17 +140,17 @@ class JobsType extends AbstractType
                 'label' => 'Horaires', 
                 'placeholder' => 'Choisissez les horaires',
                 'choices'  => [
-                    "08h-12h00" => "J'ai besoin de formateurs",
-                    "09h-12h30" => "J'ai besoin de formateurs",
-                    "08h-17h00" => "J'ai besoin de formateurs",
-                    "08h30-17h30" => "J'ai besoin de formateurs",
-                    "09h-17h00" => "J'ai besoin de formateurs",
-                    "09h30-17h30" => "J'ai besoin de formateurs",
-                    "13h30-17h30" => "J'ai besoin de formateurs",
+                    "08h-12h00" => "08h-12h00",
+                    "09h-12h30" => "09h-12h30",
+                    "08h-17h00" => "08h-17h00",
+                    "08h30-17h30" => "08h30-17h30",
+                    "09h-17h00" => "09h-17h00",
+                    "09h30-17h30" => "09h30-17h30",
+                    "13h30-17h30" => "13h30-17h30",
                     'Autres' => 'Autres',
                 ],
                 'row_attr' => [
-                    'class' => 'd-flex flex-column col-md-6 mb-3'
+                    'class' => 'd-flex flex-column col-md-12 mb-3'
                 ],
                 'expanded'=>false,
                 'multiple'=>false,
@@ -158,23 +158,23 @@ class JobsType extends AbstractType
                     'placeholder' => 'Pays'
                 )
             ])
-            ->add('missionDescription', TextareaType::class, [
+            ->add('missionDescription', TextType::class, [
                 'row_attr' => [
-                    'class' => 'd-flex flex-column col-md-6 mb-3'
+                    'class' => 'd-flex flex-column col-md-12 mb-3'
                 ],
-                'label' => 'Décrivez la mission en ligne',
+                'label' => 'Décrivez la mission en une ligne',
                 'attr' => array(
                     'placeholder' => 'Décrivez les missions principales en une ligne'
                 )
             ])
-            ->add('mainMissions', TextareaType::class, [
+            ->add('mainMissions', TextType::class, [
                 'mapped' => false,
                 'row_attr' => [
-                    'class' => 'd-flex flex-column col-md-6 mb-3'
+                    'class' => 'd-flex flex-column col-md-12 mb-3'
                 ],
                 'label' => 'Mission(s) principales',
                 'attr' => array(
-                    'placeholder' => 'Séparez chaque mission par un tiret (-)'
+                    'placeholder' => 'Ajouter une mission'
                 )
             ])
             ->add('profileDescription', TextType::class, [
@@ -186,35 +186,44 @@ class JobsType extends AbstractType
                     'placeholder' => 'Décrivez en une phrase simple le profil recherché'
                 )
             ])
-            ->add('profileRequirements', TextareaType::class, [
+            ->add('profileRequirements', TextType::class, [
                 'mapped' => false,
                 'row_attr' => [
-                    'class' => 'd-flex flex-column col-md-6 mb-3'
+                    'class' => 'd-flex flex-column col-md-12 mb-3'
                 ],
                 'label' => 'Compétences recherchées',
                 'attr' => array(
-                    'placeholder' => 'Séparez chaque compétence par un tiret (-)'
+                    'placeholder' => 'Ajouter une compétence recherchée'
                 )
             ])
-            ->add('informations', TextareaType::class, [
+            ->add('informations', TextType::class, [
                 'mapped' => false,
                 'row_attr' => [
-                    'class' => 'd-flex flex-column col-md-6 mb-3'
+                    'class' => 'd-flex flex-column col-md-12 mb-3'
                 ],
                 'label' => 'Informations clés du poste',
                 'attr' => array(
-                    'placeholder' => 'Séparez chaque information par un tiret (-)'
+                    'placeholder' => 'Ajouter une information'
                 )
             ])
             ->add('category', EntityType::class, array(
-                'label' => "Choisissez une catégorie",
+                'label' => "Choisissez une catégorie lié au poste",
                 'placeholder' => "Choisissez une catégorie",
                 'class' => Categories::class,
                 'query_builder' => function (CategoriesRepository $er) {
                      return $er->createQueryBuilder('c');
                 },
             ))
+            ->add('course', EntityType::class, array(
+                'label' => "Choisissez une thématique",
+                'placeholder' => "Choisissez une thématique",
+                'class' => Categories::class,
+                'query_builder' => function (CategoriesRepository $er) {
+                     return $er->createQueryBuilder('c');
+                },
+            ))
             ->add('advantages', EntityType::class, [
+                'label' => "Quels sont les avantages liés au poste?",
                 'class' => Advantages::class,
                 'query_builder' => function (AdvantagesRepository $er): QueryBuilder {
                     return $er->createQueryBuilder('a')
@@ -225,19 +234,11 @@ class JobsType extends AbstractType
                 'expanded' => true
                 
             ])
-            ->add('course', EntityType::class, array(
-                'label' => "Choisissez une thématique",
-                'placeholder' => "Choisissez une thématique",
-                'class' => Categories::class,
-                'query_builder' => function (CategoriesRepository $er) {
-                     return $er->createQueryBuilder('c');
-                },
-            ))
             ->add('submit', SubmitType::class, array(
                 'attr' => array(
-                    'class' => 'btn btn-lg btn-primary mt-4 buttonBorderRadius text-center',
+                    'class' => 'btn btn-lg btn-outline-secondary mt-4 buttonBorderRadius text-center',
                 ),
-                'label' => 'Modifier le mot de passe',
+                'label' => 'Créer la mission',
                 'row_attr' => [
                     'class' => 'text-center mb-0'
                 ]
