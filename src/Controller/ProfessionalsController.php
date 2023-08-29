@@ -106,23 +106,23 @@ class ProfessionalsController extends AbstractController
             $entityManager->persist($need);
             $entityManager->flush();
 
-            // // Envoie d'un email à Formation WS pour le notifier
-            // $email = (new TemplatedEmail())
-            // ->from(new Address($this->params->get('app.mail_address'), 'Formation WS - Collaboration'))
-            // ->to($this->params->get('app.mail_address'))
-            // ->subject('Message de ' . $need->getFirstname() . ' ' . $need->getLastname() . ' ' )
-            // ->htmlTemplate('professionals/email.html.twig')
-            // ->context([
-            //     'name' => $need->getLastName(),
-            //     'firstname' => $need->getFirstName(),
-            //     'adressEmail' => $need->getEmail(),
-            //     'phone' => ($need->getPhone() == null) ? "non fourni" : $need->getPhone(),
-            //     'message' => $need->getMessage(),
-            //     'poste' => $need->getCurrentJob(),
-            //     'object' => $need->getMotive(),
-            // ]);
+            // Envoie d'un email à Formation WS pour le notifier
+            $email = (new TemplatedEmail())
+            ->from(new Address($this->params->get('app.mail_address'), 'Formation WS - Collaboration'))
+            ->to($this->params->get('app.mail_address'))
+            ->subject('Message de ' . $need->getFirstname() . ' ' . $need->getLastname() . ' ' )
+            ->htmlTemplate('professionals/email.html.twig')
+            ->context([
+                'name' => $need->getLastName(),
+                'firstname' => $need->getFirstName(),
+                'adressEmail' => $need->getEmail(),
+                'phone' => ($need->getPhone() == null) ? "non fourni" : $need->getPhone(),
+                'message' => $need->getMessage(),
+                'poste' => $need->getCurrentJob(),
+                'object' => $need->getMotive(),
+            ]);
 
-            // $mailer->send($email);
+            $mailer->send($email);
 
             $this->addFlash('success', 'Votre message à bien été envoyé.');
             return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
@@ -143,13 +143,11 @@ class ProfessionalsController extends AbstractController
      PersistenceManagerRegistry $doctrine): Response
     {
 
-        $proMission = new Jobs();
+            $proMission = new Jobs();
             $form = $this->createForm(JobsType::class, $proMission);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-
-
                 // arranger les données
 
                 $entityManager = $doctrine->getManager();
@@ -160,16 +158,12 @@ class ProfessionalsController extends AbstractController
                 // $email = (new TemplatedEmail())
                 //     ->from(new Address($this->params->get('app.mail_address'), 'Formation WS - Recrutement'))
                 //     ->to($this->params->get('app.mail_address'))
-                //     ->subject('Nouvelle demande de Recrutement')
-                //     ->htmlTemplate('job_application/email.html.twig')
-                //     ->attachFromPath($proMission->getCvFile()->getPath() . "/" . $proMission->getCvFile()->getFilename())
+                //     ->subject('Une mission a été créer')
+                //     ->htmlTemplate('professionals/email-mission.html.twig')
                 //     ->context([
-                //         'name' => $proMission->getLastName(),
-                //         'firstname' => $proMission->getFirstName(),
-                //         'adressEmail' => $proMission->getEmail(),
-                //         'phone' => $proMission->getPhone(),
-                //         'message' => $proMission->getMessage(),
-                //         'motif' => $proMission->getMotif()
+                //         'title' => $proMission->getTitle(),
+       
+
                 //     ]);
 
                 // $mailer->send($email);
