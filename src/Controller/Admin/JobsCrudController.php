@@ -39,7 +39,7 @@ class JobsCrudController extends AbstractCrudController
             ArrayField::new('profileRequirements'),
             ArrayField::new('informations'),
             AssociationField::new('advantages'),
-            AssociationField::new('category'),
+            AssociationField::new('theme'),
         ];
     }
 }

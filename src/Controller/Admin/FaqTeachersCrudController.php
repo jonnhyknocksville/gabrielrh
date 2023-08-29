@@ -18,7 +18,7 @@ class FaqTeachersCrudController extends AbstractCrudController
     {
         return [
             TextField::new('question'),
-            TextField::new('answer'),
+            TextField::new('answer')
         ];
     }
     

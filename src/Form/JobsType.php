@@ -3,12 +3,12 @@
 namespace App\Form;
 
 use App\Entity\Advantages;
-use App\Entity\Categories;
 use App\Entity\Courses;
 use App\Entity\Jobs;
+use App\Entity\Themes;
 use App\Repository\AdvantagesRepository;
-use App\Repository\CategoriesRepository;
 use App\Repository\CoursesRepository;
+use App\Repository\ThemesRepository;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -223,11 +223,11 @@ class JobsType extends AbstractType
                 )
             ])
             ->add('category', EntityType::class, array(
-                'label' => "Choisissez une catégorie lié au poste",
-                'placeholder' => "Choisissez une catégorie",
-                'class' => Categories::class,
-                'query_builder' => function (CategoriesRepository $er) {
-                     return $er->createQueryBuilder('c');
+                'label' => "Choisissez un thème lié au poste",
+                'placeholder' => "Choisissez un thème",
+                'class' => Themes::class,
+                'query_builder' => function (ThemesRepository $er) {
+                     return $er->createQueryBuilder('t');
                 },
             ))
             ->add('course', EntityType::class, array(

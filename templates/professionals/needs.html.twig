@@ -35,12 +35,12 @@
                 {{ form_row(teachersForm.phone, {'attr': {'class':  prefilled == true ? 'border-danger' : ''}}) }}
 
 
-                {{ form_row(teachersForm.motive) }}
-                {{ form_row(teachersForm.message) }}
-                {{ form_row(teachersForm.profil) }}
-                {{ form_row(teachersForm.date) }}
-                {{ form_row(teachersForm.localisation) }}
-                {{ form_row(teachersForm.theme) }}
+                {{ form_row(teachersForm.motive, {'attr': {'class':  prefilled == true ? 'border-success' : ''}}) }}
+                {{ form_row(teachersForm.message, {'attr': {'class':  prefilled == true ? 'border-danger' : ''}}) }}
+                {{ form_row(teachersForm.profil, {'attr': {'class':  prefilled == true ? 'border-success' : ''}}) }}
+                {{ form_row(teachersForm.date, {'attr': {'class':  prefilled == true ? 'border-success' : ''}}) }}
+                {{ form_row(teachersForm.localisation, {'attr': {'class':  prefilled == true ? 'border-success' : ''}}) }}
+                {{ form_row(teachersForm.theme, {'attr': {'class':  prefilled == true ? 'border-success' : ''}}) }}
 
             {{ form_end(teachersForm) }}
         </div>
