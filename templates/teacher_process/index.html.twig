@@ -522,14 +522,14 @@
         
         <h2 class="text-center text-light"> Vos questions fréquentes  </h2>
 
-        <div class="accordion col-md-10" id="accordionExample">
+        <div class="row accordion col-md-10 justify-content-center" id="accordionExample">
 
             {% for faq in faqTeachers %}
 
                 <div class="accordion col-md-10 py-1" id="accordionExample">
                     <div class="accordion-item">
                         <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{faq.id}}" aria-expanded="false" aria-controls="collapse{{faq.id}}">
+                        <button class="accordion-button collapsed bg-info text-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{faq.id}}" aria-expanded="false" aria-controls="collapse{{faq.id}}">
                             {{faq.question}}
                         </button>
                         </h2>

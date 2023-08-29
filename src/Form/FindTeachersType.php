@@ -2,9 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Categories;
 use App\Entity\ProfessionalsNeeds;
-use App\Repository\CategoriesRepository;
 use App\Repository\ThemesRepository;
 use Karser\Recaptcha3Bundle\Form\Recaptcha3Type;
 use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3;
