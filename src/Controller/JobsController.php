@@ -71,22 +71,25 @@ class JobsController extends AbstractController
             $entityManager->flush();
 
             // Envoie d'un email à Formation WS pour le notifier
-            // $email = (new TemplatedEmail())
-            //     ->from(new Address($this->params->get('app.mail_address'), 'Formation WS - Recrutement'))
-            //     ->to($this->params->get('app.mail_address'))
-            //     ->subject('Nouvelle demande de Recrutement')
-            //     ->htmlTemplate('job_application/email.html.twig')
-            //     ->attachFromPath($jobApplication->getCvFile()->getPath() . "/" . $jobApplication->getCvFile()->getFilename())
-            //     ->context([
-            //         'name' => $jobApplication->getLastName(),
-            //         'firstname' => $jobApplication->getFirstName(),
-            //         'adressEmail' => $jobApplication->getEmail(),
-            //         'phone' => $jobApplication->getPhone(),
-            //         'message' => $jobApplication->getMessage(),
-            //         'motif' => $jobApplication->getMotif()
-            //     ]);
+            $email = (new TemplatedEmail())
+                ->from(new Address($this->params->get('app.mail_address'), 'Formation WS - Recrutement'))
+                ->to($this->params->get('app.mail_address'))
+                ->subject('Nouvelle demande de Recrutement')
+                ->htmlTemplate('job_application/email.html.twig')
+                ->attachFromPath($jobApplication->getCvFile()->getPath() . "/" . $jobApplication->getCvFile()->getFilename())
+                ->context([
+                    'name' => $jobApplication->getLastName(),
+                    'firstname' => $jobApplication->getFirstName(),
+                    'adressEmail' => $jobApplication->getEmail(),
+                    'phone' => $jobApplication->getPhone(),
+                    'yearsExperience' => $jobApplication->getYearsExperience(),
+                    'mobility' => $jobApplication->getMobility(),
+                    'diploma' => $jobApplication->getDiploma(),
+                    'cvFile' => $jobApplication->getCvFile(),
+                    'motivation' => $jobApplication->getMotivation()
+                ]);
 
-            // $mailer->send($email);
+            $mailer->send($email);
 
             $this->addFlash('success', 'Votre message à bien été envoyé.');
             return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
