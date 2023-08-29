@@ -52,6 +52,8 @@ class ContactController extends AbstractController
                     'phone' => $contact->getPhone(),
                     'message' => $contact->getMessage(),
                     'object' => $contact->getObject(),
+                    'currentJob' => $contact->getCurrentJob(),
+
                 ]);
 
                 $mailer->send($email);
