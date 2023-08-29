@@ -64,9 +64,6 @@ class Jobs
     #[ORM\Column]
     private array $informations = [];
 
-    #[ORM\ManyToOne(inversedBy: 'jobs')]
-    private ?Categories $category = null;
-
     #[ORM\ManyToMany(targetEntity: Advantages::class, inversedBy: 'jobs')]
     private Collection $advantages;
 
@@ -78,6 +75,9 @@ class Jobs
 
     #[ORM\OneToMany(mappedBy: 'job', targetEntity: JobApplication::class)]
     private Collection $jobApplications;
+
+    #[ORM\ManyToOne(inversedBy: 'jobs')]
+    private ?Themes $theme = null;
 
     public function __construct()
     {
@@ -283,18 +283,6 @@ class Jobs
         return $this;
     }
 
-    public function getCategory(): ?Categories
-    {
-        return $this->category;
-    }
-
-    public function setCategory(?Categories $category): static
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Advantages>
      */
@@ -391,6 +379,18 @@ class Jobs
                 $jobApplication->setJob(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTheme(): ?Themes
+    {
+        return $this->theme;
+    }
+
+    public function setTheme(?Themes $theme): static
+    {
+        $this->theme = $theme;
 
         return $this;
     }

@@ -33,10 +33,14 @@ class Themes
     #[ORM\OneToMany(mappedBy: 'theme', targetEntity: ProfessionalsNeeds::class)]
     private Collection $professionalsNeeds;
 
+    #[ORM\OneToMany(mappedBy: 'theme', targetEntity: Jobs::class)]
+    private Collection $jobs;
+
     public function __construct()
     {
         $this->courses = new ArrayCollection();
         $this->professionalsNeeds = new ArrayCollection();
+        $this->jobs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -150,6 +154,36 @@ class Themes
             // set the owning side to null (unless already changed)
             if ($professionalsNeed->getTheme() === $this) {
                 $professionalsNeed->setTheme(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Jobs>
+     */
+    public function getJobs(): Collection
+    {
+        return $this->jobs;
+    }
+
+    public function addJob(Jobs $job): static
+    {
+        if (!$this->jobs->contains($job)) {
+            $this->jobs->add($job);
+            $job->setTheme($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJob(Jobs $job): static
+    {
+        if ($this->jobs->removeElement($job)) {
+            // set the owning side to null (unless already changed)
+            if ($job->getTheme() === $this) {
+                $job->setTheme(null);
             }
         }
 

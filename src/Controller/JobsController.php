@@ -40,9 +40,9 @@ class JobsController extends AbstractController
     public function get(PersistenceManagerRegistry $doctrine, int $id): Response
     {
         $job = $doctrine->getRepository(Jobs::class)->findBy(['id' => $id]);
-        $idCategory = $job[0]->getCategory()->getId();
+        $idTheme = $job[0]->getTheme()->getId();
 
-        $relatedJobs = $doctrine->getRepository(Jobs::class)->findBy(['category' => $idCategory]);
+        $relatedJobs = $doctrine->getRepository(Jobs::class)->findBy(['theme' => $idTheme]);
 
         return $this->render('jobs/details.html.twig', [
             'job' => $job[0],
