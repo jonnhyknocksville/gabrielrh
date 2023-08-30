@@ -301,28 +301,28 @@
             <div class="modal-body p-4 bg-secondary-dark">
                 <ul class="d-flex justify-content-around"> 
                     <li>
-                        <a aria-label="Partagez l'article intitulé '' sur Twitter." href="https://twitter.com/share?url=https://www.lareponsenumerique.fr/article/1&via=lareponsenumerique&text="
+                        <a aria-label="Partagez l'article intitulé '' sur Twitter." href="https://twitter.com/share?url={{site}}{{job.id}}"
                         onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
                             target="_blank" title="Share on Twitter">
                             <i style="color:#1DA1F2;height:2rem" class="fa-brands fa-twitter"></i>
                         </a>
                     </li>
                     <li>
-                        <a aria-label="Partagez l'article intitulé '' sur Linkedin." href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.lareponsenumerique.fr/article/1"
+                        <a aria-label="Partagez l'article intitulé '' sur Linkedin." href="https://www.linkedin.com/shareArticle?mini=true&url={{site}}{{job.id}}"
                             onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
                             target="_blank" title="Share on Linkedin">  
                             <i style="color:#1DA1F2;height:2rem" class="px-2 fa-brands fa-linkedin"></i>
                         </a>
                     </li>
                     <li>
-                        <a aria-label="Partagez l'article intitulé '' sur Facebook." href="https://www.facebook.com/sharer/sharer.php?u=https://www.lareponsenumerique.fr/article/1"
+                        <a aria-label="Partagez l'article intitulé '' sur Facebook." href="https://www.facebook.com/sharer/sharer.php?u={{site}}{{job.id}}"
                             onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
                             target="_blank" title="Share on Facebook">                                    
                             <i style="color:#3b5998;height:2rem" class="fa-brands fa-facebook"></i>
                         </a>
                     </li>
                     <li>
-                        <a aria-label="Partagez l'article intitulé '' par email." href="mailto:?subject=Formation WS - &amp;body=La Rubrique du numérique -  - https://www.lareponsenumerique.fr/1" title="Share by Email"
+                        <a aria-label="Partagez l'article intitulé '' par email." href="mailto:?subject=Formation WS - &amp;body=Formation ws -  - {{site}}{{job.id}}" title="Share by Email"
                             onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
                             target="_blank" title="Share by email">                                    
                             <i style="height:2rem" class="text-secondary fa-solid fa-envelope"></i>
@@ -331,7 +331,7 @@
                 </ul>
             </div>
             <div class="d-flex px-3 pb-3 bg-secondary-dark">
-                <input type="text" class="px-5 py-3 w-100" id="clipboard" value="https://www.academiews.fr/article/1" >
+                <input type="text" class="px-5 py-3 w-100" id="clipboard" value="{{site}}{{job.id}}" >
                 <button aria-label="Copiez le lien de l'article intitulé '' sur Linkedin." class="text-light px-3 bg-secondary btn-clipboard">COPIER</button>
             </div>
             </div>
