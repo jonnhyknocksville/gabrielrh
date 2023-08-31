@@ -31,8 +31,11 @@ class JobsController extends AbstractController
 
         $jobs = $doctrine->getRepository(Jobs::class)->findAll();
 
+        $site="https://formationws.fr/jobs";
+
         return $this->render('jobs/index.html.twig', [
             'jobs' => $jobs,
+            'site'=>$site
         ]);
     }
 
@@ -42,11 +45,14 @@ class JobsController extends AbstractController
         $job = $doctrine->getRepository(Jobs::class)->findBy(['id' => $id]);
         $idTheme = $job[0]->getTheme()->getId();
 
+        $site="https://formationws.fr/jobs/";
+
         $relatedJobs = $doctrine->getRepository(Jobs::class)->findBy(['theme' => $idTheme]);
 
         return $this->render('jobs/details.html.twig', [
             'job' => $job[0],
-            'relatedJobs' => $relatedJobs
+            'relatedJobs' => $relatedJobs,
+            'site'=>$site
         ]);
     }
 
