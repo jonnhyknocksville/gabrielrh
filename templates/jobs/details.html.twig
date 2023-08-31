@@ -37,8 +37,8 @@
 
 			<div class="col-md-12 d-flex justify-content-center align-items-center mt-5">
                 <button class="btn btn-outline-primary text-light py-2 smallBorderRadius" data-bs-toggle="modal" data-bs-target="#article-social-networks"><i class="fa-solid fa-share me-2"></i> PARTAGER LA MISSION </button>
-				<a class="ms-3 text-light smallBorderRadius colorWhite btn btn-outline-secondary pull-right py-2 d-flex align-items-center" href="{{path('app_jobs_application', {id : job.id})}}">
-					<i class="far fa-play-circle me-2"></i>Accepter la mission</a>
+				<a aria-label="Acceptez la mission - Formation WS" class="ms-3 text-light smallBorderRadius colorWhite btn btn-outline-secondary pull-right py-2 d-flex align-items-center" href="{{path('app_jobs_application', {id : job.id})}}">
+					<i class="far fa-play-circle me-2"></i>Acceptez la mission</a>
 			</div>
 
 		</div>
@@ -84,8 +84,8 @@
 
 				<div class="col-md-12 d-flex align-items-center justify-content-center mt-5">
                     <button class="btn btn-outline-primary text-light py-2 smallBorderRadius" data-bs-toggle="modal" data-bs-target="#article-social-networks"><i class="fa-solid fa-share me-2"></i> PARTAGER LA MISSION </button>
-                    <a class="ms-3 text-light smallBorderRadius colorWhite btn btn-outline-secondary pull-right border-radius-btn d-flex align-items-center" href="{{path('app_jobs_application', {id : job.id})}}">
-                            <i class="far fa-play-circle me-2"></i>Accepter la mission</a>
+                    <a aria-label="Acceptez la mission - Formation WS" class="ms-3 text-light smallBorderRadius colorWhite btn btn-outline-secondary pull-right border-radius-btn d-flex align-items-center" href="{{path('app_jobs_application', {id : job.id})}}">
+                            <i class="far fa-play-circle me-2"></i>Acceptez la mission</a>
 				</div>
 
 			</div>
@@ -223,7 +223,7 @@
                 {% for relatedJob in relatedJobs %}
                     <div class="col-md-3 p-3">
 
-                        <a href="{{ path('app_jobs_details', { id : relatedJob.id }) }}">
+                        <a aria-label="Accedez aux détails des dernières offres - Formation WS"  href="{{ path('app_jobs_details', { id : relatedJob.id }) }}">
                             <div class="course-card card form-shadow bg-secondary-dark p-3 smallBorderRadius">
 
                                 <div class="d-flex flex-column justify-content-between mb-3">
@@ -291,7 +291,7 @@
 
     {# PARTAGER L'OFFRE D'EMPLOI #}
 
-    <div class="modal fade" id="article-social-networks" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+        <div class="modal fade" id="article-social-networks" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
             <div class="modal-header bg-secondary">
@@ -301,28 +301,28 @@
             <div class="modal-body p-4 bg-secondary-dark">
                 <ul class="d-flex justify-content-around"> 
                     <li>
-                        <a aria-label="Partagez l'article intitulé '' sur Twitter." href="https://twitter.com/share?url=https://www.lareponsenumerique.fr/article/1&via=lareponsenumerique&text="
+                        <a aria-label="Partagez notre offre sur Twitter - Formation WS" href="https://twitter.com/share?url={{site}}{{job.id}}"
                         onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
                             target="_blank" title="Share on Twitter">
                             <i style="color:#1DA1F2;height:2rem" class="fa-brands fa-twitter"></i>
                         </a>
                     </li>
                     <li>
-                        <a aria-label="Partagez l'article intitulé '' sur Linkedin." href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.lareponsenumerique.fr/article/1"
+                        <a aria-label="Partagez notre offre sur Linkedin - Formation WS" href="https://www.linkedin.com/shareArticle?mini=true&url={{site}}{{job.id}}"
                             onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
                             target="_blank" title="Share on Linkedin">  
                             <i style="color:#1DA1F2;height:2rem" class="px-2 fa-brands fa-linkedin"></i>
                         </a>
                     </li>
                     <li>
-                        <a aria-label="Partagez l'article intitulé '' sur Facebook." href="https://www.facebook.com/sharer/sharer.php?u=https://www.lareponsenumerique.fr/article/1"
+                        <a aria-label="Partagez notre offre sur Facebook - Formation WS" href="https://www.facebook.com/sharer/sharer.php?u={{site}}{{job.id}}"
                             onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
                             target="_blank" title="Share on Facebook">                                    
                             <i style="color:#3b5998;height:2rem" class="fa-brands fa-facebook"></i>
                         </a>
                     </li>
                     <li>
-                        <a aria-label="Partagez l'article intitulé '' par email." href="mailto:?subject=Formation WS - &amp;body=La Rubrique du numérique -  - https://www.lareponsenumerique.fr/1" title="Share by Email"
+                        <a aria-label="Partagez notre offre par email - Formation WS" href="mailto:?subject=Formation WS - &amp;body=Formation ws -  - {{site}}{{job.id}}" title="Share by Email"
                             onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
                             target="_blank" title="Share by email">                                    
                             <i style="height:2rem" class="text-secondary fa-solid fa-envelope"></i>
@@ -331,7 +331,7 @@
                 </ul>
             </div>
             <div class="d-flex px-3 pb-3 bg-secondary-dark">
-                <input type="text" class="px-5 py-3 w-100" id="clipboard" value="https://www.academiews.fr/article/1" >
+                <input type="text" class="px-5 py-3 w-100" id="clipboard" value="{{site}}{{job.id}}" >
                 <button aria-label="Copiez le lien de l'article intitulé '' sur Linkedin." class="text-light px-3 bg-secondary btn-clipboard">COPIER</button>
             </div>
             </div>
