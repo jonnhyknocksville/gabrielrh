@@ -32,12 +32,12 @@ class RegistrationController extends AbstractController
     {
         
         $user = new User();
-        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form = $this->createForm(RegistrationFormType::class, $user, ['allow_extra_fields' =>true]);
         $form->handleRequest($request);
 
-        if ($this->getUser() == false) {
-            return $this->redirectToRoute('app_login');
-        }
+        // if ($this->getUser() == false) {
+        //     return $this->redirectToRoute('app_login');
+        // }
 
         if ($this->getUser()) {
             return $this->redirectToRoute('app_who_we_are');
@@ -45,16 +45,26 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
+           
+            $user->setNamerCV($user->getLastName() . "_" . $user->getFirstName());
+            $user->setNamerKibs($user->getLastName() . "_" . $user->getFirstName());
+            $user->setNamerVigilance($user->getLastName() . "_" . $user->getFirstName());
+            $user->setNamerIdentity($user->getLastName() . "_" . $user->getFirstName());
+            $user->setNamerDiplomas($user->getLastName() . "_" . $user->getFirstName());
+
+          
+
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
             );
-
+            dump ($form->getData());
             $entityManager->persist($user);
             $entityManager->flush();
 
+    
             // generate a signed url and email it to the user
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())

@@ -12,3 +12,32 @@ vich_uploader:
             namer:
                 service: Vich\UploaderBundle\Naming\PropertyNamer
                 options: { property: 'namerCV' } # on utilise la propriété en BDD qui contient le nom souhaité
+
+        kbisFile:
+            uri_prefix: /kbis/file
+            upload_destination: "%kernel.project_dir%/public/uploads/kbis"
+            namer:
+                service: Vich\UploaderBundle\Naming\PropertyNamer
+                options: { property: 'namerKibs' } # on utilise la propriété en BDD qui contient le nom souhaité
+
+        vigilanceFile:
+            uri_prefix: /vigilance/file
+            upload_destination: "%kernel.project_dir%/public/uploads/vigilance"
+            namer:
+                service: Vich\UploaderBundle\Naming\PropertyNamer
+                options: { property: 'namerVigilance' } # on utilise la propriété en BDD qui contient le nom souhaité
+
+        identityFile:
+            uri_prefix: /identity/file
+            upload_destination: "%kernel.project_dir%/public/uploads/identity"
+            namer:
+                service: Vich\UploaderBundle\Naming\PropertyNamer
+                options: { property: 'namerIdentity' } # on utilise la propriété en BDD qui contient le nom souhaité
+
+        diplomasFile:
+            uri_prefix: /diplomas/file
+            upload_destination: "%kernel.project_dir%/public/uploads/diploma"
+            namer:
+                service: Vich\UploaderBundle\Naming\PropertyNamer
+                options: { property: 'namerDiplomas' } # on utilise la propriété en BDD qui contient le nom souhaité
+
