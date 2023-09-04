@@ -11,12 +11,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('firstName')
+            ->add('lastName')
             ->add('email')
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
@@ -41,7 +44,39 @@ class RegistrationFormType extends AbstractType
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
+
+                    
                 ],
+            ])
+            ->add('kbisFile', VichFileType::class, [
+                'row_attr' => [
+                    'class' => 'd-flex flex-column col-md-12 mb-3'
+                ],
+                'label' => 'Kbis',
+            ])
+            ->add('vigilanceFile', VichFileType::class, [
+                'row_attr' => [
+                    'class' => 'd-flex flex-column col-md-12 mb-3'
+                ],
+                'label' => 'vigilance'
+            ])
+            ->add('identityFile', VichFileType::class, [
+                'row_attr' => [
+                    'class' => 'd-flex flex-column col-md-12 mb-3'
+                ],
+                'label' => 'identity'
+            ])
+            ->add('diplomasFile', VichFileType::class, [
+                'row_attr' => [
+                    'class' => 'd-flex flex-column col-md-12 mb-3'
+                ],
+                'label' => 'diplomas'
+            ])
+            ->add('cvFile', VichFileType::class, [
+                'row_attr' => [
+                    'class' => 'd-flex flex-column col-md-12 mb-3'
+                ],
+                'label' => 'cv'
             ])
         ;
     }

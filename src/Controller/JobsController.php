@@ -66,6 +66,7 @@ class JobsController extends AbstractController
         $jobInfo = $doctrine->getRepository(Jobs::class)->findBy(['id' => $id])[0];
 
         if ($form->isSubmitted() && $form->isValid()) {
+           
 
             $id_job = $form['job']->getData();
             $job = $doctrine->getRepository(Jobs::class)->findBy(['id' => $id_job])[0];
