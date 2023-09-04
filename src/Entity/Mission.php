@@ -47,6 +47,9 @@ class Mission
     #[ORM\Column(type: 'datetime', nullable:true)]
     private ?\DateTimeInterface $endAt = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $timetable = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -180,6 +183,18 @@ class Mission
     public function setEndAt(?\DateTimeInterface $endAt = null): self
     {
         $this->endAt = $endAt;
+
+        return $this;
+    }
+
+    public function getTimetable(): ?string
+    {
+        return $this->timetable;
+    }
+
+    public function setTimetable(string $timetable): static
+    {
+        $this->timetable = $timetable;
 
         return $this;
     }
