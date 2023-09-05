@@ -48,7 +48,13 @@ class Mission
     private ?\DateTimeInterface $endAt = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $timetable = null;
+    private ?string $timeTable = null;
+
+    #[ORM\ManyToOne(inversedBy: 'missions')]
+    private ?Students $student = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $hourlyRate = null;
 
     public function getId(): ?int
     {
@@ -187,16 +193,41 @@ class Mission
         return $this;
     }
 
-    public function getTimetable(): ?string
+    public function getTimeTable(): ?string
     {
-        return $this->timetable;
+        return $this->timeTable;
     }
 
-    public function setTimetable(string $timetable): static
+    public function setTimeTable(string $timeTable): static
     {
-        $this->timetable = $timetable;
+        $this->timeTable = $timeTable;
 
         return $this;
     }
+
+    public function getStudent(): ?Students
+    {
+        return $this->student;
+    }
+
+    public function setStudent(?Students $student): static
+    {
+        $this->student = $student;
+
+        return $this;
+    }
+
+    public function getHourlyRate(): ?string
+    {
+        return $this->hourlyRate;
+    }
+
+    public function setHourlyRate(string $hourlyRate): static
+    {
+        $this->hourlyRate = $hourlyRate;
+
+        return $this;
+    }
+
 
 }

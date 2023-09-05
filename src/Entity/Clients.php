@@ -39,9 +39,17 @@ class Clients
     #[ORM\Column(length: 255)]
     private ?string $backgroundColor = null;
 
+    #[ORM\OneToMany(mappedBy: 'client', targetEntity: Students::class)]
+    private Collection $students;
+
+    #[ORM\OneToMany(mappedBy: 'client', targetEntity: Tarification::class)]
+    private Collection $tarifications;
+
     public function __construct()
     {
         $this->missions = new ArrayCollection();
+        $this->students = new ArrayCollection();
+        $this->tarifications = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -163,6 +171,66 @@ class Clients
     public function setBackgroundColor(string $backgroundColor): static
     {
         $this->backgroundColor = $backgroundColor;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Students>
+     */
+    public function getStudents(): Collection
+    {
+        return $this->students;
+    }
+
+    public function addStudent(Students $student): static
+    {
+        if (!$this->students->contains($student)) {
+            $this->students->add($student);
+            $student->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStudent(Students $student): static
+    {
+        if ($this->students->removeElement($student)) {
+            // set the owning side to null (unless already changed)
+            if ($student->getClient() === $this) {
+                $student->setClient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Tarification>
+     */
+    public function getTarifications(): Collection
+    {
+        return $this->tarifications;
+    }
+
+    public function addTarification(Tarification $tarification): static
+    {
+        if (!$this->tarifications->contains($tarification)) {
+            $this->tarifications->add($tarification);
+            $tarification->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTarification(Tarification $tarification): static
+    {
+        if ($this->tarifications->removeElement($tarification)) {
+            // set the owning side to null (unless already changed)
+            if ($tarification->getClient() === $this) {
+                $tarification->setClient(null);
+            }
+        }
 
         return $this;
     }

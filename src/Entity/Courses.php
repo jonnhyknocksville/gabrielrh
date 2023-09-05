@@ -18,7 +18,7 @@ class Courses
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable:true)]
     private ?string $logo = null;
 
     #[ORM\Column(length: 255)]
@@ -27,28 +27,28 @@ class Courses
     #[ORM\ManyToOne(inversedBy: 'courses')]
     private ?Themes $theme = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable:true)]
     private ?string $heading = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable:true)]
     private ?string $titleIntroduction = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable:true)]
     private array $introduction = [];
 
-    #[ORM\Column]
+    #[ORM\Column(nullable:true)]
     private array $objectives = [];
 
-    #[ORM\Column]
+    #[ORM\Column(nullable:true)]
     private array $learningPath = [];
 
-    #[ORM\Column]
+    #[ORM\Column(nullable:true)]
     private array $public = [];
 
-    #[ORM\Column]
+    #[ORM\Column(nullable:true)]
     private array $requirements = [];
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable:true)]
     private ?string $videoIntroduction = null;
 
     #[ORM\OneToMany(mappedBy: 'course', targetEntity: Mission::class)]
@@ -59,6 +59,9 @@ class Courses
 
     #[ORM\OneToMany(mappedBy: 'course', targetEntity: Jobs::class)]
     private Collection $jobs;
+
+    #[ORM\Column]
+    private ?bool $showOnWeb = null;
 
     public function __construct()
     {
@@ -303,6 +306,18 @@ class Courses
                 $job->setCourse(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isShowOnWeb(): ?bool
+    {
+        return $this->showOnWeb;
+    }
+
+    public function setShowOnWeb(bool $showOnWeb): static
+    {
+        $this->showOnWeb = $showOnWeb;
 
         return $this;
     }

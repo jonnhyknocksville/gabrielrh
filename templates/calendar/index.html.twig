@@ -23,6 +23,7 @@
 
                     <ul class="d-flex h-100 flex-column justify-content-between">
                         <li class="d-flex align-items-center text-dark my-2 fw-bold"> <i class="fa-solid fa-user-tie icon-m me-3"></i> <span class="fw-normal fst-italic"> Client </span> : {{ mission.client.name }}  </li>
+                        <li class="d-flex align-items-center text-dark my-2 fw-bold"> <i class="fa-solid fa-graduation-cap icon-m me-3"></i> <span class="fw-normal fst-italic"> Apprenants </span> : {{ mission.student }}  </li>
                         <li class="d-flex align-items-center text-dark my-2 fw-bold"> <i class="fa-solid fa-person-chalkboard icon-m me-3"></i> <span class="fw-normal fst-italic"> Cours </span> : {{ mission.course.title }}  </li>
                         <li class="d-flex align-items-center text-dark my-2 fw-bold"> <i class="fa-solid fa-play icon-m me-3"></i> <span class="fw-normal fst-italic"> Heure d'arrivée </span> : {{ mission.startTime }}  </li>
                         <li class="d-flex align-items-center text-dark my-2 fw-bold"> <i class="fa-solid fa-calendar-days icon-m me-3"></i> <span class="fw-normal fst-italic"> Horaires </span> : {{ mission.scheduleTime }}  </li>
@@ -32,6 +33,7 @@
                         <li class="d-flex align-items-center text-dark my-2 fw-bold"> <i class="fa-solid fa-location-crosshairs icon-m me-3"></i> <span class="fw-normal fst-italic"> Adresse </span> : {{ mission.client.address }} - {{ mission.client.postalCode }} {{ mission.client.city }}  </li>
                         <li class="d-flex align-items-center text-dark my-2 fw-bold"> <i class="fa-solid fa-location-dot icon-m me-3"></i> <span class="fw-normal fst-italic"> Intervention </span> : {{ mission.intervention }}  </li>
                         <li class="d-flex align-items-center text-dark my-2 fw-bold"> <i class="fa-solid fa-asterisk icon-m me-3"></i> <span class="fw-normal fst-italic"> Référence </span> : {{ mission.missionReference }}  </li>
+                        <li class="d-flex align-items-center text-dark my-2 fw-bold"> <i class="fa-solid fa-money-bill icon-m me-3"></i> <span class="fw-normal fst-italic"> Tarif horaire </span> : {{ mission.hourlyRate }}  </li>
                         <li class="d-flex align-items-center text-dark my-2 fw-bold"> <i class="fa-solid fa-money-bill icon-m me-3"></i> <span class="fw-normal fst-italic"> Tarif </span> : {{ mission.remuneration }}  </li>
                     </ul>
 

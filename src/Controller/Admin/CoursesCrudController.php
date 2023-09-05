@@ -6,6 +6,7 @@ use App\Entity\Courses;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -32,6 +33,7 @@ class CoursesCrudController extends AbstractCrudController
         return [
             TextField::new('title'),
             TextField::new('description'),
+            BooleanField::new('showOnWeb'),
             ImageField::new('logo')
             ->setUploadDir('public/build/')
             ->setBasePath($this->params->get('app.path.courses_images'))
@@ -46,6 +48,7 @@ class CoursesCrudController extends AbstractCrudController
             ArrayField::new('learningPath')->hideOnIndex(),
             ArrayField::new('public')->hideOnIndex(),
             ArrayField::new('requirements')
+            
         ];
     }
     

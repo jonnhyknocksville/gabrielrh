@@ -9,12 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Symfony\Component\HttpFoundation\File\File;
-use Doctrine\DBAL\Types\Types;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[Vich\Uploadable]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -50,53 +46,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Courses::class, inversedBy: 'users')]
     private Collection $courses;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $updatedAt = null;
-
-    #[Vich\UploadableField(mapping: 'kbisFile', fileNameProperty: 'kbis')]
-    private ?File $kbisFile = null;
-
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable:true)]
     private ?string $kbis = null;
 
-    #[ORM\Column(length: 255)]
-    private $namerKibs;
-
-    #[Vich\UploadableField(mapping: 'vigilanceFile', fileNameProperty: 'vigilance')]
-    private ?File $vigilanceFile = null;
-
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable:true)]
     private ?string $vigilance = null;
 
-    #[ORM\Column(length: 255)]
-    private $namerVigilance;
-
-    #[Vich\UploadableField(mapping: 'identityFile', fileNameProperty: 'identity')]
-    private ?File $identityFile = null;
-
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable:true)]
     private ?string $identity = null;
 
-    #[ORM\Column(length: 255)]
-    private $namerIdentity;
-
-    #[Vich\UploadableField(mapping: 'diplomasFile', fileNameProperty: 'diplomas')]
-    private ?File $diplomasFile = null;
-
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable:true)]
     private ?string $diplomas = null;
 
-    #[ORM\Column(length: 255)]
-    private $namerDiplomas;
-
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable:true)]
     private ?string $cv = null;
-
-    #[Vich\UploadableField(mapping: 'cvFile', fileNameProperty: 'cv')]
-    private ?File $cvFile = null;
-
-    #[ORM\Column(length: 255)]
-    private $namerCV;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: StaffApplication::class)]
     private Collection $staffApplications;
@@ -106,100 +69,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->missions = new ArrayCollection();
         $this->courses = new ArrayCollection();
         $this->staffApplications = new ArrayCollection();
-    }
-
-    public function setCvFile(?File $imageFile = null): void
-    {
-
-        if (null !== $imageFile) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTimeImmutable();
-        }
-
-        $this->cvFile = $imageFile;
-       
-    }
-
-    public function getCvFile(): ?File
-    {
-        return $this->cvFile;
-    }
-
-    public function setKbisFile(?File $imageFile = null): void
-    {
-        $this->kbisFile = $imageFile;
-
-        if (null !== $imageFile) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTimeImmutable();
-        }
-    }
-
-    public function getKbisFile(): ?File
-    {
-        return $this->kbisFile;
-    }
-
-    public function setVigilanceFile(?File $imageFile = null): void
-    {
-        $this->vigilanceFile = $imageFile;
-
-        if (null !== $imageFile) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTimeImmutable();
-        }
-    }
-
-    public function getVigilanceFile(): ?File
-    {
-        return $this->vigilanceFile;
-    }
-
-    public function setIdentityFile(?File $imageFile = null): void
-    {
-        $this->identityFile = $imageFile;
-
-        if (null !== $imageFile) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTimeImmutable();
-        }
-    }
-
-    public function getIdentityFile(): ?File
-    {
-        return $this->identityFile;
-    }
-
-    public function setDiplomasFile(?File $imageFile = null): void
-    {
-        $this->diplomasFile = $imageFile;
-
-        if (null !== $imageFile) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTimeImmutable();
-        }
-    }
-
-    public function getDiplomasFile(): ?File
-    {
-        return $this->diplomasFile;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): static
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
     }
 
     public function getId(): ?int
@@ -370,17 +239,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-    public function getCv(): ?string
-    {
-        return $this->cv;
-    }
-
-    public function setCv(string $cv): static
-    {
-        $this->cv = $cv;
-
-        return $this;
-    }
 
     public function getKbis(): ?string
     {
@@ -430,68 +288,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getNamerCV(): ?string
+    public function getCv(): ?string
     {
-        return $this->namerCV;
+        return $this->cv;
     }
-    
-    
 
-    public function setNamerCV(string $namerCV): self
+    public function setCv(string $cv): static
     {
-        $this->namerCV = $namerCV;
+        $this->cv = $cv;
 
         return $this;
     }
-
-    public function getNamerKibs(): ?string
-    {
-        return $this->namerKibs;
-    }
-
-    public function setNamerKibs(string $namerKibs): self
-    {
-        $this->namerKibs = $namerKibs;
-
-        return $this;
-    }
-
-    public function getNamerVigilance(): ?string
-    {
-        return $this->namerVigilance;
-    }
-
-    public function setNamerVigilance(string $namerVigilance): self
-    {
-        $this->namerVigilance = $namerVigilance;
-
-        return $this;
-    }
-
-    public function getNamerIdentity(): ?string
-    {
-        return $this->namerIdentity;
-    }
-
-    public function setNamerIdentity(string $namerIdentity): self
-    {
-        $this->namerIdentity = $namerIdentity;
-
-        return $this;
-    }
-
-    public function getNamerDiplomas(): ?string
-    {
-        return $this->namerDiplomas;
-    }
-
-    public function setNamerDiplomas(string $namerDiplomas): self
-    {
-        $this->namerDiplomas = $namerDiplomas;
-
-        return $this;
-    }
-
 
     /**
      * @return Collection<int, StaffApplication>

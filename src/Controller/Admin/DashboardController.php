@@ -13,6 +13,8 @@ use App\Entity\Jobs;
 use App\Entity\Mission;
 use App\Entity\ProfessionalsNeeds;
 use App\Entity\StaffApplication;
+use App\Entity\Students;
+use App\Entity\Tarification;
 use App\Entity\TeacherApplication;
 use App\Entity\Themes;
 use App\Entity\User;
@@ -77,6 +79,8 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section('Clients');
         yield MenuItem::linkToCrud('Besoins pros', 'fas fa-list', ProfessionalsNeeds::class);
         yield MenuItem::linkToCrud('Clients', 'fas fa-list', Clients::class);
+        yield MenuItem::linkToCrud('Etudiants', 'fas fa-list', Students::class);
+        yield MenuItem::linkToCrud('Tarifications', 'fas fa-list', Tarification::class);
 
         yield MenuItem::section('Prise de contact');
         yield MenuItem::linkToCrud('Contact', 'fas fa-list', Contact::class);
