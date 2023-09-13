@@ -13,6 +13,7 @@ use Doctrine\Persistence\ManagerRegistry as PersistenceManagerRegistry;
 
 class HomeController extends AbstractController
 {
+    // cette route permet de gerer la page home
     #[Route('/', name: 'app_home')]
     public function index(Request $request, PersistenceManagerRegistry $doctrine): Response
     {
