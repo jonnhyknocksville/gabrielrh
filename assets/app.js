@@ -66,7 +66,7 @@ for (let i = 0, len = iframes.length; i < len; i++) {
 
 
 $(document).ready(function($) {
-    console.log('hello world');
+    // console.log('hello world');
     // $('.count-number').counterUp({
     //     delay: 10,
     //     time: 10000
@@ -79,3 +79,14 @@ $(document).ready(function($) {
     });
 
 });
+
+// fonction copier le lien pour partage
+
+$("#btnclipboard").on("click", function() {
+  let copyText = document.querySelector("#clipboard");
+  copyText.select();
+  copyText.setSelectionRange(0, 99999);
+
+  document.execCommand("copy");
+  // alert("texte copié: " + copyText.value)
+})

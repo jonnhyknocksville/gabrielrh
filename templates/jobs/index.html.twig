@@ -4,7 +4,7 @@
 {% block title %}Nos missions actuelles {{parent()}} {% endblock %}
 
 {% block body %}
-
+   
 		<div class="col-md-12 mx-auto row py-5" style="background:linear-gradient(0deg,#31092a,#0e0331)">
 
 			<div class="col-md-12">
@@ -156,8 +156,8 @@
                 </ul>
             </div>
             <div class="d-flex px-3 pb-3 bg-secondary-dark">
-                <input type="text" class="px-5 py-3 w-100" id="clipboard" value="https://www.academiews.fr/article/1" >
-                <button aria-label="Copiez le lien de l'article intitulé '' sur Linkedin." class="text-light px-3 bg-secondary btn-clipboard">COPIER</button>
+                <input type="text" class="px-5 py-3 w-100" id="clipboard" value="{{ app.request.uri }}" >
+                <button aria-label="Copiez le lien de la page jobs" class="text-light px-3 bg-secondary btn-clipboard" id="btnclipboard">COPIER</button>
             </div>
             </div>
         </div>

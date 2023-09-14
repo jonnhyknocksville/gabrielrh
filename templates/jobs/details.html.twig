@@ -301,28 +301,28 @@
             <div class="modal-body p-4 bg-secondary-dark">
                 <ul class="d-flex justify-content-around"> 
                     <li>
-                        <a aria-label="Partagez notre offre sur Twitter - Formation WS" href="https://twitter.com/share?url={{site}}{{job.id}}"
+                        <a aria-label="Partagez notre offre sur Twitter - Formation WS" href="https://twitter.com/share?url={{ app.request.uri }}"
                         onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
                             target="_blank" title="Share on Twitter">
                             <i style="color:#1DA1F2;height:2rem" class="fa-brands fa-twitter"></i>
                         </a>
                     </li>
                     <li>
-                        <a aria-label="Partagez notre offre sur Linkedin - Formation WS" href="https://www.linkedin.com/shareArticle?mini=true&url={{site}}{{job.id}}"
+                        <a aria-label="Partagez notre offre sur Linkedin - Formation WS" href="https://www.linkedin.com/shareArticle?mini=true&url={{ app.request.uri }}"
                             onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
                             target="_blank" title="Share on Linkedin">  
                             <i style="color:#1DA1F2;height:2rem" class="px-2 fa-brands fa-linkedin"></i>
                         </a>
                     </li>
                     <li>
-                        <a aria-label="Partagez notre offre sur Facebook - Formation WS" href="https://www.facebook.com/sharer/sharer.php?u={{site}}{{job.id}}"
+                        <a aria-label="Partagez notre offre sur Facebook - Formation WS" href="https://www.facebook.com/sharer/sharer.php?u={{ app.request.uri }}"
                             onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
                             target="_blank" title="Share on Facebook">                                    
                             <i style="color:#3b5998;height:2rem" class="fa-brands fa-facebook"></i>
                         </a>
                     </li>
                     <li>
-                        <a aria-label="Partagez notre offre par email - Formation WS" href="mailto:?subject=Formation WS - &amp;body=Formation ws -  - {{site}}{{job.id}}" title="Share by Email"
+                        <a aria-label="Partagez notre offre par email - Formation WS" href="mailto:?subject=Formation WS - &amp;body=Formation ws -  - {{ app.request.uri }}" title="Share by Email"
                             onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
                             target="_blank" title="Share by email">                                    
                             <i style="height:2rem" class="text-secondary fa-solid fa-envelope"></i>
@@ -331,8 +331,8 @@
                 </ul>
             </div>
             <div class="d-flex px-3 pb-3 bg-secondary-dark">
-                <input type="text" class="px-5 py-3 w-100" id="clipboard" value="{{site}}{{job.id}}" >
-                <button aria-label="Copiez le lien de l'article intitulé '' sur Linkedin." class="text-light px-3 bg-secondary btn-clipboard">COPIER</button>
+                <input type="text" class="px-5 py-3 w-100" id="clipboard" value="{{ app.request.uri }}" >
+                <button aria-label="Copiez le lien de l'article intitulé '' sur Linkedin." class="text-light px-3 bg-secondary btn-clipboard" id="btnclipboard">COPIER</button>
             </div>
             </div>
         </div>
