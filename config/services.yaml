@@ -7,6 +7,7 @@ parameters:
     locale: 'fr'
     google_recaptcha_site_key: '%env(GOOGLE_RECAPTCHA_SITE_KEY)%'
     app.path.courses_images: build/courses/
+    app.path.themes_images: build/themes/
     app.mail_address: "%env(MAIL_ADDRESS)%"
 
 services:
