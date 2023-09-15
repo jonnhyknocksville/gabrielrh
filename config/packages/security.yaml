@@ -40,6 +40,7 @@ security:
         - { path: ^/teacher/calendar, roles: ROLE_USER }
         - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/admin, roles: ROLE_ADMIN }
+        # - { path: ^/contracts/{year}/{month}, roles: ROLE_TEACHER }
 
 when@test:
     security:

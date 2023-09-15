@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Mission;
+use DateInterval;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +24,7 @@ class CalendarController extends AbstractController
                 "id" => $mission->getId(),
                 "title" => $mission->getClient()->getName() . " - " . $mission->getCourse()->getTitle() ,
                 "start" => $mission->getBeginAt()->format("Y-m-d"),
-                "end" => $mission->getEndAt()->format("Y-m-d"),
+                "end" => $mission->getEndAt()->format("Y-m-d")->add(new DateInterval('P1D')),
                 "url" => $request->getUri() . "/". $mission->getId(),
                 "backgroundColor" => $mission->getClient()->getBackgroundColor()
             ];
