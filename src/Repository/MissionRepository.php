@@ -61,7 +61,7 @@ class MissionRepository extends ServiceEntityRepository
 
         );
 
-        return $query->getArrayResult();
+        return $query->getResult();
 
     }
 

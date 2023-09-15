@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Mission;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,17 +19,20 @@ class ContractsController extends AbstractController
 
         // je récupère le user
         $userId = $this->getUser()->getId();
+        $user = $doctrine->getRepository(User::class)->findBy(['id' => $userId]);
+
         // je récupère les missions pour le mois en cours
         $missions = $doctrine->getRepository(Mission::class)->findMonthMissions($userId, $year, $month);
-        
         $missionsToDisplay = [];
+        $totalAmount = null;
+        $totalHours = null;
         foreach($missions as $mission) {
             
             // si il s'agit d'une mission d'une journée
             // j'ajoute à la liste des missions
-            if($mission->getBeginDate() == $mission->getEndDate()) {
-                $missionsToDisplay[] = $mission;
-            }
+            // if($mission->getBeginDate() == $mission->getEndDate()) {
+            //     $missionsToDisplay[] = $mission;
+            // }
             // si il s'agit d'une mission sur plusieurs jours
             // faut que je décortique la mission
 
@@ -38,7 +42,8 @@ class ContractsController extends AbstractController
         $footer = $this->renderView('contracts/footer.html.twig');
 
         $html = $this->renderView('contracts/template.html.twig', array(
-            'some'  => 10
+            'missions'  => $missionsToDisplay,
+            'teacher' => $user
         ));
 
         return new PdfResponse(

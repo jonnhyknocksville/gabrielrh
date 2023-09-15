@@ -56,6 +56,9 @@ class Mission
     #[ORM\Column(length: 255)]
     private ?string $hourlyRate = null;
 
+    #[ORM\Column]
+    private ?int $nbrDays = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -225,6 +228,18 @@ class Mission
     public function setHourlyRate(string $hourlyRate): static
     {
         $this->hourlyRate = $hourlyRate;
+
+        return $this;
+    }
+
+    public function getNbrDays(): ?int
+    {
+        return $this->nbrDays;
+    }
+
+    public function setNbrDays(int $nbrDays): static
+    {
+        $this->nbrDays = $nbrDays;
 
         return $this;
     }
