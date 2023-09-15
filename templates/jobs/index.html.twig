@@ -87,10 +87,10 @@
                 <h2 class="text-light pt-5 pb-3"> Recevez par email les dernières offres </h2>
                     <form method="POST">
                         <div class="d-flex pb-3">
-                            <input type="text" placeholder="Entrez votre adresse email" class="col-8 newsletter text-light px-5 py-3" name="newsletter" >
+                            <input type="text" placeholder="Entrez votre adresse email" class="col-8 newsletter px-5 py-3" name="newsletter" >
                             <input class="text-light px-3 bg-info" type="submit" value="JE M'INSCRIS">
                         </div>
-                        <div class="d-flex pb-3">
+                        {# <div class="d-flex pb-3">
                             <div class="mx-3">
                                 <input type="radio" id="test1" value="1" name="frequence" checked>
                                 <label class="text-light" for="test1">Chaque matin</label>
@@ -99,7 +99,7 @@
                                 <input type="radio" id="test2" value="2" name="frequence">
                                 <label class="text-light" for="test2">Chaque semaine</label>
                             </div>
-                        </div>
+                        </div> #}
 
                         <p class="col-12 col-md-7 text-light fst-italic"> En cliquant sur "S'inscrire", vous acceptez les CGU ainsi que notre politique de confidentialité décrivant la finalité des traitements de vos données personnelles. </p>
 
@@ -108,7 +108,7 @@
             </div>
 
             <div class="d-flex col-md-4 align-items-end illustration-part">
-                <img alt="Abonnez-vous à la newsletter de la réponse numérique" title="Newsletter de la réponse numérique" class="w-100" src="{{ asset('build/newsletter.webp') }}" alt="icon d'avatar">
+                <img alt="Abonnez-vous à la newsletter de Formaion WS" title="Newsletter de Formaion WS" class="w-100" src="{{ asset('build/newsletter.webp') }}" alt="icon d'avatar">
             </div>
 
         </div>
