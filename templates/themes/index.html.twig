@@ -36,7 +36,7 @@
 
             {% for theme in themes %}
                 <div class="col-md-3 p-3">
-                    <div class="course-card card form-shadow bg-none">
+                    <div class="card form-shadow bg-none">
                         <a aria-label="{{ theme.title }} - Formation WS" href="{{ path('app_themes_details', {id: theme.id}) }}">
                             <img class="card-img-top smallBorderRadius" src="{{ asset('build/themes/' ~ theme.picture )}}" alt="{{ theme.title }}" title="{{ theme.title }}">
                         </a>

@@ -52,7 +52,7 @@
                 {% for job in jobs %}
                     <div class="col-md-3 p-3">
                         <a href="{{ path('app_jobs_details', { id : job.id}) }}">
-                            <div class="course-card card form-shadow bg-secondary-dark p-3 smallBorderRadius">
+                            <div class=" card form-shadow bg-secondary-dark p-3 smallBorderRadius">
 
                                 <div class="d-flex flex-column justify-content-between mb-3">
                                     <p class="text-light m-0 fw-bold"> {{job.title}} </p>
@@ -128,28 +128,28 @@
                     <li>
                         <a aria-label="Partagez nos offres sur Twitter - Formation WS" href="https://twitter.com/share?url={{ app.request.uri }}"
                         onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
-                            target="_blank" title="Share on Twitter">
+                            target="_blank" title="Partagez nos offres sur Twitter">
                             <i style="color:#1DA1F2;height:2rem" class="fa-brands fa-twitter"></i>
                         </a>
                     </li>
                     <li>
                         <a aria-label="Partagez nos offres sur Linkedin - Formation WS" href="https://www.linkedin.com/shareArticle?mini=true&url={{ app.request.uri }}"
                             onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
-                            target="_blank" title="Share on Linkedin">  
+                            target="_blank" title="Partagez nos offres sur Linkedin">  
                             <i style="color:#1DA1F2;height:2rem" class="px-2 fa-brands fa-linkedin"></i>
                         </a>
                     </li>
                     <li>
                         <a aria-label="Partagez nos offres sur Facebook - Formation WS" href="https://www.facebook.com/sharer/sharer.php?u={{ app.request.uri }}"
                             onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
-                            target="_blank" title="Share on Facebook">                                    
+                            target="_blank" title="Partagez nos offres sur Faceboo">                                    
                             <i style="color:#3b5998;height:2rem" class="fa-brands fa-facebook"></i>
                         </a>
                     </li>
                     <li>
-                        <a aria-label="Partagez nos offres par email - Formation WS" href="mailto:?subject=Formation WS - &amp;body=La Rubrique du numérique -  - https://www.lareponsenumerique.fr/1" title="Share by Email"
+                        <a aria-label="Partagez nos offres par email - Formation WS" href="mailto:?subject=Formation WS - &amp;body=Formation WS -  - {{ app.request.uri }}" title="Partagez nos offres par email"
                             onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
-                            target="_blank" title="Share by email">                                    
+                            target="_blank" title="Partagez nos offres par email">                                    
                             <i style="height:2rem" class="text-secondary fa-solid fa-envelope"></i>
                         </a>
                     </li>
