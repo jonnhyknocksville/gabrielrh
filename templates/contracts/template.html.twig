@@ -1,6 +1,7 @@
 {# FACTURE #}
 <!DOCTYPE html>
 <html>
+	<title>Web Start - {{bdcNumber}} </title>
 	<body>
 
             {% include 'contracts/header.html.twig' %}
@@ -60,6 +61,9 @@
 				<div style="text-align:left;padding:0.5rem;line-height:5px">Siret :
 					<b>878 910 710 00010</b>
 				</div>
+				<div style="text-align:left;padding:0.5rem;line-height:5px">Code NAF :
+					<b>8559B</b>
+				</div>
 				<div style="text-align:left;padding:0.5rem;line-height:5px">Contact :
 					<b>07 82 14 81 41
 					</b>
@@ -69,6 +73,9 @@
 				</div>
 				<div style="text-align:left;padding:0.5rem;line-height:5px">Adresse :
 					<b>6 rue de Calais, 75009, Paris</b>
+				</div>
+				<div style="text-align:left;padding:0.5rem;line-height:5px">Site internet :
+					<b>www.formationws.fr</b>
 				</div>
 			</div>
 			<div style="width:49.5%;border:1px solid black;float:right">
@@ -88,14 +95,17 @@
 				</div>
 				<div style="text-align:right;padding:0.5rem;line-height:5px">Contact :
 					<b>{{teacher.phone}}
-						-
-						{{teacher.email}}
+					</b>
+				</div>
+				<div style="text-align:right;padding:0.5rem;line-height:5px">Email :
+					<b>{{teacher.email}}
 					</b>
 				</div>
 				<div style="text-align:right;padding:0.5rem;line-height:5px">Siège :
-					<b>{{teacher.address}},
-						{{teacher.postalCode}},
-						{{teacher.city}}</b>
+					<b>{{teacher.address}}</b>,
+				</div>
+				<div style="text-align:right;padding:0.5rem;line-height:5px">
+					<b>{{teacher.postalCode}} {{teacher.city}}</b>
 				</div>
 				<div style="text-align:right;padding:0.5rem;line-height:5px">Intervenant choisi :
 					<b>{{teacher.teacher}}</b>

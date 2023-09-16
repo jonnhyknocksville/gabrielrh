@@ -91,7 +91,7 @@ class ContractsController extends AbstractController
             $dompdf->render();
 
             return new Response (
-                $dompdf->stream('resume', ["Attachment" => false]),
+                $dompdf->stream("Web Start - " . $bdcNumber, ["Attachment" => false]),
                 Response::HTTP_OK,
                 ['Content-Type' => 'application/pdf']
             );
@@ -177,7 +177,7 @@ class ContractsController extends AbstractController
             $dompdf->render();
 
             return new Response (
-                $dompdf->stream('resume', ["Attachment" => false]),
+                $dompdf->stream("Web Start - " . $bdcNumber, ["Attachment" => false]),
                 Response::HTTP_OK,
                 ['Content-Type' => 'application/pdf']
             );
