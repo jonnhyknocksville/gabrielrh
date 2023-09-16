@@ -70,10 +70,24 @@ class ProfileController extends AbstractController
         $userId = $this->getUser()->getId();
         $dateTime = new \DateTime("now");
         $year = $dateTime->format("Y");
-        $mission = $doctrine->getRepository(Mission::class)->findAnnualMissions($userId, $year)[0];
-
+        $missions = $doctrine->getRepository(Mission::class)->findAnnualMissions($userId, $year);
+        // dd($missions);
         return $this->render('profile/contracts.html.twig', [
-            'contract' => $mission,
+            'contracts' => $missions,
+            'userId' => $userId,
+            'year' => $year
+        ]);
+    }
+
+    #[Route('/profile/contracts/admin', name: 'app_contracts_admin')]
+    public function contracts_admin(Request $request, EntityManagerInterface $doctrine): Response
+    {
+
+        $teachers = $doctrine->getRepository(User::class)->findAll();
+
+        // dd($missions);
+        return $this->render('profile/contracts_admin.html.twig', [
+            'teachers' => $teachers
         ]);
     }
 

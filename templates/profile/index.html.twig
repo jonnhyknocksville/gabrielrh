@@ -59,6 +59,25 @@
             
             </div>
 
+            {% if is_granted('ROLE_ADMIN') %}
+                <div class="col-md-3 p-3">
+                    <div class="bg-none card p-4 form-shadow align-items-center">
+                        <a aria-label="Consultez vos contrats - Formation WS" class="pb-3" href="{{ path('app_profile_contracts') }}">
+                            <i class="fa-solid fa-shield-halved icon-xl text-light"></i>
+                        </a>
+                        
+                        <div class="card-body p-0">
+                        
+                            <a aria-label="Consultez vos contrats - Formation WS" href="{{ path('app_profile_contracts') }}">
+                                <h5 class="card-title fw-bold text-light text-center">MES FORMATEURS</h5>
+                                    <p class="card-text text-info text-center">Accéder à mes contrats</p>
+                            </a>
+                        </div>
+                    </div>
+                
+                </div>
+            {% endif %}
+
             <div class="col-md-3 p-3">
                 <div class="bg-none card p-4 form-shadow align-items-center">
                     <a aria-label="Consultez vos spécialitées - Formation WS" class="pb-3" href="{{ path('app_profile_skills') }}">

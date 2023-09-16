@@ -69,8 +69,9 @@ class MissionRepository extends ServiceEntityRepository
 
         $entityManager = $this->getEntityManager();
 
+        // SELECT DISTINCT(Month(begin_at)) from mission where user_id = 1 and Year(begin_at) = 2023;
         $query = $entityManager->createQuery(
-            "SELECT m
+            "SELECT DISTINCT(Month(m.beginAt))
             FROM App\Entity\Mission m
             WHERE year(m.endAt) = $year
             AND year(m.beginAt) = $year

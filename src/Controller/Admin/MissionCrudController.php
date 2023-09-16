@@ -10,6 +10,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class MissionCrudController extends AbstractCrudController
@@ -83,6 +84,7 @@ class MissionCrudController extends AbstractCrudController
                 'Distanciel' => 'Distanciel',
             ]),
             TextField::new('missionReference'),
+            NumberField::new('nbrDays')->setRequired(false),
             ChoiceField::new('remuneration')->setChoices([
                 '160' => '160',
                 '165' => '165',
@@ -122,6 +124,9 @@ class MissionCrudController extends AbstractCrudController
                 '345' => '345',
                 '350' => '350',
                 '355' => '355',
+                '400' => '400',
+                '450' => '450',
+                '500' => '500',
             ]),
             ChoiceField::new('hourlyRate')->setChoices([
                 '20' => '20',
@@ -131,8 +136,10 @@ class MissionCrudController extends AbstractCrudController
                 '40' => '40',
                 '45' => '45',
                 '50' => '50',
+                '53.5' => '53.5',
                 '55' => '55',
                 '60' => '60',
+                '64' => '64',
                 '65' => '65',
             ])
             // TextField::new('backgroundColor'),
