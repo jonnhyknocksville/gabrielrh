@@ -2,12 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Mission;
 use App\Entity\ProfessionalsNeeds;
 use App\Entity\Themes;
-use App\Entity\User;
 use App\Form\FindTeachersType;
-use DateInterval;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,75 +32,11 @@ class HomeController extends AbstractController
 
         }
 
-        // je récupère le user
-        $userId = $this->getUser()->getId();
-        $user = $doctrine->getRepository(User::class)->findBy(['id' => $userId])[0];
-
-        // je récupère les missions pour le mois en cours
-        $missions = $doctrine->getRepository(Mission::class)->findMonthMissions($userId, 2023, 9);
-        // dd($missions);
-        $missionsToDisplay = [];
-        $totalAmount = null;
-        $totalHours = null;
-        foreach($missions as $mission) {
-            
-            // si il s'agit d'une mission d'une journée
-            // j'ajoute à la liste des missions
-            if($mission->getBeginAt() == $mission->getEndAt()) {
-                $missionsToDisplay[] = $mission;
-                $totalAmount += $mission->getRemuneration();
-                $totalHours += $mission->getHours();
-            } else {
-
-                $nbrOfDayForMission = ($mission->getEndAt()->format("d") - $mission->getBeginAt()->format("d")) + 1; // 5
-                
-                // dd($mission->getBeginAt());
-
-                for($i = 0; $i < $nbrOfDayForMission; $i++) {
-                    $newMission = clone $mission;
-                    $dateTime = new \DateTime;
-
-                    if($i == 0) {
-                        $dateTime->setDate(
-                        $mission->getBeginAt()->format("Y"),
-                        $mission->getBeginAt()->format("m"),
-                        $mission->getBeginAt()->format("d"));
-                    } else {
-                        $dateTime->setDate(
-                            $mission->getBeginAt()->format("Y"),
-                            $mission->getBeginAt()->format("m"),
-                            $mission->getBeginAt()->format("d") + $i);
-                    }
-
-                    $newMission->setBeginAt($dateTime);
-                    $totalAmount += $newMission->getRemuneration();
-                    $totalHours += $newMission->getHours();
-                    $missionsToDisplay[] = $newMission;
-                    // dd($newMission);
-                }
-
-            }
-
-            
-            // si il s'agit d'une mission sur plusieurs jours
-            // faut que je décortique la mission
-
-        }
-        // dd($missionsToDisplay);
         // Récupération des thèmes
-        // $themes = $doctrine->getRepository(Themes::class)->findMax6();
-        $contractDate = new \DateTime;
-        $contractDate->setDate($mission->getBeginAt()->format("Y"), $mission->getBeginAt()->format("m"), 1);
-        $bdcNumber = "B".$contractDate->format("Ym") . $userId;
-        $contractNumber ="C". $contractDate->format("Ym") . $userId;
-        return $this->render('home/index2.html.twig', [
-            'missions' => $missionsToDisplay,
-            'teacher' => $user,
-            'totalAmount' => $totalAmount,
-            'totalHours' => $totalHours,
-            'contractDate' => $contractDate,
-            'bdcNumber' => $bdcNumber,
-            'contractNumber' => $contractNumber
+        $themes = $doctrine->getRepository(Themes::class)->findMax6();
+        return $this->render('home/index.html.twig', [
+            'themes' => $themes,
+            'pro_need' => $form
         ]);
     }
 }

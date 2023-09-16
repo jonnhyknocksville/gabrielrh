@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Jobs;
+use App\Entity\Mission;
 use App\Entity\StaffApplication;
 use App\Entity\User;
 use App\Form\ChangePasswordType;
@@ -62,11 +63,17 @@ class ProfileController extends AbstractController
     }
 
     #[Route('/profile/contracts', name: 'app_profile_contracts')]
-    public function contracts(Request $request): Response
+    public function contracts(Request $request, EntityManagerInterface $doctrine): Response
     {
 
+
+        $userId = $this->getUser()->getId();
+        $dateTime = new \DateTime("now");
+        $year = $dateTime->format("Y");
+        $mission = $doctrine->getRepository(Mission::class)->findAnnualMissions($userId, $year)[0];
+
         return $this->render('profile/contracts.html.twig', [
-            'controller_name' => 'ProfileController',
+            'contract' => $mission,
         ]);
     }
 

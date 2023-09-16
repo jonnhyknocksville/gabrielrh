@@ -65,4 +65,21 @@ class MissionRepository extends ServiceEntityRepository
 
     }
 
+    public function findAnnualMissions($id, $year) {
+
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            "SELECT m
+            FROM App\Entity\Mission m
+            WHERE year(m.endAt) = $year
+            AND year(m.beginAt) = $year
+            AND m.user = $id"
+
+        );
+
+        return $query->getResult();
+
+    }
+
 }

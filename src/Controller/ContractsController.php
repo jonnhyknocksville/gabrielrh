@@ -19,10 +19,10 @@ class ContractsController extends AbstractController
 
         // je récupère le user
         $userId = $this->getUser()->getId();
-        $user = $doctrine->getRepository(User::class)->findBy(['id' => $userId]);
+        $user = $doctrine->getRepository(User::class)->findBy(['id' => $userId])[0];
 
         // je récupère les missions pour le mois en cours
-        $missions = $doctrine->getRepository(Mission::class)->findMonthMissions($userId, $year, $month);
+        $missions = $doctrine->getRepository(Mission::class)->findMonthMissions($userId, 2023, 9);
         $missionsToDisplay = [];
         $totalAmount = null;
         $totalHours = null;
@@ -30,20 +30,57 @@ class ContractsController extends AbstractController
             
             // si il s'agit d'une mission d'une journée
             // j'ajoute à la liste des missions
-            // if($mission->getBeginDate() == $mission->getEndDate()) {
-            //     $missionsToDisplay[] = $mission;
-            // }
-            // si il s'agit d'une mission sur plusieurs jours
-            // faut que je décortique la mission
+            if($mission->getBeginAt() == $mission->getEndAt()) {
+                $missionsToDisplay[] = $mission;
+                $totalAmount += $mission->getRemuneration();
+                $totalHours += $mission->getHours();
+            } else {
+                // si il s'agit d'une mission sur plusieurs jours
+                // faut que je décortique la mission
+                $nbrOfDayForMission = ($mission->getEndAt()->format("d") - $mission->getBeginAt()->format("d")) + 1; // 5
+                
+                for($i = 0; $i < $nbrOfDayForMission; $i++) {
+                    $newMission = clone $mission;
+                    $dateTime = new \DateTime;
 
+                    if($i == 0) {
+                        $dateTime->setDate(
+                        $mission->getBeginAt()->format("Y"),
+                        $mission->getBeginAt()->format("m"),
+                        $mission->getBeginAt()->format("d"));
+                    } else {
+                        $dateTime->setDate(
+                            $mission->getBeginAt()->format("Y"),
+                            $mission->getBeginAt()->format("m"),
+                            $mission->getBeginAt()->format("d") + $i);
+                    }
+
+                    $newMission->setBeginAt($dateTime);
+                    $totalAmount += $newMission->getRemuneration();
+                    $totalHours += $newMission->getHours();
+                    $missionsToDisplay[] = $newMission;
+                }
+
+            }
+
+        
         }
 
+        $contractDate = new \DateTime;
+        $contractDate->setDate($mission->getBeginAt()->format("Y"), $mission->getBeginAt()->format("m"), 1);
+        $bdcNumber = "B".$contractDate->format("Ym") . $userId;
+        $contractNumber ="C". $contractDate->format("Ym") . $userId;
         $header = $this->renderView('contracts/header.html.twig');
         $footer = $this->renderView('contracts/footer.html.twig');
 
         $html = $this->renderView('contracts/template.html.twig', array(
             'missions'  => $missionsToDisplay,
-            'teacher' => $user
+            'teacher' => $user,
+            'bdcNumber' => $bdcNumber,
+            'contractNumber' => $contractNumber,
+            'contractDate' => $contractDate,
+            'totalAmount' => $totalAmount,
+            'totalHours' => $totalHours
         ));
 
         return new PdfResponse(
@@ -70,10 +107,5 @@ class ContractsController extends AbstractController
             )),
             'file.pdf'
         );
-
-
-        // return $this->render('contracts/index.html.twig', [
-        //     'controller_name' => 'ContractsController',
-        // ]);
     }
 }

@@ -1,160 +1,258 @@
+{# FACTURE #}
+
+<div style="text-align:right;padding:1rem 0rem 0rem 0rem">
+    <p style="line-height:5px;font-weight:bold;text-decoration:underline">Bon de commande</p>
+    <p style="line-height:5px">BDC n°<b>{{bdcNumber}}</b></p>
+    <p style="line-height:5px">Contrat n°<b>{{contractNumber}}</b></p>
+</div>
+<div style="text-align:left"><p>Bon de commande, entre les soussignés (ci-après dénommés « les parties ») :</p></div>
+<section>
+    <div style="width:49.5%;border:1px solid black;float:left">
+        <div style="text-align:center;background-color:#5e24c3;font-weight:bold;color:white;margin-bottom:10px;padding:0.5rem"> Le Client </div>
+        <div style="text-align:left;padding:0.5rem;line-height:5px">Société : <b>Web Start</b></div>
+        <div style="text-align:left;padding:0.5rem;line-height:5px">Forme : <b>SARL</b></div>
+        <div style="text-align:left;padding:0.5rem;line-height:5px">Représenté par : <b>Habby Habbani</b></div>
+        <div style="text-align:left;padding:0.5rem;line-height:5px">Siret : <b>878 910 710 00010</b> </div>
+        <div style="text-align:left;padding:0.5rem;line-height:5px">Contact : <b>07 82 14 81 41 </b> </div>
+        <div style="text-align:left;padding:0.5rem;line-height:5px">Emil : <b>sam@formationws.fr</b> </div>
+        <div style="text-align:left;padding:0.5rem;line-height:5px">Adresse : <b>6 rue de Calais, 75009, Paris</b></div>
+    </div>
+    <div style="width:49.5%;border:1px solid black;float:right">
+        <div style="text-align:center;background-color:#5e24c3;font-weight:bold;color:white;margin-bottom:10px;padding:0.5rem"> Le Prestataire </div>
+        <div style="text-align:right;line-height:5px;padding:0.5rem;">Société : <b>{{teacher.company}}</b> </div>
+        <div style="text-align:right;padding:0.5rem;line-height:5px">(Représentée par : <b>{{teacher.teacher}}</b>)</div>
+        <div style="text-align:right;padding:0.5rem;line-height:5px">Forme : <b>{{teacher.legalForm}}</b> </div>
+        <div style="text-align:right;padding:0.5rem;line-height:5px">Siret : <b>{{teacher.siret}}</b></div>
+        <div style="text-align:right;padding:0.5rem;line-height:5px">Contact : <b>{{teacher.phone}} - {{teacher.email}} </b></div>
+        <div style="text-align:right;padding:0.5rem;line-height:5px">Siège : <b>{{teacher.address}}, {{teacher.postalCode}}, {{teacher.city}}</b> </div>
+        <div style="text-align:right;padding:0.5rem;line-height:5px">Intervenant choisi par le prestataire : <b>{{teacher.teacher}}</b></div>
+    </div>
+</section>
+<br>
+<section>
+    <table class="table" style="width:100%">
+        <thead>
+            <tr>
+            <th scope="col" style="padding:0.5rem;font-weight:bold">Date</th>
+            <th scope="col" style="padding:0.5rem;font-weight:bold">Horaires</th>
+            <th scope="col" style="padding:0.5rem;font-weight:bold">Sujet</th>
+            <th scope="col" style="padding:0.5rem;font-weight:bold">Centre/Ecole</th>
+            <th scope="col" style="padding:0.5rem;font-weight:bold">Adresse</th>
+            <th scope="col" style="padding:0.5rem;font-weight:bold">Tarif/heure</th>
+            <th scope="col" style="padding:0.5rem;font-weight:bold">Tarif/jour</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for mission in missions %}
+                <tr>
+                    <td style="border-bottom:1px solid black;"><b>{{mission.beginAt|date("d-m-Y")}}</b></td>
+                    <td style="border-bottom:1px solid black;text-align:center">{{mission.scheduleTime}}</td>
+                    <td style="border-bottom:1px solid black;text-align:center">{{mission.course.title}}</td>
+                    <td style="border-bottom:1px solid black;text-align:center">{{mission.client.name}}</td>
+                    <td style="border-bottom:1px solid black;text-align:center">{{mission.client.address}}</td>
+                    <td style="border-bottom:1px solid black;text-align:center">{{mission.hourlyRate}}</td>
+                    <td style="border-bottom:1px solid black;text-align:center">{{mission.remuneration}}</td>
+                </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+</section>
+
+<section style="padding: 0rem 0rem 2rem 0rem">
+    <div style="width:49.5%; float:left;">
+        <p style="text-align:left;line-height:5px"><b>Mode de règlement</b> : virement bancaire.</p>
+        <p style="text-align:left;line-height:5px"><b>Frais remboursable</b> : Non.</p>
+        <p style="text-align:left;line-height:5px"><b>Délai de règlement</b> : 60 jours maximum </p>
+        <p style="text-align:left;line-height:5px">après réception de facture.</p>
+    </div>
+    <div style="width:49.5%; float:right;">
+        <p style="text-align:right;line-height:5px">Total Net de Taxe : <b>{{totalAmount}}</b> €.</p>
+        <p style="text-align:right;line-height:5px"><b>{{ missions|length }}</b> interventions – <b>{{totalHours}}</b> heures. </p>
+        <p style="text-align:right;line-height:5px">TVA : Le montant est exprimé 'net de taxe'</p>
+        <p style="text-align:right;line-height:5px">et doit inclure la TVA si elle est applicable. </p>
+    </div>
+</section>
+<br>
+<br>
+
+<section style="padding: 2rem 0rem 0rem 0rem">
+    <p style="line-height:15px"> Vous nous avez proposé d’intervenir chez nos clients pour des prestations de formation, si vous êtes d’accord avec les conditions ci-dessus, merci de nous confirmer votre acceptation par votre signature sur ce bon de commande.</p>
+    <p style="line-height:15px">« En signant ce Bon de Commande, je reconnais avoir pris connaissance des conditions générales contractuelles, qui m’ont été transmises en deuxième page, et les accepte sans réserve ».</p>
+    <p style="line-height:15px">Fait en deux originaux, à Paris, le <b>{{contractDate|date("d-m-Y")}}</b>.</p>
+    <p style="line-height:15px">Signature</p>
+</section>
+
+<section style="padding:2rem">
+    <div style="width:50%;border:1px solid black;min-height:150px;float:right">
+        <div style="background-color:#5e24c3;color:white;margin-bottom:10px;padding:0.5rem"> Le Client </div>
+    </div>
+    <div style="width:50%;border:1px solid black;min-height:150px">
+        <div style="background-color:#5e24c3;color:white;margin-bottom:10px;padding:0.5rem"> Le Prestataire </div>
+    </div>
+</section>
+
+<div style = "display:block; clear:both; page-break-after:always;"></div>
+
+{# CONTRACT #}
+
+
 <h1 style="text-align:center">Contrat de Prestation de services - Conditions Générales</h1>
 <h5 style="text-align:center;font-weight:bold">Contrat n°202304012</h5>
 
 <br>
-<br>
 
-<p style="text-align:justify">Entre les soussignés :</p>
 
-<p style="text-align:justify">La société <b>WEB START</b>, Société à responsabilité limitée (SARL), au capital de 1 500 euros, enregistrée au Registre du Commerce et des Sociétés de Paris sous le numéro SIREN 888707692 (RCS) dont le siège social est situé au 6 RUE DE CALAIS 75009 PARIS, représentée par Mr Samih Habbani et Mlle Habby Habbani dûment habilités à cet effet,</p>
+<p style="text-align:justify;line-height:15px">Entre les soussignés :</p>
 
-<p style="text-align:justify">ET</p>
+<p style="text-align:justify;line-height:15px">La société <b>WEB START</b>, Société à responsabilité limitée (SARL), au capital de 1 500 euros, enregistrée au Registre du Commerce et des Sociétés de Paris sous le numéro SIREN 888707692 (RCS) dont le siège social est situé au 6 RUE DE CALAIS 75009 PARIS, représentée par Mr Samih Habbani et Mlle Habby Habbani dûment habilités à cet effet,</p>
 
-<p style="text-align:justify"><b>Monkid Bahlouli</b>, travaillant sous le statut Auto-Entrepreneur, avec le numéro SIRET 918 779 919 00011, dont voici les coordonnées : <b>15 BIS Avenue du Petit Fabron - 0698063038 - monkid.bahlouli@gmail.com</b>.</p>
+<p style="text-align:justify;line-height:15px">ET</p>
 
-<p style="text-align:justify">Ci après dénommé «<b>Monkid Bahlouli</b>» ou « Le Prestataire »</p>
+<p style="text-align:justify;line-height:15px"><b>Monkid Bahlouli</b>, travaillant sous le statut Auto-Entrepreneur, avec le numéro SIRET 918 779 919 00011, dont voici les coordonnées : <b>15 BIS Avenue du Petit Fabron - 0698063038 - monkid.bahlouli@gmail.com</b>.</p>
+
+<p style="text-align:justify;line-height:15px">Ci après dénommé «<b>Monkid Bahlouli</b>» ou « Le Prestataire »</p>
 
 
 <h2>01 - OBJET</h2>
 
-<p style="text-align:justify"><b>WEB START</b>, le Client, représente l'entreprise qui exprime le besoin d'une ou plusieurs missions de formation informatique à effectuer auprès de ses propres clients finaux. (Ecoles du digital, centre de formation…)
+<p style="text-align:justify;line-height:15px"><b>WEB START</b>, le Client, représente l'entreprise qui exprime le besoin d'une ou plusieurs missions de formation informatique à effectuer auprès de ses propres clients finaux. (Ecoles du digital, centre de formation…)
 Le prestataire, spécialiste du domaine de formation en question, et externe à la société <b>WEB START</b>, se propose d’intervenir sur les missions proposées par le Client, missions qui requièrent une expertise ou une disponibilité dont <b>WEB START</b> ne dispose pas elle-même.</p>
 
-<p style="text-align:justify">Afin d’être au contact des apprenants de façon à assurer l'enseignement dans les meilleures conditions possibles les missions seront exécutées dans les locaux des clients finaux de la Société <b>WEB START</b>.
+<p style="text-align:justify;line-height:15px">Afin d’être au contact des apprenants de façon à assurer l'enseignement dans les meilleures conditions possibles les missions seront exécutées dans les locaux des clients finaux de la Société <b>WEB START</b>.
 Selon les conditions actuelles liées à la crise Sanitaire, ou le format du client du client, le prestataire peut se voir assurer sa prestation de formation à distance.</p>
 
-<p style="text-align:justify">Le présent contrat contient tous les engagements des parties, les correspondances, offres, ou propositions antérieures à la signature du présent contrat, seront considérées comme
+<p style="text-align:justify;line-height:15px">Le présent contrat contient tous les engagements des parties, les correspondances, offres, ou propositions antérieures à la signature du présent contrat, seront considérées comme
 non-avenues.</p>
 
 <br>
-<br>
+
 
 <h2>02 - INDÉPENDANCES DES PARTIES</h2>
 
-<p style="text-align:justify">Le Prestataire reconnaît et déclare que ce contrat permet simplement de préciser les conditions d’une, voire plusieurs, collaborations ponctuelles en sous-traitance et ne peut être considéré comme un contrat de travail.</p>
+<p style="text-align:justify;line-height:15px">Le Prestataire reconnaît et déclare que ce contrat permet simplement de préciser les conditions d’une, voire plusieurs, collaborations ponctuelles en sous-traitance et ne peut être considéré comme un contrat de travail.</p>
 
-<p style="text-align:justify">Le Prestataire et <b>WEB START</b> sont et demeurent des entités indépendantes, ce qui implique qu’aucune partie ne peut engager l'autre partie sans son accord.
+<p style="text-align:justify;line-height:15px">Le Prestataire et <b>WEB START</b> sont et demeurent des entités indépendantes, ce qui implique qu’aucune partie ne peut engager l'autre partie sans son accord.
 Les Parties agissent en leur nom. Elles reconnaissent n’avoir aucune autorité à agir pour le compte de l’autre Partie, de se lier d’une quelconque façon que ce soit, de signer au nom de l’autre Partie ou de laisser entendre que l’autre Partie est d’une quelconque manière responsable de ses actes.</p>
 
-<p style="text-align:justify">Aucune des stipulations du document ne pourra être interprétée comme créant entre le Prestataire et 
+<p style="text-align:justify;line-height:15px">Aucune des stipulations du document ne pourra être interprétée comme créant entre le Prestataire et 
 
 <b>WEB START</b>, un mandat, une filiale, une relation d’agent ou d’employé à employeur.
 Conformément aux dispositions des articles L.8221-6 et L.8221-6-1, la présomption de travailleur indépendant est établie par la production de son immatriculation INSEE ou de son extrait KBIS par le Prestataire au moment de la signature du présent contrat.</p>
 
 <br>
-<br>
+
 
 <h2>03 - MODALITÉS D’INTERVENTION ET DURÉE</h2>
 
-<p style="text-align:justify">La société <b>WEB START</b> s’engage à préciser toutes les informations nécessaires afin que le Prestataire puisse effectuer sa mission dans les meilleures conditions possibles.
+<p style="text-align:justify;line-height:15px">La société <b>WEB START</b> s’engage à préciser toutes les informations nécessaires afin que le Prestataire puisse effectuer sa mission dans les meilleures conditions possibles.
 
-<p style="text-align:justify">En contre partie, le Prestataire justifie d'une expérience et d’une expertise significative dans le domaine digital et déclare être en mesure d’assurer l'enseignement adéquats pour les missions qui lui seront confiées.
+<p style="text-align:justify;line-height:15px">En contre partie, le Prestataire justifie d'une expérience et d’une expertise significative dans le domaine digital et déclare être en mesure d’assurer l'enseignement adéquats pour les missions qui lui seront confiées.
 Le présent contrat est conclu pour une durée équivalente à celle de la mission.</p>
 
 <br>
-<br>
+
 
 <div style = "display:block; clear:both; page-break-after:always;"></div>
 
 <h2>04 - ENGAGEMENTS DES PARTIES</h2>
 
-<p style="text-align:justify">Le Prestataire s’engage à :
+<p style="text-align:justify;line-height:15px">Le Prestataire s’engage à :
 – Prendre connaissance des objectifs de la formation et préparer des contenus de cours en adéquation avec les objectifs afin de garantir le succès de la formation
 – Animer personnellement la formation dans le respect des objectifs fixés, et rester à l'écoute d’éventuelle(s) difficulté(s) rencontrée(s) par le groupe d'étudiant
 – Assurer l'émargement, la rédaction et correction d’éventuelles évaluations ou travaux pratiques, ainsi qu'un compte-rendu permettant le contrôle des connaissances et des compétences pour chaque étudiant
 Celui-ci s’engage à achever personnellement toute prestation acceptée (sans possibilité de délégation ou de céder la prestation à un tiers).</p>
 
-<p style="text-align:justify"><b>WEB START</b> s’engage à :</p>
+<p style="text-align:justify;line-height:15px"><b>WEB START</b> s’engage à :</p>
 – Réserver les journées de formation conclues au profit du Prestataire
 – Exécuter le présent contrat (sauf annulation partielle ou totale venant de la part de son client, le centre de formation)
 – Garder confidentiel les informations du présent contrat 
 
-<p style="text-align:justify">Il est convenu que les parties désignées se tiendront régulièrement informées du déroulement des missions par téléphone, email et tout moyen de communication permettant de faciliter le suivi des formations données par le Prestataire.</p>
+<p style="text-align:justify;line-height:15px">Il est convenu que les parties désignées se tiendront régulièrement informées du déroulement des missions par téléphone, email et tout moyen de communication permettant de faciliter le suivi des formations données par le Prestataire.</p>
 
 <br>
-<br>
+
 
 <h2>05 - TARIF, FRAIS, FACTURATION ET DÉLAI DE PAIEMENT</h2>
 
-<p style="text-align:justify">En contrepartie des interventions effectuées par le Prestataire, <b>WEB START</b> s’engage à effectuer le paiement des missions pour lesquelles le Prestataire est sollicité.
+<p style="text-align:justify;line-height:15px">En contrepartie des interventions effectuées par le Prestataire, <b>WEB START</b> s’engage à effectuer le paiement des missions pour lesquelles le Prestataire est sollicité.
 
-<p style="text-align:justify">Le tarif de rémunération est fixé à la journée, (où à l’heure suivant le client final) et fait l’objet d’une discussion totalement libre avant d’être acceptée préalablement par les deux parties et validée par la signature du Prestataire dans ce présent document.</p>
+<p style="text-align:justify;line-height:15px">Le tarif de rémunération est fixé à la journée, (où à l’heure suivant le client final) et fait l’objet d’une discussion totalement libre avant d’être acceptée préalablement par les deux parties et validée par la signature du Prestataire dans ce présent document.</p>
 
-<p style="text-align:justify">Les frais de déplacement et de repas seront à la charge du Prestataire. Plus généralement, aucuns frais annexes ne pourront être facturés à <b>WEB START</b>.</p>
+<p style="text-align:justify;line-height:15px">Les frais de déplacement et de repas seront à la charge du Prestataire. Plus généralement, aucuns frais annexes ne pourront être facturés à <b>WEB START</b>.</p>
 
 
-<p style="text-align:justify">Chaque facture sera payée dans un délai de 30 à 60 jours (calendaires) maximum après réception.
+<p style="text-align:justify;line-height:15px">Chaque facture sera payée dans un délai de 30 à 60 jours (calendaires) maximum après réception.
 <b>WEB START</b> se réserve le droit de ne pas régler au Prestataire, les prestations qui n’auront pu être re-facturées à son client final pour un manque de conformité (absence, retard, manquement professionnel majeur).</p>
 
 <br>
-<br>
+
 
 <h2>06 - RESILIATION ANTICIPÉE</h2>
 
-<p style="text-align:justify">Sur simple notification par email, Le Client pourra résilier le contrat de plein droit avant la date de la première intervention, sans que cette résiliation ne puisse donner lieu à un dédommagement. Le Client ne peut, en aucune circonstance, être tenue pour responsable d’un quelconque dommage indirect, incident, et notamment d’aucun préjudice commercial indirect à raison d’une perte de chiffre d’affaires, de bénéfice ou de revenu subie par le Prestataire du fait de l’exécution du Contrat ou de son interruption / de sa terminaison. </p>
+<p style="text-align:justify;line-height:15px">Sur simple notification par email, Le Client pourra résilier le contrat de plein droit avant la date de la première intervention, sans que cette résiliation ne puisse donner lieu à un dédommagement. Le Client ne peut, en aucune circonstance, être tenue pour responsable d’un quelconque dommage indirect, incident, et notamment d’aucun préjudice commercial indirect à raison d’une perte de chiffre d’affaires, de bénéfice ou de revenu subie par le Prestataire du fait de l’exécution du Contrat ou de son interruption / de sa terminaison. </p>
 
-<p style="text-align:justify">En cas de résiliation de la mission au cours de l’action de formation, Le Client devra s’acquitter d’une facture au prorata des heures réalisées.</p>
+<p style="text-align:justify;line-height:15px">En cas de résiliation de la mission au cours de l’action de formation, Le Client devra s’acquitter d’une facture au prorata des heures réalisées.</p>
 
 <br>
-<br>
+
 
 <h2>07 - RESPECT DU CLIENT</h2>
 
-<p style="text-align:justify">Le Prestataire étant au contact régulier des clients de la société <b>WEB START</b>, durant les missions et en cas d’arrêt des prestations, est soumis à une obligation de loyauté et de respect de la clientèle pendant une durée d'au moins 2 ans après la fin du dernier contrat signé avec <b>WEB START</b>. </p>
+<p style="text-align:justify;line-height:15px">Le Prestataire étant au contact régulier des clients de la société <b>WEB START</b>, durant les missions et en cas d’arrêt des prestations, est soumis à une obligation de loyauté et de respect de la clientèle pendant une durée d'au moins 2 ans après la fin du dernier contrat signé avec <b>WEB START</b>. </p>
 
-<p style="text-align:justify">Le montant des honoraires intègre cette obligation de non-concurrence que le Prestataire reconnait avoir discuté et librement accepté sans réserve. Le Prestataire reconnaît que cette obligation de respect de clientèle ne porte nullement atteinte à sa liberté de travail en ce qu'elle ne lui interdit pas de travailler, pour le compte de sociétés concurrentes, de créer lui même une société concurrente ou encore d'exercer sous quelque forme que ce soit une activité concurrente à celle de la société <b>WEB START</b> à la condition expresse de ne pas détourner la clientèle de la société <b>WEB START</b>.</p>
+<p style="text-align:justify;line-height:15px">Le montant des honoraires intègre cette obligation de non-concurrence que le Prestataire reconnait avoir discuté et librement accepté sans réserve. Le Prestataire reconnaît que cette obligation de respect de clientèle ne porte nullement atteinte à sa liberté de travail en ce qu'elle ne lui interdit pas de travailler, pour le compte de sociétés concurrentes, de créer lui même une société concurrente ou encore d'exercer sous quelque forme que ce soit une activité concurrente à celle de la société <b>WEB START</b> à la condition expresse de ne pas détourner la clientèle de la société <b>WEB START</b>.</p>
 
-<p style="text-align:justify">En cas de non-respect de l'obligation de loyauté, le Prestataire s'expose à être condamné au versement de dommages et intérêts en réparation du préjudice subi par la Société <b>WEB START</b>.</p>
+<p style="text-align:justify;line-height:15px">En cas de non-respect de l'obligation de loyauté, le Prestataire s'expose à être condamné au versement de dommages et intérêts en réparation du préjudice subi par la Société <b>WEB START</b>.</p>
 
 <br>
-<br>
+
 
 
 <h2>08 - CONFIDENTIALITÉ</h2>
 
-<p style="text-align:justify">Le prestataire devra considérer tous documents, informations, données, dont il pourra avoir connaissance à l'occasion de ses missions comme strictement confidentiels et s'interdira d’en divulguer les contenus.</p>
+<p style="text-align:justify;line-height:15px">Le prestataire devra considérer tous documents, informations, données, dont il pourra avoir connaissance à l'occasion de ses missions comme strictement confidentiels et s'interdira d’en divulguer les contenus.</p>
 
 <br>
-<br>
+
 
 <h2>09 - TRAITEMENT ET PROTECTION INFORMATIQUE DES DONNEES PERSONNELLES</h2>
 
-<p style="text-align:justify">Le Prestataire accepte que ses données personnelles soient recueillies par <b>WEB START </b>afin de permettre la gestion d’opération informatique via son système d'information et ainsi faciliter la transmissions d'informations et documents dans le cadre de l'exécution du présent contrat.</p>
+<p style="text-align:justify;line-height:15px">Le Prestataire accepte que ses données personnelles soient recueillies par <b>WEB START </b>afin de permettre la gestion d’opération informatique via son système d'information et ainsi faciliter la transmissions d'informations et documents dans le cadre de l'exécution du présent contrat.</p>
 
-<p style="text-align:justify"><b>WEB START </b>s’engage à respecter les dispositions de la loi Informatiques et Libertés en vigueur et du Règlement (UE) 2016/679 du Parlement européen et du Conseil du 27 avril 2016, dit RGPD. </p>
+<p style="text-align:justify;line-height:15px"><b>WEB START </b>s’engage à respecter les dispositions de la loi Informatiques et Libertés en vigueur et du Règlement (UE) 2016/679 du Parlement européen et du Conseil du 27 avril 2016, dit RGPD. </p>
 
-<p style="text-align:justify">Plus généralement,<b>WEB START</b> s’engage à garder confidentielle, sécuriser,
+<p style="text-align:justify;line-height:15px">Plus généralement,<b>WEB START</b> s’engage à garder confidentielle, sécuriser,
 et traiter les données personnelles auxquelles il serait amené à avoir accès pour la bonne exécution du Contrat uniquement, et pour une durée limité de trois (3) ans après la fin d'exécution du présent contrat.</p>
 
-<p style="text-align:justify">En vertu des articles 39 et 40 de la loi en date du 6 janvier 1978, le Prestataire dispose d'un droit d'accès, de rectification, de suppression et d'opposition de ses données personnelles. Le Prestataire peut exercer ce droit par mail à contact@academiews.fr ou par courrier à l’adresse
+<p style="text-align:justify;line-height:15px">En vertu des articles 39 et 40 de la loi en date du 6 janvier 1978, le Prestataire dispose d'un droit d'accès, de rectification, de suppression et d'opposition de ses données personnelles. Le Prestataire peut exercer ce droit par mail à contact@academiews.fr ou par courrier à l’adresse
 suivante : 6 rue de Calais 75009 Paris.</p>
 
 <br>
-<br>
+
 
 <h2>10 - DROIT A L’IMAGE</h2>
 
-<p style="text-align:justify">Dans le cas d'une ou plusieurs interventions en visioconférence, Le Prestataire déclare être équipé d'un ordinateur avec webcam et d’un micro externe ou intégré à son poste de travail, il aura en sa possession les options techniques et le choix d'activer, ou de ne pas activer, sa webcam durant le cours. De la même façon, il pourra choisir d'enregistrer, ou de ne pas enregistrer, la séquence de cours.</p>
+<p style="text-align:justify;line-height:15px">Dans le cas d'une ou plusieurs interventions en visioconférence, Le Prestataire déclare être équipé d'un ordinateur avec webcam et d’un micro externe ou intégré à son poste de travail, il aura en sa possession les options techniques et le choix d'activer, ou de ne pas activer, sa webcam durant le cours. De la même façon, il pourra choisir d'enregistrer, ou de ne pas enregistrer, la séquence de cours.</p>
 
-<p style="text-align:justify">Si le Prestataire décide d'enregistrer le cours, il donne une autorisation de diffusion par internet équivalente à la durée de la formation organisée par le Client de la Société <b>WEB START</b> et ne pouvant excédé six (6) mois après l'exécution du présent contrat.</p>
+<p style="text-align:justify;line-height:15px">Si le Prestataire décide d'enregistrer le cours, il donne une autorisation de diffusion par internet équivalente à la durée de la formation organisée par le Client de la Société <b>WEB START</b> et ne pouvant excédé six (6) mois après l'exécution du présent contrat.</p>
 
-<p style="text-align:justify">Le Prestataire conserve le droit de mettre fin à tout moment à la présente autorisation, par lettre recommandée AR et avec un préavis minimum de un 1 mois. 
+<p style="text-align:justify;line-height:15px">Le Prestataire conserve le droit de mettre fin à tout moment à la présente autorisation, par lettre recommandée AR et avec un préavis minimum de un 1 mois. 
 Le Prestataire est conscient que l’organisation technique d’internet ne permet pas un contrôle total des contenus et que <b>WEB START</b> ne pourrait être tenu responsable si l'image du Prestataire était reproduite ou si un tier détournait et diffusait de façon illégal les fichiers informatiques.</p>
 
 <br>
-<br>
+
 
 <h2>11 - DECLARATION DU PRESTATAIRE</h2>
 
-<p style="text-align:justify">Le Prestataire atteste sur l’honneur être en régularité avec l’Administration fiscale et l’Urssaf, être enregistré comme travailleur indépendant et dûment habilité à travailler en tant que tel.
+<p style="text-align:justify;line-height:15px">Le Prestataire atteste sur l’honneur être en régularité avec l’Administration fiscale et l’Urssaf, être enregistré comme travailleur indépendant et dûment habilité à travailler en tant que tel.
 Le Prestataire déclare être à jour de ses cotisations fiscales et sociales. En cas de manquement, il dégage <b>WEB START</b> de tout recours à cet égard et en cas d'irrégularité en assumera seul et pleinement la responsabilité devant le ou les administrations concernées.</p>
 
 <br>
-<br>
+
 
 <h2>12 - REGLEMENT DES DIFFERENDS</h2>
 
-<p style="text-align:justify">Les prestations seront régies par le Droit Français. En cas de différend concernant l’interprétation, l’exécution ou la réalisation de l’une ou d’une quelconque des dispositions du présent contrat, les parties s’engagent à trouver une solution amiable.</p>
-<p style="text-align:justify">Si toutefois les parties ne peuvent parvenir à un accord, dans un délai d’un mois à compter de la notification écrite du différend par l’une ou l’autre Partie, le différend sera soumis au Tribunal de Commerce de Paris qui est seul compétent pour connaitre du litige.</p>
-
-<div style = "display:block; clear:both; page-break-after:always;"></div>
+<p style="text-align:justify;line-height:15px">Les prestations seront régies par le Droit Français. En cas de différend concernant l’interprétation, l’exécution ou la réalisation de l’une ou d’une quelconque des dispositions du présent contrat, les parties s’engagent à trouver une solution amiable.</p>
+<p style="text-align:justify;line-height:15px">Si toutefois les parties ne peuvent parvenir à un accord, dans un délai d’un mois à compter de la notification écrite du différend par l’une ou l’autre Partie, le différend sera soumis au Tribunal de Commerce de Paris qui est seul compétent pour connaitre du litige.</p>

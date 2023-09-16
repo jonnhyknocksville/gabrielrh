@@ -4,6 +4,24 @@
 
 {% block body %}
 
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Numéro de Contrat</th>
+      <th scope="col">Numéro de BDM</th>
+      <th scope="col">Mois</th>
+      <th scope="col">Télécharger</th>
+    </tr>
+  </thead>
+  <tbody>
+        <tr>
+            <th scope="row">C{{contract.beginAt|date("Ym")}} {{ contract.user.id }}</th>
+            <th scope="row">B{{contract.beginAt|date("Ym")}} {{ contract.user.id }}</th>
+            <td>{{contract.beginAt|format_datetime(locale='fr',pattern="MMMM") }}</td>
+            <td><a class="btn btn-info" href="{{ path('app_contracts', {year : contract.beginAt|date("Y"), month : contract.beginAt|date("m")})}}"> Télécharger </a></td>
+        </tr>
+  </tbody>
+</table>
 
 
 {% endblock %}
