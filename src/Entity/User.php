@@ -88,6 +88,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $city = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $naf = null;
+
     public function __construct()
     {
         $this->missions = new ArrayCollection();
@@ -446,6 +449,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCity(string $city): static
     {
         $this->city = $city;
+
+        return $this;
+    }
+
+    public function getNaf(): ?string
+    {
+        return $this->naf;
+    }
+
+    public function setNaf(string $naf): static
+    {
+        $this->naf = $naf;
 
         return $this;
     }

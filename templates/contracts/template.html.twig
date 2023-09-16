@@ -82,14 +82,27 @@
 				<div style="text-align:center;background-color:#5e24c3;font-weight:bold;color:white;margin-bottom:10px;padding:0.5rem">
 					Le Prestataire
 				</div>
-				<div style="text-align:right;line-height:5px;padding:0.5rem;">Société :
-					<b>{{teacher.company}}</b>
-				</div>
-				<div style="text-align:right;padding:0.5rem;line-height:5px">(Représentée par :
-					<b>{{teacher.teacher}}</b>)</div>
-				<div style="text-align:right;padding:0.5rem;line-height:5px">Forme :
-					<b>{{teacher.legalForm}}</b>
-				</div>
+				{% if teacher.company is defined and teacher.company is not null %}
+					<div style="text-align:right;line-height:5px;padding:0.5rem;">Société :
+						<b>{{teacher.company}}</b>
+					</div>
+					<div style="text-align:right;padding:0.5rem;line-height:5px">(Représentée par :
+						<b>{{teacher.teacher}}</b>)
+					</div>
+					<div style="text-align:right;padding:0.5rem;line-height:5px">Forme :
+						<b>{{teacher.legalForm}}</b>
+					</div>
+				{% else %}
+					<div style="text-align:right;padding:0.5rem;line-height:5px">Représentant :
+						<b>{{teacher.teacher}}</b>
+					</div>
+					<div style="text-align:right;padding:0.5rem;line-height:5px">Forme :
+						<b>FREELANCE</b>
+					</div>
+					<div style="text-align:right;padding:0.5rem;line-height:5px">APE :
+						<b>{{teacher.naf}}</b>
+					</div>
+				{% endif %}
 				<div style="text-align:right;padding:0.5rem;line-height:5px">Siret :
 					<b>{{teacher.siret}}</b>
 				</div>

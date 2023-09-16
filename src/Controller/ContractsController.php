@@ -20,7 +20,7 @@ class ContractsController extends AbstractController
     public function index(EntityManagerInterface $doctrine, String $year, String $month) : Response
     {
 
-        if (in_array('ROLE_ADMIN', $this->getUser()->getRoles(), true)) {
+        if (in_array('ROLE_TEACHER', $this->getUser()->getRoles(), true)) {
 
             // je récupère le user
             $userId = $this->getUser()->getId();
