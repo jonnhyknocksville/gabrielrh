@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon planning{% endblock %}
+
+{% block javascripts %}
+    {{parent()}}
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js" integrity="sha256-dHUNnePy81fXq4D/wfu7cPsEIP7zl6MvLb84jtZf+UY=" crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block body %}
+
+    <div class="row col-md-10 mx-auto p-5">
+        <div id="calendar-holder"></div>
+    </div>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', () => {
+
+    var calendarEl = document.getElementById('calendar-holder');
+    
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        locale:"fr",
+        editable: false,
+        timeZone: 'Europe/Paris',
+        headerToolbar: {
+            start: 'prev,next today',
+            center: 'title',
+            end: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        events: {{ data|raw }},
+
+    });
+    calendar.render();
+
+
+});
+
+</script>
+
+{% endblock %}

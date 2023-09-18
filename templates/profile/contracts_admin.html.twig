@@ -1,0 +1,55 @@
+{% extends 'base-profile.html.twig' %}
+
+{% block title %}Hello ProfileController!{% endblock %}
+
+{% block body %}
+
+<form action="/contract/admin/download" class="p-5" id="form">
+  <div class="row col-md-8 mx-auto px-5">
+    <select class="form-select" name="teacherId" aria-label="Default select example" id="teacherContract">
+      <option selected disabled>Selectionner un formateur</option>
+      {% for teacher in teachers %}
+        <option value="{{teacher.id}}">{{teacher.teacher}}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="row col-md-8 mx-auto p-5">
+    <select name="month" class="form-select" aria-label="Default select example" id="monthContract">
+      <option selected disabled>Selectionner un mois</option>
+      <option value="1">Janvier</option>
+      <option value="2">Février</option>
+      <option value="3">Mars</option>
+      <option value="4">Avril</option>
+      <option value="5">Mai</option>
+      <option value="6">Juin</option>
+      <option value="7">Juillet</option>
+      <option value="8">Aout</option>
+      <option value="9">Septembre</option>
+      <option value="10">Octobre</option>
+      <option value="11">Novembre</option>
+      <option value="12">Décembre</option>
+    </select>
+  </div>
+
+  <div class="row col-md-8 mx-auto px-5">
+    <select name="year" class="form-select" aria-label="Default select example" id="monthContract">
+      <option selected disabled>Selectionner une année</option>
+      <option value="2020">2020</option>
+      <option value="2021">2021</option>
+      <option value="2022">2022</option>
+      <option value="2023">2023</option>
+      <option value="2024">2024</option>
+    </select>
+  </div>
+
+  <div class="row col-md-8 mx-auto px-5">
+      <button type="submit" class="btn btn-lg btn-primary mt-4 col-md-6 buttonBorderRadius">Télécharger</button>
+  </div>
+
+  </form>
+
+
+
+
+{% endblock %}

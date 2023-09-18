@@ -10,6 +10,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class MissionCrudController extends AbstractCrudController
@@ -48,26 +49,64 @@ class MissionCrudController extends AbstractCrudController
             ]),
             ChoiceField::new('startTime')->setChoices([
                 '8h00' => '8h00',
+                '8h30' => '8h30',
                 '09h00' => '09h00',
+                '09h30' => '09h30',
                 '10h00' => '10h00',
                 '13h30' => '13h30',
+                '14h00' => '14h00',
             ]), 
             ChoiceField::new('scheduleTime')->setChoices([
                 '8h00-12h00 / 13h00-17h00' => '8h00-12h00 / 13h00-17h00',
                 '9h00-12h00 / 13h00-17h00' => '9h00-12h00 / 13h00-17h00',
                 '9h00-12h30 / 13h30-17h00' => '9h00-12h30 / 13h30-17h00',
                 '13h30-17h00 / 13h00-17h00' => '13h30-17h00 / 13h00-17h00',
+                '08h30-12h30' => '08h30-12h30',
+                '08h30-13h00' => '08h30-13h00',
                 '09h00-12h30' => '09h00-12h30',
+                '09h00-12h00' => '09h00-12h00',
                 '13h30-17h00' => '13h30-17h00',
+                '14h00-17h00' => '14h00-17h00',
             ]),
-            TextField::new('hours'),
+            ChoiceField::new('hours')->setChoices([
+                '1' => '1',
+                '1,5' => '1,5',
+                '2' => '2',
+                '2,5' => '2,5',
+                '3' => '3',
+                '3,5' => '3,5',
+                '4' => '4',
+                '4,5' => '4,5',
+                '5' => '5',
+                '5,5' => '5,5',
+                '6' => '6',
+                '6,5' => '6,5',
+                '7' => '7',
+                '7,5' => '7,5',
+                '8' => '8'
+            ]), 
             ChoiceField::new('intervention')->setChoices([
                 'Présentiel' => 'Présentiel',
                 'Hybride' => 'Hybride',
                 'Distanciel' => 'Distanciel',
             ]),
             TextField::new('missionReference'),
+            NumberField::new('nbrDays')->setRequired(false),
             ChoiceField::new('remuneration')->setChoices([
+                '100' => '100',
+                '105' => '105',
+                '110' => '110',
+                '115' => '115',
+                '120' => '120',
+                '122.5' => '122.5',
+                '125' => '125',
+                '130' => '130',
+                '135' => '135',
+                '140' => '140',
+                '145' => '145',
+                '150' => '150',
+                '155' => '155',
+                '157.5' => '157.5',
                 '160' => '160',
                 '165' => '165',
                 '170' => '170',
@@ -106,6 +145,9 @@ class MissionCrudController extends AbstractCrudController
                 '345' => '345',
                 '350' => '350',
                 '355' => '355',
+                '400' => '400',
+                '450' => '450',
+                '500' => '500',
             ]),
             ChoiceField::new('hourlyRate')->setChoices([
                 '20' => '20',
@@ -115,8 +157,10 @@ class MissionCrudController extends AbstractCrudController
                 '40' => '40',
                 '45' => '45',
                 '50' => '50',
+                '53.5' => '53.5',
                 '55' => '55',
                 '60' => '60',
+                '64' => '64',
                 '65' => '65',
             ])
             // TextField::new('backgroundColor'),

@@ -4,6 +4,46 @@
 
 {% block body %}
 
+{% set months = [
+    "Janvier",
+    "Février",
+    "Mars",
+    "Avril",
+    "Mai",
+    "Juin",
+    "Juillet",
+    "Aout",
+    "Septembre",
+    "Octobre",
+    "Novembre",
+    "Décembre",
+] %}
+
+  <h1 class="text-light fst-italic text-center mt-5"> Voici vos contrats pour l'année {{year}} </h1>
+
+
+<div class="row col-md-8 mx-auto p-5">
+  <table class="table bg-color-none">
+    <thead>
+      <tr>
+        <th class="text-light bg-color-none" scope="col">Numéro de Contrat</th>
+        <th class="text-light bg-color-none" scope="col">Numéro de BDM</th>
+        <th class="text-light bg-color-none" scope="col">Mois</th>
+        <th class="text-light bg-color-none" scope="col">Télécharger</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for contract in contracts %}
+          <tr>
+              <th class="text-light bg-color-none" scope="row">C{{year}}{{contract[1]}}{{ userId }}</th>
+              <th class="text-light bg-color-none" scope="row">B{{year}}{{contract[1]}}{{ userId }}</th>
+              <td class="text-light bg-color-none">{{months[contract[1] -1]}}</td>
+              <td class="text-light bg-color-none"><a class="btn btn-info text-light" target="_blank" href="{{ path('app_contracts', {year : year, month : contract[1]})}}"> Télécharger </a></td>
+          </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 
 
 {% endblock %}

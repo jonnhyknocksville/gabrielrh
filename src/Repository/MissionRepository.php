@@ -45,4 +45,42 @@ class MissionRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    public function findMonthMissions($id, $year, $month) {
+
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            "SELECT m
+            FROM App\Entity\Mission m
+            WHERE year(m.endAt) = $year
+            AND year(m.beginAt) = $year
+            AND month(m.endAt) = $month
+            AND month(m.beginAt) = $month
+            AND m.user = $id"
+
+        );
+
+        return $query->getResult();
+
+    }
+
+    public function findAnnualMissions($id, $year) {
+
+        $entityManager = $this->getEntityManager();
+
+        // SELECT DISTINCT(Month(begin_at)) from mission where user_id = 1 and Year(begin_at) = 2023;
+        $query = $entityManager->createQuery(
+            "SELECT DISTINCT(Month(m.beginAt))
+            FROM App\Entity\Mission m
+            WHERE year(m.endAt) = $year
+            AND year(m.beginAt) = $year
+            AND m.user = $id"
+
+        );
+
+        return $query->getResult();
+
+    }
+
 }

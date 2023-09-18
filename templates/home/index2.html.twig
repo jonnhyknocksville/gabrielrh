@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block meta_description %} La société Formation WS est spécialisée dans le placement de formateur et de consultant dans le monde du digital. {% endblock %}
+{% block title %}Placement de formateurs {{parent()}} {% endblock %}
+
+{% block body %}
+<div style="text-align:right;padding:2rem">
+    <p>Bon de commande</p>
+    <p>BDC n°<b>{{bdcNumber}}</b></p>
+    <p>Contrat n°<b>{{contractNumber}}</b></p>
+</div>
+<div style="padding:2rem"><p>Bon de commande, entre les soussignés (ci-après dénommés « les parties ») :</p></div>
+<section style="display:flex; padding:2rem">
+    <div style="width:50%;border:1px solid black">
+        <div style="background-color:blue;margin-bottom:10px;padding:0.5rem"> Le Client </div>
+        <p style="margin-left:1rem">Société : <b>Web Start</b></p>
+        <p style="margin-left:1rem">Forme : <b>SARL</b></p>
+        <p style="margin-left:1rem">Représenté par : <b>Habby Habbani</b></p>
+        <p style="margin-left:1rem">Siret : <b>878 910 710 00010</b> </p>
+        <p style="margin-left:1rem">Contact : <b>07 82 14 81 41 - sam@formationws.fr</b> </p>
+        <p style="margin-left:1rem">Adresse : <b>6 rue de Calais, 75009, Paris</b></p>
+    </div>
+    <div style="width:50%;border:1px solid black">
+        <div style="background-color:blue;margin-bottom:10px;padding:0.5rem"> Le Prestataire </div>
+        <p style="text-align:right;margin-right:1rem">Société : <b>{{teacher.company}}</b> </p>
+        <p style="text-align:right;margin-right:1rem">(Représentée par : <b>{{teacher.teacher}}</b>)</p>
+        <p style="text-align:right;margin-right:1rem">Forme : <b>{{teacher.legalForm}}</b> </p>
+        <p style="text-align:right;margin-right:1rem">Siret : <b>{{teacher.siret}}</b></p>
+        <p style="text-align:right;margin-right:1rem">Contact : <b>{{teacher.phone}} {{teacher.email}}</b></p>
+        <p style="text-align:right;margin-right:1rem">Siège : <b>{{teacher.address}}, {{teacher.postalCode}}, {{teacher.city}}</b> </p>
+        <p style="text-align:right;margin-right:1rem">Intervenant choisi par le prestataire : <b>{{teacher.teacher}}</b></p>
+    </div>
+</section>
+
+<section style="padding:2rem">
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col" style="font-weight:bold">Date</th>
+      <th scope="col" style="font-weight:bold">Horaires</th>
+      <th scope="col" style="font-weight:bold">Sujet</th>
+      <th scope="col" style="font-weight:bold">Centre/Ecole</th>
+      <th scope="col" style="font-weight:bold">Adresse</th>
+      <th scope="col" style="font-weight:bold">Tarif/heure</th>
+      <th scope="col" style="font-weight:bold">Tarif/jour</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {% for mission in missions %}
+        <tr>
+            <td><b>{{mission.beginAt|date("d-m-Y")}}</b></td>
+            <td>{{mission.scheduleTime}}</td>
+            <td>{{mission.course.title}}</td>
+            <td>{{mission.client.name}}</td>
+            <td>{{mission.client.address}}</td>
+            <td>{{mission.hourlyRate}}</td>
+            <td>{{mission.remuneration}}</td>
+        </tr>
+    {% endfor %}
+
+  </tbody>
+</table>
+</section>
+
+<section style="display:flex;padding:2rem">
+    <div style="width:50%">
+        <p>Mode de règlement : virement bancaire.</p>
+        <p>Frais remboursable : Non.</p>
+        <p>Délai de règlement : 60 jours maximum après réception de facture.</p>
+    </div>
+    <div style="width:50%">
+        <p style="text-align:right">Total Net de Taxe : <b>{{totalAmount}}</b> €.</p>
+        <p style="text-align:right"><b>{{ missions|length }}</b> interventions – <b>{{totalHours}}</b> heures. </p>
+        <p style="text-align:right">TVA : Le montant est exprimé 'net de taxe' et doit inclure la TVA si elle est applicable. </p>
+    </div>
+</section>
+<br>
+<br>
+<section style="padding:2rem">
+    <p> Vous nous avez proposé d’intervenir chez nos clients pour des prestations de formation, si vous êtes d’accord avec les conditions ci-dessus, merci de nous confirmer votre acceptation par votre signature sur ce bon de commande.</p>
+    <p>« En signant ce Bon de Commande, je reconnais avoir pris connaissance des conditions générales contractuelles, qui m’ont été transmises en deuxième page, et les accepte sans réserve ».</p>
+    <p>Fait en deux originaux, à Paris, le <b>{{contractDate|date("d-m-Y")}}</b>.</p>
+    <p>Signature</p>
+</section>
+
+<section style="display:flex; padding:2rem">
+    <div style="width:50%;border:1px solid black;min-height:150px">
+        <div style="background-color:blue;margin-bottom:10px;padding:0.5rem"> Le Client </div>
+    </div>
+    <div style="width:50%;border:1px solid black;min-height:150px">
+        <div style="background-color:blue;margin-bottom:10px;padding:0.5rem"> Le Prestataire </div>
+    </div>
+</section>
+
+{% endblock %}
