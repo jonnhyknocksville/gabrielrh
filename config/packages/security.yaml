@@ -38,9 +38,10 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/teacher/calendar, roles: ROLE_USER }
-        - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/profile, roles: ROLE_TEACHER }
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/contracts/[0-9]+/[0-9]+, roles: ROLE_TEACHER }
+        - { path: ^/profile/contracts/admin, roles: ROLE_ADMIN }
 
 when@test:
     security:

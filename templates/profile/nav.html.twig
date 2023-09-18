@@ -71,17 +71,19 @@
                 </li>
             </a>
 
-			<a aria-label="Accédez à vos contrats - Formation WS" href="{{path('app_contracts_admin')}}">
-                <li class="d-flex p-3 align-items-center item">
-                    <div class="d-flex align-items-center justify-content-between w-100 title-container">
-                        <div class="d-flex align-items-center">
-                            <span class="lecture-name f600">
-                                Mes formateurs
-                            </span>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a aria-label="Accédez à vos contrats - Formation WS" href="{{path('app_contracts_admin')}}">
+                    <li class="d-flex p-3 align-items-center item">
+                        <div class="d-flex align-items-center justify-content-between w-100 title-container">
+                            <div class="d-flex align-items-center">
+                                <span class="lecture-name f600">
+                                    Mes formateurs
+                                </span>
+                            </div>
                         </div>
-                    </div>
-                </li>
-            </a>
+                    </li>
+                </a>
+            {% endif %}
 
 			<a aria-label="Déconnectez vous de votre profil - Formation WS" href="{{path('app_logout') }}">
 				<li	class="d-flex p-3 align-items-center item">
@@ -94,6 +96,18 @@
 					</div>
 				</li>
 			</a>
+
+            <a aria-label="Accédez à vos contrats - Formation WS" href="#">
+                <li class="d-flex p-3 align-items-center item">
+                    <div class="d-flex align-items-center justify-content-between w-100 title-container">
+                        <div class="d-flex align-items-center">
+                            <span class="lecture-name fw-bold">
+                                <u>MON CA {{year}}</u> : {{ca}} €
+                            </span>
+                        </div>
+                    </div>
+                </li>
+            </a>
 
 		</ul>
 

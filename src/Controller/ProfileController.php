@@ -18,20 +18,27 @@ use Doctrine\Persistence\ManagerRegistry as PersistenceManagerRegistry;
 
 class ProfileController extends AbstractController
 {
+
     #[Route('/profile', name: 'app_profile')]
-    public function index(): Response
+    public function index(EntityManagerInterface $doctrine): Response
     {
+
+        $data = $this->getValues($doctrine);
+
         return $this->render('profile/index.html.twig', [
-            'controller_name' => 'ProfileController',
+            'year' => $data[0],
+            'ca' => $data[1]
         ]);
     }
 
     #[Route('/profile/password', name: 'app_profile_password')]
     public function edit(Request $request, 
     UserPasswordHasherInterface $passwordEncoder, 
-    PersistenceManagerRegistry $doctrine,
+    EntityManagerInterface $doctrine,
     EntityManagerInterface $entityManager): Response
     {
+
+        $data = $this->getValues($doctrine);
 
         $user = $this->getUser();
         $form = $this->createForm(ChangePasswordType::class, $this->getUser());
@@ -57,7 +64,9 @@ class ProfileController extends AbstractController
 
         return $this->render('profile/modify-password.html.twig', [
             'changePasswordForm' => $form->createView(),
-            'active_link' => 'profile' 
+            'active_link' => 'profile',
+            'year' => $data[0],
+            'ca' => $data[1]
         ]);
 
     }
@@ -66,6 +75,7 @@ class ProfileController extends AbstractController
     public function contracts(Request $request, EntityManagerInterface $doctrine): Response
     {
 
+        $data = $this->getValues($doctrine);
 
         $userId = $this->getUser()->getId();
         $dateTime = new \DateTime("now");
@@ -75,7 +85,8 @@ class ProfileController extends AbstractController
         return $this->render('profile/contracts.html.twig', [
             'contracts' => $missions,
             'userId' => $userId,
-            'year' => $year
+            'year' => $data[0],
+            'ca' => $data[1]
         ]);
     }
 
@@ -83,17 +94,24 @@ class ProfileController extends AbstractController
     public function contracts_admin(Request $request, EntityManagerInterface $doctrine): Response
     {
 
+        $data = $this->getValues($doctrine);
         $teachers = $doctrine->getRepository(User::class)->findAll();
 
         // dd($missions);
         return $this->render('profile/contracts_admin.html.twig', [
-            'teachers' => $teachers
+            'teachers' => $teachers,
+            'year' => $data[0],
+            'ca' => $data[1]
         ]);
     }
 
     #[Route('/profile/skills', name: 'app_profile_skills')]
-    public function skills(Request $request, PersistenceManagerRegistry $doctrine,PaginatorInterface $paginator): Response
+    public function skills(Request $request, 
+        EntityManagerInterface $doctrine,
+        PaginatorInterface $paginator): Response
     {
+
+        $data = $this->getValues($doctrine);
 
         $user = $this->getUser();
         $user = $doctrine->getRepository(User::class)->findBy(["id" => $user->getUserIdentifier()])[0];
@@ -106,25 +124,29 @@ class ProfileController extends AbstractController
 
         return $this->render('profile/skills.html.twig', [
             'skills' => $skills,
+            'year' => $data[0],
+            'ca' => $data[1]
         ]);
     }
     #[Route('/profile/infos', name: 'app_profile_infos')]
-    public function address(Request $request): Response
+    public function address(Request $request, EntityManagerInterface $doctrine): Response
     {
 
-
-
+        $data = $this->getValues($doctrine);
         return $this->render('profile/address.html.twig', [
-            'controller_name' => 'ProfileController',
+            'year' => $data[0],
+            'ca' => $data[1]        
         ]);
+        
     }
 
     #[Route('/profile/opportunities', name: 'app_jobs_for_you')]
     public function opportunities(Request $request, 
-    PersistenceManagerRegistry $doctrine, 
+    EntityManagerInterface $doctrine, 
     PaginatorInterface $paginator): Response
     {
 
+        $data = $this->getValues($doctrine);
         $user = $this->getUser();
         $user = $doctrine->getRepository(User::class)->findBy(["id" => $user->getUserIdentifier()])[0];
         
@@ -150,7 +172,9 @@ class ProfileController extends AbstractController
         return $this->render('profile/opportunities.html.twig', [
             'jobs' => $jobs,
             'staffApplication' => $staffApplication,
-            'listJobsApplied' => $listJobsApplied
+            'listJobsApplied' => $listJobsApplied,
+            'year' => $data[0],
+            'ca' => $data[1]
         ]);
     }
 
@@ -176,6 +200,54 @@ class ProfileController extends AbstractController
         $this->addFlash('success', 'Vous avez bien été postulé pour cette mission !');
 
         return $this->redirectToRoute('app_jobs_for_you');
+
+    }
+
+
+    public function getValues(EntityManagerInterface $doctrine) {
+
+        $userId = $this->getUser()->getId();
+        $dateTime = new \DateTime("now");
+        $year = $dateTime->format("Y");
+        $missions = $doctrine->getRepository(Mission::class)->findCaForCurrentYear($year, $userId);
+        $ca = null;
+
+        foreach($missions as $mission) {
+                
+            // si il s'agit d'une mission d'une journée
+            // j'ajoute à la liste des missions
+            if($mission->getBeginAt() == $mission->getEndAt()) {
+                $missionsToDisplay[] = $mission;
+                $ca += $mission->getRemuneration();
+            } else {
+                // si il s'agit d'une mission sur plusieurs jours
+                // faut que je décortique la mission
+                $nbrOfDayForMission = ($mission->getEndAt()->format("d") - $mission->getBeginAt()->format("d")) + 1; // 5
+                
+                for($i = 0; $i < $nbrOfDayForMission; $i++) {
+                    $newMission = clone $mission;
+                    $dateTime = new \DateTime;
+
+                    if($i == 0) {
+                        $dateTime->setDate(
+                        $mission->getBeginAt()->format("Y"),
+                        $mission->getBeginAt()->format("m"),
+                        $mission->getBeginAt()->format("d"));
+                    } else {
+                        $dateTime->setDate(
+                            $mission->getBeginAt()->format("Y"),
+                            $mission->getBeginAt()->format("m"),
+                            $mission->getBeginAt()->format("d") + $i);
+                    }
+
+                    $newMission->setBeginAt($dateTime);
+                    $ca += $newMission->getRemuneration();
+                }
+
+            }
+        }
+
+        return [$year, $ca];
 
     }
 
