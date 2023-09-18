@@ -11,6 +11,8 @@
 
 {% block body %}
 
+{# SECTION TITRE #}
+
 	<div class="row" id="courseDetails" style="background:linear-gradient(0deg,#31092a,#0e0331)">
 
 		<div class="col-md-12 mx-auto row py-5" style="background:linear-gradient(0deg,#31092a,#0e0331)">
@@ -35,6 +37,8 @@
 					PAIEMENT EN FIN DE MOIS</p>
 			</div>
 
+{# BOUTONS #}
+
 			<div class="col-md-12 d-flex justify-content-center align-items-center mt-5">
                 <button class="btn btn-outline-primary text-light py-2 smallBorderRadius" data-bs-toggle="modal" data-bs-target="#article-social-networks"><i class="fa-solid fa-share me-2"></i> PARTAGER LA MISSION </button>
 				<a aria-label="Acceptez la mission - Formation WS" class="ms-3 text-light smallBorderRadius colorWhite btn btn-outline-secondary pull-right py-2 d-flex align-items-center" href="{{path('app_jobs_application', {id : job.id})}}">
@@ -43,6 +47,7 @@
 
 		</div>
 
+{# SECTION DESCRIPTION DU JOB #}
 
 		<div class=" col-md-12 white d-flex justify-content-center py-5">
 
@@ -57,23 +62,23 @@
 					<div class="icon-box col-md-10 bg-grey-light py-4 px-3 d-flex flex-column justify-content-between form-shadow smallBorderRadius">
 
 						<ul class="d-flex h-100 flex-column justify-content-between">
-							<li class="d-flex align-items-center text-dark my-2 my-md-0">
+							<li class="d-flex align-items-center text-dark my-1">
 								<i class="fa-solid fa-suitcase"></i>
 								{{job.contract}}
 							</li>
-							<li class="d-flex align-items-center text-dark my-2 my-md-0">
+							<li class="d-flex align-items-center text-dark my-1">
 								<i class="fa-solid fa-money-bill"></i>
 								{{ job.salary }}€
 							</li>
-							<li class="d-flex align-items-center text-dark my-2 my-md-0">
+							<li class="d-flex align-items-center text-dark my-1">
 								<i class="fa-solid fa-location-dot"></i>
 								{{ job.location }}
 							</li>
-							<li class="d-flex align-items-center text-dark my-2 my-md-0">
+							<li class="d-flex align-items-center text-dark my-1">
 								<i class="fa-solid fa-calendar-xmark"></i>
 								{{ job.date |date("m/d/Y") }}
 							</li>
-							<li class="d-flex align-items-center text-dark my-2 my-md-0">
+							<li class="d-flex align-items-center text-dark my-1">
 								<i class="fa-solid fa-clock"></i>
 								{{ job.schedule }}
 							</li>
@@ -81,6 +86,8 @@
 
 					</div>
 				</div>
+
+{# BOUTONS #}
 
 				<div class="col-md-12 d-flex align-items-center justify-content-center mt-5">
                     <button class="btn btn-outline-primary text-light py-2 smallBorderRadius" data-bs-toggle="modal" data-bs-target="#article-social-networks"><i class="fa-solid fa-share me-2"></i> PARTAGER LA MISSION </button>
@@ -91,6 +98,8 @@
 			</div>
 
 		</div>
+
+{# SECTION NOTRE PEDAGOGIE #}
 
 		<div class="col-md-12 d-flex justify-content-center py-5">
 
@@ -107,6 +116,7 @@
 
 		</div>
 
+{# SECTION VOS PRINCIPALES MISSIONS #}
 
 		<div class=" col-md-12 py-5 white" id="finalObjectives">
 
@@ -130,6 +140,8 @@
 
 		</div>
 
+{# SECTION PROFIL RECHERCHE #}
+
 		<div class="bg-secondary-dark col-md-12 py-5" id="process">
 
 			<div class="offset-md-3 col-md-8 d-flex flex-column">
@@ -148,23 +160,26 @@
 				</ul>
 
 
-				<h5 class="mt-4 fw600 font-italic text-light">
-					Notre équipe de formateurs décortique chaque sujet pour vous offrir des formations ludiques et intéractives, facil d'accès.
-				</h5>
+				{# <h5 class="mt-4 fw600 font-italic text-light">
+					Notre équipe de formateurs décortique chaque sujet pour vous offrir des formations ludiques et intéractives, facile d'accès.
+				</h5> #}
 			</div>
 
 		</div>
+
+{# SECTION INFORMATIONS #}
 
 		<div class=" col-md-12 py-5 white" id="public">
 
 			<div class="offset-md-3 col-md-8 d-flex flex-column">
 				<h4 class="mb-4 text-light">
+                    <i class="fa-solid fa-circle-info me-3"></i>
 					Informations :
 				</h4>
 				<ul class="text-light">
                     {% for information in job.informations %}
                         <li class="my-2">
-                            <i class="fas fa-check-circle mx-3"></i>
+                            <i class="fas fa-check mx-3"></i>
                             {{ information }}
                         </li>
                     {% endfor %}
@@ -173,6 +188,7 @@
 
 		</div>
 
+{# SECTION COLLABORONS ENSEMBLE #}
 
         <section class="bg-secondary-dark justify-content-center align-items-center flex-column relative pb-5">
 
@@ -208,7 +224,7 @@
 
         </section>
 
-        {# OFFRE SIMILAIRES #}
+{# SECTION POSTES SIMILAIRES #}
 
         <section class="row mx-auto flex-column justify-content-center align-items-center py-5">
 
@@ -216,7 +232,7 @@
                 &lt; POSTES SIMILAIRES /&gt; 
             </div>
             
-            <h2 class="text-center text-light"> D'autres offres sont succeptibles de vous intéresser </h2>
+            <h2 class="text-center text-light"> D'autres offres sont susceptibles de vous intéresser </h2>
 
             <div class="row mx-auto col-md-10 p-3">
 
@@ -224,11 +240,11 @@
                     <div class="col-md-3 p-3">
 
                         <a aria-label="Accedez aux détails des dernières offres - Formation WS"  href="{{ path('app_jobs_details', { id : relatedJob.id }) }}">
-                            <div class="course-card card form-shadow bg-secondary-dark p-3 smallBorderRadius">
+                            <div class="card form-shadow bg-secondary-dark p-3 smallBorderRadius">
 
                                 <div class="d-flex flex-column justify-content-between mb-3">
                                     <p class="text-light m-0 fw-bold"> {{ relatedJob.title  }} </p>
-                                    <p class="m-0 text-light smallSize fst-italic"><i class="fa-solid fa-location-dot me-1"></i> {{ relatedJob.city  }} </p>
+                                    <p class="m-0 text-light smallSize fst-italic"><i class="fa-solid fa-location-dot me-0"></i> {{ relatedJob.city  }} </p>
                                 </div>
 
                                 <div class="mb-3">
@@ -239,7 +255,7 @@
                                 
                                 <div class="card-body p-0">
                                     <p class="text-light"><i class="text-primary fa-solid fa-share"></i> Posutler chez Formation WS </p>
-                                    <p class="card-text mb-3 text-info">Vraiment un très bon concept et bien élaboré</p>
+                                    <p class="card-text mb-3 text-info">{{ relatedJob.titleDescription }}</p>
                                     
                                     <span class="text-light smallSize fst-italic"> Offre publiée le {{ relatedJob.date | date("d-m-Y")  }} </span>
                                 </div>
@@ -253,7 +269,7 @@
 
         </section>
 
-        {# NEWSLETTER #}
+{# SECTION NEWSLETTER #}
 
         <div class="row mx-auto py-5 px-5 bg-secondary-dark" id="newsletter">
 
@@ -261,10 +277,10 @@
                 <h2 class="text-light pt-5 pb-3"> Recevez par email les dernières offres </h2>
                     <form method="POST">
                         <div class="d-flex pb-3">
-                            <input type="text" placeholder="Entrez votre adresse email" class="col-8 newsletter text-light px-5 py-3" name="newsletter" >
+                            <input type="text" placeholder="Entrez votre adresse email" class="col-8 newsletter px-5 py-3" name="newsletter" >
                             <input class="text-light px-3 bg-info" type="submit" value="JE M'INSCRIS">
                         </div>
-                        <div class="d-flex pb-3">
+                        {# <div class="d-flex pb-3">
                             <div class="mx-3">
                                 <input type="radio" id="test1" value="1" name="frequence" checked>
                                 <label class="text-light" for="test1">Chaque matin</label>
@@ -273,7 +289,7 @@
                                 <input type="radio" id="test2" value="2" name="frequence">
                                 <label class="text-light" for="test2">Chaque semaine</label>
                             </div>
-                        </div>
+                        </div> #}
 
                         <p class="col-12 col-md-7 text-light fst-italic"> En cliquant sur "S'inscrire", vous acceptez les CGU ainsi que notre politique de confidentialité décrivant la finalité des traitements de vos données personnelles. </p>
 
@@ -289,7 +305,7 @@
 
 	</div>
 
-    {# PARTAGER L'OFFRE D'EMPLOI #}
+{# MODAL PARTAGER L'OFFRE D'EMPLOI #}
 
         <div class="modal fade" id="article-social-networks" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
@@ -301,28 +317,28 @@
             <div class="modal-body p-4 bg-secondary-dark">
                 <ul class="d-flex justify-content-around"> 
                     <li>
-                        <a aria-label="Partagez notre offre sur Twitter - Formation WS" href="https://twitter.com/share?url={{site}}{{job.id}}"
+                        <a aria-label="Partagez notre offre sur Twitter - Formation WS" href="https://twitter.com/share?url={{ app.request.uri }}"
                         onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
                             target="_blank" title="Share on Twitter">
                             <i style="color:#1DA1F2;height:2rem" class="fa-brands fa-twitter"></i>
                         </a>
                     </li>
                     <li>
-                        <a aria-label="Partagez notre offre sur Linkedin - Formation WS" href="https://www.linkedin.com/shareArticle?mini=true&url={{site}}{{job.id}}"
+                        <a aria-label="Partagez notre offre sur Linkedin - Formation WS" href="https://www.linkedin.com/shareArticle?mini=true&url={{ app.request.uri }}"
                             onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
                             target="_blank" title="Share on Linkedin">  
                             <i style="color:#1DA1F2;height:2rem" class="px-2 fa-brands fa-linkedin"></i>
                         </a>
                     </li>
                     <li>
-                        <a aria-label="Partagez notre offre sur Facebook - Formation WS" href="https://www.facebook.com/sharer/sharer.php?u={{site}}{{job.id}}"
+                        <a aria-label="Partagez notre offre sur Facebook - Formation WS" href="https://www.facebook.com/sharer/sharer.php?u={{ app.request.uri }}"
                             onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
                             target="_blank" title="Share on Facebook">                                    
                             <i style="color:#3b5998;height:2rem" class="fa-brands fa-facebook"></i>
                         </a>
                     </li>
                     <li>
-                        <a aria-label="Partagez notre offre par email - Formation WS" href="mailto:?subject=Formation WS - &amp;body=Formation ws -  - {{site}}{{job.id}}" title="Share by Email"
+                        <a aria-label="Partagez notre offre par email - Formation WS" href="mailto:?subject=Formation WS - &amp;body=Formation ws -  - {{ app.request.uri }}" title="Share by Email"
                             onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
                             target="_blank" title="Share by email">                                    
                             <i style="height:2rem" class="text-secondary fa-solid fa-envelope"></i>
@@ -331,8 +347,8 @@
                 </ul>
             </div>
             <div class="d-flex px-3 pb-3 bg-secondary-dark">
-                <input type="text" class="px-5 py-3 w-100" id="clipboard" value="{{site}}{{job.id}}" >
-                <button aria-label="Copiez le lien de l'article intitulé '' sur Linkedin." class="text-light px-3 bg-secondary btn-clipboard">COPIER</button>
+                <input type="text" class="px-5 py-3 w-100" id="clipboard" value="{{ app.request.uri }}" >
+                <button aria-label="Copiez le lien de l'article intitulé '' sur Linkedin." class="text-light px-3 bg-secondary btn-clipboard" id="btnclipboard">COPIER</button>
             </div>
             </div>
         </div>

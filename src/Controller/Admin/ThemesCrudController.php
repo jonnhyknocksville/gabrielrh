@@ -29,8 +29,8 @@ class ThemesCrudController extends AbstractCrudController
             TextField::new('title'),
             TextField::new('description'),
             ImageField::new('picture')
-            ->setUploadDir('public/')
-            ->setBasePath($this->params->get('app.path.courses_images'))
+            ->setUploadDir('public/build/')
+            ->setBasePath($this->params->get('app.path.themes_images'))
             ->setUploadedFileNamePattern('[slug]-[contenthash].[extension]')
             ->setRequired(false),        ];
     }
