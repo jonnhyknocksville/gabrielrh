@@ -45,6 +45,9 @@ class Clients
     #[ORM\OneToMany(mappedBy: 'client', targetEntity: Tarification::class)]
     private Collection $tarifications;
 
+    #[ORM\Column(length: 255)]
+    private ?string $siret = null;
+
     public function __construct()
     {
         $this->missions = new ArrayCollection();
@@ -148,7 +151,7 @@ class Clients
     }
 
     public function __toString(){
-        return $this->name;
+        return $this->name . " " . $this->city;
     }
 
     public function getPhone(): ?string
@@ -231,6 +234,18 @@ class Clients
                 $tarification->setClient(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSiret(): ?string
+    {
+        return $this->siret;
+    }
+
+    public function setSiret(string $siret): static
+    {
+        $this->siret = $siret;
 
         return $this;
     }

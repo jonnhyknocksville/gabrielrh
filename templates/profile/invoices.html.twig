@@ -1,0 +1,73 @@
+{% extends 'base-profile.html.twig' %}
+
+{% block title %}Générer une facture{% endblock %}
+
+{% block body %}
+
+
+{% set months = [
+    "Janvier",
+    "Février",
+    "Mars",
+    "Avril",
+    "Mai",
+    "Juin",
+    "Juillet",
+    "Aout",
+    "Septembre",
+    "Octobre",
+    "Novembre",
+    "Décembre",
+] %}
+
+  <h1 class="text-light fst-italic text-center mt-5"> Voici vos factures pour le mois {{months[monthIndex -1]}} </h1>
+
+<div class="row col-md-8 mx-auto p-5">
+
+  <div class="row col-md-8 mx-auto p-5">
+
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Sélectionner un mois
+        </button>
+        <ul class="dropdown-menu">
+            <li class="dropdown-item"><a href="{{path('app_invoices', {month : 1})}}"> Janvier </a> </li>
+            <li class="dropdown-item"><a href="{{path('app_invoices', {month : 2})}}"> Février </a> </li>
+            <li class="dropdown-item"><a href="{{path('app_invoices', {month : 3})}}"> Mars </a> </li>
+            <li class="dropdown-item"><a href="{{path('app_invoices', {month : 4})}}"> Avril </a> </li>
+            <li class="dropdown-item"><a href="{{path('app_invoices', {month : 5})}}"> Mai </a> </li>
+            <li class="dropdown-item"><a href="{{path('app_invoices', {month : 6})}}"> Juin </a> </li>
+            <li class="dropdown-item"><a href="{{path('app_invoices', {month : 7})}}"> Juillet </a> </li>
+            <li class="dropdown-item"><a href="{{path('app_invoices', {month : 8})}}"> Aout </a> </li>
+            <li class="dropdown-item"><a href="{{path('app_invoices', {month : 9})}}"> Septembre </a> </li>
+            <li class="dropdown-item"><a href="{{path('app_invoices', {month : 10})}}"> Octobre </a> </li>
+            <li class="dropdown-item"><a href="{{path('app_invoices', {month : 11})}}"> Novembre </a> </li>
+            <li class="dropdown-item"><a href="{{path('app_invoices', {month : 12})}}"> Décembre </a> </li>
+        </ul>
+    </div>
+   
+</div>
+
+  <table class="table bg-color-none">
+    <thead>
+      <tr>
+        <th class="text-light bg-color-none" scope="col">Numéro de Facture</th>
+        <th class="text-light bg-color-none" scope="col">Clients</th>
+        <th class="text-light bg-color-none" scope="col">Mois</th>
+        <th class="text-light bg-color-none" scope="col">Télécharger</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for invoice in invoices %}
+          <tr>
+              <th class="text-light bg-color-none" scope="row">F{{year}}{{monthIndex}}/{{invoice.id}}</th>
+              <th class="text-light bg-color-none" scope="row">{{months[monthIndex -1]}}</th>
+              <th class="text-light bg-color-none" scope="row">{{invoice.name}}</th>
+              <td class="text-light bg-color-none"><a class="btn btn-info text-light" target="_blank" href="{{ path('app_generate_invoice', {year : year, month : monthIndex, clientId : invoice.id})}}"> Télécharger </a></td>
+          </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

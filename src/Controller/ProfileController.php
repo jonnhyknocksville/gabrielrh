@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Clients;
 use App\Entity\Jobs;
 use App\Entity\Mission;
 use App\Entity\StaffApplication;
@@ -15,6 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry as PersistenceManagerRegistry; 
+use Dompdf\Dompdf;
 
 class ProfileController extends AbstractController
 {
@@ -178,7 +180,130 @@ class ProfileController extends AbstractController
         ]);
     }
 
+    #[Route('/profile/invoices/{month}', name: 'app_invoices')]
+    public function invoices(Request $request, 
+    EntityManagerInterface $doctrine, 
+    PaginatorInterface $paginator, int $month): Response
+    {
 
+        $data = $this->getValues($doctrine);
+
+        $dateTime = new \DateTime("now");
+        $year = $dateTime->format("Y");
+        $invoices = $doctrine->getRepository(Mission::class)->findMonthlyInvoicesToGenerate($year, $month);
+        // dd($invoices);
+        // dd($invoices);
+        // dd($invoices);
+        // dd($missions);
+        return $this->render('profile/invoices.html.twig', [
+            'invoices' => $invoices,
+            'year' => $data[0],
+            'monthIndex' => $month,
+            'ca' => $data[1]
+        ]);
+
+    }
+
+    #[Route('/profile/invoices/{year}/{month}/{clientId}', name: 'app_generate_invoice')]
+    public function generateInvoice(Request $request, 
+    EntityManagerInterface $doctrine, 
+    PaginatorInterface $paginator, int $year, int $month, int $clientId): Response
+    {
+
+        if (in_array('ROLE_TEACHER', $this->getUser()->getRoles(), true)) {
+
+            $data = $this->getValues($doctrine);
+
+            $dateTime = new \DateTime("now");
+            $year = $dateTime->format("Y");
+            $missions = $doctrine->getRepository(Mission::class)->findMissionForCustomer($year, $month, $clientId);
+            $client = $doctrine->getRepository(Clients::class)->find($clientId);
+            $invoice = NULL;
+            // va falloir regrouper les missions par formateurs et par cours
+            // TODO
+            // dd($missions);
+            $course = NULL;
+            $user = NULL;
+            $missionsForInvoice = NULL;
+            $totalAmount = NULL;
+
+            // dd($missions);
+
+            foreach($missions as $mission) {
+
+                $course = $mission->getCourse();
+                $user = $mission->getUser()->getId();
+
+                if($mission->getBeginAt() == $mission->getEndAt()) {
+                    $missionsForInvoice[$user][$mission->getCourse()->getId()][] = $mission;
+                    $totalAmount += $mission->getRemuneration();
+
+                } else {
+                    // si il s'agit d'une mission sur plusieurs jours
+                    // faut que je décortique la mission
+                    $nbrOfDayForMission = ($mission->getEndAt()->format("d") - $mission->getBeginAt()->format("d")) + 1; // 5
+                    
+                    for($i = 0; $i < $nbrOfDayForMission; $i++) {
+                        $newMission = clone $mission;
+                        $dateTime = new \DateTime;
+
+                        if($i == 0) {
+                            $dateTime->setDate(
+                            $mission->getBeginAt()->format("Y"),
+                            $mission->getBeginAt()->format("m"),
+                            $mission->getBeginAt()->format("d"));
+                        } else {
+                            $dateTime->setDate(
+                                $mission->getBeginAt()->format("Y"),
+                                $mission->getBeginAt()->format("m"),
+                                $mission->getBeginAt()->format("d") + $i);
+                        }
+
+                        $newMission->setBeginAt($dateTime);
+                        $totalAmount += $newMission->getRemuneration();
+                        $missionsForInvoice[$user][$mission->getCourse()->getId()][] = $newMission;
+                    }
+
+                }
+
+            }
+
+            $date = new \DateTime($year . '-' . $month . '-01');
+            $invoiceDate = $date->modify( 'first day of next month' );
+            $dateEcheance = new \DateTime($year . '-' . ($month + 1) . '-01');
+            $dateEcheance = $dateEcheance->modify( 'first day of next month' );
+
+
+            $invoiceDate = $invoiceDate->format('d-m-Y');
+            $invoiceDateEcheance = $dateEcheance->format('d-m-Y');
+
+            $invoiceNumber = "F".$date->format("Ym") . '/' . $mission->getClient()->getId();
+
+            $data = [
+                'missions'  => $missionsForInvoice,
+                'teacher' => $user,
+                'invoiceNumber' => $invoiceNumber,
+                'invoiceDate' => $invoiceDate,
+                'invoiceDateEcheance' => $invoiceDateEcheance,
+                'totalAmount' => $totalAmount,
+                'client' => $client
+            ];
+            $html =  $this->renderView('profile/invoices-template.html.twig', $data);
+            $dompdf = new Dompdf(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true]);
+            $dompdf->loadHtml($html);
+            $dompdf->render();
+
+            // dd($missionsForInvoice);
+
+            return new Response (
+                $dompdf->stream("Web Start - " . $invoiceNumber, ["Attachment" => false]),
+                Response::HTTP_OK,
+                ['Content-Type' => 'application/pdf']
+            );
+        } else {
+            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+        }
+    }
 
     #[Route('/profile/opportunities/{id}', name: 'app_profile_application')]
     public function accept_opportunity(Request $request, 

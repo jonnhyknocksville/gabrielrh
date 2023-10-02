@@ -83,6 +83,31 @@
                         </div>
                     </li>
                 </a>
+
+            <a aria-label="Déconnectez vous de votre profil - Formation WS" href="{{path('app_invoices', {month: 'now'|date('m') }) }}">
+				<li	class="d-flex p-3 align-items-center item">
+					<div class="d-flex align-items-center justify-content-between w-100 title-container">
+						<div class="d-flex align-items-center">
+							<span class="lecture-name f600">
+								Facturations
+							</span>
+						</div>
+					</div>
+				</li>
+			</a>
+
+            <a aria-label="Admin - Formation WS" href="{{path('admin') }}">
+				<li	class="d-flex p-3 align-items-center item">
+					<div class="d-flex align-items-center justify-content-between w-100 title-container">
+						<div class="d-flex align-items-center">
+							<span class="lecture-name f600">
+								Admin
+							</span>
+						</div>
+					</div>
+				</li>
+			</a>
+
             {% endif %}
 
 			<a aria-label="Déconnectez vous de votre profil - Formation WS" href="{{path('app_logout') }}">

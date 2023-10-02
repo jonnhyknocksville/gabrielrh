@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+	<title>Web Start
+	</title>
+	<style>
+
+		.row {
+			--bs-gutter-x: 1.5rem;
+			--bs-gutter-y: 0;
+			float: left;
+			flex-wrap: wrap;
+			margin-left: calc(var(--bs-gutter-x)*-.5);
+			margin-right: calc(var(--bs-gutter-x)*-.5);
+			margin-top: calc(var(--bs-gutter-y)*-1)
+		}
+
+		.left {
+			float: left;
+		}
+
+		.right {
+			float: right;
+		}
+
+		.clear {
+			clear: both;
+		}
+
+		.fw400 {
+			font-weight: 400;
+		}
+
+		.flex-column {
+			flex-direction: column;
+		}
+
+		.m-0 {
+			margin: 0;
+		}
+
+		.mt-5 {
+			margin-top: 3rem;
+		}
+
+		.mt-3 {
+			margin-top: 1rem;
+		}
+
+		.font-weight-bold {
+			font-weight: bold;
+		}
+
+		.justify-content-between {
+			justify-content: space-between;
+		}
+
+		.bg-info {
+			background-color: #6a8bff;
+		}
+
+		table {
+			border-collapse: collapse;
+			caption-side: bottom;
+			width: 100%;
+		}
+
+		.col-md-5 {
+			flex: 0 0 auto;
+			width: 41.66666667%;
+		}
+
+		.col-md-3 {
+			flex: 0 0 auto;
+			width: 25%;
+		}
+
+		.text-center {
+			text-align: center;
+		}
+
+		td:nth-of {
+			text-align: center;
+		}
+
+		td {
+			text-align: center;
+		}
+
+		.left-td {
+			text-align: left;
+		}
+
+		thead tr th {
+			padding: 0.5rem;
+		}
+
+		tbody td {
+			padding: 0.2rem 0.5rem;
+		}
+
+		tbody {
+			margin-bottom: 0.5rem;
+		}
+	</style>
+	<body>
+		<section class="flex-column">
+
+			<div class="row flex-column">
+
+				<p class="m-0 font-weight-bold">
+					Web Start
+				</p>
+				<p class="m-0 fw400">
+					6 rue de Calais
+				</p>
+				<p class="m-0 fw400">
+					75009 Paris
+				</p>
+				<p class="m-0 fw400">
+					0782148141
+				</p>
+				<p class="m-0 fw400">
+					web.start.contact@gmail.com
+				</p>
+
+			</div>
+
+			<div class="row justify-content-between mt-5">
+
+				<div class="left flex-column">
+					<p class="m-0 font-weight-bold" style="font-size:30px">
+						Facture {{invoiceNumber}}
+					</p>
+					<p class="m-0 fw400">
+						Date d'émission : {{invoiceDate}}
+					</p>
+					<p class="m-0 fw400">
+						Date d'échéance : {{invoiceDateEcheance}}
+					</p>
+					<p class="m-0 fw400">
+						Date limite de réglement : Exigible sous 30 jours
+					</p>
+					<p class="m-0 fw400">
+						web.start.contact@gmail.com
+					</p>
+				</div>
+
+				<div class="right flex-column">
+					<p class="m-0 fw400 font-weight-bold">
+						{{client.name}}
+					</p>
+					<p class="m-0 fw400">
+						{{client.address}}
+					</p>
+					<p class="m-0 fw400">
+						{{client.postalCode}}
+						{{client.city}}
+						France
+					</p>
+					<p class="m-0 fw400">
+						SIRET :
+						{{client.siret}}</p>
+				</div>
+
+			</div>
+
+			<div class="clear"></div>
+			<div class="row mt-5">
+
+				<table class="table" border="1">
+					<thead>
+						<tr class="bg-info">
+							<th scope="col" class="left-td">Prestation</th>
+							<th scope="col">Quantité</th>
+							<th scope="col">P.U HT</th>
+							<th scope="col">TVA</th>
+							<th scope="col">Montant HT</th>
+						</tr>
+					</thead>
+					<tbody>
+                        
+						{% for mission in missions %}
+
+                            {% set totalHours = 0 %}
+                            {% set totalRemuneration = 0 %}
+                            {% for innerMission in mission %}
+
+                                <tr>
+                                    <td scope="row" class="left-td">
+                                        {# <p class="m-0 font-weight-bold">{{missions[0]}}</p> #}
+                                        <p class="m-0 font-weight-bold">{{mission|first[0].user.firstName}} {{mission|first[0].user.lastName}}</p>
+                                        <p class="m-0 fw400">{{mission|first[0].course}} </p>
+                                        <p class="m-0 fw400"> {{mission|first[0].student}} </p>
+                                        <br>
+                                        {% for data in innerMission %}
+                                            {% set totalHours = totalHours + data.hours|replace({ (','): '.' }) %}
+                                            {% set totalRemuneration = totalRemuneration + data.remuneration %}
+                                            <p class="m-0 fw400">{{data.beginAt|date('d-m-Y')}} - {{data.scheduleTime}} </p>
+                                        {% endfor %}
+                                        <br>
+                                        <p class="m-0 fw400">Tarif {{mission|first[0].hourlyRate}}€/h</p>
+                                    </td>
+                                    <td class="font-weight-bold">
+                                        {{totalHours}}h
+                                    </td>
+                                    <td class="font-weight-bold">
+                                        {{mission|first[0].hourlyRate}}€/h
+                                    </td>
+                                    <td class="font-weight-bold">
+                                        HT
+                                    </td>
+                                    <td class="font-weight-bold">
+                                        {{totalRemuneration}}€
+                                    </td>
+                                </tr>
+                            {% endfor %}
+						{% endfor %}
+					</tbody>
+				</table>
+
+			</div>
+
+			<div class="row justify-content-between mt-5">
+
+				<div class="left p-0 col-md-5">
+					<table class="table" border="1">
+						<thead>
+							<tr class="bg-info">
+								<th scope="col">Base</th>
+								<th scope="col">Taux</th>
+								<th scope="col">Montant TVA</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="fw400">
+									{{totalAmount}}€
+								</td>
+								<td class="fw400">
+									HT
+								</td>
+								<td class="fw400">
+									0,00€
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<p class="m-0 font-weight-bold mt-3">
+						TVA non applicable, art. 293 B du CGI
+					</p>
+				</div>
+
+				<div class="right p-0 col-md-3">
+					<table class="table" border="1">
+						<thead class="bg-info">
+							<tr>
+								<th scope="col">Récapitulatif</th>
+								<th scope="col"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="fw600 left-td">
+									Total HT
+								</td>
+								<td class="fw400">
+									{{totalAmount}}€
+								</td>
+							</tr>
+							<tr>
+								<td class="fw600 left-td">
+									TVA
+								</td>
+								<td class="fw400">
+									0,00€
+								</td>
+							</tr>
+							<tr>
+								<td class="fw600 left-td">
+									TOTAL TTC
+								</td>
+								<td class="fw400">
+									{{totalAmount}}€
+								</td>
+							</tr>
+							<tr>
+								<td class="font-weight-bold left-td">
+									Net à payer
+								</td>
+								<td class="fw400">
+									{{totalAmount}}€
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+			</div>
+
+			<div class="clear"></div>
+
+			<div class="row flex-column mt-5">
+				<p class="m-0 font-weight-bold">Mode de paiement: Virement bancaire
+				</p>
+				<p class="m-0 font-weight-bold">Banque : BNP PARIS BAS
+				</p>
+				<p class="m-0 font-weight-bold">IBAN : FR76 3000 4026 01 000 1041 489 324
+				</p>
+			</div>
+
+
+			<div class="row flex-column mt-5">
+
+				<p class="text-center m-0">
+					Prestation de services | Pénalités en cas de retard : 3 fois le taux légal | Indemnité en cas de retard : 40€ | Aucun escompte en cas de paiement anticipé
+				</p>
+				<p class="text-center m-0">
+					Web Start, SARL immatriculée sous le SIREN 888 707 692 | RCS 888 707 692
+				</p>
+				<p class="text-center m-0">
+					N°TVA FR 12345678987654 | APE 8559B
+				</p>
+
+			</div>
+
+		</section>
+
+	</body>
+</html>
