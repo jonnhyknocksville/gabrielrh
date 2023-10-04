@@ -48,6 +48,9 @@ class Clients
     #[ORM\Column(length: 255)]
     private ?string $siret = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $commercialName = null;
+
     public function __construct()
     {
         $this->missions = new ArrayCollection();
@@ -151,7 +154,7 @@ class Clients
     }
 
     public function __toString(){
-        return $this->name . " " . $this->city;
+        return $this->name . " " . $this->city . "  " . $this->commercialName;
     }
 
     public function getPhone(): ?string
@@ -246,6 +249,18 @@ class Clients
     public function setSiret(string $siret): static
     {
         $this->siret = $siret;
+
+        return $this;
+    }
+
+    public function getCommercialName(): ?string
+    {
+        return $this->commercialName;
+    }
+
+    public function setCommercialName(string $commercialName): static
+    {
+        $this->commercialName = $commercialName;
 
         return $this;
     }

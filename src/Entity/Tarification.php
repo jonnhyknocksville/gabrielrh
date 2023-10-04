@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TarificationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TarificationRepository::class)]
@@ -24,6 +26,14 @@ class Tarification
 
     #[ORM\Column(length: 255)]
     private ?string $dailyRate = null;
+
+    #[ORM\OneToMany(mappedBy: 'tarification', targetEntity: Mission::class)]
+    private Collection $missions;
+
+    public function __construct()
+    {
+        $this->missions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -77,4 +87,38 @@ class Tarification
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Mission>
+     */
+    public function getMissions(): Collection
+    {
+        return $this->missions;
+    }
+
+    public function addMission(Mission $mission): static
+    {
+        if (!$this->missions->contains($mission)) {
+            $this->missions->add($mission);
+            $mission->setTarification($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMission(Mission $mission): static
+    {
+        if ($this->missions->removeElement($mission)) {
+            // set the owning side to null (unless already changed)
+            if ($mission->getTarification() === $this) {
+                $mission->setTarification(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString(){
+        return  $this->promotion . ' - ' . $this->getClient()->getName() . ' - ' . $this->hourlyRate . ' - ' . $this->dailyRate; 
+      }
 }

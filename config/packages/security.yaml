@@ -41,7 +41,10 @@ security:
         - { path: ^/profile, roles: ROLE_TEACHER }
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/contracts/[0-9]+/[0-9]+, roles: ROLE_TEACHER }
-        - { path: ^/profile/contracts/admin, roles: ROLE_ADMIN }        
+        - { path: ^/profile/contracts/admin, roles: ROLE_ADMIN }
+        - { path: ^/profile/invoices/[0-9]+/[0-9]+/[0-9]+/[0-9]+/[0-9]+/[0-9]+ , roles: ROLE_ADMIN }
+        - { path: ^/profile/invoices/[0-9]+/[0-9]+ , roles: ROLE_ADMIN }
+         
 when@test:
     security:
         password_hashers:

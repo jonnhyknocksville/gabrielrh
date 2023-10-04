@@ -20,6 +20,7 @@ class ClientsCrudController extends AbstractCrudController
         return [
             IdField::new('id'),
             TextField::new('name'),
+            TextField::new('commercialName')->setRequired(false),
             TextField::new('address'),
             TextField::new('city'),
             TextField::new('postalCode'),

@@ -149,6 +149,11 @@
 					<p class="m-0 fw400 font-weight-bold">
 						{{client.name}}
 					</p>
+					{% if client.commercialName is not null and client.commercialName is defined %}
+						<p class="m-0 fw400 font-weight-bold">
+							{{client.commercialName}}
+						</p>
+					{% endif %}
 					<p class="m-0 fw400">
 						{{client.address}}
 					</p>
@@ -180,31 +185,39 @@
 					<tbody>
                         
 						{% for mission in missions %}
+							{# toutes les users #}
 
-                            {% set totalHours = 0 %}
-                            {% set totalRemuneration = 0 %}
                             {% for innerMission in mission %}
-
+								{# les missions regroupé en cours et étudiant #}
                                 <tr>
                                     <td scope="row" class="left-td">
                                         {# <p class="m-0 font-weight-bold">{{missions[0]}}</p> #}
-                                        <p class="m-0 font-weight-bold">{{mission|first[0].user.firstName}} {{mission|first[0].user.lastName}}</p>
-                                        <p class="m-0 fw400">{{mission|first[0].course}} </p>
-                                        <p class="m-0 fw400"> {{mission|first[0].student}} </p>
+                                        <p class="m-0 font-weight-bold">{{innerMission|first.user.firstName}} {{innerMission|first.user.lastName}}</p>
+
                                         <br>
+										{% set totalHours = 0 %}
+										{% set totalRemuneration = 0 %}
+
                                         {% for data in innerMission %}
-                                            {% set totalHours = totalHours + data.hours|replace({ (','): '.' }) %}
-                                            {% set totalRemuneration = totalRemuneration + data.remuneration %}
+											{# les prestations #}
+
+											{% if loop.index == 1 %}
+												<p class="m-0 fw400">{{data.course}} </p>
+												<p class="m-0 fw400"> {{data.student}} </p>
+											{% endif %}
+
+                                            {% set totalHours = totalHours + data.hours %}
+                                            {% set totalRemuneration = totalRemuneration + (data.student.hourlyPrice * data.hours) %}
                                             <p class="m-0 fw400">{{data.beginAt|date('d-m-Y')}} - {{data.scheduleTime}} </p>
                                         {% endfor %}
                                         <br>
-                                        <p class="m-0 fw400">Tarif {{mission|first[0].hourlyRate}}€/h</p>
+                                        <p class="m-0 fw400">Tarif {{innerMission|first.student.hourlyPrice}}€/h</p>
                                     </td>
                                     <td class="font-weight-bold">
-                                        {{totalHours}}h
+                                        {{totalHours}}
                                     </td>
                                     <td class="font-weight-bold">
-                                        {{mission|first[0].hourlyRate}}€/h
+                                        {{innerMission|first.student.hourlyPrice}}€/h
                                     </td>
                                     <td class="font-weight-bold">
                                         HT

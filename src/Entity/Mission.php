@@ -59,6 +59,9 @@ class Mission
     #[ORM\Column]
     private ?int $nbrDays = null;
 
+    #[ORM\ManyToOne(inversedBy: 'missions')]
+    private ?Tarification $tarification = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -240,6 +243,18 @@ class Mission
     public function setNbrDays(int $nbrDays): static
     {
         $this->nbrDays = $nbrDays;
+
+        return $this;
+    }
+
+    public function getTarification(): ?Tarification
+    {
+        return $this->tarification;
+    }
+
+    public function setTarification(?Tarification $tarification): static
+    {
+        $this->tarification = $tarification;
 
         return $this;
     }

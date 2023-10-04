@@ -80,20 +80,21 @@ class MissionCrudController extends AbstractCrudController
             ]),
             ChoiceField::new('hours')->setChoices([
                 '1' => '1',
-                '1,5' => '1,5',
+                '1.5' => '1.5',
                 '2' => '2',
-                '2,5' => '2,5',
+                '2.5' => '2.5',
                 '3' => '3',
-                '3,5' => '3,5',
+                '3.5' => '3.5',
                 '4' => '4',
-                '4,5' => '4,5',
+                '4.5' => '4.5',
                 '5' => '5',
-                '5,5' => '5,5',
+                '5.5' => '5.5',
                 '6' => '6',
-                '6,5' => '6,5',
+                '6.5' => '6.5',
                 '7' => '7',
-                '7,5' => '7,5',
-                '8' => '8'
+                '7.5' => '7.5',
+                '8' => '8',
+                '18' => '18'
             ]), 
             ChoiceField::new('intervention')->setChoices([
                 'Présentiel' => 'Présentiel',
@@ -103,6 +104,7 @@ class MissionCrudController extends AbstractCrudController
             TextField::new('missionReference'),
             NumberField::new('nbrDays')->setRequired(false),
             ChoiceField::new('remuneration')->setChoices([
+                '72' => '72',
                 '100' => '100',
                 '105' => '105',
                 '110' => '110',
@@ -161,6 +163,7 @@ class MissionCrudController extends AbstractCrudController
                 '500' => '500',
             ]),
             ChoiceField::new('hourlyRate')->setChoices([
+                '4' => '4',
                 '20' => '20',
                 '25' => '25',
                 '30' => '30',
@@ -175,7 +178,8 @@ class MissionCrudController extends AbstractCrudController
                 '60' => '60',
                 '64' => '64',
                 '65' => '65',
-            ])
+            ]),
+            AssociationField::new('tarification'),
             // TextField::new('backgroundColor'),
         ];
     }

@@ -235,8 +235,8 @@ class ProfileController extends AbstractController
                 $user = $mission->getUser()->getId();
 
                 if($mission->getBeginAt() == $mission->getEndAt()) {
-                    $missionsForInvoice[$user][$mission->getCourse()->getId()][] = $mission;
-                    $totalAmount += $mission->getRemuneration();
+                    $missionsForInvoice[$user][$mission->getCourse()->getId() . $mission->getStudent()->getId()][] = $mission;
+                    $totalAmount += $mission->getHours() * $mission->getStudent()->getHourlyPrice();
 
                 } else {
                     // si il s'agit d'une mission sur plusieurs jours
@@ -260,8 +260,8 @@ class ProfileController extends AbstractController
                         }
 
                         $newMission->setBeginAt($dateTime);
-                        $totalAmount += $newMission->getRemuneration();
-                        $missionsForInvoice[$user][$mission->getCourse()->getId()][] = $newMission;
+                        $totalAmount += $newMission->getHours() * $newMission->getStudent()->getHourlyPrice();
+                        $missionsForInvoice[$user][$newMission->getCourse()->getId() . $newMission->getStudent()->getId()][] = $newMission;
                     }
 
                 }
@@ -273,10 +273,10 @@ class ProfileController extends AbstractController
             $dateEcheance = new \DateTime($year . '-' . ($month + 1) . '-01');
             $dateEcheance = $dateEcheance->modify( 'first day of next month' );
 
-
             $invoiceDate = $invoiceDate->format('d-m-Y');
             $invoiceDateEcheance = $dateEcheance->format('d-m-Y');
 
+            $date = new \DateTime($year . '-' . $month . '-01');
             $invoiceNumber = "F".$date->format("Ym") . '/' . $mission->getClient()->getId();
 
             $data = [

@@ -88,7 +88,7 @@ class MissionRepository extends ServiceEntityRepository
 
         // SELECT DISTINCT(Month(begin_at)) from mission where user_id = 1 and Year(begin_at) = 2023;
         $query = $entityManager->createQuery(
-            "SELECT DISTINCT c.id, c.name
+            "SELECT DISTINCT c.id, c.name, c.city
             FROM App\Entity\Mission m
             INNER JOIN App\Entity\Clients c WITH c.id = m.client
             WHERE year(m.endAt) = $year

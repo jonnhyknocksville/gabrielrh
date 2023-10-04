@@ -62,7 +62,7 @@
           <tr>
               <th class="text-light bg-color-none" scope="row">F{{year}}{{monthIndex}}/{{invoice.id}}</th>
               <th class="text-light bg-color-none" scope="row">{{months[monthIndex -1]}}</th>
-              <th class="text-light bg-color-none" scope="row">{{invoice.name}}</th>
+              <th class="text-light bg-color-none" scope="row">{{invoice.name}} - {{invoice.city}}</th>
               <td class="text-light bg-color-none"><a class="btn btn-info text-light" target="_blank" href="{{ path('app_generate_invoice', {year : year, month : monthIndex, clientId : invoice.id})}}"> Télécharger </a></td>
           </tr>
       {% endfor %}

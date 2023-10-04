@@ -24,6 +24,12 @@ class Students
     #[ORM\OneToMany(mappedBy: 'student', targetEntity: Mission::class)]
     private Collection $missions;
 
+    #[ORM\Column(length: 255)]
+    private ?string $hourlyPrice = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $dailyPrice = null;
+
     public function __construct()
     {
         $this->missions = new ArrayCollection();
@@ -91,4 +97,28 @@ class Students
     public function __toString(){
         return  strtoupper($this->student); //or anything else
       }
+
+    public function getHourlyPrice(): ?string
+    {
+        return $this->hourlyPrice;
+    }
+
+    public function setHourlyPrice(string $hourlyPrice): static
+    {
+        $this->hourlyPrice = $hourlyPrice;
+
+        return $this;
+    }
+
+    public function getDailyPrice(): ?string
+    {
+        return $this->dailyPrice;
+    }
+
+    public function setDailyPrice(string $dailyPrice): static
+    {
+        $this->dailyPrice = $dailyPrice;
+
+        return $this;
+    }
 }
