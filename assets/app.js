@@ -91,11 +91,46 @@ $("#btnclipboard").on("click", function() {
   // alert("texte copié: " + copyText.value)
 })
 
-$('.updateClientPaid').on('change', function() {
+  $('.updateClientPaid').on('change', function() {
+
+    const month = $(this).parent().parent().find('.month').val();
+
+    console.log(month);
+
+    let checked;
+    if ($(this).hasClass("checked")) {
+      checked = 0;
+      $(this).removeClass("checked");
+    } else {
+      checked = 1;
+      $(this).addClass("checked");
+    }
+
+    let myData = {
+      clientId: $(this).parent().parent().find(".clientId").val(),
+      paid: checked,
+    };
+
+
+    $.ajax({
+      url: `/profile/invoices/paid/${month}`,
+      data: myData,
+      type: "POST",
+      async: true,
+      success: function (data) {
+        console.log("toto");
+      },
+      error: function (xhr, ajaxOptions, thrownError) {
+
+      }
+
+  });
+
+});
+
+$('.updateTeacherPaid').on('change', function() {
 
   const month = $(this).parent().parent().find('.month').val();
-
-  console.log(month);
 
   let checked;
   if ($(this).hasClass("checked")) {
@@ -107,23 +142,23 @@ $('.updateClientPaid').on('change', function() {
   }
 
   let myData = {
-    clientId: $(this).parent().parent().find(".clientId").val(),
+    teacherId: $(this).parent().parent().find(".teacherId").val(),
     paid: checked,
   };
 
 
   $.ajax({
-    url: `/profile/invoices/paid/${month}`,
-    data: myData,
-    type: "POST",
-    async: true,
-    success: function (data) {
-      console.log("toto");
-    },
-    error: function (xhr, ajaxOptions, thrownError) {
-
-    }
-
-});
+      url: `/profile/invoices/teacher/paid/${month}`,
+      data: myData,
+      type: "POST",
+      async: true,
+      success: function (data) {
+        console.log("toto");
+      },
+      error: function (xhr, ajaxOptions, thrownError) {
+  
+      }
+  
+  });
 
 });

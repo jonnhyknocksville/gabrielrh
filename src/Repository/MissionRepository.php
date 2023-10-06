@@ -181,4 +181,21 @@ class MissionRepository extends ServiceEntityRepository
         ->getQuery()->execute();
 
     }
+
+    public function updateTeacherPaidForMissions($year, $month, $userId, $paid) {
+
+        $query = $this->createQueryBuilder('m')->update(Mission::class, 'm')
+        ->set('m.teacherPaid', ':paid')
+        ->where('m.user = :userId')
+        ->andWhere('MONTH(m.beginAt) = :month')
+        ->andWhere('MONTH(m.endAt) = :month')
+        ->andWhere('YEAR(m.beginAt) = :year')
+        ->andWhere('YEAR(m.endAt) = :year')
+        ->setParameter('userId', $userId)
+        ->setParameter('month', $month)
+        ->setParameter('year', $year)
+        ->setParameter('paid', $paid)
+        ->getQuery()->execute();
+
+    }
 }

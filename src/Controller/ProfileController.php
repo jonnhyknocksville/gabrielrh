@@ -92,18 +92,76 @@ class ProfileController extends AbstractController
         ]);
     }
 
-    #[Route('/profile/contracts/admin', name: 'app_contracts_admin')]
-    public function contracts_admin(Request $request, EntityManagerInterface $doctrine): Response
+    #[Route('/profile/contracts/admin/{month}', name: 'app_contracts_admin')]
+    public function contracts_admin(Request $request,
+        EntityManagerInterface $doctrine, int $month): Response
     {
 
         $data = $this->getValues($doctrine);
-        $teachers = $doctrine->getRepository(User::class)->findAll();
+        $dateTime = new \DateTime("now");
+        $year = $dateTime->format("Y");
+    
+        $invoices = $doctrine->getRepository(Mission::class)->findMonthlyInvoicesToGenerate($year, $month);
 
+        // dd($invoices);
+
+        $invoicesToShow = NULL;
+        foreach($invoices as $invoice) {
+
+            $client = $invoice->getUser()->getId();
+
+            if($invoice->getBeginAt() == $invoice->getEndAt()) {
+                $invoicesToShow[$client]['id'] = $client;
+                $invoicesToShow[$client]['month'] = $invoice->getBeginAt()->format("m");
+                $invoicesToShow[$client]['name'] = $invoice->getUser()->getLastName() . ' ' . $invoice->getUser()->getFirstName();
+                $invoicesToShow[$client]['teacherPaid'] = $invoice->isTeacherPaid();
+
+                if(isset($invoicesToShow[$client]['sum'])) {
+                    $invoicesToShow[$client]['sum'] += (float) round($invoice->getHours() * $invoice->getHourlyRate());
+                } else {
+                    $invoicesToShow[$client]['sum'] = (float) $invoice->getHours() * $invoice->getHourlyRate();
+                }
+
+
+            } else {
+                // si il s'agit d'une mission sur plusieurs jours
+                // faut que je décortique la mission
+                $nbrOfDayForMission = ($invoice->getEndAt()->format("d") - $invoice->getBeginAt()->format("d")) + 1; // 5
+                
+                for($i = 0; $i < $nbrOfDayForMission; $i++) {
+                    $newMission = clone $invoice;
+                    $dateTime = new \DateTime;
+
+                    $invoicesToShow[$client]['id'] = $client;
+                    $invoicesToShow[$client]['month'] = $newMission->getBeginAt()->format("m");
+                    $invoicesToShow[$client]['name'] = $invoice->getUser()->getLastName() . ' ' . $invoice->getUser()->getFirstName();
+                    $invoicesToShow[$client]['teacherPaid'] = $newMission->isTeacherPaid();
+                    
+                    if(isset($invoicesToShow[$client]['sum'])) {
+                        $invoicesToShow[$client]['sum'] += (float) round($invoice->getHours() * $invoice->getHourlyRate());
+                    } else {
+                        $invoicesToShow[$client]['sum'] = (float) round($invoice->getHours() * $invoice->getHourlyRate());
+                    }
+
+                }
+
+            }
+            
+            $totalAmount = NULL;
+
+            foreach($invoicesToShow as $invoiceToShow) {
+                $totalAmount +=  $invoiceToShow["sum"];
+            }
+
+        }
+    
         // dd($missions);
         return $this->render('profile/contracts_admin.html.twig', [
-            'teachers' => $teachers,
+            'invoices' => $invoicesToShow,
+            'totalAmount' => $totalAmount,
             'year' => $data[0],
-            'ca' => $data[1]
+            'ca' => $data[1],
+            'monthIndex' => $month,
         ]);
     }
 
@@ -207,6 +265,31 @@ class ProfileController extends AbstractController
 
     }
 
+    #[Route('/profile/invoices/teacher/paid/{month}', name: 'app_invoice_teacher_paid')]
+    public function updateInvoiceTeacherPaid(Request $request, 
+    EntityManagerInterface $doctrine, 
+    PaginatorInterface $paginator, int $month)
+    {
+
+        if ($request->isMethod('POST')) {
+
+            $teacherId = $request->get('teacherId');
+            $month = $request->get('month');
+            $paid = $request->get('paid');
+            $dateTime = new \DateTime("now");
+            $year = $dateTime->format("Y");
+            
+            // dd($paid);
+            // mettre à jour le paiment client de toutes les missions
+            $doctrine->getRepository(Mission::class)->updateTeacherPaidForMissions($year, $month, $teacherId, $paid);
+
+            return new Response('Facture mise à jour', 200);
+
+        }
+
+        return new Response('Une erreur est survenue', 500);
+
+    }
 
 
     #[Route('/profile/invoices/{month}', name: 'app_invoices')]
@@ -265,6 +348,15 @@ class ProfileController extends AbstractController
                 }
 
             }
+            
+            $totalAmount = NULL;
+
+            foreach($invoicesToShow as $invoiceToShow) {
+
+                $totalAmount +=  $invoiceToShow["sum"];
+
+
+            }
 
         }
 
@@ -273,6 +365,7 @@ class ProfileController extends AbstractController
         // dd($missions);
         return $this->render('profile/invoices.html.twig', [
             'invoices' => $invoicesToShow,
+            'totalAmount' => $totalAmount,
             'year' => $data[0],
             'monthIndex' => $month,
             'ca' => $data[1]
@@ -562,19 +655,6 @@ class ProfileController extends AbstractController
         }
 
         return [$year, $ca];
-
-    }
-
-    #[Route('/profile/teachers/payment', name: 'app_teachers_payments')]
-    public function teachersPayment(Request $request, 
-    EntityManagerInterface $doctrine, 
-    PaginatorInterface $paginator, int $month): Response
-    {
-
- 
-        return $this->render('profile/payment-teachers.html.twig', [
-
-        ]);
 
     }
 

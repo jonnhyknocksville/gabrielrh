@@ -1,55 +1,94 @@
 {% extends 'base-profile.html.twig' %}
 
-{% block title %}Accès contrats prestataires{% endblock %}
+{% block title %}Générer une facture{% endblock %}
 
 {% block body %}
 
-<form action="/contract/admin/download" class="p-5" id="form">
-  <div class="row col-md-8 mx-auto px-5">
-    <select class="form-select" name="teacherId" aria-label="Default select example" id="teacherContract">
-      <option selected disabled>Selectionner un formateur</option>
-      {% for teacher in teachers %}
-        <option value="{{teacher.id}}">{{teacher.teacher}}</option>
-      {% endfor %}
-    </select>
-  </div>
+
+{% set months = [
+    "Janvier",
+    "Février",
+    "Mars",
+    "Avril",
+    "Mai",
+    "Juin",
+    "Juillet",
+    "Aout",
+    "Septembre",
+    "Octobre",
+    "Novembre",
+    "Décembre",
+] %}
+
+  <h1 class="text-light fst-italic text-center mt-5"> Voici les bons de commande pour le mois de {{months[monthIndex -1]}} </h1>
+
+<div class="row col-md-8 mx-auto p-5">
 
   <div class="row col-md-8 mx-auto p-5">
-    <select name="month" class="form-select" aria-label="Default select example" id="monthContract">
-      <option selected disabled>Selectionner un mois</option>
-      <option value="1">Janvier</option>
-      <option value="2">Février</option>
-      <option value="3">Mars</option>
-      <option value="4">Avril</option>
-      <option value="5">Mai</option>
-      <option value="6">Juin</option>
-      <option value="7">Juillet</option>
-      <option value="8">Aout</option>
-      <option value="9">Septembre</option>
-      <option value="10">Octobre</option>
-      <option value="11">Novembre</option>
-      <option value="12">Décembre</option>
-    </select>
-  </div>
 
-  <div class="row col-md-8 mx-auto px-5">
-    <select name="year" class="form-select" aria-label="Default select example" id="monthContract">
-      <option selected disabled>Selectionner une année</option>
-      <option value="2020">2020</option>
-      <option value="2021">2021</option>
-      <option value="2022">2022</option>
-      <option value="2023">2023</option>
-      <option value="2024">2024</option>
-    </select>
-  </div>
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Sélectionner un mois
+        </button>
+        <ul class="dropdown-menu">
+            <li class="dropdown-item"><a href="{{path('app_invoices', {month : 1})}}"> Janvier </a> </li>
+            <li class="dropdown-item"><a href="{{path('app_invoices', {month : 2})}}"> Février </a> </li>
+            <li class="dropdown-item"><a href="{{path('app_invoices', {month : 3})}}"> Mars </a> </li>
+            <li class="dropdown-item"><a href="{{path('app_invoices', {month : 4})}}"> Avril </a> </li>
+            <li class="dropdown-item"><a href="{{path('app_invoices', {month : 5})}}"> Mai </a> </li>
+            <li class="dropdown-item"><a href="{{path('app_invoices', {month : 6})}}"> Juin </a> </li>
+            <li class="dropdown-item"><a href="{{path('app_invoices', {month : 7})}}"> Juillet </a> </li>
+            <li class="dropdown-item"><a href="{{path('app_invoices', {month : 8})}}"> Aout </a> </li>
+            <li class="dropdown-item"><a href="{{path('app_invoices', {month : 9})}}"> Septembre </a> </li>
+            <li class="dropdown-item"><a href="{{path('app_invoices', {month : 10})}}"> Octobre </a> </li>
+            <li class="dropdown-item"><a href="{{path('app_invoices', {month : 11})}}"> Novembre </a> </li>
+            <li class="dropdown-item"><a href="{{path('app_invoices', {month : 12})}}"> Décembre </a> </li>
+        </ul>
+    </div>
+   
+</div>
 
-  <div class="row col-md-8 mx-auto px-5">
-      <button type="submit" class="btn btn-lg btn-primary mt-4 col-md-6 buttonBorderRadius">Télécharger</button>
-  </div>
+  <table class="table bg-color-none">
+    <thead>
+      <tr>
+        <th class="text-light bg-color-none" scope="col">Numéro de Contrat</th>
+        <th class="text-light bg-color-none" scope="col">Bon de commande</th>
+        <th class="text-light bg-color-none" scope="col">Formateur</th>
+        <th class="text-light bg-color-none" scope="col">Mois</th>
+        <th class="text-light bg-color-none" scope="col">Télécharger</th>
+        <th class="text-light bg-color-none" scope="col">Status</th>
+        <th class="text-light bg-color-none" scope="col">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for invoice in invoices %}
+          <tr>
+              <th class="text-light bg-color-none" scope="row">C{{year}}{{monthIndex}}/{{invoice["id"]}}</th>
+              <th class="text-light bg-color-none" scope="row">B{{year}}{{monthIndex}}/{{invoice["id"]}}</th>
+              <th class="text-light bg-color-none" scope="row">{{months[monthIndex -1]}}</th>
+              <th class="text-light bg-color-none" scope="row">{{invoice["name"]}}</th>
+              <td class="text-light bg-color-none">
+              <a class="btn btn-info text-light" target="_blank" href="{{ path('app_contracts_admin_download', {year : year, month : monthIndex, teacherId : invoice["id"]})}}"> Télécharger </a></td>
+              <td class="bg-color-none"> 
+                <div class="d-flex align-items-center form-check form-switch bg-none">
+                  <form action="" method="post">
+                    <input type="hidden" name="month" class="month" value="{{ monthIndex }}" />
+                    <input type="hidden" name="teacherId" class="teacherId" value="{{ invoice["id"] }}" />
+                    <div class="form-check form-switch">
+                      <input class="form-check-input updateTeacherPaid {{ (invoice["teacherPaid"] is not null and invoice["teacherPaid"] == true) ? 'checked' : '' }}" {{ (invoice["teacherPaid"] is not null and invoice["teacherPaid"] == true) ? 'checked' : '' }} name="paid" type="checkbox" > 
+                    </div>
+                </div>
+                  </form>
+              </td>
+              <th class="text-light bg-color-none" scope="row">{{invoice["sum"]}}€</th>
+          </tr> 
 
-  </form>
-
-
-
+      {% endfor %}
+          <tr style="border:none">
+            <th class="text-light bg-color-none" style="text-align:right;border:none" colspan="7" scope="row">{{totalAmount}}€</th>
+          </tr> 
+    </tbody>
+  </table>
+</div>
 
 {% endblock %}

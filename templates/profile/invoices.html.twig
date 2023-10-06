@@ -80,7 +80,11 @@
               </td>
               <th class="text-light bg-color-none" scope="row">{{invoice["sum"]}}€</th>
           </tr> 
+
       {% endfor %}
+          <tr style="border:none">
+            <th class="text-light bg-color-none" style="text-align:right;border:none" colspan="6" scope="row">{{totalAmount}}€</th>
+          </tr> 
     </tbody>
   </table>
 </div>

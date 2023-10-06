@@ -100,16 +100,13 @@ class ContractsController extends AbstractController
         }
     }
 
-    #[Route('/contract/admin/download/', name: 'app_contracts_admin_download')]
+    #[Route('/contract/admin/download/{teacherId}/{month}/{year}', name: 'app_contracts_admin_download')]
     public function contracts_admin_download(Request $request, 
-    EntityManagerInterface $doctrine,):Response
+    EntityManagerInterface $doctrine, int $teacherId, int $month, int $year):Response
     {
 
         if (in_array('ROLE_ADMIN', $this->getUser()->getRoles(), true)) {
 
-            $teacherId = $request->query->get('teacherId');
-            $month = $request->query->get('month');
-            $year = $request->query->get('year');
             $missions = $doctrine->getRepository(Mission::class)->findMonthMissions($teacherId, $year, $month);
 
             $user = $doctrine->getRepository(User::class)->findBy(['id' => $teacherId])[0];
