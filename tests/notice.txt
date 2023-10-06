@@ -1,0 +1,33 @@
+
+
+// PHP UNIT
+symfony composer req phpunit --dev
+
+// CREER UN TEST
+symfony console make:test TestCase SpamCheckerTest
+
+
+// LANCER LES TESTS ET VÉRIFIER QU'ILS PASSENT
+symfony php bin/phpunit
+
+
+// POUR RÉALISER SOIT UN TEST UNITAIRE SOIT UN TEST FONCTIONNEL
+php bin/console make:test
+
+// CRÉER UN FICHIER .env.test.local (car on a pas accès à la BDD sinon)
+// copier le contenu de .env.local dedans
+
+// pour créer la BDD pour l'environnement de test
+php bin/console d:d:c --env=test
+
+// faut générer les tables dans la bdd sur l'environnement de TESTS
+php bin/console d:m:m --env=test
+
+
+
+/////
+///// TESTER UNE ENTITÉ
+/////
+
+ php bin/console make:test
+-> KernelTestCase
