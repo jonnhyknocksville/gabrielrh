@@ -88,9 +88,10 @@ class MissionRepository extends ServiceEntityRepository
 
         // SELECT DISTINCT(Month(begin_at)) from mission where user_id = 1 and Year(begin_at) = 2023;
         $query = $entityManager->createQuery(
-            "SELECT DISTINCT c.id, c.name, c.city
+            "SELECT m
             FROM App\Entity\Mission m
             INNER JOIN App\Entity\Clients c WITH c.id = m.client
+            INNER JOIN App\Entity\Students s WITH s.id = m.student
             WHERE year(m.endAt) = $year
             AND year(m.beginAt) = $year
             AND month(m.beginAt) = $month
@@ -133,6 +134,26 @@ class MissionRepository extends ServiceEntityRepository
     }
 
 
+    public function findMissionForCustomerAndOneTeacher($year, $month, $clientId, $userId) {
+
+        return $this->createQueryBuilder('m')
+           ->andWhere('YEAR(m.beginAt) = :year')
+           ->andWhere('YEAR(m.endAt) = :year')
+           ->andWhere('MONTH(m.endAt) = :month')
+           ->andWhere('MONTH(m.beginAt) = :month')
+           ->andWhere('m.client = :clientId')
+           ->andWhere('m.user = :userId')
+           ->setParameter('year', $year)
+           ->setParameter('month', $month)
+           ->setParameter('clientId', $clientId)
+           ->setParameter('userId', $userId)
+           ->getQuery()
+           ->getResult();
+
+    }
+    
+
+
     //    public function findOneBySomeField($value): ?Mission
 //    {
 //        //        return $this->createQueryBuilder('m')
@@ -143,4 +164,21 @@ class MissionRepository extends ServiceEntityRepository
 //        ;
 //    }
 
+    public function updateClientPaidForMissions($year, $month, $clientId, $paid) {
+
+        
+        $query = $this->createQueryBuilder('m')->update(Mission::class, 'm')
+        ->set('m.clientPaid', ':paid')
+        ->where('m.client = :clientId')
+        ->andWhere('MONTH(m.beginAt) = :month')
+        ->andWhere('MONTH(m.endAt) = :month')
+        ->andWhere('YEAR(m.beginAt) = :year')
+        ->andWhere('YEAR(m.endAt) = :year')
+        ->setParameter('clientId', $clientId)
+        ->setParameter('month', $month)
+        ->setParameter('year', $year)
+        ->setParameter('paid', $paid)
+        ->getQuery()->execute();
+
+    }
 }

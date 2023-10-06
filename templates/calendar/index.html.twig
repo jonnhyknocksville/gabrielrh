@@ -61,6 +61,22 @@
         },
         events: {{ data|raw }},
 
+    eventContent: function (arg) {
+
+            var event = arg.event;
+            console.log(event);
+            
+            var customHtml = '';
+            
+            customHtml += "<span class='r10 font-xxs font-bold' style='overflow: hidden;'>" + event.title + "</span>";
+            
+            customHtml += "<span class='r10 highlighted-badge font-xxs font-bold'> <br> " + event.extendedProps["description"] + "</span>";
+            customHtml += "<span class='r10 highlighted-badge font-xxs font-bold'> <br> " + event.extendedProps["scheduleTime"] + "</span>";
+                          
+
+            return { html: customHtml }
+        }
+
     });
     calendar.render();
 

@@ -141,7 +141,9 @@
 						Date limite de réglement : Exigible sous 30 jours
 					</p>
 					<p class="m-0 fw400">
-						web.start.contact@gmail.com
+						{% if orderNumber is not null and orderNumber is defined %}
+						Numéro de Commande : {{orderNumber}}
+						{% endif %}
 					</p>
 				</div>
 
@@ -162,15 +164,20 @@
 						{{client.city}}
 						France
 					</p>
-					<p class="m-0 fw400">
-						SIRET :
-						{{client.siret}}</p>
+					{% if client.siret is not null and client.siret is defined %}
+						<p class="m-0 fw400">
+							SIRET :
+							{{client.siret}}</p>
+					{% endif %}
 				</div>
 
 			</div>
 
 			<div class="clear"></div>
-			<div class="row mt-5">
+
+			<h4 class="mt-3"> Prestations de formation </h4>
+
+			<div class="row mt-3">
 
 				<table class="table" border="1">
 					<thead>
@@ -194,7 +201,6 @@
                                         {# <p class="m-0 font-weight-bold">{{missions[0]}}</p> #}
                                         <p class="m-0 font-weight-bold">{{innerMission|first.user.firstName}} {{innerMission|first.user.lastName}}</p>
 
-                                        <br>
 										{% set totalHours = 0 %}
 										{% set totalRemuneration = 0 %}
 
@@ -204,26 +210,27 @@
 											{% if loop.index == 1 %}
 												<p class="m-0 fw400">{{data.course}} </p>
 												<p class="m-0 fw400"> {{data.student}} </p>
+												<br>
 											{% endif %}
 
                                             {% set totalHours = totalHours + data.hours %}
-                                            {% set totalRemuneration = totalRemuneration + (data.student.hourlyPrice * data.hours) %}
+                                            {% set totalRemuneration = totalRemuneration + (data.student.hourlyPrice|round(2) * data.hours) %}
                                             <p class="m-0 fw400">{{data.beginAt|date('d-m-Y')}} - {{data.scheduleTime}} </p>
                                         {% endfor %}
                                         <br>
-                                        <p class="m-0 fw400">Tarif {{innerMission|first.student.hourlyPrice}}€/h</p>
+                                        <p class="m-0 fw400">Tarif {{innerMission|first.student.hourlyPrice|round(2)}}€/h</p>
                                     </td>
                                     <td class="font-weight-bold">
                                         {{totalHours}}
                                     </td>
                                     <td class="font-weight-bold">
-                                        {{innerMission|first.student.hourlyPrice}}€/h
+                                        {{innerMission|first.student.hourlyPrice|round(2)}}€/h
                                     </td>
                                     <td class="font-weight-bold">
                                         HT
                                     </td>
                                     <td class="font-weight-bold">
-                                        {{totalRemuneration}}€
+                                        {{totalRemuneration|round}}€
                                     </td>
                                 </tr>
                             {% endfor %}

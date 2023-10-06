@@ -18,16 +18,16 @@ class ClientsCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
+            IdField::new('id')->onlyOnIndex(),
             TextField::new('name'),
-            TextField::new('commercialName')->setRequired(false),
+            TextField::new('commercialName')->setRequired(false)->setEmptyData(null),
             TextField::new('address'),
             TextField::new('city'),
             TextField::new('postalCode'),
             TextField::new('personInCharge'),
             TextField::new('phone'),
             TextField::new('backgroundColor'),
-            TextField::new('siret'),
+            TextField::new('siret')->setRequired(false)->setEmptyData(null),
         ];
     }
     

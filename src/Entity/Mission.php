@@ -62,6 +62,15 @@ class Mission
     #[ORM\ManyToOne(inversedBy: 'missions')]
     private ?Tarification $tarification = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $orderNumber = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $teacherPaid = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $clientPaid = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -255,6 +264,42 @@ class Mission
     public function setTarification(?Tarification $tarification): static
     {
         $this->tarification = $tarification;
+
+        return $this;
+    }
+
+    public function getOrderNumber(): ?string
+    {
+        return $this->orderNumber;
+    }
+
+    public function setOrderNumber(?string $orderNumber): static
+    {
+        $this->orderNumber = $orderNumber;
+
+        return $this;
+    }
+
+    public function isTeacherPaid(): ?bool
+    {
+        return $this->teacherPaid;
+    }
+
+    public function setTeacherPaid(?bool $teacherPaid): static
+    {
+        $this->teacherPaid = $teacherPaid;
+
+        return $this;
+    }
+
+    public function isClientPaid(): ?bool
+    {
+        return $this->clientPaid;
+    }
+
+    public function setClientPaid(?bool $clientPaid): static
+    {
+        $this->clientPaid = $clientPaid;
 
         return $this;
     }

@@ -45,10 +45,10 @@ class Clients
     #[ORM\OneToMany(mappedBy: 'client', targetEntity: Tarification::class)]
     private Collection $tarifications;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $siret = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $commercialName = null;
 
     public function __construct()
@@ -246,7 +246,7 @@ class Clients
         return $this->siret;
     }
 
-    public function setSiret(string $siret): static
+    public function setSiret(string $siret = null): static
     {
         $this->siret = $siret;
 
@@ -258,7 +258,7 @@ class Clients
         return $this->commercialName;
     }
 
-    public function setCommercialName(string $commercialName): static
+    public function setCommercialName(string $commercialName = null): static
     {
         $this->commercialName = $commercialName;
 

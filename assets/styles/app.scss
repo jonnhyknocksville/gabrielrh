@@ -44,7 +44,14 @@ legend {
 /// ///
 /// ///
 /// COMMON CLASSES
+///
 /// 
+
+.form-check-input:checked {
+
+    background-color: green;
+
+}
 
 .smallSize {
 
@@ -73,7 +80,7 @@ legend {
 } 
 
 .bg-none {
-    background: none;
+    background: none !important;
 }
 
 .bg-color-none {

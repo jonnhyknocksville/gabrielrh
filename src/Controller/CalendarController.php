@@ -22,11 +22,16 @@ class CalendarController extends AbstractController
         foreach($missions as $mission) {
             $miss[] = [
                 "id" => $mission->getId(),
-                "title" => $mission->getClient()->getName() . " - " . $mission->getCourse()->getTitle() ,
+                "title" => $mission->getClient()->getName() . $mission->getClient()->getCommercialName(),
                 "start" => $mission->getBeginAt()->format("Y-m-d"),
                 "end" => $mission->getEndAt()->add(new DateInterval('P1D'))->format("Y-m-d"),
                 "url" => $request->getUri() . "/". $mission->getId(),
-                "backgroundColor" => $mission->getClient()->getBackgroundColor()
+                "backgroundColor" => $mission->getClient()->getBackgroundColor(),
+                "extendedProps" => [
+                    "description" => $mission->getCourse()->getTitle(),
+                    "date" => $mission->getBeginAt(),
+                    "scheduleTime" => $mission->getScheduleTime(),
+                ]
             ];
         }
         $data = json_encode($miss);
@@ -53,10 +58,15 @@ class CalendarController extends AbstractController
         foreach($missions as $mission) {
             $miss[] = [
                 "id" => $mission->getId(),
-                "title" => $mission->getClient()->getName() . " - " . $mission->getCourse()->getTitle() ,
+                "title" => $mission->getClient()->getName() ,
                 "start" => $mission->getBeginAt()->format("Y-m-d"),
                 "end" => $mission->getEndAt()->format("Y-m-d"),
-                "url" => $request->getUri() . "/". $mission->getId()
+                "url" => substr($request->getUri(), 0, strpos($request->getUri(), "/")) . "/teacher/calendar/". $mission->getId(),
+                "extendedProps" => [
+                    "description" => $mission->getCourse()->getTitle(),
+                    "date" => $mission->getBeginAt(),
+                    "scheduleTime" => $mission->getScheduleTime(),
+                ]
             ];
         }
 

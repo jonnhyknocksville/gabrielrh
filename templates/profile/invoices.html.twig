@@ -55,16 +55,31 @@
         <th class="text-light bg-color-none" scope="col">Clients</th>
         <th class="text-light bg-color-none" scope="col">Mois</th>
         <th class="text-light bg-color-none" scope="col">Télécharger</th>
+        <th class="text-light bg-color-none" scope="col">Status</th>
+        <th class="text-light bg-color-none" scope="col">Total</th>
       </tr>
     </thead>
     <tbody>
       {% for invoice in invoices %}
           <tr>
-              <th class="text-light bg-color-none" scope="row">F{{year}}{{monthIndex}}/{{invoice.id}}</th>
+              <th class="text-light bg-color-none" scope="row">F{{year}}{{monthIndex}}/{{invoice["id"]}}</th>
               <th class="text-light bg-color-none" scope="row">{{months[monthIndex -1]}}</th>
-              <th class="text-light bg-color-none" scope="row">{{invoice.name}} - {{invoice.city}}</th>
-              <td class="text-light bg-color-none"><a class="btn btn-info text-light" target="_blank" href="{{ path('app_generate_invoice', {year : year, month : monthIndex, clientId : invoice.id})}}"> Télécharger </a></td>
-          </tr>
+              <th class="text-light bg-color-none" scope="row">{{invoice["name"]}} - {{invoice["city"]}}</th>
+              <td class="text-light bg-color-none"><a class="btn btn-info text-light" target="_blank" href="{{ path('app_generate_invoice', {year : year, month : monthIndex, clientId : invoice["id"]})}}"> Télécharger </a></td>
+              <td class="bg-color-none"> 
+                <div class="d-flex align-items-center form-check form-switch bg-none">
+                  <form action="" method="post">
+                    <input type="hidden" name="month" class="month" value="{{ monthIndex }}" />
+                    <input type="hidden" name="clientId" class="clientId" value="{{ invoice["id"] }}" />
+                    {# {{dump(invoice["clientPaid"])}} #}
+                    <div class="form-check form-switch">
+                      <input class="form-check-input updateClientPaid {{ (invoice["clientPaid"] is not null and invoice["clientPaid"] == true) ? 'checked' : '' }}" {{ (invoice["clientPaid"] is not null and invoice["clientPaid"] == true) ? 'checked' : '' }} name="paid" type="checkbox" > 
+                    </div>
+                </div>
+                  </form>
+              </td>
+              <th class="text-light bg-color-none" scope="row">{{invoice["sum"]}}</th>
+          </tr> 
       {% endfor %}
     </tbody>
   </table>
