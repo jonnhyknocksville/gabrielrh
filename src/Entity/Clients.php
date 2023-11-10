@@ -51,6 +51,21 @@ class Clients
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $commercialName = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $representative = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $nbrAgrement = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $naf = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $legalForm = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $socialCapital = null;
+
     public function __construct()
     {
         $this->missions = new ArrayCollection();
@@ -261,6 +276,66 @@ class Clients
     public function setCommercialName(string $commercialName = null): static
     {
         $this->commercialName = $commercialName;
+
+        return $this;
+    }
+
+    public function getRepresentative(): ?string
+    {
+        return $this->representative;
+    }
+
+    public function setRepresentative(?string $representative): static
+    {
+        $this->representative = $representative;
+
+        return $this;
+    }
+
+    public function getNbrAgrement(): ?string
+    {
+        return $this->nbrAgrement;
+    }
+
+    public function setNbrAgrement(?string $nbrAgrement): static
+    {
+        $this->nbrAgrement = $nbrAgrement;
+
+        return $this;
+    }
+
+    public function getNaf(): ?string
+    {
+        return $this->naf;
+    }
+
+    public function setNaf(?string $naf): static
+    {
+        $this->naf = $naf;
+
+        return $this;
+    }
+
+    public function getLegalForm(): ?string
+    {
+        return $this->legalForm;
+    }
+
+    public function setLegalForm(?string $legalForm): static
+    {
+        $this->legalForm = $legalForm;
+
+        return $this;
+    }
+
+    public function getSocialCapital(): ?int
+    {
+        return $this->socialCapital;
+    }
+
+    public function setSocialCapital(?int $socialCapital): static
+    {
+        $this->socialCapital = $socialCapital;
 
         return $this;
     }

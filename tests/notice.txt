@@ -6,6 +6,9 @@ symfony composer req phpunit --dev
 // CREER UN TEST
 symfony console make:test TestCase SpamCheckerTest
 
+// Deux différents types de tests :
+test UNITAIRE => tester vos méthodes 
+test fonctionnel => teste vos vues (test d'intégration)
 
 // LANCER LES TESTS ET VÉRIFIER QU'ILS PASSENT
 symfony php bin/phpunit
@@ -31,3 +34,12 @@ php bin/console d:m:m --env=test
 
  php bin/console make:test
 -> KernelTestCase
+
+ContactTest
+
+
+/////
+///// TESTER UNE VUE
+/////
+
+HomeTest

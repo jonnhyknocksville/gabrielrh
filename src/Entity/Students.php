@@ -95,7 +95,7 @@ class Students
     }
 
     public function __toString(){
-        return  strtoupper($this->student . ' - ' . $this->client->getName()); //or anything else
+        return  strtoupper($this->student . ' - ' . $this->client->getName() . ' - ' . $this->getHourlyPrice()); //or anything else
       }
 
     public function getHourlyPrice(): ?string

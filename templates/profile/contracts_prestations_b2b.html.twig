@@ -1,0 +1,30 @@
+{% extends 'base-profile.html.twig' %}
+
+{% block title %}Mes contrats{% endblock %}
+
+{% block body %}
+
+  <h1 class="text-light fst-italic text-center mt-5"> Voici vos contrats pour l'année {{year}} </h1>
+
+
+<div class="row col-md-8 mx-auto p-5">
+  <table class="table bg-color-none">
+    <thead>
+      <tr>
+        <th class="text-light bg-color-none" scope="col">Client</th>
+        <th class="text-light bg-color-none" scope="col">Télécharger</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for client in clients %}
+          <tr>
+              <td class="text-light bg-color-none">{{client.name}} - {{client.city}}</td>
+              <td class="text-light bg-color-none"><a class="btn btn-info text-light" target="_blank" href="{{ path('app_contracts_b2b_for_current_year', {clientId: client.id, year : year})}}"> Télécharger </a></td>
+          </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+
+{% endblock %}

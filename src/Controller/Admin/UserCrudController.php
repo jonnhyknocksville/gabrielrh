@@ -50,6 +50,7 @@ class UserCrudController extends AbstractCrudController
             TextField::new('lastName'),
             TextField::new('email'),
             TextField::new('siret'),
+            TextField::new('naf')->setRequired(false)->setEmptyData(null),
             TextField::new('company')->setRequired(false),
             TextField::new('phone'),
             TextField::new('address'),

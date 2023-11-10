@@ -71,6 +71,12 @@ class Mission
     #[ORM\Column(nullable: true)]
     private ?bool $clientPaid = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $background = null;
+
+    #[ORM\Column]
+    private ?bool $invoiceSent = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -300,6 +306,30 @@ class Mission
     public function setClientPaid(?bool $clientPaid): static
     {
         $this->clientPaid = $clientPaid;
+
+        return $this;
+    }
+
+    public function getBackground(): ?string
+    {
+        return $this->background;
+    }
+
+    public function setBackground(?string $background): static
+    {
+        $this->background = $background;
+
+        return $this;
+    }
+
+    public function isInvoiceSent(): ?bool
+    {
+        return $this->invoiceSent;
+    }
+
+    public function setInvoiceSent(bool $invoiceSent): static
+    {
+        $this->invoiceSent = $invoiceSent;
 
         return $this;
     }

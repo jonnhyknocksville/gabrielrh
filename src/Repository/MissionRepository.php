@@ -82,6 +82,21 @@ class MissionRepository extends ServiceEntityRepository
 
     }
 
+    // Méthode permettant de trouver tous les clients différents chez qui on intervient sur l'année en cours
+    public function findDistinctClientsForCurrentYear($year) {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            "SELECT DISTINCT c.id, c.name, c.city
+            FROM App\Entity\Mission m
+            INNER JOIN App\Entity\Clients c WITH c.id = m.client 
+            WHERE year(m.beginAt) 
+            BETWEEN $year and $year + 1"
+        );
+
+        return $query->getResult();
+    }
+
     public function findMonthlyInvoicesToGenerate($year, $month) {
 
         $entityManager = $this->getEntityManager();
@@ -116,26 +131,43 @@ class MissionRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
-    public function findMissionForCustomer($year, $month, $clientId) {
+    public function findMissionForCustomer($year, $month, $clientId, $orderNumber) {
 
-        return $this->createQueryBuilder('m')
-           ->andWhere('YEAR(m.beginAt) = :year')
-           ->andWhere('YEAR(m.endAt) = :year')
-           ->andWhere('MONTH(m.endAt) = :month')
-           ->andWhere('MONTH(m.beginAt) = :month')
-           ->andWhere('m.client = :clientId')
-           ->setParameter('year', $year)
-           ->setParameter('month', $month)
-           ->setParameter('clientId', $clientId)
-           ->getQuery()
-           ->getResult();
+        if(!is_null($orderNumber)) {
+            return $this->createQueryBuilder('m')
+            ->andWhere('YEAR(m.beginAt) = :year')
+            ->andWhere('YEAR(m.endAt) = :year')
+            ->andWhere('MONTH(m.endAt) = :month')
+            ->andWhere('MONTH(m.beginAt) = :month')
+            ->andWhere('m.client = :clientId')
+            ->andWhere('m.orderNumber = :orderNumber')
+            ->setParameter('year', $year)
+            ->setParameter('month', $month)
+            ->setParameter('clientId', $clientId)
+            ->setParameter('orderNumber', $orderNumber)
+            ->getQuery()
+            ->getResult();
+        } else {
+            return $this->createQueryBuilder('m')
+            ->andWhere('YEAR(m.beginAt) = :year')
+            ->andWhere('YEAR(m.endAt) = :year')
+            ->andWhere('MONTH(m.endAt) = :month')
+            ->andWhere('MONTH(m.beginAt) = :month')
+            ->andWhere('m.client = :clientId')
+            ->setParameter('year', $year)
+            ->setParameter('month', $month)
+            ->setParameter('clientId', $clientId)
+            ->getQuery()
+            ->getResult();
+        }
 
-
+        
     }
 
 
     public function findMissionForCustomerAndOneTeacher($year, $month, $clientId, $userId) {
 
+        // dd("tptp");
         return $this->createQueryBuilder('m')
            ->andWhere('YEAR(m.beginAt) = :year')
            ->andWhere('YEAR(m.endAt) = :year')
@@ -182,6 +214,23 @@ class MissionRepository extends ServiceEntityRepository
 
     }
 
+    public function updateInvoiceSentForMissions($year, $month, $clientId, $sent) {
+
+        $query = $this->createQueryBuilder('m')->update(Mission::class, 'm')
+        ->set('m.invoiceSent', ':sent')
+        ->where('m.client = :clientId')
+        ->andWhere('MONTH(m.beginAt) = :month')
+        ->andWhere('MONTH(m.endAt) = :month')
+        ->andWhere('YEAR(m.beginAt) = :year')
+        ->andWhere('YEAR(m.endAt) = :year')
+        ->setParameter('clientId', $clientId)
+        ->setParameter('month', $month)
+        ->setParameter('year', $year)
+        ->setParameter('sent', $sent)
+        ->getQuery()->execute();
+
+    }
+
     public function updateTeacherPaidForMissions($year, $month, $userId, $paid) {
 
         $query = $this->createQueryBuilder('m')->update(Mission::class, 'm')
@@ -197,5 +246,53 @@ class MissionRepository extends ServiceEntityRepository
         ->setParameter('paid', $paid)
         ->getQuery()->execute();
 
+    }
+
+    public function findDifferentCoursesForClientAndYear($clientId, $year) {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            "SELECT c.title, s.hourlyPrice, s.student 
+            FROM App\Entity\Mission m
+            INNER JOIN App\Entity\Students s WITH s.id = m.student 
+            INNER JOIN App\Entity\Courses c WITH c.id = m.course 
+            WHERE year(m.beginAt) 
+            BETWEEN $year and $year AND m.client = $clientId
+            GROUP BY m.course, s.id"
+        );
+
+        return $query->getResult();
+    }
+
+    public function findDifferentTeachersForClientAndCourseAndYear($clientId, $year) {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            "SELECT c.title, s.student, SUM(m.hours) as totalHours, u.firstName, u.lastName
+            FROM App\Entity\Mission m
+            INNER JOIN App\Entity\Students s WITH s.id = m.student 
+            INNER JOIN App\Entity\Courses c WITH c.id = m.course 
+            INNER JOIN App\Entity\User u WITH u.id = m.user 
+            WHERE year(m.beginAt) 
+            BETWEEN $year and ($year + 1) AND m.client = $clientId
+            GROUP BY m.course, s.id, u.id"
+        );
+
+        return $query->getResult();
+    }
+
+    public function findDistinctTeachersForCustomers($clientId, $year) {
+
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            "SELECT DISTINCT u.firstName, u.lastName 
+            FROM App\Entity\Mission m
+            INNER JOIN App\Entity\User u WITH u.id = m.user 
+            WHERE year(m.beginAt) 
+            BETWEEN $year and ($year + 1) AND m.client = $clientId"
+        );
+
+        return $query->getResult();
     }
 }

@@ -61,6 +61,7 @@ class MissionCrudController extends AbstractCrudController
             ]), 
             ChoiceField::new('scheduleTime')->setChoices([
                 '8h00-12h00 / 13h00-17h00' => '8h00-12h00 / 13h00-17h00',
+                '8h30-12h30 / 13h30-17h30' => '8h30-12h30 / 13h30-17h30',
                 '9h00-12h00 / 13h00-17h00' => '9h00-12h00 / 13h00-17h00',
                 '9h00-12h00 / 13h00-17h30' => '9h00-12h00 / 13h00-17h30',
                 '9h00-12h30 / 13h30-17h00' => '9h00-12h30 / 13h30-17h00',
@@ -74,10 +75,14 @@ class MissionCrudController extends AbstractCrudController
                 '08h30-13h00' => '08h30-13h00',
                 '09h00-12h30' => '09h00-12h30',
                 '09h00-12h00' => '09h00-12h00',
+                '09h00-13h00' => '09h00-13h00',
+                '10h00-13h00' => '10h00-13h00',
+                '09h30-13h00' => '09h30-13h00',
                 '13h00-15h30' => '13h00-15h30',
                 '13h00-17h00' => '13h00-17h00',
                 '13h30-17h00' => '13h30-17h00',
                 '14h00-17h00' => '14h00-17h00',
+                '14h00-18h00' => '14h00-18h00',
             ]),
             ChoiceField::new('hours')->setChoices([
                 '1' => '1',
@@ -168,6 +173,8 @@ class MissionCrudController extends AbstractCrudController
                 '20' => '20',
                 '25' => '25',
                 '30' => '30',
+                '32.8' => '32.8',
+                '33.75' => '33.75',
                 '35' => '35',
                 '40' => '40',
                 '42.8' => '42.8',
@@ -186,7 +193,8 @@ class MissionCrudController extends AbstractCrudController
             TextField::new('orderNumber'),
             BooleanField::new('teacherPaid'),
             BooleanField::new('clientPaid'),
-            // TextField::new('backgroundColor'),
+            BooleanField::new('invoiceSent'),
+            TextField::new('background')->setRequired(false)->setEmptyData(null),
         ];
     }
     

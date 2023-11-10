@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Clients;
 use App\Entity\Mission;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
@@ -98,6 +99,47 @@ class ContractsController extends AbstractController
         } else {
             return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
         }
+    }
+
+
+    // Méthode permettant de générer le contrat de prestations de service pour un client pour l'année en cours
+    #[Route('/contracts/{clientId}/{year}', name: 'app_contracts_b2b_for_current_year')]
+    public function generate_contrats_for_year(EntityManagerInterface $doctrine, int $clientId = 2, int $year = 2023 ) : Response
+    {
+
+        $client = $doctrine->getRepository(Clients::class)->find($clientId);
+        $courses = $doctrine->getRepository(Mission::class)->findDifferentCoursesForClientAndYear($clientId, $year);
+        $teachers = $doctrine->getRepository(Mission::class)->findDistinctTeachersForCustomers($clientId, $year);
+        $teachersAndCourses = $doctrine->getRepository(Mission::class)->findDifferentTeachersForClientAndCourseAndYear($clientId, $year);
+
+        $data = [
+            // 'missions'  => $missionsForInvoice,
+            // 'teacher' => $user,
+            // 'invoiceNumber' => $invoiceNumber,
+            // 'invoiceDate' => $invoiceDate,
+            // 'invoiceDateEcheance' => $invoiceDateEcheance,
+            // 'totalAmount' => round($totalAmount, 0),
+            // 'client' => $client,
+            // 'orderNumber' => $orderNumber
+            'courses' => $courses,
+            'teachers' => $teachers,
+            'teachersAndCourses' => $teachersAndCourses,
+            'client' => $client,
+            'nextYear' => $year + 1,
+            'year' => $year,
+        ];
+
+        $html =  $this->renderView('contracts/year.html.twig', $data);
+        $dompdf = new Dompdf(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true]);
+        $dompdf->loadHtml($html);
+        $dompdf->render();
+
+        return new Response (
+            $dompdf->stream("Web Start - "),
+            Response::HTTP_OK,
+            ['Content-Type' => 'application/pdf']
+        );
+    
     }
 
     #[Route('/contract/admin/download/{teacherId}/{month}/{year}', name: 'app_contracts_admin_download')]

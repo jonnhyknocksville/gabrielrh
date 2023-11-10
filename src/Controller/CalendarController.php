@@ -26,7 +26,7 @@ class CalendarController extends AbstractController
                 "start" => $mission->getBeginAt()->format("Y-m-d"),
                 "end" => $mission->getEndAt()->add(new DateInterval('P1D'))->format("Y-m-d"),
                 "url" => $request->getUri() . "/". $mission->getId(),
-                "backgroundColor" => $mission->getClient()->getBackgroundColor(),
+                "backgroundColor" => is_null($mission->getBackground()) ? $mission->getClient()->getBackgroundColor() : $mission->getBackground(),
                 "extendedProps" => [
                     "description" => $mission->getCourse()->getTitle(),
                     "date" => $mission->getBeginAt(),
@@ -62,6 +62,7 @@ class CalendarController extends AbstractController
                 "start" => $mission->getBeginAt()->format("Y-m-d"),
                 "end" => $mission->getEndAt()->format("Y-m-d"),
                 "url" => substr($request->getUri(), 0, strpos($request->getUri(), "/")) . "/teacher/calendar/". $mission->getId(),
+                "backgroundColor" => is_null($mission->getBackground()) ? $mission->getClient()->getBackgroundColor() : $mission->getBackground(),
                 "extendedProps" => [
                     "description" => $mission->getCourse()->getTitle(),
                     "date" => $mission->getBeginAt(),

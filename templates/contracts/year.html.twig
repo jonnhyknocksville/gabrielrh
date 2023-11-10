@@ -1,0 +1,511 @@
+{# FACTURE #}
+<!DOCTYPE html>
+<html>
+	<title>Web Start -
+		{# {{bdcNumber}} #}
+	</title>
+	<body>
+
+        <style>
+
+            * {
+                box-sizing:border-box;
+            }
+
+            h1, h2 {
+                text-align : center;
+            }
+
+            p {
+                text-align:justify;
+            }
+
+            h3 {
+                margin: 30px 0;
+                text-decoration:underline;
+            }
+
+            span {
+                font-weight:bold;
+            }
+
+            .bold {
+                font-weight:bold;
+            }
+
+            .w-50 {
+                width:50%;
+            }
+
+            .f-left {
+                float:left;
+            }
+
+            .f-right {
+                float:right;
+            }
+
+            .text-center {
+                text-align:center;
+            }
+
+            table {
+                margin: 2rem 0;
+            }
+
+            table th,
+            table td {
+                padding: 0.5rem;
+            }
+
+        </style>
+
+        <h1> CONVENTION DE PRESTATION DE SERVICE </h1>
+        <h2> {{year}}/{{nextYear}} </h2>
+
+        <br>
+        
+		<p class="bold">ENTRE</p>
+
+        <br>
+
+		<p>L’établissement <span>{{client.name}}</span></p>
+		<span> {{client.legalForm}} </span>, capital de <span>{{client.socialCapital}}€</span>, immatriculé sous le N° Siret : <span>{{client.siret}}</span></p>
+		<p>Dont le siège social est situé au : <span>{{ client.address }} – {{client.postalCode}} {{client.city}}</span></p>
+		<p>Représenté par <span>Mr/Mme {{client.personInCharge}}</span>, agissant en qualité de gérant.</p>
+		<p>Ci-après dénommée <span>« L’établissement »</span> ou <span>« l’Entreprise »</span></p>
+
+        <br>
+
+		<p class="bold">D’UNE PART</p>
+
+        <br>
+
+		<p class="bold">WEB START</p>
+		<p>Immatriculé(e) sous le N° Siret : n° <span>888 707 692 00016</span></p>
+		<p>Numéro de déclaration d’activité : <span>11756550775</span></p>
+		<p>Dont le siège social est situé : <span>6 rue de Calais – 75009 Paris</span></p>
+		<p>Ci-après dénommé(e) <span>« le Prestataire » </span></p>
+
+        <br>
+
+		<p class="bold">D’AUTRE PART</p>
+
+        <br>
+
+		<p>L’établissement <span>{{client.name}}</span> et le Prestataire étant ci-après désignées
+		individuellement une <span>« Partie »</span> et ensemble les <span>« Parties » </span>,</p>
+
+		<p class="bold">Il a été convenu ce qui suit :</p>
+
+		<p>L’établissement <span>{{client.name}}</span> est un organisme de formation situé à {{client.city}} 
+        qui propose différentes formations en alternance ou en initiale allant de bac à bac+5.</p>
+
+		<p>L’établissement <span>{{client.name}}</span> souhaite s'adjoindre les services du Prestataire.</p>
+		
+        <p>Dans ce but, les Parties envisagent entre elles la conclusion d'une convention de
+		prestation de service par laquelle le Prestataire réaliserait des prestations de formation
+		et de conseil en faveur de l’établissement <span>{{client.name}}</span>.</p>
+
+        <p>En conséquence de ce qui précède, les Parties ont établi, dans le cadre du présent
+        contrat (ci-après le <span>« Contrat »</span>), les modalités des prestations du Prestataire auprès de
+        L’établissement <span>{{client.name}}</span>.</p>
+
+
+        <h4>CECI ETANT EXPOSE, IL A ETE CONVENU CE QUI SUIT :</h4>
+
+        <h3>ARTICLE 1 – OBJET DU CONTRAT</h3>
+
+        <p>Le Contrat a pour objet de définir les conditions dans lesquelles le Prestataire s’engage
+        à fournir à l’établissement <span>{{client.name}}</span> des prestations de services décrites ci-
+        après en contrepartie du paiement des honoraires convenus.</p>
+
+       <p> Le Prestataire exerce son activité en toute indépendance, sans aucun lien de
+        subordination avec l’établissement <span>{{client.name}}</span>. Dans ce cas, il assurera la
+        responsabilité de l’exécution de la prestation.</p>
+
+        <p>Le Prestataire sera libre de prendre d’autres missions auprès d’autres établissements
+        d’enseignements publics ou privés, à charge pour lui d’en informer l’établissement
+        <span>{{client.name}}</span>.</p>
+
+
+        <br>
+        <h3>ARTICLE 2 – DOCUMENTS A REMETTRE OBLIGATOIREMENT</h3>
+
+       <p> Le Prestataire s’engage préalablement à toute activité dans le cadre du présent
+        contrat à transmettre à l’établissement <span>{{client.name}}</span>, l’ensemble des documents
+        suivants, à savoir :</p>
+
+        <ul>
+            <li> Récépissé du numéro de déclaration d’activité en tant qu’organisme de
+            formation auprès de la DREETS (il ne s’agit pas du Code APE de votre
+            structure) ;</li>
+            <li> Preuve de dépôt du dernier bilan pédagogique et financier ;</li>
+            <li> Attestation (URSSAF, RSI ou MSA) de fourniture des déclarations sociales et de
+            paiements des cotisations et contributions de sécurité sociale de moins de 6
+            mois ; ou Attestation sur l’honneur que le Prestataire est à jour de ses obligations
+            fiscales et sociales de moins de 6 mois ;</li>
+            <li> Attestation de responsabilité civile professionnelle ;</li>
+            <li> Avis de situation au répertoire SIRENE (fiche INSEE) ou copie de KBIS</li>
+            <li> RIB de L’établissement.</li>
+        </ul>
+
+
+        <p>Le Prestataire s’engage à ce que son intervenant transmette les documents suivants :</p>
+
+        <ul>
+            <li> Pièce d’identité de l’intervenant ;</li>
+            <li> Extrait du casier judiciaire de l’intervenant (-3 mois à la date du présent
+            contrat) ;</li>
+            <li> Copie des diplômes de l’intervenant ;</li>
+            <li> Curriculum Vitae OPQF de l’intervenant complété (annexe 1).</li>
+            <li> Syllabus pour les formations dispensées : </li>
+
+            <ul>
+                <li> Le programme détaillé par module et par niveau ;</li>
+                <li> Les examens de contrôle continu et de fins de modules ;</li>
+                <li> Les supports de cours ;</li>
+            </ul>
+        </ul>
+
+        <p>Les documents composant le Syllabus sont demandés afin de répondre à
+        l'obligation QUALIOPI de l'établissement.</p>
+
+        <p>L’établissement <span>{{client.name}}</span> s’engage à ne pas les utiliser à d’autres fins, ils
+        resteront la propriété intellectuelle du Prestataire à l’exclusion de <span>« l’Etude de cas »</span>
+        préparée spécifiquement pour l’établissement <span>{{client.name}}</span>.</p>
+
+		
+
+        <br>
+        <h3>ARTICLE 3 – PRESTATIONS A LA CHARGE DU PRESTATAIRE</h3>
+
+        <p>Le Prestataire nomme le/les intervenant(s) suivant(s) : </p>
+
+        <ul>
+            {% for teacher in teachers %}
+                <li class="bold"> {{teacher.firstName}} {{teacher.lastName}} </li>
+            {% endfor %}
+        </ul>
+        
+        <p>Et s’engage à réaliser les prestations suivantes :
+        Les activités pédagogiques pourront notamment être de plusieurs types : cours ;
+        travaux pratiques ; projets ; études de cas ; évaluations ; soutenances ; participation
+        à des jurys.</p>
+
+        <table border="1">
+
+            <thead>
+
+                <tr>
+
+                    <th>Matière </th>
+                    <th>Formateur </th>
+                    <th>Classe </th>
+                    <th>Volume horaire </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                 {% for teacherAndCourse in teachersAndCourses %}
+                        <tr>
+                            <td> {{teacherAndCourse.title}} </td>
+                            <td> {{teacherAndCourse.firstName}} {{teacherAndCourse.lastName}} </td>
+                            <td> {{teacherAndCourse.student}} </td>
+                            <td> {{teacherAndCourse.totalHours}}h </td>
+                        </tr>
+                    {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        <p>Le nombre d’heures précité inclut la dispense de la formation, mais également le
+        temps de préparation et le concours du Prestataire à la préparation et au passage
+        des examens.</p>
+
+        <p>L’ensemble des cours devront être dispensés en présentiel, la Direction se réserve la
+        possibilité de dispenser les cours à distance pour maintenir la continuité pédagogique.</p>
+
+        <p>Le Prestataire ne pourra pas dispenser de cours à distance sans avoir au préalable
+        obtenu l’accord de l’établissement <span>{{client.name}}</span>.</p>
+
+        <br>
+        <h3>ARTICLE 4 – HONORAIRES – CONDITIONS DE PAIEMENT</h3>
+
+        <p>Les parties ont convenu de fixer, pour l’exécution de la mission objet du présent
+        contrat, le prix forfaitaire et global suivant : (la TVA étant le cas échéant appliquée
+        selon les dispositions légales et réglementaires en vigueur).</p>
+
+        <p>Les tarifs pratiqués inclus : la préparation des cours et la dispense du cours, l’évaluation
+        du cours, la fourniture des outils nécessaires au bon déroulement des activités
+        pédagogiques objets du présent contrat, notamment toutes contributions à la
+        création de supports de cours, tutoriels, vidéos de présentation...</p>
+
+        {# TABLEAU #}
+
+        <table border="1">
+
+            <thead>
+
+                <tr>
+
+                    <th>Matière </th>
+                    <th>Classe </th>
+                    <th>Taux horaire </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+                    {% for course in courses %}
+                        <tr>
+                            <td> {{course.title}} </td>
+                            <td> {{course.student}} </td>
+                            <td> {{course.hourlyPrice}}€/h </td>
+                        </tr>
+                    {% endfor %}
+            </tbody>
+
+        </table>
+
+        <p>Le paiement des prestations sera effectué mensuellement sur présentation de facture.
+        Le délai des règlements est fixé à 30 jours à réception de facture, après réalisation de
+        la prestation de formation et à condition que le Prestataire ait fourni l’ensemble des
+        documents administratifs mentionnés à l’article 2 du présent contrat.</p>
+
+        <p>Les factures devront être adressées à l'adresse suivante (par courrier ou par courriel) :</p>
+
+        <p>L’établissement :</p>
+
+        <p style="margin-left:2rem"><span>{{client.name}} {{client.city}}</span></p>
+        <p style="margin-left:2rem" class="bold">{{client.address}}</p>
+        <p style="margin-left:2rem" class="bold">{{client.postalCode}} {{client.city}}</p>
+
+        <p>Elles seront payables par virement bancaire ou chèque selon le délai de paiement
+        fixé ci-dessus.</p>
+
+        <p>Les frais exposés par le Prestataire pour l'exécution de ses prestations resteront à sa
+        charge, à l’exception des frais de déplacement pour se rendre auprès des entreprises
+        qui accueilleront les apprenants qui seront refacturés, sur justificatifs, à l’établissement
+        <span>{{client.name}}</span>. Les frais kilométriques seront remboursés sur la base du barème
+        fiscal.</p>
+
+		
+
+
+        <br>
+        <h3>ARTICLE 5 – DUREE DU CONTRAT – RUPTURE</h3>
+
+       <p> Le Contrat prend effet à compter du premier jour d’intervention pour une durée
+        déterminée jusqu’au 31 août {{nextYear}}.</p>
+
+        <p> Au-delà de cette date, le contrat ne pourra être prolongé que par la signature d'un
+        nouveau contrat écrit aux conditions négociées entre les Parties.</p>
+
+        <br>
+        <h3>ARTICLE 6 - CONFIDENTIALITE – NON-DEBAUCHAGE</h3>
+
+        <p>Toute information communiquée par l’établissement <span>{{client.name}}</span> au Prestataire
+        dans le cadre du Contrat sera considérée comme confidentielle par le Prestataire.</p>
+
+       <p> Le Prestataire, intervenant aux présentes à titre personnel, s'engage à ne pas divulguer
+        ou communiquer sous aucune forme, ainsi qu'à ne pas utiliser directement ou
+        indirectement toute information, donnée ou savoir-faire confidentiels de toute nature,
+        dont il aurait eu connaissance à l'occasion de l'exécution du Contrat, relatifs à ses
+        activités ou présence au sein de l’établissement <span>{{client.name}}</span>, concernant
+        notamment, mais sans limitation, les projets, les études, rapports et analyses, et plus
+        généralement toute donnée commerciale (fichiers clients et fichiers étudiants),
+        technique, financière, juridique, fiscale ou administrative, et les affaires de
+        l’établissement <span>{{client.name}}</span>.</p>
+
+
+        <p>Le présent engagement de confidentialité est valable aussi bien pendant la durée de
+        validité du Contrat que durant les 3 années qui suivront sa cessation.</p>
+
+        <p>Le Prestataire s'engage à restituer, au plus tard le dernier jour d'exécution du Contrat,
+        tout bien ou matériel mis à sa disposition par l’établissement <span>{{client.name}}</span>, ainsi
+        que tout document écrit ou enregistré contenant des informations confidentielles.</p>
+       
+        <p>Le Prestataire à titre personnel s’engage, pendant une période de 25 mois à compter
+        de la date de cessation du Contrat à ne solliciter de manière active, directement ou
+        indirectement, aucun salarié ou mandataire social de l’établissement <span>{{client.name}}.</span></p>
+
+        <p>De même, l’établissement <span>{{client.name}}</span> s’engage, pendant une période de 25
+        mois à compter de la date de cessation du Contrat à ne solliciter de manière active,
+        directement ou indirectement, aucun salarié ou mandataire social du prestataire.</p>
+
+		
+
+        <br>
+        <h3>ARTICLE 7 - PROPRIETE DES CONSULTATIONS, ETUDES ET ANALYSES DE DONNEES</h3>
+
+        <p>Toutes études, consultations et analyses de données réalisées par le Prestataire dans
+        le cadre du Contrat sera la propriété non exclusive de l’établissement <span>{{client.name}}.</span></p>
+
+        <p>L’établissement <span>{{client.name}}</span> est libre d'utiliser comme il l'entend les études,
+        consultations et analyses de données, sans restriction aucune, que ce soit pour ses
+        besoins personnels ou ceux des tiers, notamment de ses filiales, de les exploiter à titre
+        onéreux ou gratuit. L’établissement <span>{{client.name}}</span> s’engage à informer le
+        prestataire de chacune de ses utilisations.</p>
+
+        <p>En ce qui concerne les études de cas, l’établissement <span>{{client.name}}</span> peut
+        également les exploiter comme il l’entend dans son réseau de partenaires, à titre
+        onéreux ou gratuit. Le prestataire ne pourra en aucun cas s’opposer à cette
+        exploitation dans le réseau de partenaires.</p>
+        
+        <p>Cependant, toute étude de cas reste également la propriété du référent, qui peut
+        également en disposer comme il l’entend et la vendre à des tiers, en dehors du réseau
+        de partenaires l’établissement <span>{{client.name}}</span>.</p>
+
+        <p>Chaque partie s’engage à informer l’autre partie avant d’utiliser/vendre l’étude de
+        cas conçue dans le cadre de l’établissement <span>{{client.name}}</span>.</p>
+
+
+        <p>Toutes conceptions pédagogiques, cours et supports de cours, cas pratiques et
+        corrigés, jeux et autres moyens de transmission de son savoir-faire professionnel réalisés
+        par le Prestataire mises à disposition de la bonne exécution du Contrat sera et restera
+        l'entière propriété du Prestataire ; à l’exclusion de <span>« l’Etude de cas »</span> préparée
+        spécifiquement pour l’établissement <span>{{client.name}}</span>.</p>
+
+        <p>En conséquence, le Prestataire est libre d'utiliser comme il l'entend les conceptions
+        pédagogiques, cours et supports de cours, cas pratiques et corrigés, jeux et autres
+        moyens de transmission de son savoir-faire professionnel, sans restriction aucune, de
+        les exploiter à titre onéreux ou gratuit, à l’exclusion de <span>« l’Etude de cas »</span> préparée
+        spécifiquement pour l’établissement <span>{{client.name}}</span>.</p>
+
+        <p>L’établissement <span>{{client.name}}</span> s'interdit de son côté toute utilisation ou
+        communication des conceptions pédagogiques, cours et supports de cours, cas
+        pratiques et corrigés, jeux et autres moyens de transmission de son savoir-faire
+        professionnel, dont il doit préserver la confidentialité absolue, à moins que
+        l’intervenant n’en ait donné l’autorisation écrite et claire à l’établissement <span>{{client.name}}</span>.</p>
+
+
+		
+        <h3>ARTICLE 8 - INTUITU PERSONAE</h3>
+
+        <p>A titre exceptionnel, en cas d’impossibilité constatée, le Prestataire s’engage à faire
+        réaliser la prestation par un tiers dont les compétences sont en adéquation avec la
+        tâche à effectuer, après validation préalable de l’établissement <span>{{client.name}}</span>.</p>
+
+        <br>
+        <h3>ARTICLE 9 – RESILIATION</h3>
+
+        <p>Chaque partie pourra procéder à la résiliation du Contrat.
+        L’une et l’autre des parties peut mettre fin à ce contrat unilatéralement et à tout
+        moment moyennant un préavis de 30 jours. La résiliation sera notifiée par lettre
+        recommandée avec accusé de réception. Dans ce cas, l’établissement <span>{{client.name}}</span> réglera au prestataire une somme correspondant aux travaux
+        effectivement réalisés. Pour les activités forfaitaires, le montant réglé par
+        l’établissement <span>{{client.name}}</span> sera calculé au prorata temporis de l’activité
+        concernée.</p>
+
+
+        <br>
+        <h3>ARTICLE 10 - MODALITES D’INTERVENTIONS</h3>
+
+        <p>10.1 Le Contrat étant conclu entre des personnes indépendantes, la collaboration
+        en résultant ne pourra en aucune façon porter atteinte à l'indépendance des
+        Parties.</p>
+
+        <p>10.2 Les prestations du Prestataire sont strictement limitées à celles définies à l’Article
+        3 ci-dessus.</p>
+
+
+        <p>10.3 Le Prestataire ne pourra prendre aucune décision pour le compte de
+        L’établissement <span>{{client.name}}</span>, à moins d'y avoir au préalable été
+        expressément autorisée par écrit par l’établissement <span>{{client.name}}</span>.</p>
+
+        <p>10.5 Le Prestataire apportera tous ses soins à la réalisation des prestations ci-dessus
+        indiqués, qu'il exécutera en respectant les délais imposés, étant entendu que
+        l’établissement <span>{{client.name}}</span> devra transmettre en temps opportun toutes
+        directives et informations ainsi que tous documents nécessaires à la réalisation
+        desdites prestations.</p>
+
+        <p>10.5 Dans le cas où l’établissement <span>{{client.name}}</span> annule des heures
+        d’intervention 15 jours calendaires avant leurs réalisations, le Prestataire se
+        réserve le droit de facturer les heures non réalisées à l’établissement <span>{{client.name}}</span>.</p>
+
+        <p>De même, l’établissement <span>{{client.name}}</span> se réserve le droit de facturer les
+        heures d’intervention non réalisées par le Prestataire aux mêmes tarifs qui ont
+        été fixés par l’article 4 du présent Contrat, si le Prestataire annule des heures
+        d’interventions dans les 15 jours calendaires avant leurs dates d’effet.</p>
+
+
+		
+
+        <h3>ARTICLE 11 – DIVERS</h3>
+
+        <p>11.1 Notifications</p>
+        <p>Pour être valable, toute notification au titre du Contrat devra être faite aux adresses
+        mentionnées à l’entête du Contrat ou à toute autre adresse notifiée par lettre
+        recommandée avec accusé de réception par les Parties conformément au présent
+        Article.</p>
+
+        <p>11.2 Modification des stipulations du Contrat– Intégralité du Contrat</p>
+        <p>Pour être valable, tout accord constituant une modification ou un ajout au Contrat
+        doit être établi par écrit et signé par les représentants habilités à cet effet des Parties
+        aux présentes.</p>
+        
+        <p>Le Contrat exprime l’accord complet et définitif des Parties en ce qui concerne les
+        prestations de services objet des présentes.</p>
+
+        <p>11.3 Autonomie des stipulations du Contrat</p>
+        Dans le cas où une ou plusieurs des stipulations du Contrat seraient nulles, illégales ou
+        inapplicables d’une manière quelconque au titre d’une loi quelconque, la validité, la
+        légalité ou l’applicabilité des autres stipulations des présentes n’en serait aucunement
+        affectée, à moins que la nullité, illégalité ou inapplicabilité de la stipulation en cause
+        n’affecte substantiellement l’économie du Contrat recherchée par les Parties.</p>
+
+        <p>Les Parties conviennent dans une telle hypothèse de se concerter et de tout mettre
+        en œuvre afin d’intégrer dans le Contrat une nouvelle clause ayant pour effet de
+        rétablir la volonté commune des Parties telle qu’exprimée dans la clause initiale et ce,
+        dans le respect des dispositions et règlements applicables.</p>
+
+        <p>11.5 Non-renonciation</p>
+
+        <p>Le fait par l’une des Parties de ne pas invoquer la violation de l’une des stipulations du
+        Contrat ne saurait valoir renonciation de ladite Partie à invoquer toute violation
+        ultérieure de cette même stipulation ou la violation de toute autre stipulation du
+        Contrat.</p>
+
+        <p>11.5 Loi applicable</p>
+        
+        <p>Le Contrat sera régi et interprété conformément au droit français.</p>
+        <p>En cas de difficulté relative à la validité, l’exécution ou l’interprétation du Contrat, les
+        Parties s’engagent à chercher une solution amiable à leur différend.
+        Tout différend relatif au Contrat sera soumis aux tribunaux du ressort de la Cour d'appel
+        de Paris.</p>
+
+        <br>
+
+        <p class="bold">FAIT A PARIS,</p>
+        <p class="bold">LE 01/09/{{year}}</p>
+        <p class="bold">EN DEUX EXEMPLAIRES</p>
+
+        <br>
+
+        <div>
+
+            <div class="w-50 f-left">
+                <p class="text-center"> Pour l’établissement </p>
+                <p class="text-center bold"> {{client.name}} </p>
+                <p class="text-center"> Représenté par Mr/Mme <span>{{client.personInCharge}}</span></p>
+                <hr>
+            </div>
+
+            <div class="w-50 f-right">
+                <p class="text-center"> Pour le Prestataire </p>
+                <p class="text-center bold"> WEB START </p>
+                <p class="text-center"> Représenté par Mlle <span>HABBANI HABBY</span></p>
+                <hr>
+            </div>
+
+        </div>
+
+
+	</body>
+</html>

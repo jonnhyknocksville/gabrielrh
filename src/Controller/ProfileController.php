@@ -111,15 +111,15 @@ class ProfileController extends AbstractController
             $client = $invoice->getUser()->getId();
 
             if($invoice->getBeginAt() == $invoice->getEndAt()) {
-                $invoicesToShow[$client]['id'] = $client;
-                $invoicesToShow[$client]['month'] = $invoice->getBeginAt()->format("m");
-                $invoicesToShow[$client]['name'] = $invoice->getUser()->getLastName() . ' ' . $invoice->getUser()->getFirstName();
-                $invoicesToShow[$client]['teacherPaid'] = $invoice->isTeacherPaid();
+                $invoicesToShow[$client . "_" . $invoice->getOrderNumber()]['id'] = $client;
+                $invoicesToShow[$client  . "_" . $invoice->getOrderNumber()]['month'] = $invoice->getBeginAt()->format("m");
+                $invoicesToShow[$client  . "_" . $invoice->getOrderNumber()]['name'] = $invoice->getUser()->getLastName() . ' ' . $invoice->getUser()->getFirstName();
+                $invoicesToShow[$client  . "_" . $invoice->getOrderNumber()]['teacherPaid'] = $invoice->isTeacherPaid();
 
-                if(isset($invoicesToShow[$client]['sum'])) {
-                    $invoicesToShow[$client]['sum'] += (float) round($invoice->getHours() * $invoice->getHourlyRate());
+                if(isset($invoicesToShow[$client  . "_" . $invoice->getOrderNumber()]['sum'])) {
+                    $invoicesToShow[$client  . "_" . $invoice->getOrderNumber()]['sum'] += (float) round($invoice->getHours() * $invoice->getHourlyRate());
                 } else {
-                    $invoicesToShow[$client]['sum'] = (float) $invoice->getHours() * $invoice->getHourlyRate();
+                    $invoicesToShow[$client  . "_" . $invoice->getOrderNumber()]['sum'] = (float) $invoice->getHours() * $invoice->getHourlyRate();
                 }
 
 
@@ -132,15 +132,15 @@ class ProfileController extends AbstractController
                     $newMission = clone $invoice;
                     $dateTime = new \DateTime;
 
-                    $invoicesToShow[$client]['id'] = $client;
-                    $invoicesToShow[$client]['month'] = $newMission->getBeginAt()->format("m");
-                    $invoicesToShow[$client]['name'] = $invoice->getUser()->getLastName() . ' ' . $invoice->getUser()->getFirstName();
-                    $invoicesToShow[$client]['teacherPaid'] = $newMission->isTeacherPaid();
+                    $invoicesToShow[$client . "_" . $newMission->getOrderNumber()]['id'] = $client;
+                    $invoicesToShow[$client  . "_" . $newMission->getOrderNumber()]['month'] = $newMission->getBeginAt()->format("m");
+                    $invoicesToShow[$client  . "_" . $newMission->getOrderNumber()]['name'] = $invoice->getUser()->getLastName() . ' ' . $invoice->getUser()->getFirstName();
+                    $invoicesToShow[$client  . "_" . $newMission->getOrderNumber()]['teacherPaid'] = $newMission->isTeacherPaid();
                     
-                    if(isset($invoicesToShow[$client]['sum'])) {
-                        $invoicesToShow[$client]['sum'] += (float) round($invoice->getHours() * $invoice->getHourlyRate());
+                    if(isset($invoicesToShow[$client  . "_" . $newMission->getOrderNumber()]['sum'])) {
+                        $invoicesToShow[$client  . "_" . $newMission->getOrderNumber()]['sum'] += (float) round($invoice->getHours() * $invoice->getHourlyRate());
                     } else {
-                        $invoicesToShow[$client]['sum'] = (float) round($invoice->getHours() * $invoice->getHourlyRate());
+                        $invoicesToShow[$client  . "_" . $newMission->getOrderNumber()]['sum'] = (float) round($invoice->getHours() * $invoice->getHourlyRate());
                     }
 
                 }
@@ -163,6 +163,25 @@ class ProfileController extends AbstractController
             'ca' => $data[1],
             'monthIndex' => $month,
         ]);
+    }
+
+    // route permettant d'afficher tous les contrats de prestations de formation
+    // pour démarrer les années avec nos clients
+    #[Route('/profile/contracts/prestations/b2b', name: 'app_contracts_prestations_client')]
+    public function contracts_prestations_b2b(Request $request,
+        EntityManagerInterface $doctrine): Response {
+
+        $data = $this->getValues($doctrine);
+        $dateTime = new \DateTime("now");
+        $year = $dateTime->format("Y");
+        $clients = $doctrine->getRepository(Mission::class)->findDistinctClientsForCurrentYear($year);
+
+        return $this->render('profile/contracts_prestations_b2b.html.twig', [
+            'clients' => $clients,
+            'year' => $data[0],
+            'ca' => $data[1]
+        ]);
+
     }
 
     #[Route('/profile/skills', name: 'app_profile_skills')]
@@ -241,15 +260,14 @@ class ProfileController extends AbstractController
     #[Route('/profile/invoices/paid/{month}', name: 'app_invoice_paid')]
     public function updateInvoicePaid(Request $request, 
     EntityManagerInterface $doctrine, 
-    PaginatorInterface $paginator, int $month)
+    PaginatorInterface $paginator, string $month)
     {
-
+        
         if ($request->isMethod('POST')) {
 
             $clientId = $request->get('clientId');
             $month = $request->get('month');
             $paid = $request->get('paid');
-            // dd($paid);
             $dateTime = new \DateTime("now");
             $year = $dateTime->format("Y");
             
@@ -258,6 +276,33 @@ class ProfileController extends AbstractController
             $doctrine->getRepository(Mission::class)->updateClientPaidForMissions($year, $month, $clientId, $paid);
 
             return new Response('Facture mise à jour', 200);
+
+        }
+
+        return new Response('Une erreur est survenue', 500);
+
+    }
+
+    #[Route('/profile/invoices/sent/{month}', name: 'app_invoice_sent')]
+    public function updateInvoiceSent(Request $request, 
+    EntityManagerInterface $doctrine, 
+    PaginatorInterface $paginator, int $month)
+    {
+
+        if ($request->isMethod('POST')) {
+
+            $clientId = $request->get('clientId');
+            $month = $request->get('month');
+            $sent = $request->get('sent');
+            // dd($sent);
+            $dateTime = new \DateTime("now");
+            $year = $dateTime->format("Y");
+            
+            // dd($sent);
+            // mettre à jour le paiment client de toutes les missions
+            $doctrine->getRepository(Mission::class)->updateInvoiceSentForMissions($year, $month, $clientId, $sent);
+
+            return new Response('Facture envoyée', 200);
 
         }
 
@@ -292,15 +337,15 @@ class ProfileController extends AbstractController
     }
 
 
-    #[Route('/profile/invoices/{month}', name: 'app_invoices')]
+    #[Route('/profile/invoices/{year}/{month}', name: 'app_invoices')]
     public function invoices(Request $request, 
     EntityManagerInterface $doctrine, 
-    PaginatorInterface $paginator, int $month): Response
+    PaginatorInterface $paginator, int $month, int $year): Response
     {
 
         $data = $this->getValues($doctrine);
-        $dateTime = new \DateTime("now");
-        $year = $dateTime->format("Y");
+        // $dateTime = new \DateTime("now");
+        // $year = $dateTime->format("Y");
     
         $invoices = $doctrine->getRepository(Mission::class)->findMonthlyInvoicesToGenerate($year, $month);
 
@@ -312,16 +357,18 @@ class ProfileController extends AbstractController
             $client = $invoice->getClient()->getId();
 
             if($invoice->getBeginAt() == $invoice->getEndAt()) {
-                $invoicesToShow[$client]['id'] = $client;
-                $invoicesToShow[$client]['month'] = $invoice->getBeginAt()->format("m");
-                $invoicesToShow[$client]['name'] = $invoice->getClient()->getName();
-                $invoicesToShow[$client]['clientPaid'] = $invoice->isClientPaid();
-                $invoicesToShow[$client]['city'] = $invoice->getClient()->getCity();
+                $invoicesToShow[$client . "_" . $invoice->getOrderNumber()]['id'] = $client;
+                $invoicesToShow[$client  . "_" . $invoice->getOrderNumber()]['month'] = $invoice->getBeginAt()->format("m");
+                $invoicesToShow[$client  . "_" . $invoice->getOrderNumber()]['name'] = $invoice->getClient()->getName();
+                $invoicesToShow[$client  . "_" . $invoice->getOrderNumber()]['clientPaid'] = $invoice->isClientPaid();
+                $invoicesToShow[$client  . "_" . $invoice->getOrderNumber()]['invoiceSent'] = $invoice->isInvoiceSent();
+                $invoicesToShow[$client  . "_" . $invoice->getOrderNumber()]['orderNumber'] = $invoice->getOrderNumber();
+                $invoicesToShow[$client  . "_" . $invoice->getOrderNumber()]['city'] = $invoice->getClient()->getCity();
 
-                if(isset($invoicesToShow[$client]['sum'])) {
-                    $invoicesToShow[$client]['sum'] += (float) round($invoice->getHours() * $invoice->getStudent()->getHourlyPrice());
+                if(isset($invoicesToShow[$client  . "_" . $invoice->getOrderNumber()]['sum'])) {
+                    $invoicesToShow[$client  . "_" . $invoice->getOrderNumber()]['sum'] += (float) round($invoice->getHours() * $invoice->getStudent()->getHourlyPrice());
                 } else {
-                    $invoicesToShow[$client]['sum'] = (float) $invoice->getHours() * $invoice->getStudent()->getHourlyPrice();
+                    $invoicesToShow[$client  . "_" . $invoice->getOrderNumber()]['sum'] = (float) $invoice->getHours() * $invoice->getStudent()->getHourlyPrice();
                 }
 
 
@@ -334,15 +381,17 @@ class ProfileController extends AbstractController
                     $newMission = clone $invoice;
                     $dateTime = new \DateTime;
 
-                    $invoicesToShow[$client]['id'] = $client;
-                    $invoicesToShow[$client]['month'] = $newMission->getBeginAt()->format("m");
-                    $invoicesToShow[$client]['name'] = $newMission->getClient()->getName();
-                    $invoicesToShow[$client]['clientPaid'] = $newMission->isClientPaid();
-                    $invoicesToShow[$client]['city'] = $newMission->getClient()->getCity();
-                    if(isset($invoicesToShow[$client]['sum'])) {
-                        $invoicesToShow[$client]['sum'] += (float) round($invoice->getHours() * $invoice->getStudent()->getHourlyPrice());
+                    $invoicesToShow[$client . "_" . $newMission->getOrderNumber()]['id'] = $client;
+                    $invoicesToShow[$client . "_" . $newMission->getOrderNumber()]['month'] = $newMission->getBeginAt()->format("m");
+                    $invoicesToShow[$client . "_" . $newMission->getOrderNumber()]['name'] = $newMission->getClient()->getName();
+                    $invoicesToShow[$client . "_" . $newMission->getOrderNumber()]['clientPaid'] = $newMission->isClientPaid();
+                    $invoicesToShow[$client . "_" . $newMission->getOrderNumber()]['invoiceSent'] = $newMission->isInvoiceSent();
+                    $invoicesToShow[$client . "_" . $newMission->getOrderNumber()]['orderNumber'] = $newMission->getOrderNumber();
+                    $invoicesToShow[$client . "_" . $newMission->getOrderNumber()]['city'] = $newMission->getClient()->getCity();
+                    if(isset($invoicesToShow[$client . "_" . $newMission->getOrderNumber()]['sum'])) {
+                        $invoicesToShow[$client . "_" . $newMission->getOrderNumber()]['sum'] += (float) round($invoice->getHours() * $invoice->getStudent()->getHourlyPrice());
                     } else {
-                        $invoicesToShow[$client]['sum'] = (float) round($invoice->getHours() * $invoice->getStudent()->getHourlyPrice());
+                        $invoicesToShow[$client . "_" . $newMission->getOrderNumber()]['sum'] = (float) round($invoice->getHours() * $invoice->getStudent()->getHourlyPrice());
                     }
 
                 }
@@ -366,26 +415,26 @@ class ProfileController extends AbstractController
         return $this->render('profile/invoices.html.twig', [
             'invoices' => $invoicesToShow,
             'totalAmount' => $totalAmount,
-            'year' => $data[0],
             'monthIndex' => $month,
+            'year' => $year,
             'ca' => $data[1]
         ]);
 
     }
 
-    #[Route('/profile/invoices/{year}/{month}/{clientId}', name: 'app_generate_invoice')]
+    #[Route('/profile/invoices/{year}/{month}/{clientId}/{orderNumber}', name: 'app_generate_invoice')]
     public function generateInvoice(Request $request, 
     EntityManagerInterface $doctrine, 
-    PaginatorInterface $paginator, int $year, int $month, int $clientId): Response
+    PaginatorInterface $paginator, int $year, int $month, int $clientId, $orderNumber=null): Response
     {
-
+        
         if (in_array('ROLE_TEACHER', $this->getUser()->getRoles(), true)) {
 
             $data = $this->getValues($doctrine);
 
             $dateTime = new \DateTime("now");
             $year = $dateTime->format("Y");
-            $missions = $doctrine->getRepository(Mission::class)->findMissionForCustomer($year, $month, $clientId);
+            $missions = $doctrine->getRepository(Mission::class)->findMissionForCustomer($year, $month, $clientId, $orderNumber);
             $client = $doctrine->getRepository(Clients::class)->find($clientId);
             $invoice = NULL;
             // va falloir regrouper les missions par formateurs et par cours
@@ -410,7 +459,7 @@ class ProfileController extends AbstractController
 
                 if($mission->getBeginAt() == $mission->getEndAt()) {
                     $missionsForInvoice[$user][$mission->getCourse()->getId() . $mission->getStudent()->getId()][] = $mission;
-                    $totalAmount += $mission->getHours() * $mission->getStudent()->getHourlyPrice();
+                    $totalAmount += round($mission->getHours() * $mission->getStudent()->getHourlyPrice(), 0);
 
                 } else {
                     // si il s'agit d'une mission sur plusieurs jours
@@ -434,7 +483,7 @@ class ProfileController extends AbstractController
                         }
 
                         $newMission->setBeginAt($dateTime);
-                        $totalAmount += $newMission->getHours() * $newMission->getStudent()->getHourlyPrice();
+                        $totalAmount += round($newMission->getHours() * $newMission->getStudent()->getHourlyPrice(), 0);
                         $missionsForInvoice[$user][$newMission->getCourse()->getId() . $newMission->getStudent()->getId()][] = $newMission;
                     }
 
@@ -451,7 +500,7 @@ class ProfileController extends AbstractController
             $invoiceDateEcheance = $dateEcheance->format('d-m-Y');
 
             $date = new \DateTime($year . '-' . $month . '-01');
-            $invoiceNumber = "F".$date->format("Ym") . '/' . $mission->getClient()->getId();
+            $invoiceNumber = "F".$date->format("Ym") . '/' . $clientId;
 
             $data = [
                 'missions'  => $missionsForInvoice,
@@ -459,7 +508,7 @@ class ProfileController extends AbstractController
                 'invoiceNumber' => $invoiceNumber,
                 'invoiceDate' => $invoiceDate,
                 'invoiceDateEcheance' => $invoiceDateEcheance,
-                'totalAmount' => round($totalAmount),
+                'totalAmount' => round($totalAmount, 0),
                 'client' => $client,
                 'orderNumber' => $orderNumber
             ];
@@ -480,7 +529,7 @@ class ProfileController extends AbstractController
         }
     }
 
-    #[Route('/profile/invoices/{year}/{month}/{clientId}/{userId}', name: 'app_generate_invoice_teacher')]
+    #[Route('/profile/invoices/teacher/{year}/{month}/{clientId}/{userId}', name: 'app_generate_invoice_teacher')]
     public function generateInvoiceForOneTeacher(Request $request, 
     EntityManagerInterface $doctrine, 
     PaginatorInterface $paginator, int $year, int $month, int $clientId, int $userId): Response
@@ -497,14 +546,11 @@ class ProfileController extends AbstractController
             $invoice = NULL;
             // va falloir regrouper les missions par formateurs et par cours
             // TODO
-            // dd($missions);
             $course = NULL;
             $user = NULL;
             $missionsForInvoice = NULL;
             $totalAmount = NULL;
             $orderNumber = NULL;
-
-            // dd($missions);
 
             foreach($missions as $mission) {
 
@@ -517,7 +563,7 @@ class ProfileController extends AbstractController
 
                 if($mission->getBeginAt() == $mission->getEndAt()) {
                     $missionsForInvoice[$user][$mission->getCourse()->getId() . $mission->getStudent()->getId()][] = $mission;
-                    $totalAmount += $mission->getHours() * $mission->getStudent()->getHourlyPrice();
+                    $totalAmount += round($mission->getHours() * $mission->getStudent()->getHourlyPrice(), 0);
 
                 } else {
                     // si il s'agit d'une mission sur plusieurs jours
@@ -541,7 +587,7 @@ class ProfileController extends AbstractController
                         }
 
                         $newMission->setBeginAt($dateTime);
-                        $totalAmount += $newMission->getHours() * $newMission->getStudent()->getHourlyPrice();
+                        $totalAmount += round($newMission->getHours() * $newMission->getStudent()->getHourlyPrice(), 0);
                         $missionsForInvoice[$user][$newMission->getCourse()->getId() . $newMission->getStudent()->getId()][] = $newMission;
                     }
 

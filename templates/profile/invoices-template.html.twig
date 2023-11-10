@@ -206,15 +206,14 @@
 
                                         {% for data in innerMission %}
 											{# les prestations #}
-
 											{% if loop.index == 1 %}
 												<p class="m-0 fw400">{{data.course}} </p>
-												<p class="m-0 fw400"> {{data.student}} </p>
+												<p class="m-0 fw400"> {{data.student.student}} </p>
 												<br>
 											{% endif %}
 
                                             {% set totalHours = totalHours + data.hours %}
-                                            {% set totalRemuneration = totalRemuneration + (data.student.hourlyPrice|round(2) * data.hours) %}
+                                            {% set totalRemuneration = totalRemuneration + (data.student.hourlyPrice * data.hours) %}
                                             <p class="m-0 fw400">{{data.beginAt|date('d-m-Y')}} - {{data.scheduleTime}} </p>
                                         {% endfor %}
                                         <br>

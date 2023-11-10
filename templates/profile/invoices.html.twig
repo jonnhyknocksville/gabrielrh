@@ -31,18 +31,18 @@
         Sélectionner un mois
         </button>
         <ul class="dropdown-menu">
-            <li class="dropdown-item"><a href="{{path('app_invoices', {month : 1})}}"> Janvier </a> </li>
-            <li class="dropdown-item"><a href="{{path('app_invoices', {month : 2})}}"> Février </a> </li>
-            <li class="dropdown-item"><a href="{{path('app_invoices', {month : 3})}}"> Mars </a> </li>
-            <li class="dropdown-item"><a href="{{path('app_invoices', {month : 4})}}"> Avril </a> </li>
-            <li class="dropdown-item"><a href="{{path('app_invoices', {month : 5})}}"> Mai </a> </li>
-            <li class="dropdown-item"><a href="{{path('app_invoices', {month : 6})}}"> Juin </a> </li>
-            <li class="dropdown-item"><a href="{{path('app_invoices', {month : 7})}}"> Juillet </a> </li>
-            <li class="dropdown-item"><a href="{{path('app_invoices', {month : 8})}}"> Aout </a> </li>
-            <li class="dropdown-item"><a href="{{path('app_invoices', {month : 9})}}"> Septembre </a> </li>
-            <li class="dropdown-item"><a href="{{path('app_invoices', {month : 10})}}"> Octobre </a> </li>
-            <li class="dropdown-item"><a href="{{path('app_invoices', {month : 11})}}"> Novembre </a> </li>
-            <li class="dropdown-item"><a href="{{path('app_invoices', {month : 12})}}"> Décembre </a> </li>
+            <li class="dropdown-item"><a href="{{path('app_invoices', {year : year, month : 1})}}"> Janvier </a> </li>
+            <li class="dropdown-item"><a href="{{path('app_invoices', {year : year, month : 2})}}"> Février </a> </li>
+            <li class="dropdown-item"><a href="{{path('app_invoices', {year : year, month : 3})}}"> Mars </a> </li>
+            <li class="dropdown-item"><a href="{{path('app_invoices', {year : year, month : 4})}}"> Avril </a> </li>
+            <li class="dropdown-item"><a href="{{path('app_invoices', {year : year, month : 5})}}"> Mai </a> </li>
+            <li class="dropdown-item"><a href="{{path('app_invoices', {year : year, month : 6})}}"> Juin </a> </li>
+            <li class="dropdown-item"><a href="{{path('app_invoices', {year : year, month : 7})}}"> Juillet </a> </li>
+            <li class="dropdown-item"><a href="{{path('app_invoices', {year : year, month : 8})}}"> Aout </a> </li>
+            <li class="dropdown-item"><a href="{{path('app_invoices', {year : year, month : 9})}}"> Septembre </a> </li>
+            <li class="dropdown-item"><a href="{{path('app_invoices', {year : year, month : 10})}}"> Octobre </a> </li>
+            <li class="dropdown-item"><a href="{{path('app_invoices', {year : year, month : 11})}}"> Novembre </a> </li>
+            <li class="dropdown-item"><a href="{{path('app_invoices', {year : year, month : 12})}}"> Décembre </a> </li>
         </ul>
     </div>
    
@@ -56,6 +56,7 @@
         <th class="text-light bg-color-none" scope="col">Mois</th>
         <th class="text-light bg-color-none" scope="col">Télécharger</th>
         <th class="text-light bg-color-none" scope="col">Status</th>
+        <th class="text-light bg-color-none" scope="col">Envoyé</th>
         <th class="text-light bg-color-none" scope="col">Total</th>
       </tr>
     </thead>
@@ -65,7 +66,7 @@
               <th class="text-light bg-color-none" scope="row">F{{year}}{{monthIndex}}/{{invoice["id"]}}</th>
               <th class="text-light bg-color-none" scope="row">{{months[monthIndex -1]}}</th>
               <th class="text-light bg-color-none" scope="row">{{invoice["name"]}} - {{invoice["city"]}}</th>
-              <td class="text-light bg-color-none"><a class="btn btn-info text-light" target="_blank" href="{{ path('app_generate_invoice', {year : year, month : monthIndex, clientId : invoice["id"]})}}"> Télécharger </a></td>
+              <td class="text-light bg-color-none"><a class="btn btn-info text-light" target="_blank" href="{{ path('app_generate_invoice', {orderNumber : invoice["orderNumber"], year : year, month : monthIndex, clientId : invoice["id"]})}}"> Télécharger </a></td>
               <td class="bg-color-none"> 
                 <div class="d-flex align-items-center form-check form-switch bg-none">
                   <form action="" method="post">
@@ -78,12 +79,23 @@
                 </div>
                   </form>
               </td>
-              <th class="text-light bg-color-none" scope="row">{{invoice["sum"]}}€</th>
+              <td class="bg-color-none"> 
+                <div class="d-flex align-items-center form-check form-switch bg-none">
+                  <form action="" method="post">
+                    <input type="hidden" name="month" class="month" value="{{ monthIndex }}" />
+                    <input type="hidden" name="clientId" class="clientId" value="{{ invoice["id"] }}" />
+                    {# {{dump(invoice["clientPaid"])}} #}
+                    <div class="form-check form-switch">
+                      <input class="form-check-input updateInvoiceSent {{ (invoice["invoiceSent"] is not null and invoice["invoiceSent"] == true) ? 'checked' : '' }}" {{ (invoice["invoiceSent"] is not null and invoice["invoiceSent"] == true) ? 'checked' : '' }} name="sent" type="checkbox" > 
+                    </div>
+                </div>
+                  </form>
+              </td>
+              <th class="text-light bg-color-none" scope="row">{{invoice["sum"]|round(2)}}€</th>
           </tr> 
-
       {% endfor %}
           <tr style="border:none">
-            <th class="text-light bg-color-none" style="text-align:right;border:none" colspan="6" scope="row">{{totalAmount}}€</th>
+            <th class="text-light bg-color-none" style="text-align:right;border:none" colspan="7" scope="row">{{totalAmount|round(2)}}€</th>
           </tr> 
     </tbody>
   </table>
