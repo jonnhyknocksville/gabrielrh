@@ -87,7 +87,7 @@ class MissionRepository extends ServiceEntityRepository
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery(
-            "SELECT DISTINCT c.id, c.name, c.city
+            "SELECT DISTINCT c.id, c.name, c.commercialName, c.city
             FROM App\Entity\Mission m
             INNER JOIN App\Entity\Clients c WITH c.id = m.client 
             WHERE year(m.beginAt) 
@@ -257,7 +257,7 @@ class MissionRepository extends ServiceEntityRepository
             INNER JOIN App\Entity\Students s WITH s.id = m.student 
             INNER JOIN App\Entity\Courses c WITH c.id = m.course 
             WHERE year(m.beginAt) 
-            BETWEEN $year and $year AND m.client = $clientId
+            BETWEEN $year and ($year + 1) AND m.client = $clientId
             GROUP BY m.course, s.id"
         );
 
@@ -268,7 +268,7 @@ class MissionRepository extends ServiceEntityRepository
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery(
-            "SELECT c.title, s.student, SUM(m.hours) as totalHours, u.firstName, u.lastName
+            "SELECT c.title, s.student, SUM(m.hours * m.nbrDays) as totalHours, u.firstName, u.lastName
             FROM App\Entity\Mission m
             INNER JOIN App\Entity\Students s WITH s.id = m.student 
             INNER JOIN App\Entity\Courses c WITH c.id = m.course 

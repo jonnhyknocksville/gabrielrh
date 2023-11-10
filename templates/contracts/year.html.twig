@@ -69,8 +69,8 @@
 
         <br>
 
-		<p>L’établissement <span>{{client.name}}</span></p>
-		<span> {{client.legalForm}} </span>, capital de <span>{{client.socialCapital}}€</span>, immatriculé sous le N° Siret : <span>{{client.siret}}</span></p>
+		<p>L’établissement <span>{{client.name}} - {{client.commercialName}}</span></p>
+		<p>immatriculé sous le N° Siret : <span>{{client.siret}}</span></p>
 		<p>Dont le siège social est situé au : <span>{{ client.address }} – {{client.postalCode}} {{client.city}}</span></p>
 		<p>Représenté par <span>Mr/Mme {{client.personInCharge}}</span>, agissant en qualité de gérant.</p>
 		<p>Ci-après dénommée <span>« L’établissement »</span> ou <span>« l’Entreprise »</span></p>
@@ -282,7 +282,7 @@
 
         <p>L’établissement :</p>
 
-        <p style="margin-left:2rem"><span>{{client.name}} {{client.city}}</span></p>
+        <p style="margin-left:2rem"><span>{{client.name}} - {{client.commercialName}} {{client.city}}</span></p>
         <p style="margin-left:2rem" class="bold">{{client.address}}</p>
         <p style="margin-left:2rem" class="bold">{{client.postalCode}} {{client.city}}</p>
 
@@ -492,7 +492,7 @@
 
             <div class="w-50 f-left">
                 <p class="text-center"> Pour l’établissement </p>
-                <p class="text-center bold"> {{client.name}} </p>
+                <p class="text-center bold"> {{client.name}} - {{client.commercialName}} </p>
                 <p class="text-center"> Représenté par Mr/Mme <span>{{client.personInCharge}}</span></p>
                 <hr>
             </div>

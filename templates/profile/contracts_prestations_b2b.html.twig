@@ -18,7 +18,7 @@
     <tbody>
       {% for client in clients %}
           <tr>
-              <td class="text-light bg-color-none">{{client.name}} - {{client.city}}</td>
+              <td class="text-light bg-color-none">{{client.name}} - {{client.commercialName}} - {{client.city}}</td>
               <td class="text-light bg-color-none"><a class="btn btn-info text-light" target="_blank" href="{{ path('app_contracts_b2b_for_current_year', {clientId: client.id, year : year})}}"> Télécharger </a></td>
           </tr>
       {% endfor %}

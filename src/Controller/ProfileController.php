@@ -428,6 +428,7 @@ class ProfileController extends AbstractController
     PaginatorInterface $paginator, int $year, int $month, int $clientId, $orderNumber=null): Response
     {
         
+        // TO CORRECT NAME OF PDF
         if (in_array('ROLE_TEACHER', $this->getUser()->getRoles(), true)) {
 
             $data = $this->getValues($doctrine);
@@ -500,8 +501,8 @@ class ProfileController extends AbstractController
             $invoiceDateEcheance = $dateEcheance->format('d-m-Y');
 
             $date = new \DateTime($year . '-' . $month . '-01');
-            $invoiceNumber = "F".$date->format("Ym") . '/' . $clientId;
-
+            $invoiceNumber = "F". $date->format("Ym") . '_' . $clientId;
+            // dd($invoiceNumber);
             $data = [
                 'missions'  => $missionsForInvoice,
                 'teacher' => $user,
@@ -520,7 +521,7 @@ class ProfileController extends AbstractController
             // dd($missionsForInvoice);
 
             return new Response (
-                $dompdf->stream("Web Start - " . $invoiceNumber . ".pdf", ["Attachment" => false]),
+                $dompdf->stream("Web Start - " . $invoiceNumber, ["Attachment" => false]),
                 Response::HTTP_OK,
                 ['Content-Type' => 'application/pdf']
             );

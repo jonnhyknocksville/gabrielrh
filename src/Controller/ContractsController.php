@@ -91,6 +91,7 @@ class ContractsController extends AbstractController
             $dompdf->loadHtml($html);
             $dompdf->render();
 
+            // GOOD WAY TO RENAME PDF
             return new Response (
                 $dompdf->stream("Web Start - " . $bdcNumber, ["Attachment" => false]),
                 Response::HTTP_OK,
@@ -103,8 +104,8 @@ class ContractsController extends AbstractController
 
 
     // Méthode permettant de générer le contrat de prestations de service pour un client pour l'année en cours
-    #[Route('/contracts/{clientId}/{year}', name: 'app_contracts_b2b_for_current_year')]
-    public function generate_contrats_for_year(EntityManagerInterface $doctrine, int $clientId = 2, int $year = 2023 ) : Response
+    #[Route('/contracts/b2b/{clientId}/{year}', name: 'app_contracts_b2b_for_current_year')]
+    public function generate_contrats_for_year(EntityManagerInterface $doctrine, int $clientId, int $year) : Response
     {
 
         $client = $doctrine->getRepository(Clients::class)->find($clientId);
