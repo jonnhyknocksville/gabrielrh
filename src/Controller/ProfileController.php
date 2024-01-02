@@ -92,15 +92,12 @@ class ProfileController extends AbstractController
         ]);
     }
 
-    #[Route('/profile/contracts/admin/{month}', name: 'app_contracts_admin')]
+    #[Route('/profile/contracts/admin/{month}/{year}', name: 'app_contracts_admin')]
     public function contracts_admin(Request $request,
-        EntityManagerInterface $doctrine, int $month): Response
+        EntityManagerInterface $doctrine, int $month, int $year): Response
     {
 
         $data = $this->getValues($doctrine);
-        $dateTime = new \DateTime("now");
-        $year = $dateTime->format("Y");
-    
         $invoices = $doctrine->getRepository(Mission::class)->findMonthlyInvoicesToGenerate($year, $month);
 
         // dd($invoices);
@@ -159,7 +156,7 @@ class ProfileController extends AbstractController
         return $this->render('profile/contracts_admin.html.twig', [
             'invoices' => $invoicesToShow,
             'totalAmount' => $totalAmount,
-            'year' => $data[0],
+            'year' => $year,
             'ca' => $data[1],
             'monthIndex' => $month,
         ]);
@@ -460,7 +457,7 @@ class ProfileController extends AbstractController
 
                 if($mission->getBeginAt() == $mission->getEndAt()) {
                     $missionsForInvoice[$user][$mission->getCourse()->getId() . $mission->getStudent()->getId()][] = $mission;
-                    $totalAmount += round($mission->getHours() * $mission->getStudent()->getHourlyPrice(), 0);
+                    $totalAmount += round($mission->getHours() * $mission->getStudent()->getHourlyPrice(), 2);
 
                 } else {
                     // si il s'agit d'une mission sur plusieurs jours
@@ -484,7 +481,7 @@ class ProfileController extends AbstractController
                         }
 
                         $newMission->setBeginAt($dateTime);
-                        $totalAmount += round($newMission->getHours() * $newMission->getStudent()->getHourlyPrice(), 0);
+                        $totalAmount += round($newMission->getHours() * $newMission->getStudent()->getHourlyPrice(), 2);
                         $missionsForInvoice[$user][$newMission->getCourse()->getId() . $newMission->getStudent()->getId()][] = $newMission;
                     }
 
@@ -502,14 +499,15 @@ class ProfileController extends AbstractController
 
             $date = new \DateTime($year . '-' . $month . '-01');
             $invoiceNumber = "F". $date->format("Ym") . '_' . $clientId;
-            // dd($invoiceNumber);
+            // dd(round($totalAmount, 2));
+            
             $data = [
                 'missions'  => $missionsForInvoice,
                 'teacher' => $user,
                 'invoiceNumber' => $invoiceNumber,
                 'invoiceDate' => $invoiceDate,
                 'invoiceDateEcheance' => $invoiceDateEcheance,
-                'totalAmount' => round($totalAmount, 0),
+                'totalAmount' => round($totalAmount, 2),
                 'client' => $client,
                 'orderNumber' => $orderNumber
             ];
@@ -605,7 +603,7 @@ class ProfileController extends AbstractController
             $invoiceDateEcheance = $dateEcheance->format('d-m-Y');
 
             $date = new \DateTime($year . '-' . $month . '-01');
-            $invoiceNumber = "F".$date->format("Ym") . '/' . $mission->getClient()->getId() . '/' . $mission->getUser()->getId() ;
+            $invoiceNumber = "F". $date->format("Ym") . '_' . $mission->getClient()->getId() . '_' . $mission->getUser()->getId() ;
 
             $data = [
                 'missions'  => $missionsForInvoice,
@@ -625,7 +623,7 @@ class ProfileController extends AbstractController
             // dd($missionsForInvoice);
 
             return new Response (
-                $dompdf->stream("Web Start - " . $invoiceNumber . ".pdf", ["Attachment" => false]),
+                $dompdf->stream("Web Start - " . $invoiceNumber, ["Attachment" => false]),
                 Response::HTTP_OK,
                 ['Content-Type' => 'application/pdf']
             );

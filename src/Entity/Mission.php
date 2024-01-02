@@ -77,6 +77,9 @@ class Mission
     #[ORM\Column]
     private ?bool $invoiceSent = null;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $description = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -330,6 +333,18 @@ class Mission
     public function setInvoiceSent(bool $invoiceSent): static
     {
         $this->invoiceSent = $invoiceSent;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): static
+    {
+        $this->description = $description;
 
         return $this;
     }

@@ -66,6 +66,18 @@ class Clients
     #[ORM\Column(nullable: true)]
     private ?int $socialCapital = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $missionAddress = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $missionClient = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $missionPostalCode = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $missionCity = null;
+
     public function __construct()
     {
         $this->missions = new ArrayCollection();
@@ -336,6 +348,54 @@ class Clients
     public function setSocialCapital(?int $socialCapital): static
     {
         $this->socialCapital = $socialCapital;
+
+        return $this;
+    }
+
+    public function getMissionAddress(): ?string
+    {
+        return $this->missionAddress;
+    }
+
+    public function setMissionAddress(?string $missionAddress): static
+    {
+        $this->missionAddress = $missionAddress;
+
+        return $this;
+    }
+
+    public function getMissionClient(): ?string
+    {
+        return $this->missionClient;
+    }
+
+    public function setMissionClient(?string $missionClient): static
+    {
+        $this->missionClient = $missionClient;
+
+        return $this;
+    }
+
+    public function getMissionPostalCode(): ?string
+    {
+        return $this->missionPostalCode;
+    }
+
+    public function setMissionPostalCode(?string $missionPostalCode): static
+    {
+        $this->missionPostalCode = $missionPostalCode;
+
+        return $this;
+    }
+
+    public function getMissionCity(): ?string
+    {
+        return $this->missionCity;
+    }
+
+    public function setMissionCity(?string $missionCity): static
+    {
+        $this->missionCity = $missionCity;
 
         return $this;
     }

@@ -111,10 +111,10 @@
 					Web Start
 				</p>
 				<p class="m-0 fw400">
-					6 rue de Calais
+					22 Av Jean de Lattre de Tassigny
 				</p>
 				<p class="m-0 fw400">
-					75009 Paris
+					06400 Cannes
 				</p>
 				<p class="m-0 fw400">
 					0782148141
@@ -125,24 +125,28 @@
 
 			</div>
 
-			<div class="row justify-content-between mt-5">
+			<div class="row justify-content-between mt-3">
 
 				<div class="left flex-column">
 					<p class="m-0 font-weight-bold" style="font-size:30px">
-						Facture {{invoiceNumber}}
+						Facture
+						{{invoiceNumber}}
 					</p>
 					<p class="m-0 fw400">
-						Date d'émission : {{invoiceDate}}
+						Date d'émission :
+						{{invoiceDate}}
 					</p>
 					<p class="m-0 fw400">
-						Date d'échéance : {{invoiceDateEcheance}}
+						Date d'échéance :
+						{{invoiceDateEcheance}}
 					</p>
 					<p class="m-0 fw400">
 						Date limite de réglement : Exigible sous 30 jours
 					</p>
 					<p class="m-0 fw400">
 						{% if orderNumber is not null and orderNumber is defined %}
-						Numéro de Commande : {{orderNumber}}
+							Numéro de Commande :
+							{{orderNumber}}
 						{% endif %}
 					</p>
 				</div>
@@ -169,13 +173,26 @@
 							SIRET :
 							{{client.siret}}</p>
 					{% endif %}
+					{% if client.missionAddress is not null and client.missionAddress is defined %}
+						<br>
+						<p class="m-0 fw400">
+							<b>Lieu de réalisation :</b><br>
+							{{client.missionClient}}
+							<br>
+							{{client.missionAddress}}
+							<br>
+							{{client.missionPostalCode}}
+							{{client.missionCity}}</p>
+					{% endif %}
 				</div>
 
 			</div>
 
 			<div class="clear"></div>
 
-			<h4 class="mt-3"> Prestations de formation </h4>
+			<h4 class="mt-3">
+				Prestations de formation
+			</h4>
 
 			<div class="row mt-3">
 
@@ -190,49 +207,59 @@
 						</tr>
 					</thead>
 					<tbody>
-                        
+
 						{% for mission in missions %}
 							{# toutes les users #}
 
-                            {% for innerMission in mission %}
+							{% for innerMission in mission %}
 								{# les missions regroupé en cours et étudiant #}
-                                <tr>
-                                    <td scope="row" class="left-td">
-                                        {# <p class="m-0 font-weight-bold">{{missions[0]}}</p> #}
-                                        <p class="m-0 font-weight-bold">{{innerMission|first.user.firstName}} {{innerMission|first.user.lastName}}</p>
+								<tr>
+									<td
+										scope="row" class="left-td">
+										{# <p class="m-0 font-weight-bold">{{missions[0]}}</p> #}
+										<p class="m-0 font-weight-bold">{{innerMission|first.user.firstName}}
+											{{innerMission|first.user.lastName}}</p>
 
 										{% set totalHours = 0 %}
 										{% set totalRemuneration = 0 %}
 
-                                        {% for data in innerMission %}
+										{% for data in innerMission %}
 											{# les prestations #}
 											{% if loop.index == 1 %}
-												<p class="m-0 fw400">{{data.course}} </p>
-												<p class="m-0 fw400"> {{data.student.student}} </p>
+												<p class="m-0 fw400">{{data.course}}
+												</p>
+												<p class="m-0 fw400">
+													{{data.student.student}}
+												</p>
 												<br>
 											{% endif %}
 
-                                            {% set totalHours = totalHours + data.hours %}
-                                            {% set totalRemuneration = totalRemuneration + (data.student.hourlyPrice * data.hours) %}
-                                            <p class="m-0 fw400">{{data.beginAt|date('d-m-Y')}} - {{data.scheduleTime}} </p>
-                                        {% endfor %}
-                                        <br>
-                                        <p class="m-0 fw400">Tarif {{innerMission|first.student.hourlyPrice|round(2)}}€/h</p>
-                                    </td>
-                                    <td class="font-weight-bold">
-                                        {{totalHours}}
-                                    </td>
-                                    <td class="font-weight-bold">
-                                        {{innerMission|first.student.hourlyPrice|round(2)}}€/h
-                                    </td>
-                                    <td class="font-weight-bold">
-                                        HT
-                                    </td>
-                                    <td class="font-weight-bold">
-                                        {{totalRemuneration|round}}€
-                                    </td>
-                                </tr>
-                            {% endfor %}
+											{% set totalHours = totalHours + data.hours %}
+											{% set totalRemuneration = totalRemuneration + (data.student.hourlyPrice * data.hours) %}
+											<p class="m-0 fw400">{{data.beginAt|date('d-m-Y')}}
+												-
+												{{data.scheduleTime}}
+											</p>
+										{% endfor %}
+										<br>
+										<p class="m-0 fw400">Tarif
+											{{innerMission|first.student.hourlyPrice|round(2)}}€/h</p>
+										<p class="m-0 fw400">{{innerMission|first.description}}</p>
+									</td>
+									<td class="font-weight-bold">
+										{{totalHours}}
+									</td>
+									<td class="font-weight-bold">
+										{{innerMission|first.student.hourlyPrice|round(2)}}€/h
+									</td>
+									<td class="font-weight-bold">
+										HT
+									</td>
+									<td class="font-weight-bold">
+										{{totalRemuneration|round(2)}}€
+									</td>
+								</tr>
+							{% endfor %}
 						{% endfor %}
 					</tbody>
 				</table>
@@ -334,7 +361,7 @@
 					Prestation de services | Pénalités en cas de retard : 3 fois le taux légal | Indemnité en cas de retard : 40€ | Aucun escompte en cas de paiement anticipé
 				</p>
 				<p class="text-center m-0">
-					Web Start, SARL immatriculée sous le SIREN 888 707 692 | RCS 888 707 692
+					Web Start, SASU immatriculée sous le SIREN 888 707 692 | RCS 888 707 692
 				</p>
 				<p class="text-center m-0">
 					N°TVA FR 12345678987654 | APE 8559B

@@ -85,7 +85,7 @@
 				</li>
 			</a>
 
-			<a aria-label="Accédez à vos contrats - Formation WS" href="{{path('app_contracts_admin', {month : 10})}}">
+			<a aria-label="Accédez à vos contrats - Formation WS" href="{{path('app_contracts_admin', {month : 'now'|date('m'), year : 'now'|date('Y')})}}">
 				<li class="d-flex p-3 align-items-center item">
 					<div class="d-flex align-items-center justify-content-between w-100 title-container">
 						<div class="d-flex align-items-center">

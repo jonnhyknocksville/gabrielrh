@@ -31,6 +31,10 @@ class ClientsCrudController extends AbstractCrudController
             TextField::new('backgroundColor'),
             TextField::new('siret')->setRequired(false)->setEmptyData(null),
             TextField::new('naf')->setRequired(false)->setEmptyData(null),
+            TextField::new('missionAddress')->setRequired(false)->setEmptyData(null),
+            TextField::new('missionClient')->setRequired(false)->setEmptyData(null),
+            TextField::new('missionPostalCode')->setRequired(false)->setEmptyData(null),
+            TextField::new('missionCity')->setRequired(false)->setEmptyData(null),
         ];
     }
     

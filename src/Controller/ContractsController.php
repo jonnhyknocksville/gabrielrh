@@ -74,7 +74,7 @@ class ContractsController extends AbstractController
 
             $contractDate = new \DateTime;
             $contractDate->setDate($mission->getBeginAt()->format("Y"), $mission->getBeginAt()->format("m"), 1);
-            $bdcNumber = "B".$contractDate->format("Ym") . $userId;
+            $bdcNumber = "B". $contractDate->format("Ym") . $userId;
             $contractNumber ="C". $contractDate->format("Ym") . $userId;
 
             $data = [
@@ -136,7 +136,7 @@ class ContractsController extends AbstractController
         $dompdf->render();
 
         return new Response (
-            $dompdf->stream("Web Start - "),
+            $dompdf->stream("Web Start - contrat de prestations de formation - " . $client->getName() . " " . $client->getCommercialName() . " - " . $year . "_" . $year + 1),
             Response::HTTP_OK,
             ['Content-Type' => 'application/pdf']
         );

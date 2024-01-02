@@ -1,38 +1,40 @@
 {# FACTURE #}
 <!DOCTYPE html>
 <html>
-	<title>Web Start - {{bdcNumber}} </title>
+	<title>Web Start -
+		{{bdcNumber}}
+	</title>
 	<body>
 
-            {% include 'contracts/header.html.twig' %}
+		{% include 'contracts/header.html.twig' %}
 
-        <style>
-            @page {
-                margin-top: 50px; /* Set the top margin for the page */
-                margin-bottom: 50px; /* Set the bottom margin for the page */
-            }
-            .header {
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                height: 50px;
-                text-align: center;
-                /* background-color: #ccc; */
-                margin-bottom:20px;
-            }
-            .footer {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                height: 50px;
-                text-align: center;
-                /* background-color: #ccc; */
-            }
-        </style>
+		<style>
+			@page {
+				margin-top: 50px; /* Set the top margin for the page */
+				margin-bottom: 50px; /* Set the bottom margin for the page */
+			}
+			.header {
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 50px;
+				text-align: center;
+				/* background-color: #ccc; */
+				margin-bottom: 20px;
+			}
+			.footer {
+				position: fixed;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				height: 50px;
+				text-align: center;
+				/* background-color: #ccc; */
+			}
+		</style>
 
-        {# titre avec numéro de bon de commande #}
+		{# titre avec numéro de bon de commande #}
 		<div style="text-align:right;padding:1rem 0rem 0rem 0rem">
 			<p style="line-height:5px;font-weight:bold;text-decoration:underline">Bon de commande</p>
 			<p style="line-height:5px">BDC n°<b>{{bdcNumber}}</b>
@@ -53,17 +55,17 @@
 					<b>Web Start</b>
 				</div>
 				<div style="text-align:left;padding:0.5rem;line-height:5px">Forme :
-					<b>SARL</b>
+					<b>SASU</b>
 				</div>
 				<div style="text-align:left;padding:0.5rem;line-height:5px">Représenté par :
-					<b>Habby Habbani</b>
+					<b>Samih Habbani</b>
 				</div>
 				<div style="text-align:left;padding:0.5rem;line-height:5px">Siret :
 					<b>878 910 710 00010</b>
 				</div>
-				<div style="text-align:left;padding:0.5rem;line-height:5px">Code NAF :
-					<b>8559B</b>
-				</div>
+				{# <div style="text-align:left;padding:0.5rem;line-height:5px">Code NAF :
+									<b>8559B</b>
+								</div> #}
 				<div style="text-align:left;padding:0.5rem;line-height:5px">Contact :
 					<b>07 82 14 81 41
 					</b>
@@ -72,7 +74,10 @@
 					<b>sam@formationws.fr</b>
 				</div>
 				<div style="text-align:left;padding:0.5rem;line-height:5px">Adresse :
-					<b>6 rue de Calais, 75009, Paris</b>
+					<b>22 Av Jean de Lattre de Tassigny</b>
+				</div>
+				<div style="text-align:left;padding:0.5rem;line-height:5px">
+					<b>06400, Cannes</b>
 				</div>
 				<div style="text-align:left;padding:0.5rem;line-height:5px">Site internet :
 					<b>www.formationws.fr</b>
@@ -118,14 +123,15 @@
 					<b>{{teacher.address}}</b>,
 				</div>
 				<div style="text-align:right;padding:0.5rem;line-height:5px">
-					<b>{{teacher.postalCode}} {{teacher.city}}</b>
+					<b>{{teacher.postalCode}}
+						{{teacher.city}}</b>
 				</div>
 				<div style="text-align:right;padding:0.5rem;line-height:5px">Intervenant choisi :
 					<b>{{teacher.teacher}}</b>
 				</div>
 			</div>
 		</section>
-        <div style="clear:both"></div>
+		<div style="clear:both"></div>
 		<section>
 			<table class="table" style="width:100%">
 				<thead>
@@ -149,7 +155,10 @@
 							<td style="border-bottom:1px solid black;text-align:center">{{mission.scheduleTime}}</td>
 							<td style="border-bottom:1px solid black;text-align:center">{{mission.course.title}}</td>
 							<td style="border-bottom:1px solid black;text-align:center">{{mission.client.name}}</td>
-							<td style="border-bottom:1px solid black;text-align:center">{{mission.client.address}} - {{mission.client.postalCode}} {{mission.client.city}}</td>
+							<td style="border-bottom:1px solid black;text-align:center">{{mission.client.address}}
+								-
+								{{mission.client.postalCode}}
+								{{mission.client.city}}</td>
 							<td style="border-bottom:1px solid black;text-align:center">{{mission.hourlyRate}}</td>
 							<td style="border-bottom:1px solid black;text-align:center">{{mission.remuneration}}</td>
 						</tr>
@@ -195,7 +204,7 @@
 			<p style="line-height:15px">
 				Vous nous avez proposé d’intervenir chez nos clients pour des prestations de formation, si vous êtes d’accord avec les conditions ci-dessus, merci de nous confirmer votre acceptation par votre signature sur ce bon de commande.</p>
 			<p style="line-height:15px">« En signant ce Bon de Commande, je reconnais avoir pris connaissance des conditions générales contractuelles, qui m’ont été transmises en deuxième page, et les accepte sans réserve ».</p>
-			<p style="line-height:15px">Fait en deux originaux, à Paris, le
+			<p style="line-height:15px">Fait en deux originaux, à Cannes, le
 				<b>{{contractDate|date("d-m-Y")}}</b>.</p>
 			<p style="line-height:15px">Signature</p>
 		</section>
@@ -227,13 +236,19 @@
 		<p style="text-align:justify;line-height:20px">Entre les soussignés :</p>
 
 		<p style="text-align:justify;line-height:20px">La société
-			<b>WEB START</b>, Société à responsabilité limitée (SARL), au capital de 1 500 euros, enregistrée au Registre du Commerce et des Sociétés de Paris sous le numéro SIREN 888707692 (RCS) dont le siège social est situé au 6 RUE DE CALAIS 75009 PARIS, représentée par Mr Samih Habbani et Mlle Habby Habbani dûment habilités à cet effet,</p>
+			<b>WEB START</b>, Société à responsabilité limitée (SARL), au capital de 1 500 euros, enregistrée au Registre du Commerce et des Sociétés de Cannes sous le numéro SIREN 888707692 (RCS) dont le siège social est situé au 22 Av Jean de Lattre de Tassigny 06400 Cannes, représentée par Mr Samih Habbani et Mr Samih Habbani dûment habilités à cet effet,</p>
 
 		<p style="text-align:justify;line-height:20px">ET</p>
 
 		<p style="text-align:justify;line-height:20px">
 			<b>{{teacher.teacher}}</b>, travaillant sous le statut Auto-Entrepreneur, avec le numéro SIRET 918 779 919 00011, dont voici les coordonnées :
-			<b>{{teacher.address}} {{teacher.postalCode}} {{teacher.city}} - {{teacher.phone}} - {{teacher.email}}</b>.</p>
+			<b>{{teacher.address}}
+				{{teacher.postalCode}}
+				{{teacher.city}}
+				-
+				{{teacher.phone}}
+				-
+				{{teacher.email}}</b>.</p>
 
 		<p style="text-align:justify;line-height:20px">Ci après dénommé «<b>{{teacher.teacher}}</b>» ou « Le Prestataire »</p>
 
@@ -242,17 +257,17 @@
 
 		<p style="text-align:justify;line-height:20px">
 			<b>WEB START</b>, le Client, représente l'entreprise qui exprime le besoin d'une ou plusieurs missions de formation informatique à effectuer auprès de ses propres clients finaux. (Ecoles du digital, centre de formation…)
-				Le prestataire, spécialiste du domaine de formation en question, et externe à la société
+								Le prestataire, spécialiste du domaine de formation en question, et externe à la société
 			<b>WEB START</b>, se propose d’intervenir sur les missions proposées par le Client, missions qui requièrent une expertise ou une disponibilité dont
 			<b>WEB START</b>
 			ne dispose pas elle-même.</p>
 
 		<p style="text-align:justify;line-height:20px">Afin d’être au contact des apprenants de façon à assurer l'enseignement dans les meilleures conditions possibles les missions seront exécutées dans les locaux des clients finaux de la Société
 			<b>WEB START</b>.
-				Selon les conditions actuelles liées à la crise Sanitaire, ou le format du client du client, le prestataire peut se voir assurer sa prestation de formation à distance.</p>
+								Selon les conditions actuelles liées à la crise Sanitaire, ou le format du client du client, le prestataire peut se voir assurer sa prestation de formation à distance.</p>
 
 		<p style="text-align:justify;line-height:20px">Le présent contrat contient tous les engagements des parties, les correspondances, offres, ou propositions antérieures à la signature du présent contrat, seront considérées comme
-			non-avenues.</p>
+						non-avenues.</p>
 
 		<br>
 
@@ -264,12 +279,12 @@
 		<p style="text-align:justify;line-height:20px">Le Prestataire et
 			<b>WEB START</b>
 			sont et demeurent des entités indépendantes, ce qui implique qu’aucune partie ne peut engager l'autre partie sans son accord.
-			Les Parties agissent en leur nom. Elles reconnaissent n’avoir aucune autorité à agir pour le compte de l’autre Partie, de se lier d’une quelconque façon que ce soit, de signer au nom de l’autre Partie ou de laisser entendre que l’autre Partie est d’une quelconque manière responsable de ses actes.</p>
+						Les Parties agissent en leur nom. Elles reconnaissent n’avoir aucune autorité à agir pour le compte de l’autre Partie, de se lier d’une quelconque façon que ce soit, de signer au nom de l’autre Partie ou de laisser entendre que l’autre Partie est d’une quelconque manière responsable de ses actes.</p>
 
 		<p style="text-align:justify;line-height:20px">Aucune des stipulations du document ne pourra être interprétée comme créant entre le Prestataire et
 
 			<b>WEB START</b>, un mandat, une filiale, une relation d’agent ou d’employé à employeur.
-				Conformément aux dispositions des articles L.8221-6 et L.8221-6-1, la présomption de travailleur indépendant est établie par la production de son immatriculation INSEE ou de son extrait KBIS par le Prestataire au moment de la signature du présent contrat.</p>
+								Conformément aux dispositions des articles L.8221-6 et L.8221-6-1, la présomption de travailleur indépendant est établie par la production de son immatriculation INSEE ou de son extrait KBIS par le Prestataire au moment de la signature du présent contrat.</p>
 
 		<br>
 
@@ -280,7 +295,7 @@
 			<b>WEB START</b>s’engage à préciser toutes les informations nécessaires afin que le Prestataire puisse effectuer sa mission dans les meilleures conditions possibles.
 		</p>
 		<p style="text-align:justify;line-height:20px">En contre partie, le Prestataire justifie d'une expérience et d’une expertise significative dans le domaine digital et déclare être en mesure d’assurer l'enseignement adéquats pour les missions qui lui seront confiées.
-			Le présent contrat est conclu pour une durée équivalente à celle de la mission.</p>
+						Le présent contrat est conclu pour une durée équivalente à celle de la mission.</p>
 
 		<br>
 
@@ -290,17 +305,17 @@
 		<h2>04 - ENGAGEMENTS DES PARTIES</h2>
 
 		<p style="text-align:justify;line-height:20px">Le Prestataire s’engage à :
-			– Prendre connaissance des objectifs de la formation et préparer des contenus de cours en adéquation avec les objectifs afin de garantir le succès de la formation
-			– Animer personnellement la formation dans le respect des objectifs fixés, et rester à l'écoute d’éventuelle(s) difficulté(s) rencontrée(s) par le groupe d'étudiant
-			– Assurer l'émargement, la rédaction et correction d’éventuelles évaluations ou travaux pratiques, ainsi qu'un compte-rendu permettant le contrôle des connaissances et des compétences pour chaque étudiant
-			Celui-ci s’engage à achever personnellement toute prestation acceptée (sans possibilité de délégation ou de céder la prestation à un tiers).</p>
+						– Prendre connaissance des objectifs de la formation et préparer des contenus de cours en adéquation avec les objectifs afin de garantir le succès de la formation
+						– Animer personnellement la formation dans le respect des objectifs fixés, et rester à l'écoute d’éventuelle(s) difficulté(s) rencontrée(s) par le groupe d'étudiant
+						– Assurer l'émargement, la rédaction et correction d’éventuelles évaluations ou travaux pratiques, ainsi qu'un compte-rendu permettant le contrôle des connaissances et des compétences pour chaque étudiant
+						Celui-ci s’engage à achever personnellement toute prestation acceptée (sans possibilité de délégation ou de céder la prestation à un tiers).</p>
 
 		<p style="text-align:justify;line-height:20px">
 			<b>WEB START</b>
 			s’engage à :</p>
 		– Réserver les journées de formation conclues au profit du Prestataire
-		– Exécuter le présent contrat (sauf annulation partielle ou totale venant de la part de son client, le centre de formation)
-		– Garder confidentiel les informations du présent contrat
+				– Exécuter le présent contrat (sauf annulation partielle ou totale venant de la part de son client, le centre de formation)
+				– Garder confidentiel les informations du présent contrat
 
 		<p style="text-align:justify;line-height:20px">Il est convenu que les parties désignées se tiendront régulièrement informées du déroulement des missions par téléphone, email et tout moyen de communication permettant de faciliter le suivi des formations données par le Prestataire.</p>
 
@@ -373,10 +388,10 @@
 
 		<p style="text-align:justify;line-height:20px">Plus généralement,<b>WEB START</b>
 			s’engage à garder confidentielle, sécuriser,
-			et traiter les données personnelles auxquelles il serait amené à avoir accès pour la bonne exécution du Contrat uniquement, et pour une durée limité de trois (3) ans après la fin d'exécution du présent contrat.</p>
+						et traiter les données personnelles auxquelles il serait amené à avoir accès pour la bonne exécution du Contrat uniquement, et pour une durée limité de trois (3) ans après la fin d'exécution du présent contrat.</p>
 
 		<p style="text-align:justify;line-height:20px">En vertu des articles 39 et 40 de la loi en date du 6 janvier 1978, le Prestataire dispose d'un droit d'accès, de rectification, de suppression et d'opposition de ses données personnelles. Le Prestataire peut exercer ce droit par mail à contact@academiews.fr ou par courrier à l’adresse
-			suivante : 6 rue de Calais 75009 Paris.</p>
+						suivante : 22 Av Jean de Lattre de Tassigny 06400 Cannes.</p>
 
 		<br>
 
@@ -390,7 +405,7 @@
 			et ne pouvant excédé six (6) mois après l'exécution du présent contrat.</p>
 
 		<p style="text-align:justify;line-height:20px">Le Prestataire conserve le droit de mettre fin à tout moment à la présente autorisation, par lettre recommandée AR et avec un préavis minimum de un 1 mois. 
-			Le Prestataire est conscient que l’organisation technique d’internet ne permet pas un contrôle total des contenus et que
+						Le Prestataire est conscient que l’organisation technique d’internet ne permet pas un contrôle total des contenus et que
 			<b>WEB START</b>
 			ne pourrait être tenu responsable si l'image du Prestataire était reproduite ou si un tier détournait et diffusait de façon illégal les fichiers informatiques.</p>
 
@@ -400,7 +415,7 @@
 		<h2>11 - DECLARATION DU PRESTATAIRE</h2>
 
 		<p style="text-align:justify;line-height:20px">Le Prestataire atteste sur l’honneur être en régularité avec l’Administration fiscale et l’Urssaf, être enregistré comme travailleur indépendant et dûment habilité à travailler en tant que tel.
-			Le Prestataire déclare être à jour de ses cotisations fiscales et sociales. En cas de manquement, il dégage
+						Le Prestataire déclare être à jour de ses cotisations fiscales et sociales. En cas de manquement, il dégage
 			<b>WEB START</b>
 			de tout recours à cet égard et en cas d'irrégularité en assumera seul et pleinement la responsabilité devant le ou les administrations concernées.</p>
 
@@ -410,9 +425,9 @@
 		<h2>12 - REGLEMENT DES DIFFERENDS</h2>
 
 		<p style="text-align:justify;line-height:20px">Les prestations seront régies par le Droit Français. En cas de différend concernant l’interprétation, l’exécution ou la réalisation de l’une ou d’une quelconque des dispositions du présent contrat, les parties s’engagent à trouver une solution amiable.</p>
-		<p style="text-align:justify;line-height:20px">Si toutefois les parties ne peuvent parvenir à un accord, dans un délai d’un mois à compter de la notification écrite du différend par l’une ou l’autre Partie, le différend sera soumis au Tribunal de Commerce de Paris qui est seul compétent pour connaitre du litige.</p>
+		<p style="text-align:justify;line-height:20px">Si toutefois les parties ne peuvent parvenir à un accord, dans un délai d’un mois à compter de la notification écrite du différend par l’une ou l’autre Partie, le différend sera soumis au Tribunal de Commerce de Cannes qui est seul compétent pour connaitre du litige.</p>
 
 		{% include 'contracts/footer.html.twig' %}
 
-    </body>
+	</body>
 </html>

@@ -11,6 +11,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class MissionCrudController extends AbstractCrudController
@@ -72,6 +73,7 @@ class MissionCrudController extends AbstractCrudController
                 '08h45-12h00' => '08h45-12h00',
                 '08h45-16h15' => '08h45-16h15',
                 '08h30-12h30' => '08h30-12h30',
+                '08h00-13h00' => '08h00-13h00',
                 '08h30-13h00' => '08h30-13h00',
                 '09h00-12h30' => '09h00-12h30',
                 '09h00-12h00' => '09h00-12h00',
@@ -100,7 +102,9 @@ class MissionCrudController extends AbstractCrudController
                 '7' => '7',
                 '7.5' => '7.5',
                 '8' => '8',
-                '18' => '18'
+                '18' => '18',
+                '503' => '503',
+               
             ]), 
             ChoiceField::new('intervention')->setChoices([
                 'Présentiel' => 'Présentiel',
@@ -110,6 +114,7 @@ class MissionCrudController extends AbstractCrudController
             TextField::new('missionReference'),
             NumberField::new('nbrDays')->setRequired(false)->setEmptyData(null),
             ChoiceField::new('remuneration')->setChoices([
+                '67.5' => '67.5',
                 '72' => '72',
                 '100' => '100',
                 '105' => '105',
@@ -171,6 +176,7 @@ class MissionCrudController extends AbstractCrudController
             ChoiceField::new('hourlyRate')->setChoices([
                 '4' => '4',
                 '20' => '20',
+                '22,5' => '22,5',
                 '25' => '25',
                 '30' => '30',
                 '32.8' => '32.8',
@@ -195,6 +201,8 @@ class MissionCrudController extends AbstractCrudController
             BooleanField::new('clientPaid'),
             BooleanField::new('invoiceSent'),
             TextField::new('background')->setRequired(false)->setEmptyData(null),
+            TextareaField::new('description')->setRequired(false)->setEmptyData(null),
+
         ];
     }
     
