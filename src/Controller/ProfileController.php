@@ -431,7 +431,6 @@ class ProfileController extends AbstractController
             $data = $this->getValues($doctrine);
 
             $dateTime = new \DateTime("now");
-            $year = $dateTime->format("Y");
             $missions = $doctrine->getRepository(Mission::class)->findMissionForCustomer($year, $month, $clientId, $orderNumber);
             $client = $doctrine->getRepository(Clients::class)->find($clientId);
             $invoice = NULL;
@@ -489,9 +488,14 @@ class ProfileController extends AbstractController
 
             }
 
-            $date = new \DateTime($year . '-' . $month . '-01');
-            $invoiceDate = $date->modify( 'first day of next month' );
-            $dateEcheance = new \DateTime($year . '-' . ($month + 1) . '-01');
+            // pour récupérer l'année et le mois actuel pour les dates de factures et d'échéances
+            $year = $dateTime->format("Y");
+            $month = $dateTime->format("m");
+
+            $invoiceDate = new \DateTime($year . '-' . $month . '-01');
+            // $invoiceDate = $date->modify( 'first day of next month' );
+
+            $dateEcheance = new \DateTime($year . '-' . $month . '-01');
             $dateEcheance = $dateEcheance->modify( 'first day of next month' );
 
             $invoiceDate = $invoiceDate->format('d-m-Y');

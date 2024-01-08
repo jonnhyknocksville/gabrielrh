@@ -139,6 +139,7 @@
 						<th scope="col" style="padding:0.5rem;font-weight:bold">Date</th>
 						<th scope="col" style="padding:0.5rem;font-weight:bold">Horaires</th>
 						<th scope="col" style="padding:0.5rem;font-weight:bold">Sujet</th>
+						<th scope="col" style="padding:0.5rem;font-weight:bold">Promotion</th>
 						<th scope="col" style="padding:0.5rem;font-weight:bold">Centre/Ecole</th>
 						<th scope="col" style="padding:0.5rem;font-weight:bold">Adresse</th>
 						<th scope="col" style="padding:0.5rem;font-weight:bold">Tarif/heure</th>
@@ -154,6 +155,7 @@
 							</td>
 							<td style="border-bottom:1px solid black;text-align:center">{{mission.scheduleTime}}</td>
 							<td style="border-bottom:1px solid black;text-align:center">{{mission.course.title}}</td>
+							<td style="border-bottom:1px solid black;text-align:center">{{mission.student.student|slice(0,20)}}...</td>
 							<td style="border-bottom:1px solid black;text-align:center">{{mission.client.name}}</td>
 							<td style="border-bottom:1px solid black;text-align:center">{{mission.client.address}}
 								-
