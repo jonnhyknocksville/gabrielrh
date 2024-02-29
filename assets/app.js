@@ -94,6 +94,7 @@ $("#btnclipboard").on("click", function () {
 $('.updateClientPaid').on('change', function () {
 
   const month = $(this).parent().parent().find('.month').val();
+  const year = $(this).parent().parent().find('.year').val();
 
   console.log(month);
 
@@ -113,7 +114,7 @@ $('.updateClientPaid').on('change', function () {
 
 
   $.ajax({
-    url: `/profile/invoices/paid/${month}`,
+    url: `/profile/invoices/paid/${month}/${year}`,
     data: myData,
     type: "POST",
     async: true,
@@ -132,6 +133,7 @@ $('.updateClientPaid').on('change', function () {
 $('.updateInvoiceSent').on('change', function () {
 
   const month = $(this).parent().parent().find('.month').val();
+  const year = $(this).parent().parent().find('.year').val();
 
   console.log(month);
 
@@ -151,7 +153,7 @@ $('.updateInvoiceSent').on('change', function () {
 
 
   $.ajax({
-    url: `/profile/invoices/sent/${month}`,
+    url: `/profile/invoices/sent/${month}/${year}`,
     data: myData,
     type: "POST",
     async: true,

@@ -80,6 +80,9 @@ class Mission
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
+    #[ORM\ManyToOne(inversedBy: 'invoice_client_missions')]
+    private ?Clients $invoice_client = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -345,6 +348,18 @@ class Mission
     public function setDescription(?string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getInvoiceClient(): ?Clients
+    {
+        return $this->invoice_client;
+    }
+
+    public function setInvoiceClient(?Clients $invoice_client): static
+    {
+        $this->invoice_client = $invoice_client;
 
         return $this;
     }

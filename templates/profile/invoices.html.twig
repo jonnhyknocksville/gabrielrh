@@ -71,6 +71,7 @@
                 <div class="d-flex align-items-center form-check form-switch bg-none">
                   <form action="" method="post">
                     <input type="hidden" name="month" class="month" value="{{ monthIndex }}" />
+                    <input type="hidden" name="year" class="year" value="{{ year }}" />
                     <input type="hidden" name="clientId" class="clientId" value="{{ invoice["id"] }}" />
                     {# {{dump(invoice["clientPaid"])}} #}
                     <div class="form-check form-switch">
@@ -83,6 +84,7 @@
                 <div class="d-flex align-items-center form-check form-switch bg-none">
                   <form action="" method="post">
                     <input type="hidden" name="month" class="month" value="{{ monthIndex }}" />
+                    <input type="hidden" name="year" class="year" value="{{ year }}" />
                     <input type="hidden" name="clientId" class="clientId" value="{{ invoice["id"] }}" />
                     {# {{dump(invoice["clientPaid"])}} #}
                     <div class="form-check form-switch">

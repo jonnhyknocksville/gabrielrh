@@ -78,11 +78,15 @@ class Clients
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $missionCity = null;
 
+    #[ORM\OneToMany(mappedBy: 'invoice_client', targetEntity: Mission::class)]
+    private Collection $invoice_client_missions;
+
     public function __construct()
     {
         $this->missions = new ArrayCollection();
         $this->students = new ArrayCollection();
         $this->tarifications = new ArrayCollection();
+        $this->invoice_client_missions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -396,6 +400,36 @@ class Clients
     public function setMissionCity(?string $missionCity): static
     {
         $this->missionCity = $missionCity;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Mission>
+     */
+    public function getInvoiceClientMissions(): Collection
+    {
+        return $this->invoice_client_missions;
+    }
+
+    public function addInvoiceClientMission(Mission $invoiceClientMission): static
+    {
+        if (!$this->invoice_client_missions->contains($invoiceClientMission)) {
+            $this->invoice_client_missions->add($invoiceClientMission);
+            $invoiceClientMission->setInvoiceClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInvoiceClientMission(Mission $invoiceClientMission): static
+    {
+        if ($this->invoice_client_missions->removeElement($invoiceClientMission)) {
+            // set the owning side to null (unless already changed)
+            if ($invoiceClientMission->getInvoiceClient() === $this) {
+                $invoiceClientMission->setInvoiceClient(null);
+            }
+        }
 
         return $this;
     }

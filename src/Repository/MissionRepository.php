@@ -117,6 +117,30 @@ class MissionRepository extends ServiceEntityRepository
 
     }
 
+    /**
+     * Méthode permettant de récupérer les factures que les formateurs peuvent générer chaque mois si ils n'ont pas de logiciel comptable
+     */
+    public function findMonthlyInvoicesToGenerateForUser($year, $month, $idUser) {
+
+        $entityManager = $this->getEntityManager();
+
+        // SELECT DISTINCT(Month(begin_at)) from mission where user_id = 1 and Year(begin_at) = 2023;
+        $query = $entityManager->createQuery(
+            "SELECT m
+            FROM App\Entity\Mission m
+            INNER JOIN App\Entity\Clients c WITH c.id = m.client
+            INNER JOIN App\Entity\Students s WITH s.id = m.student
+            WHERE year(m.endAt) = $year
+            AND year(m.beginAt) = $year
+            AND month(m.beginAt) = $month
+            AND month(m.beginAt) = $month
+            AND m.user = $idUser"
+        );
+
+        return $query->getResult();
+
+    }
+
     public function findCaForCurrentYear($year, $userId) {
         $entityManager = $this->getEntityManager();
 
@@ -159,9 +183,27 @@ class MissionRepository extends ServiceEntityRepository
             ->setParameter('clientId', $clientId)
             ->getQuery()
             ->getResult();
-        }
+        } 
+    }
 
-        
+    /**
+     * Méthode permettant de récupérer toutes les missions pour l'une de mes boites qu'un formateur souhaite me faccture pour lui montrer un modele de facture
+     */
+    public function findAllMissionToGenerateInvoiceForTeacher($year, $month, $clientId, $userId) {
+
+            return $this->createQueryBuilder('m')
+            ->andWhere('YEAR(m.beginAt) = :year')
+            ->andWhere('YEAR(m.endAt) = :year')
+            ->andWhere('MONTH(m.endAt) = :month')
+            ->andWhere('MONTH(m.beginAt) = :month')
+            ->andWhere('m.invoice_client = :invoiceClient')
+            ->andWhere('m.user = :userId')
+            ->setParameter('year', $year)
+            ->setParameter('month', $month)
+            ->setParameter('invoiceClient', $clientId)
+            ->setParameter('userId', $userId)
+            ->getQuery()
+            ->getResult();
     }
 
 
