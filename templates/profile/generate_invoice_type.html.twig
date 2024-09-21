@@ -61,7 +61,7 @@
     <tbody>
       {% for invoice in invoices %}
           <tr>
-              <th class="text-light bg-color-none" scope="row">F{{year}}{{monthIndex}}/{{invoice["userId"]}}</th>
+              <th class="text-light bg-color-none" scope="row">F{{year}}{{monthIndex}}_{{invoice["id"]}}_{{invoice["userId"]}}</th>
               <th class="text-light bg-color-none" scope="row">C{{year}}{{monthIndex}}/{{invoice["userId"]}}</th>
               <th class="text-light bg-color-none" scope="row">{{invoice["name"]}}</th>
               <th class="text-light bg-color-none" scope="row">{{months[monthIndex -1]}}</th>

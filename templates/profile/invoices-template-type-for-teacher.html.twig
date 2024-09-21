@@ -14,6 +14,12 @@
 			margin-top: calc(var(--bs-gutter-y)*-1)
 		}
 
+		.coordonnees {
+			border:1px solid black;
+			border-radius:0.5rem;
+			padding:0.25rem;
+		}
+
 		.left {
 			float: left;
 		}
@@ -55,7 +61,7 @@
 		}
 
 		.bg-info {
-			background-color: #6a8bff;
+			background-color: rgba(0,0,0,0.2);
 		}
 
 		table {
@@ -105,7 +111,7 @@
 	<body>
 		<section class="flex-column">
 
-			<div class="row flex-column">
+			<div class="coordonnees row flex-column">
 
 				<p class="m-0 font-weight-bold">
 					{{teacher.firstName}} {{teacher.lastName}}
@@ -127,10 +133,10 @@
 
 			<div class="row justify-content-between mt-3">
 
-				<div class="left flex-column">
+				<div class="coordonnees left flex-column">
 					<p class="m-0 font-weight-bold" style="font-size:30px">
 						Facture
-						{{invoiceNumber}}
+						F{{year}}{{monthIndex}}_{{clientInvoice}}_{{teacher.id}}
 					</p>
 					<p class="m-0 fw400">
 						Date d'émission :
@@ -145,7 +151,7 @@
 					</p>
 				</div>
 
-				<div class="right flex-column">
+				<div class="coordonnees right flex-column">
 					<p class="m-0 fw400 font-weight-bold">
 						{{client.name}}
 					</p>
@@ -229,7 +235,7 @@
 											{% endif %}
 
 											{% set totalHours = totalHours + data.hours %}
-											{% set totalRemuneration = totalRemuneration + (data.hourlyRate * data.hours) %}
+											{% set totalRemuneration = totalRemuneration + data.remuneration %}
 											<p class="m-0 fw400">{{data.beginAt|date('d-m-Y')}}
 												-
 												{{data.scheduleTime}}
@@ -342,9 +348,8 @@
 			<div class="row flex-column mt-5">
 				<p class="m-0 font-weight-bold">Mode de paiement: Virement bancaire
 				</p>
-				<p class="m-0 font-weight-bold">Banque : BNP PARIS BAS
 				</p>
-				<p class="m-0 font-weight-bold">IBAN : FR76 3000 4026 01 000 1041 489 324
+				<p class="m-0 font-weight-bold">IBAN : {{teacher.iban}}
 				</p>
 			</div>
 
@@ -355,11 +360,11 @@
 					Prestation de services | Pénalités en cas de retard : 3 fois le taux légal | Indemnité en cas de retard : 40€ | Aucun escompte en cas de paiement anticipé
 				</p>
 				<p class="text-center m-0">
-					Web Start, SASU immatriculée sous le SIREN 888 707 692 | RCS 888 707 692
+					{{teacher.firstName}} {{teacher.lastName}}, Auto Entrepreneur immatriculée sous le SIRET/SIREN {{teacher.siret}}
 				</p>
-				<p class="text-center m-0">
+				{# <p class="text-center m-0">
 					N°TVA FR 12345678987654 | APE 8559B
-				</p>
+				</p> #}
 
 			</div>
 

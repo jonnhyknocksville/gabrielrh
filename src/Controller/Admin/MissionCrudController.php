@@ -3,7 +3,12 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Mission;
+use Doctrine\ORM\EntityManagerInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
+use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
@@ -13,9 +18,19 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class MissionCrudController extends AbstractCrudController
 {
+
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
     public static function getEntityFqcn(): string
     {
         return Mission::class;
@@ -57,9 +72,10 @@ class MissionCrudController extends AbstractCrudController
                 '10h00' => '10h00',
                 '13h00' => '13h00',
                 '13h30' => '13h30',
+                '13h45' => '13h45',
                 '14h00' => '14h00',
                 '16h45' => '16h45',
-            ]), 
+            ]),
             ChoiceField::new('scheduleTime')->setChoices([
                 '8h00-12h00 / 13h00-17h00' => '8h00-12h00 / 13h00-17h00',
                 '8h30-12h30 / 13h30-17h30' => '8h30-12h30 / 13h30-17h30',
@@ -84,6 +100,7 @@ class MissionCrudController extends AbstractCrudController
                 '09h30-13h00' => '09h30-13h00',
                 '13h00-15h30' => '13h00-15h30',
                 '13h00-17h00' => '13h00-17h00',
+                '13h45-17h00' => '13h45-17h00',
                 '13h00-18h15' => '13h00-18h15',
                 '13h00-19h00' => '13h00-19h00',
                 '13h30-17h00' => '13h30-17h00',
@@ -99,6 +116,7 @@ class MissionCrudController extends AbstractCrudController
                 '3' => '3',
                 '3.25' => '3.25',
                 '3.5' => '3.5',
+                '3.75' => '3.75',
                 '4' => '4',
                 '4.5' => '4.5',
                 '5' => '5',
@@ -112,8 +130,8 @@ class MissionCrudController extends AbstractCrudController
                 '10' => '10',
                 '18' => '18',
                 '503' => '503',
-               
-            ]), 
+
+            ]),
             ChoiceField::new('intervention')->setChoices([
                 'Présentiel' => 'Présentiel',
                 'Hybride' => 'Hybride',
@@ -132,6 +150,7 @@ class MissionCrudController extends AbstractCrudController
                 '122.5' => '122.5',
                 '125' => '125',
                 '130' => '130',
+                '132' => '132',
                 '135' => '135',
                 '140' => '140',
                 '145' => '145',
@@ -139,6 +158,7 @@ class MissionCrudController extends AbstractCrudController
                 '155' => '155',
                 '157.5' => '157.5',
                 '160' => '160',
+                '162' => '162',
                 '165' => '165',
                 '170' => '170',
                 '175' => '175',
@@ -180,14 +200,21 @@ class MissionCrudController extends AbstractCrudController
                 '400' => '400',
                 '450' => '450',
                 '500' => '500',
+                '520' => '520',
             ]),
             ChoiceField::new('hourlyRate')->setChoices([
                 '4' => '4',
                 '20' => '20',
-                '22,5' => '22,5',
+                '22.5' => '22.5',
                 '25' => '25',
+                '26' => '26',
+                '26.66' => '26.66',
+                '27.14' => '27.14',
+                '28.57' => '28.57',
                 '30' => '30',
+                '32' => '32',
                 '32.8' => '32.8',
+                '32.85' => '32.85',
                 '33.75' => '33.75',
                 '35' => '35',
                 '40' => '40',
@@ -213,5 +240,35 @@ class MissionCrudController extends AbstractCrudController
 
         ];
     }
-    
+
+
+
+    public function configureActions(Actions $actions): Actions
+    {
+        $cloneAction = Action::new('clone', 'Dupliquer', 'fa fa-clone')
+            ->linkToCrudAction('cloneEntity');
+
+        return $actions
+            ->add(Crud::PAGE_INDEX, $cloneAction)
+            ->add(Crud::PAGE_DETAIL, $cloneAction);
+    }
+
+    public function cloneEntity(AdminContext $context): RedirectResponse
+    {
+        $entity = $context->getEntity()->getInstance();
+        $clone = clone $entity;
+
+        // Modifiez les propriétés du clone si nécessaire
+
+        $this->entityManager->persist($clone);
+        $this->entityManager->flush();
+
+        $this->addFlash('success', 'Mission dupliquée avec succès!');
+
+        $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
+        return $this->redirect($adminUrlGenerator->setController(self::class)
+            ->setAction('index')
+            ->generateUrl());
+    }
+
 }

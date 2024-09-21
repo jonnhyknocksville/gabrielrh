@@ -109,9 +109,8 @@ class ProfileController extends AbstractController
         $idUser = $this->getUser()->getId();
         $invoices = $doctrine->getRepository(Mission::class)->findMonthlyInvoicesToGenerateForUser($year, $month, $idUser);
 
-        // dd($invoices);
-
         $invoicesToShow = NULL;
+        $client = null;
         foreach($invoices as $invoice) {
 
             $client = $invoice->getInvoiceClient();
@@ -542,7 +541,7 @@ class ProfileController extends AbstractController
 
                 if($mission->getBeginAt() == $mission->getEndAt()) {
                     $missionsForInvoice[$user][$mission->getCourse()->getId() . $mission->getStudent()->getId()][] = $mission;
-                    $totalAmount += round($mission->getHours() * $mission->getHourlyRate(), 2);
+                    $totalAmount += round($mission->getRemuneration(), 2);
 
                 } else {
                     // si il s'agit d'une mission sur plusieurs jours
@@ -566,7 +565,7 @@ class ProfileController extends AbstractController
                         }
 
                         $newMission->setBeginAt($dateTime);
-                        $totalAmount += round($newMission->getHours() * $newMission->getHourlyRate(), 2);
+                        $totalAmount += round($newMission->getRemuneration(), 2);
                         $missionsForInvoice[$user][$newMission->getCourse()->getId() . $newMission->getStudent()->getId()][] = $newMission;
                     }
 
@@ -575,8 +574,8 @@ class ProfileController extends AbstractController
             }
 
             // pour récupérer l'année et le mois actuel pour les dates de factures et d'échéances
-            $year = $dateTime->format("Y");
-            $month = $dateTime->format("m");
+            // $year = $dateTime->format("Y");
+            // $month = $dateTime->format("m");
 
             $invoiceDate = new \DateTime($year . '-' . $month . '-01');
             $invoiceDate = $invoiceDate->modify( 'first day of next month' );
@@ -589,7 +588,7 @@ class ProfileController extends AbstractController
             $invoiceDateEcheance = $dateEcheance->format('d-m-Y');
 
             $date = new \DateTime($year . '-' . $month . '-01');
-            $invoiceNumber = "F". $date->format("Ym") . '_' . $clientId;
+            $invoiceNumber = "F". $date->format("Ym") .'_' . $this->getUser()->getId() . '_' . $clientId;
             // dd(round($totalAmount, 2));
             
             $data = [
@@ -600,6 +599,9 @@ class ProfileController extends AbstractController
                 'invoiceDateEcheance' => $invoiceDateEcheance,
                 'totalAmount' => round($totalAmount, 2),
                 'client' => $client,
+                'year' => $year,
+                'monthIndex' => $month,
+                'clientInvoice' => $missions[0]->getInvoiceClient()->getId()
             ];
             $html =  $this->renderView('profile/invoices-template-type-for-teacher.html.twig', $data);
             $dompdf = new Dompdf(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true]);
@@ -630,7 +632,8 @@ class ProfileController extends AbstractController
 
             $data = $this->getValues($doctrine);
 
-            $dateTime = new \DateTime("now");
+            // $dateTime = new \DateTime("now");
+            $dateTime = new \DateTime(sprintf('%04d-%02d-01', $year, $month));
             $missions = $doctrine->getRepository(Mission::class)->findMissionForCustomer($year, $month, $clientId, $orderNumber);
             $client = $doctrine->getRepository(Clients::class)->find($clientId);
             $invoice = NULL;
@@ -665,21 +668,21 @@ class ProfileController extends AbstractController
                     
                     for($i = 0; $i < $nbrOfDayForMission; $i++) {
                         $newMission = clone $mission;
-                        $dateTime = new \DateTime;
+                        $dateTimeForIteration = new \DateTime;
 
                         if($i == 0) {
-                            $dateTime->setDate(
+                            $dateTimeForIteration->setDate(
                             $mission->getBeginAt()->format("Y"),
                             $mission->getBeginAt()->format("m"),
                             $mission->getBeginAt()->format("d"));
                         } else {
-                            $dateTime->setDate(
+                            $dateTimeForIteration->setDate(
                                 $mission->getBeginAt()->format("Y"),
                                 $mission->getBeginAt()->format("m"),
                                 $mission->getBeginAt()->format("d") + $i);
                         }
 
-                        $newMission->setBeginAt($dateTime);
+                        $newMission->setBeginAt($dateTimeForIteration);
                         $totalAmount += round($newMission->getHours() * $newMission->getStudent()->getHourlyPrice(), 2);
                         $missionsForInvoice[$user][$newMission->getCourse()->getId() . $newMission->getStudent()->getId()][] = $newMission;
                     }
@@ -690,18 +693,22 @@ class ProfileController extends AbstractController
 
             // pour récupérer l'année et le mois actuel pour les dates de factures et d'échéances
             $year = $dateTime->format("Y");
+            // dd($month);
+
             $month = $dateTime->format("m");
 
             $invoiceDate = new \DateTime($year . '-' . $month . '-01');
-            // $invoiceDate = $date->modify( 'first day of next month' );
+            $invoiceDate = $invoiceDate->modify( 'first day of next month' );
 
             $dateEcheance = new \DateTime($year . '-' . $month . '-01');
+            $dateEcheance = $dateEcheance->modify( 'first day of next month' );
             $dateEcheance = $dateEcheance->modify( 'first day of next month' );
 
             $invoiceDate = $invoiceDate->format('d-m-Y');
             $invoiceDateEcheance = $dateEcheance->format('d-m-Y');
 
             $date = new \DateTime($year . '-' . $month . '-01');
+            // $date = $date->modify( 'first day of next month' );
             $invoiceNumber = "F". $date->format("Ym") . '_' . $clientId;
             // dd(round($totalAmount, 2));
             
@@ -800,13 +807,13 @@ class ProfileController extends AbstractController
 
             // pour récupérer l'année et le mois actuel pour les dates de factures et d'échéances
             $year = $dateTime->format("Y");
-            $month = $dateTime->format("m");
+            // $month = $dateTime->format("m");
 
             $invoiceDate = new \DateTime($year . '-' . $month . '-01');
-            // $invoiceDate = $date->modify( 'first day of next month' );
+            $invoiceDate = $invoiceDate->modify( 'first day of next month' );
 
             $dateEcheance = new \DateTime($year . '-' . $month . '-01');
-            $dateEcheance = $dateEcheance->modify( 'first day of next month' );
+            $dateEcheance = $dateEcheance->modify( 'first day of next month' )->modify( 'first day of next month' );
 
             $invoiceDate = $invoiceDate->format('d-m-Y');
             $invoiceDateEcheance = $dateEcheance->format('d-m-Y');

@@ -91,6 +91,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $naf = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $iban = null;
+
     public function __construct()
     {
         $this->missions = new ArrayCollection();
@@ -461,6 +464,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setNaf(string $naf): static
     {
         $this->naf = $naf;
+
+        return $this;
+    }
+
+    public function getIban(): ?string
+    {
+        return $this->iban;
+    }
+
+    public function setIban(string $iban): static
+    {
+        $this->iban = $iban;
 
         return $this;
     }
