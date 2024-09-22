@@ -25,21 +25,5 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
-    twig:
-        globals:
-            mail_address: '%env(NOM_ENTREPRISE)%'
-            company_name: '%env(NOM_ENTREPRISE)%'
-            company_address: '%env(ADRESSE_ENTREPRISE)%'
-            forme_juridique: '%env(FORME_JURIDIQUE)%'
-            capital_social: '%env(CAPITAL_SOCIAL)%'
-            ville_siege: '%env(VILLE_SIEGE)%'
-            forme_juridique_capital_social: '%env(FORME_JURIDIQUE_CAPITAL_SOCIAL)%'
-            siret_rcs: '%env(SIRET_RCS)%'
-            web_site_url: '%env(WEB_SITE_URL)%'
-            phone_number: '%env(PHONE_NUMBER)%'
-            ville: '%env(VILLE)%'
-            siren: '%env(SIREN)%'
-            siret: '%env(SIRET)%'
-
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

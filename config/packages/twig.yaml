@@ -2,6 +2,23 @@ twig:
     default_path: '%kernel.project_dir%/templates'
     form_themes: ['bootstrap_5_layout.html.twig']
 
+    globals:
+        mail_address: '%env(MAIL_ADDRESS)%'
+        company_name: '%env(NOM_ENTREPRISE)%'
+        company_address: '%env(ADRESSE_ENTREPRISE)%'
+        forme_juridique: '%env(FORME_JURIDIQUE)%'
+        capital_social: '%env(CAPITAL_SOCIAL)%'
+        ville_siege: '%env(VILLE_SIEGE)%'
+        forme_juridique_capital_social: '%env(FORME_JURIDIQUE_CAPITAL_SOCIAL)%'
+        siret_rcs: '%env(SIRET_RCS)%'
+        web_site_url: '%env(WEB_SITE_URL)%'
+        phone_number: '%env(PHONE_NUMBER)%'
+        ville: '%env(VILLE)%'
+        siren: '%env(SIREN)%'
+        siret: '%env(SIRET)%'
+        gerant: '%env(GERANT)%'
+        num_tva: '%env(NUM_TVA)%'
+
 when@test:
     twig:
         strict_variables: true

@@ -16,9 +16,8 @@
 
         <div class="row d-flex col-md-10 mx-auto p-2">
 
-            <div class="col-12 col-lg-6 form-shadow" id="container-iframe-home" style="padding:28% 0 0 0;position:relative;">
-                <iframe src="https://player.vimeo.com/video/835006242?h=1b1d19f4e7" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="00 - La syntaxe en PHP">
-                </iframe>
+            <div class="col-12 col-lg-6 form-shadow" id="container-iframe-home">
+                    <img class="img-fluid" src="{{asset('build/teachers/4.webp')}}" title="Des vidéos faites par des formateurs sur le terrain !" alt="Des vidéos faites par des formateurs sur le terrain !">
             </div>
 
             <div class="d-flex justify-content-center col-12 col-lg-6 mt-5 mt-lg-0 px-lg-5" id="home-form">
@@ -386,95 +385,6 @@
                 </div>
 
         </div>
-
-    </section>
-
-
-    {# Notre partenaire vidéo #}
-
-    <section>
-        <div class="row main-contact-bar m-0 p-0">
-
-            <div class="bg-secondary-dark col-md-6 align-items-center first-part justify-content-center d-none d-md-flex">
-                    <h3 class="text-with-gradient">Besoin de développer votre e-learning?</h3>
-            </div>
-
-
-            <div class="col-12 col-md-6 p-0 relative second-part d-flex">
-                <div class="bg-secondary-dark triangle-left"></div>
-
-                <div class="contact-bar d-flex justify-content-center">
-                    <div class="contact">
-                        <h3 class="d-flex d-md-none text-with-gradient">Vous êtes un professionnel ?</h3>
-                        <a aria-label="Accédez à notre offre professionnelle - {{company_name}}" href="{{ path('app_elearning') }}" class="font-weight-bold btn btn-outline-info text-white">DÉCOUVREZ NOS FORMATIONS VIDÉO</a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    {# Page YouTube #}
-
-    <section class="section py-5">
-
-            <div class="container-fluid px-0">
-                <div class="container">
-                    <h2 class="mb-5 pb-4 text-light"><span class="text-danger">Nos</span> dernières vidéos YouTube</h2>
-                </div>
-                <div class="container mx-auto row videos">
-                    <div class="col-md-4 col-sm-6 mb-5">
-                        <iframe class="latestVideoEmbed" style="height:230px;width:100%" vnum='0' frameborder="0" allowfullscreen></iframe>
-                    </div>
-                                                                
-                    <div class="col-md-4 col-sm-6 mb-5">
-                        <iframe class="latestVideoEmbed" style="height:230px;width:100%" vnum='1' frameborder="0" allowfullscreen></iframe>
-                    </div>
-                                                                
-                    <div class="col-md-4 col-sm-6 mb-5">
-                        <iframe class="latestVideoEmbed" style="height:230px;width:100%" vnum='2' frameborder="0" allowfullscreen></iframe>
-                    </div>
-
-                    <div class="col-md-4 col-sm-6 mb-5">
-                        <iframe class="latestVideoEmbed" style="height:230px;width:100%" vnum='3' frameborder="0" allowfullscreen></iframe>
-                    </div>
-                                                                
-                    <div class="col-md-4 col-sm-6 mb-5">
-                        <iframe class="latestVideoEmbed" style="height:230px;width:100%" vnum='4' frameborder="0" allowfullscreen></iframe>
-                    </div>
-                                                                
-                    <div class="col-md-4 col-sm-6 mb-5">
-                        <iframe class="latestVideoEmbed" style="height:230px;width:100%" vnum='5' frameborder="0" allowfullscreen></iframe>
-                    </div>
-
-                    <div class="d-flex justify-content-center">
-                        <a aria-label="Retrouvez nos vidéos E-learning - {{company_name}}" class="px-3 py-3 smallBorderRadius btn btn-outline-secondary d-flex align-items-center text-light" href="{{path('app_elearning')}}">
-                            <i class="fa-solid fa-plus me-2"></i>
-                            EN SAVOIR PLUS SUR NOS FORMATIONS VIDÉOS
-                        </a>                
-                    </div>
-                </div>
-            </div>
-
-        </section>
-
-
-   {# Ou nous retrouver #}
-
-    <section class="bg-secondary-dark py-5">
-
-        <div class="text-with-gradient text-center pB-5 relative">
-            &lt; VOUS ÊTES UN FORMATEUR OU UN APPRENANT /&gt; 
-        </div>
-
-        <h2 class="text-center text-light my-3"> Rejoignez-nous sur Discord ! </h2>
-
-        <div class="row mx-auto col-md-6 mt-5">
-            <a aria-label="Découvrez notre serveur Discord - {{company_name}}" href="https://discord.gg/2K7cxC52" target="_blank">
-                <img alt="Découvrez notre serveur Discord - {{company_name}}" id="img-discord" src="{{ asset('build/illustration_discord.png')}}" class="cursor-pointer img-fluid" />
-            </a>
-        </div>
-
 
     </section>
 
