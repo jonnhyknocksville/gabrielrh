@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block meta_description %} Vous souhaitez intervenir en tant que Formateur? Passez par la Formation WS pour trouver les missions qui vous ressemblent.  {% endblock %}
+{% block meta_description %} Vous souhaitez intervenir en tant que Formateur? Passez par {{company_name}} pour trouver les missions qui vous ressemblent.  {% endblock %}
 {% block title %}Le processus pour devenir formateur {{parent()}} {% endblock %}
 
 {% block body %}
@@ -17,7 +17,7 @@
         </div>
 
         <div class="col-md-12 d-flex justify-content-center">
-            <a aria-label="CANDIDATEZ EN TANT QUE FORMATEUR - Formation WS" class="text-light smallBorderRadius colorWhite btn btn-secondary pull-right border-radius-btn mt-5 fw600 d-flex align-items-center" href="{{path('teacher_opportunity')}}">
+            <a aria-label="CANDIDATEZ EN TANT QUE FORMATEUR - {{company_name}}" class="text-light smallBorderRadius colorWhite btn btn-secondary pull-right border-radius-btn mt-5 fw600 d-flex align-items-center" href="{{path('teacher_opportunity')}}">
             <i class="fa-solid fa-suitcase me-3"></i>
             TROUVEZ DES MISSIONS DE FORMATION</a>
         </div>
@@ -30,19 +30,19 @@
             &lt; FONCTIONNEMENT /&gt; 
         </div>
 
-        <h2 class="text-center text-light mt-5"> POUR LES FORMATEURS CHEZ FORMATION WS </h2>
+        <h2 class="text-center text-light mt-5"> POUR LES FORMATEURS CHEZ {{company_name}} </h2>
 
         <div class="row mx-auto col-md-10 p-3 mt-5">
 
             <div class="col-md-3 p-3">
                 <div class="bg-none card p-4 form-shadow align-items-center">
-                    <a aria-label="CANDIDATEZ EN TANT QUE FORMATEUR - Formation WS" class="pb-3" href="{{path('teacher_opportunity')}}">
+                    <a aria-label="CANDIDATEZ EN TANT QUE FORMATEUR - {{company_name}}" class="pb-3" href="{{path('teacher_opportunity')}}">
                         <i class="text-light fa-solid fa-1 icon-xl"></i>
                     </a>
                     
                     <div class="card-body p-0">
                     
-                        <a aria-label="CANDIDATEZ EN TANT QUE FORMATEUR - Formation WS" href="{{path('teacher_opportunity')}}">
+                        <a aria-label="CANDIDATEZ EN TANT QUE FORMATEUR - {{company_name}}" href="{{path('teacher_opportunity')}}">
                             <h5 class="card-title fw-bold text-light">CANDIDATEZ EN TANT QUE FORMATEUR</h5>
                             <p class="card-text text-info text-justify text-justify">Gratuit en sans engagement ! Parlez-nous un peu de vous.</p>
                         </a>
@@ -63,13 +63,13 @@
 
             <div class="col-md-3 p-3">
                 <div class="bg-none card p-4 form-shadow align-items-center">
-                    <a aria-label="ECHANGEONS LORS D'UN ENTRETIEN - Formation WS" class="pb-3" href="{{path('teacher_opportunity')}}">
+                    <a aria-label="ECHANGEONS LORS D'UN ENTRETIEN - {{company_name}}" class="pb-3" href="{{path('teacher_opportunity')}}">
                         <i class="text-light fa-solid fa-2 icon-xl"></i>
                     </a>
                     
                     <div class="card-body p-0">
                     
-                        <a aria-label="ECHANGEONS LORS D'UN ENTRETIEN - Formation WS" href="{{path('teacher_opportunity')}}">
+                        <a aria-label="ECHANGEONS LORS D'UN ENTRETIEN - {{company_name}}" href="{{path('teacher_opportunity')}}">
                             <h5 class="card-title fw-bold text-light">ECHANGEONS LORS D'UN ENTRETIEN</h5>
                             <p class="card-text text-info text-justify">Echanger avec l'un de nos coach pour une future mise en situation.</p>
                         </a>
@@ -101,13 +101,13 @@
 
             <div class="col-md-3 p-3">
                 <div class="bg-none card p-4 form-shadow align-items-center">
-                    <a aria-label="PREMIÈRE INTERVENTION - Formation WS" class="pb-3" href="{{path('teacher_opportunity')}}">
+                    <a aria-label="PREMIÈRE INTERVENTION - {{company_name}}" class="pb-3" href="{{path('teacher_opportunity')}}">
                         <i class="text-light fa-solid fa-4 icon-xl"></i>
                     </a>
                     
                     <div class="card-body p-0">
                     
-                        <a aria-label="PREMIÈRE INTERVENTION - Formation WS" href="{{path('teacher_opportunity')}}">
+                        <a aria-label="PREMIÈRE INTERVENTION - {{company_name}}" href="{{path('teacher_opportunity')}}">
                             <h5 class="card-title fw-bold text-light">PREMIÈRE INTERVENTION</h5>
                             <p class="card-text text-info text-justify">Nous vous proposerons des missions adaptées à votre profil et votre planning sera disponible dans votre espace formateur.</p>
                         </a>
@@ -129,13 +129,13 @@
             
             <div class="col-md-3 p-3">
                 <div class="bg-none card p-4 form-shadow align-items-center">
-                    <a aria-label="MISE EN SITUATION ET VALIDATION - Formation WS" class="pb-3" href="{{path('teacher_opportunity')}}">
+                    <a aria-label="MISE EN SITUATION ET VALIDATION - {{company_name}}" class="pb-3" href="{{path('teacher_opportunity')}}">
                         <i class="text-light fa-solid fa-3 icon-xl"></i>
                     </a>
                     
                     <div class="card-body p-0">
                     
-                        <a aria-label="MISE EN SITUATION ET VALIDATION - Formation WS" href="{{path('teacher_opportunity')}}">
+                        <a aria-label="MISE EN SITUATION ET VALIDATION - {{company_name}}" href="{{path('teacher_opportunity')}}">
                             <h5 class="card-title fw-bold text-light">MISE EN SITUATION ET VALIDATION</h5>
                             <p class="card-text text-info text-justify">Présentez-nous le sujet de votre choix pour valider vos compétences et vos soft skills.</p>
                         </a>
@@ -214,13 +214,13 @@
 
             <div class="col-md-3 p-3">
                 <div class="bg-none card p-4 form-shadow align-items-center">
-                    <a aria-label="Mission - Formation WS" class="pb-3" href="{{path('teacher_opportunity')}}">
+                    <a aria-label="Mission - {{company_name}}" class="pb-3" href="{{path('teacher_opportunity')}}">
                         <i class="fa-solid fa-briefcase icon-xl text-light"></i>
                     </a>
                     
                     <div class="card-body p-0">
                     
-                        <a aria-label="Mission - Formation WS" href="{{path('teacher_opportunity')}}">
+                        <a aria-label="Mission - {{company_name}}" href="{{path('teacher_opportunity')}}">
                             <h5 class="card-title fw-bold text-light text-center">MISSIONS</h5>
                             <p class="card-text text-info text-center">Nous vous proposons des missions toute l'année.</p>
                         </a>
@@ -231,13 +231,13 @@
 
             <div class="col-md-3 p-3">
                 <div class="bg-none card p-4 form-shadow align-items-center">
-                    <a aria-label="SÉCURITÉ - Formation WS" class="pb-3" href="{{path('teacher_opportunity')}}">
+                    <a aria-label="SÉCURITÉ - {{company_name}}" class="pb-3" href="{{path('teacher_opportunity')}}">
                         <i class="fa-solid fa-shield-halved icon-xl text-light"></i>
                     </a>
                     
                     <div class="card-body p-0">
                     
-                        <a aria-label="SÉCURITÉ - Formation WS" href="{{path('teacher_opportunity')}}">
+                        <a aria-label="SÉCURITÉ - {{company_name}}" href="{{path('teacher_opportunity')}}">
                             <h5 class="card-title fw-bold text-light text-center">SÉCURITÉ</h5>
                             <p class="card-text text-info text-center">Nous vous proposons des contrats sécurisés.</p>
                         </a>
@@ -248,13 +248,13 @@
 
             <div class="col-md-3 p-3">
                 <div class="bg-none card p-4 form-shadow align-items-center">
-                    <a aria-label="EVOLUTIONS - Formation WS" class="pb-3" href="{{path('teacher_opportunity')}}">
+                    <a aria-label="EVOLUTIONS - {{company_name}}" class="pb-3" href="{{path('teacher_opportunity')}}">
                         <i class="fa-solid fa-chart-line icon-xl text-light"></i>
                     </a>
                     
                     <div class="card-body p-0">
                     
-                        <a aria-label="EVOLUTIONS - Formation WS" href="{{path('teacher_opportunity')}}">
+                        <a aria-label="EVOLUTIONS - {{company_name}}" href="{{path('teacher_opportunity')}}">
                             <h5 class="card-title fw-bold text-light text-center">EVOLUTIONS</h5>
                             <p class="card-text text-info text-center">Formez-vous gratuitement en vidéo sur notre plateforme.</p>
                         </a>
@@ -265,13 +265,13 @@
             
             <div class="col-md-3 p-3">
                 <div class="bg-none card p-4 form-shadow align-items-center">
-                    <a aria-label="GAIN DE TEMPS - Formation WS" class="pb-3" href="{{path('teacher_opportunity')}}">
+                    <a aria-label="GAIN DE TEMPS - {{company_name}}" class="pb-3" href="{{path('teacher_opportunity')}}">
                         <i class="fa-solid fa-clock icon-xl text-light"></i>
                     </a>
                     
                     <div class="card-body p-0">
                     
-                        <a aria-label="GAIN DE TEMPS - Formation WS" href="{{path('teacher_opportunity')}}">
+                        <a aria-label="GAIN DE TEMPS - {{company_name}}" href="{{path('teacher_opportunity')}}">
                             <h5 class="card-title fw-bold text-light text-center">GAIN DE TEMPS</h5>
                             <p class="card-text text-info text-center">Profitez de nos ressources pédagogiques pour vos cours.</p>
                         </a>
@@ -285,13 +285,13 @@
 
             <div class="col-md-3 p-3">
                 <div class="bg-none card p-4 form-shadow align-items-center">
-                    <a aria-label="LIBERTÉ - Formation WS" class="pb-3" href="{{path('teacher_opportunity')}}">
+                    <a aria-label="LIBERTÉ - {{company_name}}" class="pb-3" href="{{path('teacher_opportunity')}}">
                         <i class="fa-solid fa-rainbow icon-xl text-light"></i>
                     </a>
                     
                     <div class="card-body p-0">
                     
-                        <a aria-label="LIBERTÉ - Formation WS" href="{{path('teacher_opportunity')}}">
+                        <a aria-label="LIBERTÉ - {{company_name}}" href="{{path('teacher_opportunity')}}">
                             <h5 class="card-title fw-bold text-light text-center">LIBERTÉ</h5>
                             <p class="card-text text-info text-center">Vous validez vous-mêmes vos plannings et partez en vacances quand vous voulez !</p>
                         </a>
@@ -302,13 +302,13 @@
 
             <div class="col-md-3 p-3">
                 <div class="bg-none card p-4 form-shadow align-items-center">
-                    <a aria-label="COACHING - Formation WS" class="pb-3" href="{{path('teacher_opportunity')}}">
+                    <a aria-label="COACHING - {{company_name}}" class="pb-3" href="{{path('teacher_opportunity')}}">
                         <i class="fa-solid fa-dumbbell icon-xl text-light"></i>
                     </a>
                     
                     <div class="card-body p-0">
                     
-                        <a aria-label="COACHING - Formation WS" href="{{path('teacher_opportunity')}}">
+                        <a aria-label="COACHING - {{company_name}}" href="{{path('teacher_opportunity')}}">
                             <h5 class="card-title fw-bold text-light text-center">COACHING</h5>
                             <p class="card-text text-info text-center">Nous vous coachons pour pour vous permettre d'assurer des formations de qualité.</p>
                         </a>
@@ -319,13 +319,13 @@
 
             <div class="col-md-3 p-3">
                 <div class="bg-none card p-4 form-shadow align-items-center">
-                    <a aria-label="FORMATION CONTINUE - Formation WS" class="pb-3" href="{{path('teacher_opportunity')}}">
+                    <a aria-label="FORMATION CONTINUE - {{company_name}}" class="pb-3" href="{{path('teacher_opportunity')}}">
                         <i class="fa-solid fa-arrow-up icon-xl text-light"></i>
                     </a>
                     
                     <div class="card-body p-0">
                     
-                        <a aria-label="FORMATION CONTINUE - Formation WS" href="{{path('teacher_opportunity')}}">
+                        <a aria-label="FORMATION CONTINUE - {{company_name}}" href="{{path('teacher_opportunity')}}">
                             <h5 class="card-title fw-bold text-light text-center">FORMATION CONTINUE</h5>
                             <p class="card-text text-info text-center">Vous aurez accès à l'Académie WS pour vous former en vidéo, plutôt cool hein?</p>
                         </a>
@@ -336,13 +336,13 @@
             
             <div class="col-md-3 p-3">
                 <div class="bg-none card p-4 form-shadow align-items-center">
-                    <a aria-label="ACCÈS PRIVÉ - Formation WS" class="pb-3" href="{{path('teacher_opportunity')}}">
+                    <a aria-label="ACCÈS PRIVÉ - {{company_name}}" class="pb-3" href="{{path('teacher_opportunity')}}">
                         <i class="fa-solid fa-key icon-xl text-light"></i>
                     </a>
                     
                     <div class="card-body p-0">
                     
-                        <a aria-label="ACCÈS PRIVÉ - Formation WS" href="{{path('teacher_opportunity')}}">
+                        <a aria-label="ACCÈS PRIVÉ - {{company_name}}" href="{{path('teacher_opportunity')}}">
                             <h5 class="card-title fw-bold text-light text-center">ACCÈS PRIVÉ</h5>
                             <p class="card-text text-info text-center">Profitez notre plateforme et de nos outils collaboratifs pour simplifier votre quotidien.</p>
                         </a>
@@ -372,7 +372,7 @@
                 <i class="text-primary fa-solid fa-star"></i>
                 <i class="text-primary fa-solid fa-star"></i>
 
-                4.9 sur 5 basé sur <a aria-label="Retrouvez nos avis sur Google - Formation WS" class="text-info" href=""> +75 avis</a>
+                4.9 sur 5 basé sur <a aria-label="Retrouvez nos avis sur Google - {{company_name}}" class="text-info" href=""> +75 avis</a>
 
             <p>
         </div>
@@ -464,7 +464,7 @@
                         
                         <div class="card-body p-0">
                             <h5 class="card-title fw-bold text-light">Formateur en programmation</h5>
-                            <p class="card-text mb-3 text-info">J'ai démarré ma carrière chez formation ws depuis 2 ans, formations au top, équipe professionnelle, merci !</p>
+                            <p class="card-text mb-3 text-info">J'ai démarré ma carrière chez {{company_name}} depuis 2 ans, formations au top, équipe professionnelle, merci !</p>
                             <div class="d-flex align-items-center"> 
                                 <img style="width:2.5rem; height:2.5rem" class="smallBorderRadius" src="{{ asset('build/quentin.jpeg')}}" alt="icon d'avatar"/>
                                 <p class="text-light ms-3 my-0 fst-italic"> Quentin V. </p>

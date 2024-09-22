@@ -11,6 +11,7 @@ use App\Form\ChangePasswordType;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -20,6 +21,13 @@ use Dompdf\Dompdf;
 
 class ProfileController extends AbstractController
 {
+
+    private $params;
+
+    public function __construct(ParameterBagInterface $params)
+    {
+        $this->params = $params;
+    }
 
     #[Route('/profile', name: 'app_profile')]
     public function index(EntityManagerInterface $doctrine): Response
@@ -611,7 +619,7 @@ class ProfileController extends AbstractController
             // dd($missionsForInvoice);
 
             return new Response (
-                $dompdf->stream("Web Start - " . $invoiceNumber, ["Attachment" => false]),
+                $dompdf->stream($this->params->get('env(MY_CUSTOM_VARIABLE)') . " - " . $invoiceNumber, ["Attachment" => false]),
                 Response::HTTP_OK,
                 ['Content-Type' => 'application/pdf']
             );
@@ -730,7 +738,7 @@ class ProfileController extends AbstractController
             // dd($missionsForInvoice);
 
             return new Response (
-                $dompdf->stream("Web Start - " . $invoiceNumber, ["Attachment" => false]),
+                $dompdf->stream($this->params->get('env(MY_CUSTOM_VARIABLE)') . " - " . $invoiceNumber, ["Attachment" => false]),
                 Response::HTTP_OK,
                 ['Content-Type' => 'application/pdf']
             );
@@ -839,7 +847,7 @@ class ProfileController extends AbstractController
             // dd($missionsForInvoice);
 
             return new Response (
-                $dompdf->stream("Web Start - " . $invoiceNumber, ["Attachment" => false]),
+                $dompdf->stream($this->params->get('env(MY_CUSTOM_VARIABLE)') . " - " . $invoiceNumber, ["Attachment" => false]),
                 Response::HTTP_OK,
                 ['Content-Type' => 'application/pdf']
             );

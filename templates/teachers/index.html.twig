@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block meta_description %} Vous êtes formateur? Rejoinez la Formation WS.  {% endblock %}
+{% block meta_description %} Vous êtes formateur? Rejoinez {{company_name}}.  {% endblock %}
 {% block title %}Devenir formateur {{parent()}} {% endblock %}
 
 {% block body %}
@@ -19,7 +19,7 @@
         </div>
 
         <div class="col-md-12 d-flex justify-content-center">
-            <a aria-label="Découvrez comment devenir formateur WS - Formation WS" class="text-light smallBorderRadius colorWhite btn btn-secondary pull-right border-radius-btn mt-5 fw600 d-flex align-items-center" href="{{ path('app_teachers_process') }}"><i class="fa-solid fa-gear me-2"></i>COMMENT ÇA MARCHE ?</a>
+            <a aria-label="Découvrez comment devenir formateur WS - {{company_name}}" class="text-light smallBorderRadius colorWhite btn btn-secondary pull-right border-radius-btn mt-5 fw600 d-flex align-items-center" href="{{ path('app_teachers_process') }}"><i class="fa-solid fa-gear me-2"></i>COMMENT ÇA MARCHE ?</a>
         </div>
 
     </div>
@@ -27,12 +27,12 @@
     <div class="row">
         <div class="row col-md-8 mx-auto mt-5">
             <div class="d-flex col-md-12 text-left">
-                <h1 class="text-left color-grey"> <span style="color:black"> Vous souhaitez intervenir en tant que formateur. </span> </br> Pourquoi devenir formateur chez Formation WS ? </h1>
+                <h1 class="text-left color-grey"> <span style="color:black"> Vous souhaitez intervenir en tant que formateur. </span> </br> Pourquoi devenir formateur chez {{company_name}} ? </h1>
             </div>
             <div class="col-md-6 mb-5">
-                <p class="text-justify mb-5"> Vous êtes formateur ou vous souhaitez devenir formateur? vous avez toqué à la bonne porte. Chez la Formation WS nous délivrons de nombreuses formations liées à l'univers du digital depuis plusieurs années. Pourquoi intégrer notre équipe de formateur? on vous explique tout juste ici ! </p>
-                <a aria-label="Devenir formateur - Formation WS" href="{{ path('teacher_opportunity') }}" class="btn btn-primary" style="color:white !important">POSTULER</a>
-                <a aria-label="Devenir formateur - Formation WS" href="{{ path('app_jobs') }}" class="btn btn-secondary" style="color:white !important">DÉCOUVRIR NOS OFFRES</a>
+                <p class="text-justify mb-5"> Vous êtes formateur ou vous souhaitez devenir formateur? vous avez toqué à la bonne porte. Chez {{company_name}} nous délivrons de nombreuses formations liées à l'univers du digital depuis plusieurs années. Pourquoi intégrer notre équipe de formateur? on vous explique tout juste ici ! </p>
+                <a aria-label="Devenir formateur - {{company_name}}" href="{{ path('teacher_opportunity') }}" class="btn btn-primary" style="color:white !important">POSTULER</a>
+                <a aria-label="Devenir formateur - {{company_name}}" href="{{ path('app_jobs') }}" class="btn btn-secondary" style="color:white !important">DÉCOUVRIR NOS OFFRES</a>
             </div>
         </div>
 
@@ -49,7 +49,7 @@
                 <div class="col-md-6 order-1 order-md-2">
                     <div class="my-3 text-primary">NOUS TRAVAILLONS AVEC + DE 50 ÉCOLES</div>
                     <h3>Nous travaillons avec un grand réseau d'écoles et centres de formation</h3>
-                    <p class="text-justify">Ecoles du digital, centres de formation, Entreprises de Services du Numérique... La Formation WS aujourd'hui intervient auprès de nombreux clients partout en France et ce pour tous les niveaux! Du débutant en reconversion professionnelle ou non, à l'apprenant déjà en poste en entreprise souhaitant monter en compétence, vous trouverez chez la Formation WS <span class="text-primary fw-bold">tous les profils et tous les niveaux </span>.</p>
+                    <p class="text-justify">Ecoles du digital, centres de formation, Entreprises de Services du Numérique... {{company_name}} aujourd'hui intervient auprès de nombreux clients partout en France et ce pour tous les niveaux! Du débutant en reconversion professionnelle ou non, à l'apprenant déjà en poste en entreprise souhaitant monter en compétence, vous trouverez chez {{company_name}} <span class="text-primary fw-bold">tous les profils et tous les niveaux </span>.</p>
                 </div>
             </div>
 
@@ -74,7 +74,7 @@
                 <div class="col-md-6 order-1 order-md-2">
                     <div class="my-3 text-primary" style="border-top:1px solid rgba(94, 36, 195, 0.2);padding-top:2rem;">ACCÈS ILLIMITÉ À NOTRE PLATEFORME DE FORMATIONS VIDÉO</div>
                     <h3>Accès gratuit et illimité à nos formations vidéo sur notre plateforme !</h3>
-                    <p class="text-justify">En intégrant la Formation WS, <span class="text-primary fw-bold">nous vous offrons un accès illimité à notre plateforme de formation vidéo </span> pour vous permettre de monter en compétence rapidement et simplement sur une multitude de sujets. Vous pourrez alors vous formez pour mieux former et augmenter le nombre de vos prestations !</p>
+                    <p class="text-justify">En intégrant {{company_name}}, <span class="text-primary fw-bold">nous vous offrons un accès illimité à notre plateforme de formation vidéo </span> pour vous permettre de monter en compétence rapidement et simplement sur une multitude de sujets. Vous pourrez alors vous formez pour mieux former et augmenter le nombre de vos prestations !</p>
                     
                 </div>
             </div>
@@ -83,7 +83,7 @@
                 <div class="col-md-6" style="border-top:1px solid rgba(94, 36, 195, 0.2);padding-top:2rem;">
                     <div class="my-3 text-primary">SIMPLIFIEZ VOTRE COMPTABILITÉ</div>
                     <h3>Nous assurons vos gestions administratives ainsi que les allez-retours avec nos clients</h3>
-                    <p class="text-justify">En intégrant la Formation WS, vous aurez accès à une interface très simple dans laquelle vous retrouverez vos interventions, vos contrats et dans laquelle vous pourez facilement déposer vos factures. L'objectif, <span class="text-primary fw-bold">centraliser et simplifier vos tâches de gestion et d'administration </span>.</p>
+                    <p class="text-justify">En intégrant {{company_name}}, vous aurez accès à une interface très simple dans laquelle vous retrouverez vos interventions, vos contrats et dans laquelle vous pourez facilement déposer vos factures. L'objectif, <span class="text-primary fw-bold">centraliser et simplifier vos tâches de gestion et d'administration </span>.</p>
                     
                 </div>
 
@@ -101,7 +101,7 @@
                 <div class="col-md-6 order-1 order-md-2" style="border-top:1px solid rgba(94, 36, 195, 0.2);padding-top:2rem;">
                     <div class="my-3 text-primary">DÉVELOPPEZ VOS COMPÉTENCES ET INTERVENEZ SUR DIFFÉRENTS SUJETS</div>
                     <h3>Monté(s) en compétence offerte(s) une à deux fois par an</h3>
-                    <p class="text-justify">Chez La Formation WS, nous proposons à nos formateurs, une à deux fois par an, <span class="text-primary fw-bold">une montée en compétence </span> sur le sujet de leur choix, pour leur permettre d'intervenir sur de nouvelles thématiques ou tout simplement pour mettre à jour leurs connaissances pour garantir le sucès de leurs futures interventions, le tout gratuitement!</p>
+                    <p class="text-justify">Chez {{company_name}}, nous proposons à nos formateurs, une à deux fois par an, <span class="text-primary fw-bold">une montée en compétence </span> sur le sujet de leur choix, pour leur permettre d'intervenir sur de nouvelles thématiques ou tout simplement pour mettre à jour leurs connaissances pour garantir le sucès de leurs futures interventions, le tout gratuitement!</p>
                 </div>
             </div>
 
@@ -126,8 +126,8 @@
                 <div class="col-md-6 order-1 order-md-2" style="border-top:1px solid rgba(94, 36, 195, 0.2);padding-top:2rem;">
                     <div class="my-3 text-primary">VOUS INTÉGREZ UNE STARTUP JEUNE ET DYNAMIQUE</div>
                     <h3>Nous organisons régulièrement des événements avec les membres de notre équipe de formateurs !</h3>
-                    <p class="text-justify">En intégrant la Formation WS, vous intégrez une startup composée de profils divers et variés, de tout âge et de toutes horizons avec un point commun : l'entreprenariat. C'est pourquoi nous tentons chaque année d'organiser des <span class="text-primary fw-bold">événements pour tous nous rencontrer et partager les uns avec les autres </span> nos connaissances et nos conseils et astuces, le tout en prenant du plaisir autour d'un verre par exemple ! </p>
-                    <a aria-label="Devenir formateur - Formation WS" href="{{ path('teacher_opportunity') }}" class="btn btn-primary mt-3" style="color:white !important">DEVENIR FORMATEUR CHEZ LA FORMATION WS</a>
+                    <p class="text-justify">En intégrant {{company_name}}, vous intégrez une startup composée de profils divers et variés, de tout âge et de toutes horizons avec un point commun : l'entreprenariat. C'est pourquoi nous tentons chaque année d'organiser des <span class="text-primary fw-bold">événements pour tous nous rencontrer et partager les uns avec les autres </span> nos connaissances et nos conseils et astuces, le tout en prenant du plaisir autour d'un verre par exemple ! </p>
+                    <a aria-label="Devenir formateur - {{company_name}}" href="{{ path('teacher_opportunity') }}" class="btn btn-primary mt-3" style="color:white !important">DEVENIR FORMATEUR CHEZ {{company_name}}</a>
                 </div>
             </div>
 

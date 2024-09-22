@@ -2,13 +2,13 @@
 		<ul class="sidebar-nav p-3">
 
 			<!-- Sidebar Nav -->
-			<a aria-label="Accédez aux formations vidéo sur l'Académie WS - Formation WS" href="https://academiews.fr/courses">
+			<a aria-label="Accédez aux formations vidéo sur l'Académie WS - {{company_name}}" href="https://academiews.fr/courses">
 				<li class="text-center bg-secondary smallBorderRadius my-3 px-2 py-2 text-light">
                         ACCÉDER AUX FORMATIONS VIDÉO
 				</li>
 			</a>
 
-            <a aria-label="Accédez aux offres pour vous - Formation WS" href="{{path('app_jobs_for_you')}}">
+            <a aria-label="Accédez aux offres pour vous - {{company_name}}" href="{{path('app_jobs_for_you')}}">
 				<li
 					class="d-flex p-3 align-items-center item bg-info text-light text-center smallBorderRadius">
 					<div class="d-flex align-items-center justify-content-between w-100 title-container">
@@ -21,7 +21,7 @@
 				</li>
 			</a>
 
-			<a aria-label="Accédez à la modification de votre mot de passe - Formation WS" href="{{path('app_profile_password')}}">
+			<a aria-label="Accédez à la modification de votre mot de passe - {{company_name}}" href="{{path('app_profile_password')}}">
 				<li
 					class="d-flex p-3 align-items-center item">
 					<div class="d-flex align-items-center justify-content-between w-100 title-container">
@@ -34,7 +34,7 @@
 				</li>
 			</a>
 
-            <a aria-label="Accédez à vos informations personelles - Formation WS" href="{{path('app_profile_infos')}}">
+            <a aria-label="Accédez à vos informations personelles - {{company_name}}" href="{{path('app_profile_infos')}}">
                 <li
                     class="d-flex p-3 align-items-center item">
                     <div class="d-flex align-items-center justify-content-between w-100 title-container">
@@ -47,7 +47,7 @@
                 </li>
             </a>
 
-			<a aria-label="Accédez à vos domaines d'intervention - Formation WS" href="{{path('app_profile_skills')}}">
+			<a aria-label="Accédez à vos domaines d'intervention - {{company_name}}" href="{{path('app_profile_skills')}}">
                 <li class="d-flex p-3 align-items-center item">
                     <div class="d-flex align-items-center justify-content-between w-100 title-container">
                         <div class="d-flex align-items-center">
@@ -59,7 +59,7 @@
                 </li>
             </a>
 
-			<a aria-label="Accédez à vos domaines d'intervention - Formation WS" href="{{path('app_profile_generate_invoice_type', {month : 'now'|date('m'), year : 'now'|date('Y')})}}">
+			<a aria-label="Accédez à vos domaines d'intervention - {{company_name}}" href="{{path('app_profile_generate_invoice_type', {month : 'now'|date('m'), year : 'now'|date('Y')})}}">
                 <li class="d-flex p-3 align-items-center item">
                     <div class="d-flex align-items-center justify-content-between w-100 title-container">
                         <div class="d-flex align-items-center">
@@ -71,7 +71,7 @@
                 </li>
             </a>
 
-            <a aria-label="Accédez à vos contrats - Formation WS" href="{{path('app_profile_contracts')}}">
+            <a aria-label="Accédez à vos contrats - {{company_name}}" href="{{path('app_profile_contracts')}}">
                 <li class="d-flex p-3 align-items-center item">
                     <div class="d-flex align-items-center justify-content-between w-100 title-container">
                         <div class="d-flex align-items-center">
@@ -85,7 +85,7 @@
 
             {% if is_granted('ROLE_ADMIN') %}
 
-			<a aria-label="Accédez à vos contrats - Formation WS" href="{{path('app_contracts_prestations_client')}}">
+			<a aria-label="Accédez à vos contrats - {{company_name}}" href="{{path('app_contracts_prestations_client')}}">
 				<li class="d-flex p-3 align-items-center item">
 					<div class="d-flex align-items-center justify-content-between w-100 title-container">
 						<div class="d-flex align-items-center">
@@ -97,7 +97,7 @@
 				</li>
 			</a>
 
-			<a aria-label="Accédez à vos contrats - Formation WS" href="{{path('app_contracts_admin', {month : 'now'|date('m'), year : 'now'|date('Y')})}}">
+			<a aria-label="Accédez à vos contrats - {{company_name}}" href="{{path('app_contracts_admin', {month : 'now'|date('m'), year : 'now'|date('Y')})}}">
 				<li class="d-flex p-3 align-items-center item">
 					<div class="d-flex align-items-center justify-content-between w-100 title-container">
 						<div class="d-flex align-items-center">
@@ -109,7 +109,7 @@
 				</li>
 			</a>
 
-            <a aria-label="Déconnectez vous de votre profil - Formation WS" href="{{path('app_invoices', {month: 'now'|date('m'), year:'now'|date('Y')  }) }}">
+            <a aria-label="Déconnectez vous de votre profil - {{company_name}}" href="{{path('app_invoices', {month: 'now'|date('m'), year:'now'|date('Y')  }) }}">
 				<li	class="d-flex p-3 align-items-center item">
 					<div class="d-flex align-items-center justify-content-between w-100 title-container">
 						<div class="d-flex align-items-center">
@@ -121,7 +121,7 @@
 				</li>
 			</a>
 
-            <a aria-label="Admin - Formation WS" href="{{path('admin') }}">
+            <a aria-label="Admin - {{company_name}}" href="{{path('admin') }}">
 				<li	class="d-flex p-3 align-items-center item">
 					<div class="d-flex align-items-center justify-content-between w-100 title-container">
 						<div class="d-flex align-items-center">
@@ -135,7 +135,7 @@
 
             {% endif %}
 
-			<a aria-label="Déconnectez vous de votre profil - Formation WS" href="{{path('app_logout') }}">
+			<a aria-label="Déconnectez vous de votre profil - {{company_name}}" href="{{path('app_logout') }}">
 				<li	class="d-flex p-3 align-items-center item">
 					<div class="d-flex align-items-center justify-content-between w-100 title-container">
 						<div class="d-flex align-items-center">
@@ -147,7 +147,7 @@
 				</li>
 			</a>
 
-            <a aria-label="Accédez à vos contrats - Formation WS" href="#">
+            <a aria-label="Accédez à vos contrats - {{company_name}}" href="#">
                 <li class="d-flex p-3 align-items-center item">
                     <div class="d-flex align-items-center justify-content-between w-100 title-container">
                         <div class="d-flex align-items-center">

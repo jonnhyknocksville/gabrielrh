@@ -12,7 +12,7 @@
         <div class="row">
         {% for job in jobs %}
             <div class="col-md-3 p-3">
-                <a aria-label="Accédez aux détails de l'offre - Formation WS" href="{{ path('app_jobs_details', { id : job.id}) }}">
+                <a aria-label="Accédez aux détails de l'offre - {{company_name}}" href="{{ path('app_jobs_details', { id : job.id}) }}">
                     <div class="card form-shadow bg-violet p-3 smallBorderRadius">
 
                         <div class="d-flex flex-column justify-content-between mb-3">
@@ -27,13 +27,13 @@
                         </div>
                         
                         <div class="card-body p-0">
-                            <p class="text-light"><i class="text-primary fa-solid fa-share"></i> Posutler chez Formation WS </p>
+                            <p class="text-light"><i class="text-primary fa-solid fa-share"></i> Posutler chez {{company_name}} </p>
                             <p class="card-text mb-3 text-info">{{ job.titleDescription }}</p>
                             
                             {% if job.id in listJobsApplied %}
                                 <i class="fa-solid fa-circle-check text-success"></i>
                             {% else %}
-                                <a aria-label="Acceptez la mission - Formation WS" href="{{ path('app_profile_application', { id : job.id}) }}" class="btn btn-outline-secondary text-light"> ACCEPTER LA MISSION </a>
+                                <a aria-label="Acceptez la mission - {{company_name}}" href="{{ path('app_profile_application', { id : job.id}) }}" class="btn btn-outline-secondary text-light"> ACCEPTER LA MISSION </a>
                             {% endif %}
                             {# <span class="text-light smallSize fst-italic"> Offre publiée le {{ job.updatedAt |date("m/d/Y") }} </span> #}
                         </div>

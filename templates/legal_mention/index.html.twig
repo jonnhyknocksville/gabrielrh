@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block meta_description %} Ce site est édité par la Formation WS, plateforme de formation en ligne dans l'univers du digital. {% endblock %}
+{% block meta_description %} Ce site est édité par {{company_name}}, plateforme de formation en ligne dans l'univers du digital. {% endblock %}
 {% block title %}Nos mentions légales {{parent()}}{% endblock %}
 
 {% block body %}
@@ -12,19 +12,19 @@
 
     <h2>Mentions Légales</h2>
 
-    <p> La société Formation WS est une société à responsabilité limitée au capital de 1 500 € immatriculée au RCS de Cannes sous le n. 888 707 692 et dont le siège social est situé au 22 Av Jean de Lattre de Tassigny 06400 Cannes, France (N° TVA intracommunautaire : FR 038 887 076 92). 
-    <p> La Formation WS est représentée par Mr. Samih Habbani, son gérant.
+    <p> La société {{company_name}} est une société à responsabilité limitée au capital de 1 500 € immatriculée au RCS de {{ville}} sous le n. {{siren}} et dont le siège social est situé au {{company_address}}, France (N° TVA intracommunautaire : FR 038 887 076 92). 
+    <p> {{company_name}} est représentée par Mr. {{gerant}}, son gérant.
 
-    <p> La Formation WS est un établissement privé d’enseignement à distance qui fournit des prestations de formations en ligne et en présentiel.<br/>
+    <p> {{company_name}} est un établissement privé d’enseignement à distance qui fournit des prestations de formations en ligne et en présentiel.<br/>
     Le site est hébergé par OVH dont l’adresse est la suivante :  2, rue Kellermann, 59100 Roubaix. France.</p>
 
     <p class="font-weight-bold"> Pour nous contacter </p>
 
-    <p><b> Par téléphone</b> : +33 7 82 14 81 41 <br/>
-    <b>Par email</b> : contact@formationws.fr<br/>
-    <b>Par courrier</b> : Web Start, 22 Av Jean de Lattre de Tassigny - 06400 Cannes, France</p>
-    <b>Notre blog</b> : <a target="_blank" aria-label="Retrpuvez la réponse numérique notre blog officiel - Formation WS" href="https://www.lareponsenumerique.fr/"> www.lareponsenumerique.fr </a> </p>
-    <p>Vous bénéficiez d’un droit d’accès et de rectification aux informations qui vous concernent, que vous pouvez exercer par courrier à l'adresse suivante : Web Start - Protection des données 22 Av Jean de Lattre de Tassigny 06400 Cannes France.<br/>
+    <p><b> Par téléphone</b> : {{phone_number}} <br/>
+    <b>Par email</b> : {{mail_address}}<br/>
+    <b>Par courrier</b> : {{company_name}}, {{company_address}}, France</p>
+    <b>Notre blog</b> : <a target="_blank" aria-label="Retrpuvez la réponse numérique notre blog officiel - {{company_name}}" href="https://www.lareponsenumerique.fr/"> www.lareponsenumerique.fr </a> </p>
+    <p>Vous bénéficiez d’un droit d’accès et de rectification aux informations qui vous concernent, que vous pouvez exercer par courrier à l'adresse suivante : {{company_name}} - Protection des données {{company_address}} France.<br/>
     Vous pouvez également vous opposer au traitement des données vous concernant.</p>
 
     <p>Pour plus d’informations sur tous vos droits vous pouvez consulter notre Politique de Protection des Données Personnelles.</p>

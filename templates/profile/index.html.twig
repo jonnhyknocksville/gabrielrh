@@ -27,13 +27,13 @@
 
             <div class="col-md-3 p-3">
                 <div class="bg-none card p-4 form-shadow align-items-center">
-                    <a aria-label="Consultez votre planning - Formation WS" class="pb-3" href="{{ path('app_teacher_calendar') }}">
+                    <a aria-label="Consultez votre planning - {{company_name}}" class="pb-3" href="{{ path('app_teacher_calendar') }}">
                         <i class="fa-solid fa-clock icon-xl text-light"></i>
                     </a>
                     
                     <div class="card-body p-0">
                     
-                        <a aria-label="Consultez votre planning - Formation WS" href="{{ path('app_teacher_calendar') }}">
+                        <a aria-label="Consultez votre planning - {{company_name}}" href="{{ path('app_teacher_calendar') }}">
                             <h5 class="card-title fw-bold text-light text-center">MON PLANNING</h5>
                             <p class="card-text text-info text-center">Accéder à mon planning</p>
                         </a>
@@ -44,13 +44,13 @@
 
             <div class="col-md-3 p-3">
                 <div class="bg-none card p-4 form-shadow align-items-center">
-                    <a aria-label="Consultez vos contrats - Formation WS" class="pb-3" href="{{ path('app_profile_contracts') }}">
+                    <a aria-label="Consultez vos contrats - {{company_name}}" class="pb-3" href="{{ path('app_profile_contracts') }}">
                         <i class="fa-solid fa-shield-halved icon-xl text-light"></i>
                     </a>
                     
                     <div class="card-body p-0">
                     
-                        <a aria-label="Consultez vos contrats - Formation WS" href="{{ path('app_profile_contracts') }}">
+                        <a aria-label="Consultez vos contrats - {{company_name}}" href="{{ path('app_profile_contracts') }}">
                             <h5 class="card-title fw-bold text-light text-center">MES CONTRATS</h5>
                                 <p class="card-text text-info text-center">Accéder à mes contrats</p>
                         </a>
@@ -62,13 +62,13 @@
             {% if is_granted('ROLE_ADMIN') %}
                 <div class="col-md-3 p-3">
                     <div class="bg-none card p-4 form-shadow align-items-center">
-                        <a aria-label="Consultez vos contrats - Formation WS" class="pb-3" href="{{ path('app_profile_contracts') }}">
+                        <a aria-label="Consultez vos contrats - {{company_name}}" class="pb-3" href="{{ path('app_profile_contracts') }}">
                             <i class="fa-solid fa-shield-halved icon-xl text-light"></i>
                         </a>
                         
                         <div class="card-body p-0">
                         
-                            <a aria-label="Consultez vos contrats - Formation WS" href="{{ path('app_profile_contracts') }}">
+                            <a aria-label="Consultez vos contrats - {{company_name}}" href="{{ path('app_profile_contracts') }}">
                                 <h5 class="card-title fw-bold text-light text-center">MES FORMATEURS</h5>
                                     <p class="card-text text-info text-center">Accéder à mes contrats</p>
                             </a>
@@ -80,13 +80,13 @@
 
             <div class="col-md-3 p-3">
                 <div class="bg-none card p-4 form-shadow align-items-center">
-                    <a aria-label="Consultez vos spécialitées - Formation WS" class="pb-3" href="{{ path('app_profile_skills') }}">
+                    <a aria-label="Consultez vos spécialitées - {{company_name}}" class="pb-3" href="{{ path('app_profile_skills') }}">
                         <i class="fa-solid fa-file-contract icon-xl text-light"></i>
                     </a>
                     
                     <div class="card-body p-0">
                     
-                        <a aria-label="Consultez vos spécialitées - Formation WS" href="{{ path('app_profile_skills') }}">
+                        <a aria-label="Consultez vos spécialitées - {{company_name}}" href="{{ path('app_profile_skills') }}">
                             <h5 class="card-title fw-bold text-light text-center">MES SPÉCIALITÉS</h5>
                             <p class="card-text text-info text-center">Mes interventions</p>
                         </a>
@@ -97,13 +97,13 @@
             
             <div class="col-md-3 p-3">
                 <div class="bg-none card p-4 form-shadow align-items-center">
-                    <a aria-label="Continuez à vous former - Formation WS" class="pb-3" href="https://www.academiews.fr/courses">
+                    <a aria-label="Continuez à vous former - {{company_name}}" class="pb-3" href="https://www.academiews.fr/courses">
                         <i class="fa-solid fa-handshake-angle icon-xl text-light"></i>
                     </a>
                     
                     <div class="card-body p-0">
                     
-                        <a aria-label="Continuez à vous former - Formation WS" href="https://www.academiews.fr/courses">
+                        <a aria-label="Continuez à vous former - {{company_name}}" href="https://www.academiews.fr/courses">
                             <h5 class="card-title fw-bold text-light text-center">SE FORMER</h5>
                             <p class="card-text text-info text-center">Accéder a l'Académie WS</p>
                         </a>

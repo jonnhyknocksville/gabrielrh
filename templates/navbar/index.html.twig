@@ -3,8 +3,8 @@
             <div class="container-fluid bg-secondary-dark">
                 
                 <div class="logo-smartphone d-flex flex-column align-items-start logo ms-3">
-                    <a aria-label="Retournez à la page d'accueil - Formation WS" href="{{ path('app_home') }}">
-                        <img src="{{ asset('build/logo_tout_blanc.png')}}" width="auto" height="40px" title="Formation WS" alt="Formation WS">
+                    <a aria-label="Retournez à la page d'accueil - {{company_name}}" href="{{ path('app_home') }}">
+                        <img src="{{ asset('build/logo_tout_blanc.png')}}" width="auto" height="40px" title="{{company_name}}" alt="{{company_name}}">
                     </a>
                 </div>
 
@@ -18,22 +18,22 @@
                     <div class="full-screen d-flex align-items-center navbar-nav ms-auto">
                         <ul class="d-flex align-items-center navbar-nav">
                             <li class="nav-item px-1 py-1">
-                                <a aria-label="Commandez un formateur - Formation WS" class="smallBorderRadius px-3 bg-secondary text-light nav-link " href="{{ path('professionals') }}">Je cherche un formateur</a>
+                                <a aria-label="Commandez un formateur - {{company_name}}" class="smallBorderRadius px-3 bg-secondary text-light nav-link " href="{{ path('professionals') }}">Je cherche un formateur</a>
                             </li>
                             <li class="nav-item px-1 py-1">
-                                <a aria-label="Devenir un formateur - Formation WS" class="smallBorderRadius px-3 bg-primary text-light nav-link text-light" href="{{ path('teachers') }}">Devenir formateur</a>
+                                <a aria-label="Devenir un formateur - {{company_name}}" class="smallBorderRadius px-3 bg-primary text-light nav-link text-light" href="{{ path('teachers') }}">Devenir formateur</a>
                             </li>
                             <li class="nav-item px-1 py-1">
-                                <a aria-label="Nos offres actuelles - Formation WS" class="smallBorderRadius px-3 fw-bold text-light bg-info nav-link text-info" href="{{ path('app_jobs') }}">Nos offres</a>
+                                <a aria-label="Nos offres actuelles - {{company_name}}" class="smallBorderRadius px-3 fw-bold text-light bg-info nav-link text-info" href="{{ path('app_jobs') }}">Nos offres</a>
                             </li>
                             <li class="nav-item px-1 py-1">
-                                <a aria-label="Découvrez nos domaines d'intervention - Formation WS" class="text-light nav-link text-info" href="{{ path('app_themes') }}">Nos interventions</a>
+                                <a aria-label="Découvrez nos domaines d'intervention - {{company_name}}" class="text-light nav-link text-info" href="{{ path('app_themes') }}">Nos interventions</a>
                             </li>
                             <li class="nav-item px-1 py-1">
-                                <a aria-label="Développez votre e-learning - Formation WS" class="text-light nav-link text-info" href="{{ path('app_elearning') }}">Développez son e-learning</a>
+                                <a aria-label="Développez votre e-learning - {{company_name}}" class="text-light nav-link text-info" href="{{ path('app_elearning') }}">Développez son e-learning</a>
                             </li>
                             <li class="nav-item px-1 py-1">
-                                <a aria-label="Contactez-nous - Formation WS" class="nav-link text-light" href="{{ path('app_contact') }}">Contact</a>
+                                <a aria-label="Contactez-nous - {{company_name}}" class="nav-link text-light" href="{{ path('app_contact') }}">Contact</a>
                             </li>
                         </ul>
                         

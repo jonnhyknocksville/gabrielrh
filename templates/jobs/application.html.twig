@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block meta_description %} Candidature spontanée chez la Formation WS. {% endblock %}
+{% block meta_description %} Candidature spontanée chez {{company_name}}. {% endblock %}
 {% block title %}Candidature spontanée {{parent()}}{% endblock %}
 
 {% form_theme applicationForm 'bootstrap_5_layout.html.twig' %}
@@ -26,7 +26,7 @@
 
                 {{ form_row(applicationForm.job, {'value' : id_job}) }}
                 <div class="col-12 mb-4">
-                    <h2 class="text-center">Devenir Formateur chez la Formation WS</h2>
+                    <h2 class="text-center">Devenir Formateur chez {{company_name}}</h2>
                 </div>
                 <div class="d-flex flex-column col-md-12 mb-3">
                     <label for="the_mission" class="form-label required">La mission</label>

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block meta_description %} La Formation WS intervient dans de nombreux domaines liés à l'univers du digital, comme la programamtion, le marketing ou encore le droit. {% endblock %}
+{% block meta_description %} {{company_name}} intervient dans de nombreux domaines liés à l'univers du digital, comme la programamtion, le marketing ou encore le droit. {% endblock %}
 {% block title %}Nos domaines d'intervention {{parent()}}{% endblock %}
 
 {% block body %}
@@ -17,8 +17,8 @@
         </div>
 
         <div class="col-md-12 d-flex justify-content-center">
-            <a aria-label=" Commander un formateur- Formation WS" class="text-light smallBorderRadius colorWhite btn btn-outline-primary pull-right border-radius-btn mt-5 fw600 d-flex align-items-center me-3" href="{{ path('find_teachers') }}"><i class="far fa-play-circle me-2"></i>COMMANDER UN FORMATEUR</a>
-            <a aria-label="Devenir formateur - Formation WS" class="text-light smallBorderRadius colorWhite btn btn-outline-secondary pull-right border-radius-btn mt-5 fw600 d-flex align-items-center" href="{{ path('teacher_opportunity') }}"><i class="far fa-play-circle me-2"></i>DEVENIR FORMATEUR</a>
+            <a aria-label=" Commander un formateur- {{company_name}}" class="text-light smallBorderRadius colorWhite btn btn-outline-primary pull-right border-radius-btn mt-5 fw600 d-flex align-items-center me-3" href="{{ path('find_teachers') }}"><i class="far fa-play-circle me-2"></i>COMMANDER UN FORMATEUR</a>
+            <a aria-label="Devenir formateur - {{company_name}}" class="text-light smallBorderRadius colorWhite btn btn-outline-secondary pull-right border-radius-btn mt-5 fw600 d-flex align-items-center" href="{{ path('teacher_opportunity') }}"><i class="far fa-play-circle me-2"></i>DEVENIR FORMATEUR</a>
         </div>
 
     </div>
@@ -37,12 +37,12 @@
             {% for theme in themes %}
                 <div class="col-md-3 p-3">
                     <div class="card form-shadow bg-none">
-                        <a aria-label="{{ theme.title }} - Formation WS" href="{{ path('app_themes_details', {id: theme.id}) }}">
+                        <a aria-label="{{ theme.title }} - {{company_name}}" href="{{ path('app_themes_details', {id: theme.id}) }}">
                             <img class="card-img-top smallBorderRadius" src="{{ asset('build/themes/' ~ theme.picture )}}" alt="{{ theme.title }}" title="{{ theme.title }}">
                         </a>
                         
                         <div class="card-body">
-                            <a aria-label="{{ theme.title }} - Formation WS" href="{{ path('app_themes_details', {id: theme.id}) }}">
+                            <a aria-label="{{ theme.title }} - {{company_name}}" href="{{ path('app_themes_details', {id: theme.id}) }}">
                                 <h5 class="card-title fw-bold text-light">{{ theme.title }}</h5>
                                 <p class="card-text mb-3 text-info">{{ theme.description }}</p>
                             </a>
@@ -57,8 +57,8 @@
             </div>  
 
             <div class="d-flex justify-content-center">
-                <a aria-label="Commander un formateur - Formation WS" class="mt-5 font-weight-bold btn btn-secondary text-white mx-3" href="{{path('professionals')}}" id="our-offer" role="button">CHERCHER UN FORMATEUR</a>
-                <a aria-label="Devenir formateur - Formation WS" class="mt-5 font-weight-bold btn btn-primary text-white mx-3" href="{{path('teachers')}}" role="button">DEVENIR FORMATEUR</a>
+                <a aria-label="Commander un formateur - {{company_name}}" class="mt-5 font-weight-bold btn btn-secondary text-white mx-3" href="{{path('professionals')}}" id="our-offer" role="button">CHERCHER UN FORMATEUR</a>
+                <a aria-label="Devenir formateur - {{company_name}}" class="mt-5 font-weight-bold btn btn-primary text-white mx-3" href="{{path('teachers')}}" role="button">DEVENIR FORMATEUR</a>
             </div>
 
         </div>

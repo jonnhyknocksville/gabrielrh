@@ -1,6 +1,6 @@
 {% extends 'base-dark.html.twig' %}
 
-{% block meta_description %} La société Formation WS est spécialisée dans le placement de formateur et de consultant dans le monde du digital. {% endblock %}
+{% block meta_description %} La société {{company_name}} est spécialisée dans le placement de formateur et de consultant dans le monde du digital. {% endblock %}
 {% block title %}Placement de formateurs {{parent()}} {% endblock %}
 
 {% form_theme pro_need 'bootstrap_5_layout.html.twig' %}
@@ -48,8 +48,8 @@
             #}
 
             <div class="d-flex justify-content-center">
-                <a aria-label="Commandez un formateur - Formation WS" class="mt-5 font-weight-bold btn btn-secondary text-white mx-3" href="{{path('professionals')}}" role="button">CHERCHEZ UN FORMATEUR</a>
-                <a aria-label="Devenir formateur - Formation WS" class="mt-5 font-weight-bold btn btn-primary text-white mx-3" href="{{path('teachers')}}" role="button">DEVENIR FORMATEUR</a>
+                <a aria-label="Commandez un formateur - {{company_name}}" class="mt-5 font-weight-bold btn btn-secondary text-white mx-3" href="{{path('professionals')}}" role="button">CHERCHEZ UN FORMATEUR</a>
+                <a aria-label="Devenir formateur - {{company_name}}" class="mt-5 font-weight-bold btn btn-primary text-white mx-3" href="{{path('teachers')}}" role="button">DEVENIR FORMATEUR</a>
             </div>
         </div>
     </section>
@@ -114,7 +114,7 @@
 
         <div class="row justify-content-center flex-column align-items-center backGroundColorGrey mt-5 mb-5">
             <div class="d-flex flex-column align-items-center justify-content-center pt-5">
-                <h2 class="text-light text-center mb-5"> La société Formation WS est spécialisée dans le placement de formateur ! </h2>
+                <h2 class="text-light text-center mb-5"> La société {{company_name}} est spécialisée dans le placement de formateur ! </h2>
                 <p class="text-light text-center col-md-8">Notre mission est d'aider les professionnels de la formation à trouver le bon formateur pour permettre à leurs apprenants de développer leurs compétences techniques, en <span class="text-primary fw600"> programmation </span>, en <span class="text-primary fw600"> marketing online </span> et bien d'autres sujets pour qu'ils puissent intégrer des projets innovants, lucratifs et potentiellement changer leur vie pour le meilleur !</p>
             </div>
 
@@ -138,8 +138,8 @@
             </ul>
 
             <div class="d-flex justify-content-center mb-5">
-                <a aria-label="Commandez un formateur - Formation WS" class="mt-5 font-weight-bold btn btn-outline-secondary text-white mx-3" href="{{path('professionals')}}" role="button">CHERCHEZ UN FORMATEUR</a>
-                <a aria-label="Devenir formateur - Formation WS" class="mt-5 font-weight-bold btn btn-outline-primary text-white mx-3" href="{{path('app_jobs')}}" role="button">NOS OFFRES ACTUELLES</a>
+                <a aria-label="Commandez un formateur - {{company_name}}" class="mt-5 font-weight-bold btn btn-outline-secondary text-white mx-3" href="{{path('professionals')}}" role="button">CHERCHEZ UN FORMATEUR</a>
+                <a aria-label="Devenir formateur - {{company_name}}" class="mt-5 font-weight-bold btn btn-outline-primary text-white mx-3" href="{{path('app_jobs')}}" role="button">NOS OFFRES ACTUELLES</a>
             </div>
 
         </div>
@@ -161,12 +161,12 @@
             {% for theme in themes %}
                 <div class="col-md-3 p-3">
                     <div class="card form-shadow bg-none">
-                        <a aria-label="{{theme.title}} - Formation WS" href="{{path('app_themes_details', {id:theme.id})}}">
+                        <a aria-label="{{theme.title}} - {{company_name}}" href="{{path('app_themes_details', {id:theme.id})}}">
                             <img class="card-img-top smallBorderRadius" src="{{ asset('build/themes/'~ theme.picture)}}" alt="{{theme.title}}" title="{{theme.title}}">
                         </a>
                         
                         <div class="card-body">
-                            <a aria-label="{{theme.title}} - Formation WS" href="{{path('app_themes_details', {id:theme.id})}}">
+                            <a aria-label="{{theme.title}} - {{company_name}}" href="{{path('app_themes_details', {id:theme.id})}}">
                                 <h5 class="card-title fw-bold text-light">{{theme.title}}</h5>
                                 <p class="card-text mb-3 text-info">{{theme.description}}</p>
                             </a>
@@ -177,8 +177,8 @@
             {% endfor %}
 
             <div class="d-flex justify-content-center">
-                <a aria-label="Nos domaines d'intervention - Formation WS" class="font-weight-bold btn btn-outline-secondary text-white mx-3" href="{{path('app_themes')}}" role="button">+ THÉMATIQUES</a>
-                <a aria-label="Notre offres de mission - Formation WS" class="font-weight-bold btn btn-outline-primary text-white mx-3" href="{{path('app_jobs')}}" role="button">NOS OFFRES</a>
+                <a aria-label="Nos domaines d'intervention - {{company_name}}" class="font-weight-bold btn btn-outline-secondary text-white mx-3" href="{{path('app_themes')}}" role="button">+ THÉMATIQUES</a>
+                <a aria-label="Notre offres de mission - {{company_name}}" class="font-weight-bold btn btn-outline-primary text-white mx-3" href="{{path('app_jobs')}}" role="button">NOS OFFRES</a>
             </div>
         </div>
 
@@ -250,7 +250,7 @@
                 <i class="text-primary fa-solid fa-star"></i>
                 <i class="text-primary fa-solid fa-star"></i>
 
-                4.9 sur 5 basé sur <a aria-label="Retrouvez nos avis Google - Formation WS" class="text-info" href="https://www.google.com/search?q=academie+ws&oq=academie+w&aqs=chrome.0.35i39i650j46i175i199i512j69i57j69i59j46i175i199i512j69i60l3.1534j0j7&sourceid=chrome&ie=UTF-8#lrd=0x47e66ffa2afcfa71:0xbdeea1c321822bb9,1,,,,"> +75 avis</a>
+                4.9 sur 5 basé sur <a aria-label="Retrouvez nos avis Google - {{company_name}}" class="text-info" href="https://www.google.com/search?q=academie+ws&oq=academie+w&aqs=chrome.0.35i39i650j46i175i199i512j69i57j69i59j46i175i199i512j69i60l3.1534j0j7&sourceid=chrome&ie=UTF-8#lrd=0x47e66ffa2afcfa71:0xbdeea1c321822bb9,1,,,,"> +75 avis</a>
 
             <p>
         </div>
@@ -406,7 +406,7 @@
                 <div class="contact-bar d-flex justify-content-center">
                     <div class="contact">
                         <h3 class="d-flex d-md-none text-with-gradient">Vous êtes un professionnel ?</h3>
-                        <a aria-label="Accédez à notre offre professionnelle - Formation WS" href="{{ path('app_elearning') }}" class="font-weight-bold btn btn-outline-info text-white">DÉCOUVREZ NOS FORMATIONS VIDÉO</a>
+                        <a aria-label="Accédez à notre offre professionnelle - {{company_name}}" href="{{ path('app_elearning') }}" class="font-weight-bold btn btn-outline-info text-white">DÉCOUVREZ NOS FORMATIONS VIDÉO</a>
                     </div>
                 </div>
             </div>
@@ -448,7 +448,7 @@
                     </div>
 
                     <div class="d-flex justify-content-center">
-                        <a aria-label="Retrouvez nos vidéos E-learning - Formation WS" class="px-3 py-3 smallBorderRadius btn btn-outline-secondary d-flex align-items-center text-light" href="{{path('app_elearning')}}">
+                        <a aria-label="Retrouvez nos vidéos E-learning - {{company_name}}" class="px-3 py-3 smallBorderRadius btn btn-outline-secondary d-flex align-items-center text-light" href="{{path('app_elearning')}}">
                             <i class="fa-solid fa-plus me-2"></i>
                             EN SAVOIR PLUS SUR NOS FORMATIONS VIDÉOS
                         </a>                
@@ -470,8 +470,8 @@
         <h2 class="text-center text-light my-3"> Rejoignez-nous sur Discord ! </h2>
 
         <div class="row mx-auto col-md-6 mt-5">
-            <a aria-label="Découvrez notre serveur Discord - Formation WS" href="https://discord.gg/2K7cxC52" target="_blank">
-                <img alt="Découvrez notre serveur Discord - Formation WS" id="img-discord" src="{{ asset('build/illustration_discord.png')}}" class="cursor-pointer img-fluid" />
+            <a aria-label="Découvrez notre serveur Discord - {{company_name}}" href="https://discord.gg/2K7cxC52" target="_blank">
+                <img alt="Découvrez notre serveur Discord - {{company_name}}" id="img-discord" src="{{ asset('build/illustration_discord.png')}}" class="cursor-pointer img-fluid" />
             </a>
         </div>
 
@@ -492,7 +492,7 @@
                 <div class="contact-bar d-flex justify-content-center">
                     <div class="contact">
                         <h3 class="d-flex d-md-none text-with-gradient">Vous êtes un professionnel ?</h3>
-                        <a aria-label="Accédez à notre offre professionnelle - Formation WS" href="{{ path('app_partners') }}" class="font-weight-bold btn btn-outline-info text-white">DÉCOUVREZ NOTRE OFFRE</a>
+                        <a aria-label="Accédez à notre offre professionnelle - {{company_name}}" href="{{ path('app_partners') }}" class="font-weight-bold btn btn-outline-info text-white">DÉCOUVREZ NOTRE OFFRE</a>
                     </div>
                 </div>
             </div>
@@ -517,7 +517,7 @@
                 <i class="text-primary fa-solid fa-star"></i>
                 <i class="text-primary fa-solid fa-star"></i>
 
-                4.9 sur 5 basé sur <a aria-label="Retrouvez nos avis Google - Formation WS" class="text-info" href="https://www.google.com/search?q=academie+ws&oq=academie+w&aqs=chrome.0.35i39i650j46i175i199i512j69i57j69i59j46i175i199i512j69i60l3.1534j0j7&sourceid=chrome&ie=UTF-8#lrd=0x47e66ffa2afcfa71:0xbdeea1c321822bb9,1,,,,"> +75 avis</a>
+                4.9 sur 5 basé sur <a aria-label="Retrouvez nos avis Google - {{company_name}}" class="text-info" href="https://www.google.com/search?q=academie+ws&oq=academie+w&aqs=chrome.0.35i39i650j46i175i199i512j69i57j69i59j46i175i199i512j69i60l3.1534j0j7&sourceid=chrome&ie=UTF-8#lrd=0x47e66ffa2afcfa71:0xbdeea1c321822bb9,1,,,,"> +75 avis</a>
 
             <p>
         </div>
@@ -609,7 +609,7 @@
                         
                         <div class="card-body p-0">
                             <h5 class="card-title fw-bold text-light">Formateur en programmation</h5>
-                            <p class="card-text mb-3 text-info">J'ai démarré ma carrière chez formation ws depuis 2 ans, formations au top, équipe professionnelle, merci !</p>
+                            <p class="card-text mb-3 text-info">J'ai démarré ma carrière chez {{company_name}} depuis 2 ans, formations au top, équipe professionnelle, merci !</p>
                             <div class="d-flex align-items-center"> 
                                 <img style="width:2.5rem; height:2.5rem" class="smallBorderRadius" src="{{ asset('build/quentin.jpeg')}}" alt="icon d'avatar"/>
                                 <p class="text-light ms-3 my-0 fst-italic"> Quentin V. </p>

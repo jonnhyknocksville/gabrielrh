@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block meta_description %} La société Formation WS est spécialisée dans le placement de formateur et de consultant dans le monde du digital. {% endblock %}
+{% block meta_description %} La société {{company_name}} est spécialisée dans le placement de formateur et de consultant dans le monde du digital. {% endblock %}
 {% block title %}Placement de formateurs {{parent()}} {% endblock %}
 
 {% block body %}
@@ -13,12 +13,12 @@
 <section style="display:flex; padding:2rem">
     <div style="width:50%;border:1px solid black">
         <div style="background-color:blue;margin-bottom:10px;padding:0.5rem"> Le Client </div>
-        <p style="margin-left:1rem">Société : <b>Web Start</b></p>
+        <p style="margin-left:1rem">Société : <b>{{company_name}}</b></p>
         <p style="margin-left:1rem">Forme : <b>SASU</b></p>
-        <p style="margin-left:1rem">Représenté par : <b>Samih Habbani</b></p>
-        <p style="margin-left:1rem">Siret : <b>878 910 710 00010</b> </p>
-        <p style="margin-left:1rem">Contact : <b>07 82 14 81 41 - sam@formationws.fr</b> </p>
-        <p style="margin-left:1rem">Adresse : <b>22 Av Jean de Lattre de Tassigny, 06400, Cannes</b></p>
+        <p style="margin-left:1rem">Représenté par : <b>{{gerant}}</b></p>
+        <p style="margin-left:1rem">Siret : <b>{{siret}}</b> </p>
+        <p style="margin-left:1rem">Contact : <b>{{phone_number}} - {{web_site_url}}</b> </p>
+        <p style="margin-left:1rem">Adresse : <b>{{company_address}}</b></p>
     </div>
     <div style="width:50%;border:1px solid black">
         <div style="background-color:blue;margin-bottom:10px;padding:0.5rem"> Le Prestataire </div>
@@ -80,7 +80,7 @@
 <section style="padding:2rem">
     <p> Vous nous avez proposé d’intervenir chez nos clients pour des prestations de formation, si vous êtes d’accord avec les conditions ci-dessus, merci de nous confirmer votre acceptation par votre signature sur ce bon de commande.</p>
     <p>« En signant ce Bon de Commande, je reconnais avoir pris connaissance des conditions générales contractuelles, qui m’ont été transmises en deuxième page, et les accepte sans réserve ».</p>
-    <p>Fait en deux originaux, à Cannes, le <b>{{contractDate|date("d-m-Y")}}</b>.</p>
+    <p>Fait en deux originaux, à {{ville}}, le <b>{{contractDate|date("d-m-Y")}}</b>.</p>
     <p>Signature</p>
 </section>
 

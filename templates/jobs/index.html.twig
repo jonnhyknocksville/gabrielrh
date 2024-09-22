@@ -12,7 +12,7 @@
 					NOS DERNIÈRES OFFRES
 				</h1>
 				<h2 class="text-center text-primary fw400">
-					CHEZ FORMATION WS
+					CHEZ {{company_name}}
 				</h2>
 			</div>
 
@@ -66,7 +66,7 @@
                                 </div>
                                 
                                 <div class="card-body p-0">
-                                    <p class="text-light"><i class="text-primary fa-solid fa-share"></i> Posutler chez Formation WS </p>
+                                    <p class="text-light"><i class="text-primary fa-solid fa-share"></i> Posutler chez {{company_name}} </p>
                                     <p class="card-text mb-3 text-info">{{ job.titleDescription }}</p>
                                     
                                     <span class="text-light smallSize fst-italic"> Offre publiée le {{ job.updatedAt |date("m/d/Y") }} </span>
@@ -126,28 +126,28 @@
             <div class="modal-body p-4 bg-secondary-dark">
                 <ul class="d-flex justify-content-around"> 
                     <li>
-                        <a aria-label="Partagez nos offres sur Twitter - Formation WS" href="https://twitter.com/share?url={{ app.request.uri }}"
+                        <a aria-label="Partagez nos offres sur Twitter - {{company_name}}" href="https://twitter.com/share?url={{ app.request.uri }}"
                         onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
                             target="_blank" title="Partagez nos offres sur Twitter">
                             <i style="color:#1DA1F2;height:2rem" class="fa-brands fa-twitter"></i>
                         </a>
                     </li>
                     <li>
-                        <a aria-label="Partagez nos offres sur Linkedin - Formation WS" href="https://www.linkedin.com/shareArticle?mini=true&url={{ app.request.uri }}"
+                        <a aria-label="Partagez nos offres sur Linkedin - {{company_name}}" href="https://www.linkedin.com/shareArticle?mini=true&url={{ app.request.uri }}"
                             onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
                             target="_blank" title="Partagez nos offres sur Linkedin">  
                             <i style="color:#1DA1F2;height:2rem" class="px-2 fa-brands fa-linkedin"></i>
                         </a>
                     </li>
                     <li>
-                        <a aria-label="Partagez nos offres sur Facebook - Formation WS" href="https://www.facebook.com/sharer/sharer.php?u={{ app.request.uri }}"
+                        <a aria-label="Partagez nos offres sur Facebook - {{company_name}}" href="https://www.facebook.com/sharer/sharer.php?u={{ app.request.uri }}"
                             onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
                             target="_blank" title="Partagez nos offres sur Faceboo">                                    
                             <i style="color:#3b5998;height:2rem" class="fa-brands fa-facebook"></i>
                         </a>
                     </li>
                     <li>
-                        <a aria-label="Partagez nos offres par email - Formation WS" href="mailto:?subject=Formation WS - &amp;body=Formation WS -  - {{ app.request.uri }}" title="Partagez nos offres par email"
+                        <a aria-label="Partagez nos offres par email - {{company_name}}" href="mailto:?subject={{company_name}} - &amp;body={{company_name}} -  - {{ app.request.uri }}" title="Partagez nos offres par email"
                             onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
                             target="_blank" title="Partagez nos offres par email">                                    
                             <i style="height:2rem" class="text-secondary fa-solid fa-envelope"></i>

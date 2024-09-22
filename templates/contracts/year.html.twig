@@ -1,7 +1,7 @@
 {# FACTURE #}
 <!DOCTYPE html>
 <html>
-	<title>Web Start -
+	<title>{{company_name}} -
 		{# {{bdcNumber}} #}
 	</title>
 	<body>
@@ -81,10 +81,10 @@
 
         <br>
 
-		<p class="bold">WEB START</p>
-		<p>Immatriculé(e) sous le N° Siret : n° <span>888 707 692 00016</span></p>
+		<p class="bold">{{company_name}}</p>
+		<p>Immatriculé(e) sous le N° Siret : n° <span>{{siret}}</span></p>
 		<p>Numéro de déclaration d’activité : <span>11756550775</span></p>
-		<p>Dont le siège social est situé : <span>22 Av Jean de Lattre de Tassigny – 06400 Cannes</span></p>
+		<p>Dont le siège social est situé : <span>{{company_address}}</span></p>
 		<p>Ci-après dénommé(e) <span>« le Prestataire » </span></p>
 
         <br>
@@ -478,11 +478,11 @@
         <p>En cas de difficulté relative à la validité, l’exécution ou l’interprétation du Contrat, les
         Parties s’engagent à chercher une solution amiable à leur différend.
         Tout différend relatif au Contrat sera soumis aux tribunaux du ressort de la Cour d'appel
-        de Cannes.</p>
+        de {{ville}}.</p>
 
         <br>
 
-        <p class="bold">FAIT A Cannes,</p>
+        <p class="bold">FAIT A {{ville}},</p>
         <p class="bold">LE 01/09/{{year}}</p>
         <p class="bold">EN DEUX EXEMPLAIRES</p>
 
@@ -499,7 +499,7 @@
 
             <div class="w-50 f-right">
                 <p class="text-center"> Pour le Prestataire </p>
-                <p class="text-center bold"> WEB START </p>
+                <p class="text-center bold"> {{company_name}} </p>
                 <p class="text-center"> Représenté par Mr <span>HABBANI SAMIH</span></p>
                 <hr>
             </div>

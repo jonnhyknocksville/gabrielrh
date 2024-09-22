@@ -8,6 +8,7 @@ use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Dompdf\Dompdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,6 +18,13 @@ use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 
 class ContractsController extends AbstractController
 {
+    private $params;
+
+    public function __construct(ParameterBagInterface $params)
+    {
+        $this->params = $params;
+    }
+
     #[Route('/contracts/{year}/{month}', name: 'app_contracts')]
     public function index(EntityManagerInterface $doctrine, String $year, String $month) : Response
     {
@@ -93,7 +101,7 @@ class ContractsController extends AbstractController
 
             // GOOD WAY TO RENAME PDF
             return new Response (
-                $dompdf->stream("Web Start - " . $bdcNumber, ["Attachment" => false]),
+                $dompdf->stream($this->params->get('env(MY_CUSTOM_VARIABLE)') . " - " . $bdcNumber, ["Attachment" => false]),
                 Response::HTTP_OK,
                 ['Content-Type' => 'application/pdf']
             );
@@ -136,7 +144,7 @@ class ContractsController extends AbstractController
         $dompdf->render();
 
         return new Response (
-            $dompdf->stream("Web Start - contrat de prestations de formation - " . $client->getName() . " " . $client->getCommercialName() . " - " . $year . "_" . $year + 1),
+            $dompdf->stream($this->params->get('env(MY_CUSTOM_VARIABLE)') . " - contrat de prestations de formation - " . $client->getName() . " " . $client->getCommercialName() . " - " . $year . "_" . $year + 1),
             Response::HTTP_OK,
             ['Content-Type' => 'application/pdf']
         );
@@ -217,7 +225,7 @@ class ContractsController extends AbstractController
             $dompdf->render();
 
             return new Response (
-                $dompdf->stream("Web Start - " . $bdcNumber, ["Attachment" => false]),
+                $dompdf->stream($this->params->get('env(MY_CUSTOM_VARIABLE)') . " - " . $bdcNumber, ["Attachment" => false]),
                 Response::HTTP_OK,
                 ['Content-Type' => 'application/pdf']
             );

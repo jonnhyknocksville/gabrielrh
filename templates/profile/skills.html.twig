@@ -13,13 +13,13 @@
 
                 <div class="col-md-3 p-3">
                     <div class="card form-shadow bg-none">
-                        <a aria-label="{{ skill.title }} - Formation WS" href="{{ path('app_courses_details', {id: skill.id}) }}">
+                        <a aria-label="{{ skill.title }} - {{company_name}}" href="{{ path('app_courses_details', {id: skill.id}) }}">
                             <img class="card-img-top smallBorderRadius" src="{{ asset('build/courses/' ~ skill.logo)}}" alt="{{ skill.title }}" title="{{ skill.title }}">
                         </a>
                         
                         <div class="card-body">
                         
-                            <a aria-label="{{ skill.title }} - Formation WS" href="{{ path('app_courses_details', {id: skill.id}) }}">
+                            <a aria-label="{{ skill.title }} - {{company_name}}" href="{{ path('app_courses_details', {id: skill.id}) }}">
                                 <h5 class="card-title fw-bold text-light">{{ skill.title }}</h5>
                             </a>
                         </div>

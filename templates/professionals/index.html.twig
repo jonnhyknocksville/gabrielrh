@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block meta_description %} Vous cherchez des formateurs? Passez par la Formation WS pour trouver les bons profils.  {% endblock %}
+{% block meta_description %} Vous cherchez des formateurs? Passez par {{company_name}} pour trouver les bons profils.  {% endblock %}
 {% block title %}Placement de formateurs {{parent()}} {% endblock %}
 
 {% block body %}
@@ -17,7 +17,7 @@
         </div>
 
         <div class="col-md-12 d-flex justify-content-center">
-            <a aria-label="Comment ça marche pour recruter un formateur - Formation WS" class="text-light smallBorderRadius colorWhite btn btn-secondary pull-right border-radius-btn mt-5 fw600 d-flex align-items-center" href="{{ path('app_professional_process') }}"><i class="fa-solid fa-gear me-2"></i>COMMENT ÇA MARCHE ?</a>
+            <a aria-label="Comment ça marche pour recruter un formateur - {{company_name}}" class="text-light smallBorderRadius colorWhite btn btn-secondary pull-right border-radius-btn mt-5 fw600 d-flex align-items-center" href="{{ path('app_professional_process') }}"><i class="fa-solid fa-gear me-2"></i>COMMENT ÇA MARCHE ?</a>
         </div>
 
     </div>
@@ -29,8 +29,8 @@
             </div>
             <div class="col-md-6 mb-5">
                 <p class="text-justify"> Chez la Formationf WS, nous savons que la réussite des apprenants passe en grande partie par le formateur, c'est pourquoi nous sélectionnons avec nos soin les formateurs avec lesquels nous souhaitons collaborer.
-                <a aria-label="Commandez un formateur - Formation WS" href="{{ path('find_teachers') }}" class="mt-5 btn btn-secondary justify-content-center" style="color:white !important">COMMANDEZ UN FORMATEUR</a>
-                <a aria-label="Devenir formateur - Formation WS" href="{{ path('app_professional_process') }}" class="mt-5 btn btn-primary justify-content-center" style="color:white !important">PROCESSUS DE RECRUTEMENT</a>
+                <a aria-label="Commandez un formateur - {{company_name}}" href="{{ path('find_teachers') }}" class="mt-5 btn btn-secondary justify-content-center" style="color:white !important">COMMANDEZ UN FORMATEUR</a>
+                <a aria-label="Devenir formateur - {{company_name}}" href="{{ path('app_professional_process') }}" class="mt-5 btn btn-primary justify-content-center" style="color:white !important">PROCESSUS DE RECRUTEMENT</a>
             </div>
         </div>
 
@@ -47,15 +47,15 @@
                 <div class="col-md-6 order-1 order-sm-2">
                     <div class="my-3 text-primary">TOUS NOS FORMATEURS ONT EXERCÉ DANS LE DOMAINE QU'ILS ENSEIGNENT</div>
                     <h3>Des formateurs expérimentés</h3>
-                    <p class="text-justify">Tous nos formateurs chez la Formation WS ont exercé un métier lié à la thématique qu'ils enseignent auprès de vos étudiants car nous sommes convaincus que la pratique est un élément clef dans la transmission des connaissances. Nos formateurs sont donc des <span class="text-secondary fw-bold">professionnels passionés </span> avec l'envie de partager leur connaissances professionnelles.</p>
+                    <p class="text-justify">Tous nos formateurs chez {{company_name}} ont exercé un métier lié à la thématique qu'ils enseignent auprès de vos étudiants car nous sommes convaincus que la pratique est un élément clef dans la transmission des connaissances. Nos formateurs sont donc des <span class="text-secondary fw-bold">professionnels passionés </span> avec l'envie de partager leur connaissances professionnelles.</p>
                 </div>
             </div>
 
             <div class="row col-md-8 mx-auto my-3 align-items-center">
                 <div class="col-md-6" style="border-top:1px solid rgba(94, 36, 195, 0.2);padding-top:2rem;">
-                    <div class="my-3 text-primary">La Formation WS CENTRALISE LES SUPPORTS DE COURS DE SES FORMATEURS</div>
+                    <div class="my-3 text-primary">{{company_name}} CENTRALISE LES SUPPORTS DE COURS DE SES FORMATEURS</div>
                     <h3>Centralisation du contenu pédagogique</h3>
-                    <p class="text-justify">Pour assurer des supports de qualité, <span class="text-secondary fw-bold">la Formation WS centralise sur sa plateforme tous les exercices, cours théoriques ou travaux pratiques </span> délivrés par nos formateurs pour s'assurer de la qualité des exercices et des contenus délivrés et faciliter le transfert de ces supports auprès de vos apprenants.</p>
+                    <p class="text-justify">Pour assurer des supports de qualité, <span class="text-secondary fw-bold">{{company_name}} centralise sur sa plateforme tous les exercices, cours théoriques ou travaux pratiques </span> délivrés par nos formateurs pour s'assurer de la qualité des exercices et des contenus délivrés et faciliter le transfert de ces supports auprès de vos apprenants.</p>
                 </div>
 
                 <div class="col-md-6 d-flex justify-content-center">
@@ -80,7 +80,7 @@
                 <div class="col-md-6" style="border-top:1px solid rgba(94, 36, 195, 0.2);padding-top:2rem;">
                     <div class="my-3 text-primary">TOUS NOS COURS SONT À JOUR AVEC LES TENDANCES ACTUELLES DU MARCHÉ</div>
                     <h3>Des supports de cours mis à jour tous les 6 mois</h3>
-                    <p class="text-justify">Chez la Formation WS, nous ne faisons pas que placer des formateurs, puisque <span class="text-secondary fw-bold">nous produisons et fournissons également des cours complets</span>, suivant les niveaux que nous mettons à disposition de nos formateurs pour être sûr de répondre au mieux aux besoins du marché.</p>
+                    <p class="text-justify">Chez {{company_name}}, nous ne faisons pas que placer des formateurs, puisque <span class="text-secondary fw-bold">nous produisons et fournissons également des cours complets</span>, suivant les niveaux que nous mettons à disposition de nos formateurs pour être sûr de répondre au mieux aux besoins du marché.</p>
                 </div>
 
                 <div class="col-md-6 d-flex justify-content-center">
@@ -120,9 +120,9 @@
                 </div>
 
                 <div class="col-md-6 order-1 order-sm-2" style="border-top:1px solid rgba(94, 36, 195, 0.2);padding-top:2rem;">
-                    <div class="my-3 text-primary">CHEZ LA FORMATION WS VOUS TROUVEREZ UN PANNEL DE FORMATEURS DIFFÉRENTS</div>
+                    <div class="my-3 text-primary">CHEZ {{company_name}} VOUS TROUVEREZ UN PANNEL DE FORMATEURS DIFFÉRENTS</div>
                     <h3>Diversité des profils et des niveaux</h3>
-                    <p class="text-justify">Chez la Formation WS, nous collaborons avec des formateurs de toutes horizons et de différents niveaux pour assurer des cours autant auprès de débutant que de professionnels déjà en poste.</p>
+                    <p class="text-justify">Chez {{company_name}}, nous collaborons avec des formateurs de toutes horizons et de différents niveaux pour assurer des cours autant auprès de débutant que de professionnels déjà en poste.</p>
                 </div>
             </div>
 
@@ -130,8 +130,8 @@
                 <div class="col-md-6" style="border-top:1px solid rgba(94, 36, 195, 0.2);padding-top:2rem;">
                     <div class="my-3 text-primary">NOUS CONNAISSONS LES ENJEUX LIÉS AU MARCHÉ DE LA FORMATION</div>
                     <h3>Plus de 8 ans d'expérience dans le domaine</h3>
-                    <p class="text-justify">Collaborer avec la Formation WS, c'est collaborer avec une équipe disposant de plus de <span class="text-secondary fw-bold">8 ans d'expérience dans la formation digitale </span> avec un grand D. Que ce soit dans l'univers de la programmation, du marketing online ou encore des Systèmes et réseaux, la Formation WS dispose d'une réelle expertise qui fait ses preuves auprès de nos clients depuis 2015.</p>
-                    <a aria-label="Commandez un formateur - Formation WS" href="{{ path('find_teachers') }}" class="btn btn-primary justify-content-center" style="color:white !important">TROUVER LE BON FORMATEUR</a>
+                    <p class="text-justify">Collaborer avec {{company_name}}, c'est collaborer avec une équipe disposant de plus de <span class="text-secondary fw-bold">8 ans d'expérience dans la formation digitale </span> avec un grand D. Que ce soit dans l'univers de la programmation, du marketing online ou encore des Systèmes et réseaux, {{company_name}} dispose d'une réelle expertise qui fait ses preuves auprès de nos clients depuis 2015.</p>
+                    <a aria-label="Commandez un formateur - {{company_name}}" href="{{ path('find_teachers') }}" class="btn btn-primary justify-content-center" style="color:white !important">TROUVER LE BON FORMATEUR</a>
                 </div>
 
                 <div class="col-md-6 d-flex justify-content-center">

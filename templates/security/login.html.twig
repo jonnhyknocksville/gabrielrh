@@ -15,7 +15,7 @@
 
             {% if app.user %}
                 <div class="mb-3">
-                    Vous êtes connectés en tant que {{ app.user.userIdentifier }}, <a aria-label="Déconnectez vous - Formation WS" href="{{ path('app_logout') }}">Logout</a>
+                    Vous êtes connectés en tant que {{ app.user.userIdentifier }}, <a aria-label="Déconnectez vous - {{company_name}}" href="{{ path('app_logout') }}">Logout</a>
                 </div>
             {% endif %}
 
