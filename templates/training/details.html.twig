@@ -1,0 +1,310 @@
+{% extends 'base.html.twig' %}
+
+{% block meta_description %}
+	Nos formateurs transmettront à vos apprenants tout ce dont ils ont besoin de savoir pour maitriser la technologie HTML5
+{% endblock %}
+
+{% block title %}
+	Nos interventions en HTML5
+	{{parent()}}
+{% endblock %}
+
+{% block body %}
+
+	<div class="row" id="courseDetails" style="background:linear-gradient(0deg,#31092a,#0e0331)">
+
+		<div class="col-md-12 mx-auto row py-5" style="background:linear-gradient(0deg,#31092a,#0e0331)">
+
+			<div class="col-md-12">
+				<h1 class="text-center text-white">
+					FORMEZ VOS APPRENANTS EN
+					{{ training.name }}
+					AVEC NOS FORMATEURS
+				</h1>
+				<h2 class="text-center text-primary fw400">
+					Découvrez notre expertise en
+					{{ training.name }}
+				</h2>
+			</div>
+
+			<div class="col-md-12">
+				<p class="text-center text-white">
+					EXPERTISE
+					<span class="text-primary">//</span>
+					PÉDAGOGIE
+					<span class="text-primary">//</span>
+					PUBLIC
+					<span class="text-primary">//</span>
+					RÉUSSITE</p>
+			</div>
+
+			<div class="col-md-12 d-flex justify-content-center">
+				<a aria-label=" Commander un formateur- {{company_name}}" class="text-light smallBorderRadius colorWhite btn btn-outline-primary pull-right border-radius-btn mt-5 fw600 d-flex align-items-center" href="{{ path('find_teachers') }}">
+					<i class="far fa-play-circle me-2"></i>Commander un formateur</a>
+				<a aria-label=" Devenir formateur- {{company_name}}" class="ms-3 text-light smallBorderRadius colorWhite btn btn-outline-secondary pull-right border-radius-btn mt-5 fw600 d-flex align-items-center" href="{{ path('teacher_opportunity') }}">
+					<i class="far fa-play-circle me-2"></i>Devenir formateur</a>
+			</div>
+
+		</div>
+
+
+		<div class=" col-md-12 white d-flex justify-content-center py-5">
+
+			<div class="col-12 col-md-8 row">
+				<div class="col-12 col-md-6">
+					<h2 class="text-light">{{ training.titleIntroduction }}</h2>
+
+					{% for p in training.introduction  %}
+						<p class="text-light"></p>
+						{{p}}
+					</p>
+				{% endfor %}
+			</div>
+
+			<div class="col-12 col-md-6 row justify-content-end my-5 my-md-0">
+				<div class="icon-box col-md-10 bg-grey-light py-4 px-3 d-flex flex-column justify-content-between form-shadow smallBorderRadius">
+
+					<ul class="d-flex h-100 flex-column justify-content-between">
+						<li class="d-flex align-items-center text-dark my-3">
+							<i class="fa-solid fa-pen"></i>
+							COURS MISE À JOUR EN 2023
+						</li>
+						<li class="d-flex align-items-center text-dark my-3">
+							<i class="fa-solid fa-chalkboard-user"></i>
+							CONCEPTS THÉORIQUES
+						</li>
+						<li class="d-flex align-items-center text-dark my-3">
+							<i class="fa-solid fa-dumbbell"></i>
+							EXERCICES CORRIGÉS
+						</li>
+						<li class="d-flex align-items-center text-dark my-3">
+							<i class="fa-solid fa-briefcase"></i>
+							TRAVAUX PRATIQUES
+						</li>
+						<li class="d-flex align-items-center text-dark my-3">
+							<i class="fa-solid fa-cookie-bite"></i>
+							QCM - SUPPORTS PDF FOURNIS
+						</li>
+						<li class="d-flex align-items-center text-dark my-3">
+							<i class="fa-solid fa-code"></i>
+							CODE DÉVELOPPÉ
+						</li>
+					</ul>
+
+				</div>
+			</div>
+
+			<div class="col-md-12 d-flex justify-content-center">
+				<a aria-label=" Commander un formateur- {{company_name}}" class="text-light smallBorderRadius colorWhite btn btn-outline-primary pull-right border-radius-btn mt-5 fw600 d-flex align-items-center" href="{{ path('find_teachers') }}">
+					<i class="far fa-play-circle me-2"></i>COMMANDER UN FORMATEUR</a>
+				<a aria-label=" Devenir formateur- {{company_name}}" class="ms-3 text-light smallBorderRadius colorWhite btn btn-outline-secondary pull-right border-radius-btn mt-5 fw600 d-flex align-items-center" href="{{ path('teacher_opportunity') }}">
+					<i class="far fa-play-circle me-2"></i>DEVENIR FORMATEUR</a>
+			</div>
+
+		</div>
+
+	</div>
+
+	<div class="col-md-12 d-flex justify-content-center py-5">
+
+		<div class="col-md-6" id="video_introduction">
+			<div class="text-with-gradient text-center pB-5 relative">
+				&lt; INTRODUCTION AU SUJET /&gt;
+			</div>
+
+			<h2 class="text-center text-light">
+				NOTRE EXPERTISE EN
+				{{ training.name }}
+			</h2>
+			{{training.videoIntroduction | raw }}
+		</div>
+
+	</div>
+
+
+	<div class=" col-md-12 py-5 white" id="finalObjectives">
+
+		<div class="offset-md-3 col-md-8 d-flex flex-column">
+			<h4 class="mb-4 text-light">
+				Avec nos formateurs, vos apprenants seront capables de:
+			</h4>
+			<ul>
+				{% for objective in training.objectives  %}
+					<li class="text-light">
+						<i class="fas fa-check mx-3 text-light"></i>
+						{{ objective }}
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+
+	</div>
+
+	<div class="bg-secondary-dark col-md-12 py-5" id="process">
+
+		<div class="offset-md-3 col-md-8 d-flex flex-column">
+			<h4 class="mb-4 text-light">
+				Appréciez la pédagogie de nos formateurs !
+			</h4>
+			<ul class="text-light">
+
+				{% for l in training.learningPath  %}
+					<li class="my-2">
+						<i class="fas fa-check mx-3"></i>
+						{{ l }}
+					</li>
+				{% endfor %}
+
+			</ul>
+
+			<h5 class="mt-4 fw600 font-italic text-light">
+				Notre équipe de formateurs décortique chaque sujet pour vous offrir des formations ludiques et intéractives, facil d'accès.
+			</h5>
+		</div>
+
+	</div>
+
+	<div class=" col-md-12 py-5 white" id="public">
+
+		<div class="offset-md-3 col-md-8 d-flex flex-column">
+			<h4 class="mb-4 text-light">
+				Qui nos formateurs peuvent former?
+			</h4>
+			<ul class="text-light">
+				{% for public in training.public  %}
+					<li class="my-2">
+						<i class="fas fa-check-circle mx-3"></i>
+						{{ public }}
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+
+	</div>
+
+	<section class="section bg-secondary text-center py-5">
+		<div class="container">
+			<div class="row text-center">
+				<div class="col-md-6 col-lg-3">
+					<div class="row ">
+						<div class="col-5 text-right text-light border-right py-3">
+							<div class="m-auto">
+								<i class="fa-solid fa-chalkboard-user icon-xl"></i>
+							</div>
+						</div>
+						<div class="col-7 text-left py-3">
+							<h1 class="text-danger font-weight-bold font40">+8 ans</h1>
+							<p class="text-light mb-1">d'expérience</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-3">
+					<div class="row">
+						<div class="col-5 text-right text-light border-right py-3">
+							<div class="m-auto">
+								<i class="fa-solid fa-flask icon-xl"></i>
+							</div>
+						</div>
+						<div class="col-7 text-left py-3">
+							<h1 class="text-danger font-weight-bold font40">+1000</h1>
+							<p class="text-light mb-1">élèves satisfaits</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-3">
+					<div class="row">
+						<div class="col-5 text-right text-light border-right py-3">
+							<div class="m-auto">
+								<i class="fa-solid fa-display icon-xl"></i>
+							</div>
+						</div>
+						<div class="col-7 text-left py-3">
+							<h1 class="text-danger font-weight-bold font40">+40</h1>
+							<p class="text-light mb-1">Formateurs compétents</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-3">
+					<div class="row">
+						<div class="col-5 text-right text-light border-right py-3">
+							<div class="m-auto">
+								<i class="fa-solid fa-industry icon-xl"></i>
+							</div>
+						</div>
+						<div class="col-7 text-left py-3">
+							<h1 class="text-danger font-weight-bold font40">100%</h1>
+							<p class="text-light mb-1">de réussite</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<div class=" col-md-12 py-5" id="requirements">
+
+		<div class="text-light offset-md-3 col-md-8 d-flex flex-column">
+			<h3>Prérequis</h3>
+
+			{% if training.requirements is not null %}
+				{% for requirement in training.requirements %}
+					<p>
+						<i class="fa-regular fa-star mx-3"></i>
+						{{ requirement }}
+					</p>
+
+				{% endfor %}
+			{% else %}
+				<p>
+					<i class="fa-solid fa-thumbs-up mx-3"></i>
+				</p>
+			</i>
+			Pas de pré-requis particulier pour ce cours !
+		</p>
+	{% endif %}
+</div></div><div class="bg-secondary-dark col-md-12 d-flex py-5 white justify-content-center" id="plan">
+<div class="col-md-8 d-flex flex-column">
+	<h2 class="mb-4 text-center text-light">
+		PLAN DU COURS :
+	</h2>
+
+	<div class="row mx-auto justify-content-center form-shadow">
+
+		<div class="bg-grey p-3 col-sm-8 course-section">
+			<div class="section-title text-light">
+				Les concepts fondamentaux en Onboarding
+			</div>
+		</div>
+
+		<ul class="px-5 col-sm-8 section-list liens-video bg-grey-light">
+			{% for chapter in training.chapters %}
+				<a class="m-3" aria-label="{{ chapter.name }} - {{ company_name }}" href="#">
+					<li class="d-flex align-items-center item">
+						<div class="d-flex align-items-center justify-content-between w-100 title-container">
+							<div class="d-flex align-items-center">
+								<svg class="text-dark svg-inline--fa fa-desktop fa-w-18" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="desktop" role="img" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 576 512" data-fa-i svg="">
+									<path fill="currentColor" d="M528 0H48C21.5 0 0 21.5 0 48v320c0 26.5 21.5 48 48 48h192l-16 48h-72c-13.3 0-24 10.7-24 24s10.7 24 24 24h272c13.3 0 24-10.7 24-24s-10.7-24-24-24h-72l-16-48h192c26.5 0 48-21.5 48-48V48c0-26.5-21.5-48-48-48zm-16 352H64V64h448v288z"></path>
+								</svg>
+								<span class="ms-3 lecture-name fw200 text-dark">
+									{{ chapter.name }}
+								</span>
+							</div>
+						</div>
+					</li>
+				</a>
+			{% else %}
+				<p>Aucun chapitre disponible pour cette formation.</p>
+			{% endfor %}
+		</ul>
+
+		<div class="col-md-12 d-flex justify-content-center">
+			<a aria-label=" Commander un formateur- {{company_name}}" class="text-light smallBorderRadius colorWhite btn btn-outline-primary pull-right border-radius-btn mt-5 fw600 d-flex align-items-center" href="{{ path('find_teachers') }}">
+				<i class="far fa-play-circle me-2"></i>
+				COMMANDER UN FORMATEUR</a>
+			<a aria-label=" Devenir formateur- {{company_name}}" class="ms-3 text-light smallBorderRadius colorWhite btn btn-outline-secondary pull-right border-radius-btn mt-5 fw600 d-flex align-items-center" href="{{ path('teacher_opportunity') }}">
+				<i class="far fa-play-circle me-2"></i>
+				DEVENIR FORMATEUR</a>
+		</div>
+
+	</div>
+</div></div></div>{% endblock %}

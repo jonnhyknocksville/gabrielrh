@@ -17,6 +17,7 @@ use App\Entity\Students;
 use App\Entity\Tarification;
 use App\Entity\TeacherApplication;
 use App\Entity\Themes;
+use App\Entity\Training;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -61,6 +62,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
 
         yield MenuItem::section('Nos domaines d\'intervention');
+        yield MenuItem::linkToCrud('Nos formations', 'fas fa-list', Training::class);
         yield MenuItem::linkToCrud('Nos cours', 'fas fa-list', Courses::class);
         yield MenuItem::linkToCrud('Nos thématiques', 'fas fa-list', Themes::class);
 
