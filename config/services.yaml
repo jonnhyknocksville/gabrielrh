@@ -10,7 +10,8 @@ parameters:
     app.path.themes_images: build/themes/
     app.mail_address: "%env(MAIL_ADDRESS)%"
     nom_entreprise: '%env(NOM_ENTREPRISE)%'
-
+    siret: '%env(SIRET)%'
+    
 services:
     # default configuration for services in *this* file
     _defaults:

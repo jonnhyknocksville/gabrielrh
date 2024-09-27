@@ -18,6 +18,9 @@ twig:
         siret: '%env(SIRET)%'
         gerant: '%env(GERANT)%'
         num_tva: '%env(NUM_TVA)%'
+        iban: '%env(IBAN)%'
+        naf_ape: '%env(NAF_APE)%'
+        bank: '%env(BANK)%'
 
 when@test:
     twig:

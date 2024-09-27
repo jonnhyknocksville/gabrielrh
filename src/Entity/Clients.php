@@ -431,6 +431,6 @@ class Clients
     }
 
     public function __toString(){
-        return  strtoupper($this->name); //or anything else
+        return  strtoupper($this->name . " - " . $this->commercialName . " - " . $this->city); //or anything else
     }
 }

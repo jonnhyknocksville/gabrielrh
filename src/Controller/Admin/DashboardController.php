@@ -24,6 +24,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,6 +37,14 @@ use PhpOffice\PhpSpreadsheet\Shared\Date as ExcelDate;
 
 class DashboardController extends AbstractDashboardController
 {
+
+    private $params;
+
+    public function __construct(ParameterBagInterface $params)
+    {
+        $this->params = $params;
+    }
+
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
@@ -168,6 +177,8 @@ class DashboardController extends AbstractDashboardController
                     $formateur->setLastName($formateurLastName);
                     $formateur->setEmail(strtolower($formateurFirstName . '.' . $formateurLastName . '@exemple.com')); // Mettre un email fictif ou une logique différente
                     $em->persist($formateur);
+                    $em->flush();
+
                 }
 
                 // Vérifier ou créer le cours
@@ -177,6 +188,8 @@ class DashboardController extends AbstractDashboardController
                     $course->setTitle($courseTitle);
                     $course->setShowOnWeb(false);
                     $em->persist($course);
+                    $em->flush();
+
                 }
 
                 // Vérifier ou créer le student avec une recherche insensible à la casse et suppression des espaces
@@ -205,6 +218,15 @@ class DashboardController extends AbstractDashboardController
                     $em->flush();
                 }
 
+                $siret = $this->params->get('siret'); // Remplacer par le SIRET que vous souhaitez rechercher
+                $clientInvoiceForTeacher = $em->getRepository(Clients::class)->findOneBy(['siret' => $siret]);
+
+                if (!$client) {
+                    // Si aucun client n'est trouvé, vous pouvez gérer l'erreur ici
+                    return new Response('Client avec le SIRET ' . $siret . ' non trouvé.');
+                }
+
+
                 // Créer la mission
                 $mission = new Mission();
                 $mission->setClient($client);
@@ -222,6 +244,7 @@ class DashboardController extends AbstractDashboardController
                 $mission->setClientPaid(false);
                 $mission->setTeacherPaid(false);
                 $mission->setStudent($student);
+                $mission->setInvoiceClient($clientInvoiceForTeacher);
                 $em->persist($mission);
             }
 
