@@ -18,37 +18,38 @@ class Courses
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\Column(length: 255, nullable:true)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $logo = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
     #[ORM\ManyToOne(inversedBy: 'courses')]
+    #[ORM\JoinColumn(nullable: true)]  // Utilisation correcte de JoinColumn pour rendre la relation nullable
     private ?Themes $theme = null;
 
-    #[ORM\Column(length: 255, nullable:true)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $heading = null;
 
-    #[ORM\Column(length: 255, nullable:true)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $titleIntroduction = null;
 
-    #[ORM\Column(nullable:true)]
-    private array $introduction = [];
+    #[ORM\Column(nullable: true)]
+    private ?array $introduction = null;
 
-    #[ORM\Column(nullable:true)]
-    private array $objectives = [];
+    #[ORM\Column(nullable: true)]
+    private ?array $objectives = null;
 
-    #[ORM\Column(nullable:true)]
-    private array $learningPath = [];
+    #[ORM\Column(nullable: true)]
+    private ?array $learningPath = null;
 
-    #[ORM\Column(nullable:true)]
-    private array $public = [];
+    #[ORM\Column(nullable: true)]
+    private ?array $public = null;
 
-    #[ORM\Column(nullable:true)]
-    private array $requirements = [];
+    #[ORM\Column(nullable: true)]
+    private ?array $requirements = null;
 
-    #[ORM\Column(length: 255, nullable:true)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $videoIntroduction = null;
 
     #[ORM\OneToMany(mappedBy: 'course', targetEntity: Mission::class)]
@@ -60,7 +61,7 @@ class Courses
     #[ORM\OneToMany(mappedBy: 'course', targetEntity: Jobs::class)]
     private Collection $jobs;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?bool $showOnWeb = null;
 
     public function __construct()
@@ -92,7 +93,7 @@ class Courses
         return $this->logo;
     }
 
-    public function setLogo(string $logo): static
+    public function setLogo(?string $logo): static
     {
         $this->logo = $logo;
 
@@ -104,7 +105,7 @@ class Courses
         return $this->description;
     }
 
-    public function setDescription(string $description): static
+    public function setDescription(?string $description): static
     {
         $this->description = $description;
 
@@ -128,7 +129,7 @@ class Courses
         return $this->heading;
     }
 
-    public function setHeading(string $heading): static
+    public function setHeading(?string $heading): static
     {
         $this->heading = $heading;
 
@@ -140,67 +141,67 @@ class Courses
         return $this->titleIntroduction;
     }
 
-    public function setTitleIntroduction(string $titleIntroduction): static
+    public function setTitleIntroduction(?string $titleIntroduction): static
     {
         $this->titleIntroduction = $titleIntroduction;
 
         return $this;
     }
 
-    public function getIntroduction(): array
+    public function getIntroduction(): ?array
     {
         return $this->introduction;
     }
 
-    public function setIntroduction(array $introduction): static
+    public function setIntroduction(?array $introduction): static
     {
         $this->introduction = $introduction;
 
         return $this;
     }
 
-    public function getObjectives(): array
+    public function getObjectives(): ?array
     {
         return $this->objectives;
     }
 
-    public function setObjectives(array $objectives): static
+    public function setObjectives(?array $objectives): static
     {
         $this->objectives = $objectives;
 
         return $this;
     }
 
-    public function getLearningPath(): array
+    public function getLearningPath(): ?array
     {
         return $this->learningPath;
     }
 
-    public function setLearningPath(array $learningPath): static
+    public function setLearningPath(?array $learningPath): static
     {
         $this->learningPath = $learningPath;
 
         return $this;
     }
 
-    public function getPublic(): array
+    public function getPublic(): ?array
     {
         return $this->public;
     }
 
-    public function setPublic(array $public): static
+    public function setPublic(?array $public): static
     {
         $this->public = $public;
 
         return $this;
     }
 
-    public function getRequirements(): array
+    public function getRequirements(): ?array
     {
         return $this->requirements;
     }
 
-    public function setRequirements(array $requirements): static
+    public function setRequirements(?array $requirements): static
     {
         $this->requirements = $requirements;
 
@@ -212,7 +213,7 @@ class Courses
         return $this->videoIntroduction;
     }
 
-    public function setVideoIntroduction(string $videoIntroduction): static
+    public function setVideoIntroduction(?string $videoIntroduction): static
     {
         $this->videoIntroduction = $videoIntroduction;
 
@@ -247,10 +248,6 @@ class Courses
         }
 
         return $this;
-    }
-
-    public function __toString(){
-        return $this->title;
     }
 
     /**
@@ -315,10 +312,15 @@ class Courses
         return $this->showOnWeb;
     }
 
-    public function setShowOnWeb(bool $showOnWeb): static
+    public function setShowOnWeb(?bool $showOnWeb): static
     {
         $this->showOnWeb = $showOnWeb;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->title ?? ''; // Si le titre est null, il retournera une chaîne vide
     }
 }

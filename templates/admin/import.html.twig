@@ -1,0 +1,70 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block content %}
+
+	<style>
+		.content-wrapper {
+			display: flex;
+			flex-direction: column;
+		}
+	</style>
+
+	<h1>Importer des missions</h1>
+
+    <br>
+    <br>
+	<form action="{{ path('admin_import_missions') }}" method="POST" enctype="multipart/form-data">
+		<div>
+			<label for="excel_file">Fichier Excel :</label>
+			<input type="file" name="excel_file" id="excel_file" accept=".xlsx, .xls">
+		</div>
+
+		<button type="submit">Importer</button>
+	</form>
+
+    <br>
+    <br>
+	<h2>Exemple du format de fichier</h2>
+
+    <br>
+    <br>
+
+	<table border="1" cellpadding="5" cellspacing="0">
+		<thead>
+			<tr>
+				<th>Client</th>
+				<th>Promotion</th>
+				<th>Cours</th>
+				<th>Formateur</th>
+				<th>Début</th>
+				<th>Fin</th>
+				<th>Heure de début</th>
+				<th>Plage horaire</th>
+				<th>Nombre d’heures</th>
+				<th>Type intervention</th>
+				<th>Taux horaire</th>
+				<th>Rémunération</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>IIM</td>
+				<td>Etudiant B1</td>
+				<td>HTML/CSS</td>
+				<td>Samih Habbani</td>
+				<td>07/09/2024</td>
+				<td>07/09/2024</td>
+				<td>9h00</td>
+				<td>9h00-13h00</td>
+				<td>4</td>
+				<td>Présentiel</td>
+				<td>76.10</td>
+				<td>304</td>
+			</tr>
+		</tbody>
+	</table>
+    <br>
+    <br>
+	<p>Veuillez suivre cet ordre de colonnes lors de la préparation de votre fichier Excel pour importer des missions.</p>
+
+{% endblock %}

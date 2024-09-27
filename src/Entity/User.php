@@ -215,7 +215,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __toString(){
         return  strtoupper($this->email); //or anything else
-      }
+    }
 
     public function getFirstName(): ?string
     {

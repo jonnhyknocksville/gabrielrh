@@ -18,25 +18,25 @@ class Clients
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $address = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $city = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $postalCode = null;
 
     #[ORM\OneToMany(mappedBy: 'client', targetEntity: Mission::class)]
     private Collection $missions;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $personInCharge = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $phone = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $backgroundColor = null;
 
     #[ORM\OneToMany(mappedBy: 'client', targetEntity: Students::class)]
@@ -111,7 +111,7 @@ class Clients
         return $this->address;
     }
 
-    public function setAddress(string $address): static
+    public function setAddress(?string $address): static
     {
         $this->address = $address;
 
@@ -123,7 +123,7 @@ class Clients
         return $this->city;
     }
 
-    public function setCity(string $city): static
+    public function setCity(?string $city): static
     {
         $this->city = $city;
 
@@ -135,7 +135,7 @@ class Clients
         return $this->postalCode;
     }
 
-    public function setPostalCode(string $postalCode): static
+    public function setPostalCode(?string $postalCode): static
     {
         $this->postalCode = $postalCode;
 
@@ -177,15 +177,11 @@ class Clients
         return $this->personInCharge;
     }
 
-    public function setPersonInCharge(string $personInCharge): static
+    public function setPersonInCharge(?string $personInCharge): static
     {
         $this->personInCharge = $personInCharge;
 
         return $this;
-    }
-
-    public function __toString(){
-        return $this->name . " " . $this->city . "  " . $this->commercialName;
     }
 
     public function getPhone(): ?string
@@ -193,7 +189,7 @@ class Clients
         return $this->phone;
     }
 
-    public function setPhone(string $phone): static
+    public function setPhone(?string $phone): static
     {
         $this->phone = $phone;
 
@@ -205,7 +201,7 @@ class Clients
         return $this->backgroundColor;
     }
 
-    public function setBackgroundColor(string $backgroundColor): static
+    public function setBackgroundColor(?string $backgroundColor): static
     {
         $this->backgroundColor = $backgroundColor;
 
@@ -277,7 +273,7 @@ class Clients
         return $this->siret;
     }
 
-    public function setSiret(string $siret = null): static
+    public function setSiret(?string $siret): static
     {
         $this->siret = $siret;
 
@@ -289,7 +285,7 @@ class Clients
         return $this->commercialName;
     }
 
-    public function setCommercialName(string $commercialName = null): static
+    public function setCommercialName(?string $commercialName): static
     {
         $this->commercialName = $commercialName;
 
@@ -432,5 +428,9 @@ class Clients
         }
 
         return $this;
+    }
+
+    public function __toString(){
+        return  strtoupper($this->name); //or anything else
     }
 }

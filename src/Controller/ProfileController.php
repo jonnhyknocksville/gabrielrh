@@ -619,7 +619,7 @@ class ProfileController extends AbstractController
             // dd($missionsForInvoice);
 
             return new Response (
-                $dompdf->stream($this->params->get('env(MY_CUSTOM_VARIABLE)') . " - " . $invoiceNumber, ["Attachment" => false]),
+                $dompdf->stream($this->params->get('nom_entreprise') . " - " . $invoiceNumber, ["Attachment" => false]),
                 Response::HTTP_OK,
                 ['Content-Type' => 'application/pdf']
             );
@@ -738,7 +738,7 @@ class ProfileController extends AbstractController
             // dd($missionsForInvoice);
 
             return new Response (
-                $dompdf->stream($this->params->get('env(MY_CUSTOM_VARIABLE)') . " - " . $invoiceNumber, ["Attachment" => false]),
+                $dompdf->stream($this->params->get('nom_entreprise') . " - " . $invoiceNumber, ["Attachment" => false]),
                 Response::HTTP_OK,
                 ['Content-Type' => 'application/pdf']
             );
@@ -847,7 +847,7 @@ class ProfileController extends AbstractController
             // dd($missionsForInvoice);
 
             return new Response (
-                $dompdf->stream($this->params->get('env(MY_CUSTOM_VARIABLE)') . " - " . $invoiceNumber, ["Attachment" => false]),
+                $dompdf->stream($this->params->get('nom_entreprise') . " - " . $invoiceNumber, ["Attachment" => false]),
                 Response::HTTP_OK,
                 ['Content-Type' => 'application/pdf']
             );

@@ -26,7 +26,7 @@ class Mission
     #[ORM\Column(length: 255)]
     private ?string $intervention = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $missionReference = null;
 
     #[ORM\Column(length: 255)]
@@ -44,10 +44,10 @@ class Mission
     #[ORM\Column(type: 'datetime')]
     private ?\DateTimeInterface $beginAt;
 
-    #[ORM\Column(type: 'datetime', nullable:true)]
+    #[ORM\Column(type: 'datetime', nullable: true)]
     private ?\DateTimeInterface $endAt = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $timeTable = null;
 
     #[ORM\ManyToOne(inversedBy: 'missions')]
@@ -56,10 +56,11 @@ class Mission
     #[ORM\Column(length: 255)]
     private ?string $hourlyRate = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $nbrDays = null;
 
     #[ORM\ManyToOne(inversedBy: 'missions')]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Tarification $tarification = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -70,9 +71,6 @@ class Mission
 
     #[ORM\Column(nullable: true)]
     private ?bool $clientPaid = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $background = null;
 
     #[ORM\Column]
     private ?bool $invoiceSent = null;
@@ -261,7 +259,7 @@ class Mission
         return $this->nbrDays;
     }
 
-    public function setNbrDays(int $nbrDays): static
+    public function setNbrDays(?int $nbrDays): static
     {
         $this->nbrDays = $nbrDays;
 
@@ -316,18 +314,6 @@ class Mission
         return $this;
     }
 
-    public function getBackground(): ?string
-    {
-        return $this->background;
-    }
-
-    public function setBackground(?string $background): static
-    {
-        $this->background = $background;
-
-        return $this;
-    }
-
     public function isInvoiceSent(): ?bool
     {
         return $this->invoiceSent;
@@ -363,6 +349,4 @@ class Mission
 
         return $this;
     }
-
-
 }

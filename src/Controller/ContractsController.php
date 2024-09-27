@@ -101,7 +101,7 @@ class ContractsController extends AbstractController
 
             // GOOD WAY TO RENAME PDF
             return new Response (
-                $dompdf->stream($this->params->get('env(MY_CUSTOM_VARIABLE)') . " - " . $bdcNumber, ["Attachment" => false]),
+                $dompdf->stream($this->params->get('nom_entreprise') . " - " . $bdcNumber, ["Attachment" => false]),
                 Response::HTTP_OK,
                 ['Content-Type' => 'application/pdf']
             );
@@ -144,7 +144,7 @@ class ContractsController extends AbstractController
         $dompdf->render();
 
         return new Response (
-            $dompdf->stream($this->params->get('env(MY_CUSTOM_VARIABLE)') . " - contrat de prestations de formation - " . $client->getName() . " " . $client->getCommercialName() . " - " . $year . "_" . $year + 1),
+            $dompdf->stream($this->params->get('nom_entreprise') . " - contrat de prestations de formation - " . $client->getName() . " " . $client->getCommercialName() . " - " . $year . "_" . $year + 1),
             Response::HTTP_OK,
             ['Content-Type' => 'application/pdf']
         );
@@ -225,7 +225,7 @@ class ContractsController extends AbstractController
             $dompdf->render();
 
             return new Response (
-                $dompdf->stream($this->params->get('env(MY_CUSTOM_VARIABLE)') . " - " . $bdcNumber, ["Attachment" => false]),
+                $dompdf->stream($this->params->get('nom_entreprise') . " - " . $bdcNumber, ["Attachment" => false]),
                 Response::HTTP_OK,
                 ['Content-Type' => 'application/pdf']
             );

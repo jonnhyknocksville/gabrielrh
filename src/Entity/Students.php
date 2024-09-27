@@ -30,6 +30,9 @@ class Students
     #[ORM\Column(length: 255)]
     private ?string $dailyPrice = null;
 
+    #[ORM\Column(length: 4, nullable: true)]
+    private ?string $year = null;
+
     public function __construct()
     {
         $this->missions = new ArrayCollection();
@@ -118,6 +121,18 @@ class Students
     public function setDailyPrice(string $dailyPrice): static
     {
         $this->dailyPrice = $dailyPrice;
+
+        return $this;
+    }
+
+    public function getYear(): ?string
+    {
+        return $this->year;
+    }
+
+    public function setYear(?string $year): static
+    {
+        $this->year = $year;
 
         return $this;
     }

@@ -32,7 +32,7 @@ class PublicCalendarController extends AbstractController
                 "title" => $mission->getCourse()->getTitle() ,
                 "start" => $mission->getBeginAt()->format("Y-m-d"),
                 "end" => $mission->getEndAt()->add(new DateInterval('P1D'))->format("Y-m-d"),
-                "backgroundColor" => is_null($mission->getBackground()) ? $mission->getClient()->getBackgroundColor() : $mission->getBackground(),
+                "backgroundColor" => $mission->getClient()->getBackgroundColor(),
             ];
         }
 
