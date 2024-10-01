@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Clients;
 use App\Entity\Contract;
+use App\Entity\Courses;
 use App\Entity\Jobs;
 use App\Entity\Mission;
 use App\Entity\StaffApplication;
+use App\Entity\Themes;
 use App\Entity\User;
 use App\Form\ChangePasswordType;
 use App\Form\UserType;
@@ -315,10 +317,10 @@ class ProfileController extends AbstractController
         $data = $this->getValues($doctrine);
 
         $user = $this->getUser();
-        $user = $doctrine->getRepository(User::class)->findBy(["id" => $user->getUserIdentifier()])[0];
+        $courses = $doctrine->getRepository(Courses::class)->findDistinctCoursesFromMissions($user->getId());
 
         $skills = $paginator->paginate(
-            $user->getCourses(), /* query NOT result */
+            $courses, /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/
             8 /*limit per page*/
         );
@@ -462,20 +464,22 @@ class ProfileController extends AbstractController
 
         $data = $this->getValues($doctrine);
         $user = $this->getUser();
-        $user = $doctrine->getRepository(User::class)->findBy(["id" => $user->getUserIdentifier()])[0];
+        $themesId = $doctrine->getRepository(Mission::class)->findDistinctThemesFromUserMissions($user->getId());
 
-        $listCoursesId = [];
+        $listThemesId = [];
 
-        foreach ($user->getCourses() as $course) {
-            $listCoursesId[] = $course->getId();
+        foreach ($themesId as $theme) {
+            $listThemesId[] = $theme["id"];
         }
 
-        foreach ($listCoursesId as $key => $val) {
-            $listCoursesId[$key] = "'" . $val . "'";
+        foreach ($listThemesId as $key => $val) {
+            $listThemesId[$key] = "'" . $val . "'";
         }
 
-        $in = implode(",", $listCoursesId);
-        $jobs = $doctrine->getRepository(Jobs::class)->findJobsByCourses($in);
+        $in = implode(",", $listThemesId);
+
+
+        $jobs = $doctrine->getRepository(Jobs::class)->findJobsByThemeIds($in);
 
         $staffApplication = $doctrine->getRepository(StaffApplication::class)->findBy(["user" => $this->getUser()->getUserIdentifier()]);
         $listJobsApplied = [];

@@ -21,7 +21,7 @@ class CoursesRepository extends ServiceEntityRepository
         parent::__construct($registry, Courses::class);
     }
 
-//    /**
+    //    /**
 //     * @return Courses[] Returns an array of Courses objects
 //     */
 //    public function findByExampleField($value): array
@@ -36,7 +36,7 @@ class CoursesRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Courses
+    //    public function findOneBySomeField($value): ?Courses
 //    {
 //        return $this->createQueryBuilder('c')
 //            ->andWhere('c.exampleField = :val')
@@ -45,5 +45,45 @@ class CoursesRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    /**
+     * Récupérer tous les cours distincts des missions réalisées par les utilisateurs
+     *
+     * @return Courses[]
+     */
+    public function findDistinctCoursesFromMissions($userId): array
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->join('c.missions', 'm')
+            ->join('m.user', 'u')
+            ->select('DISTINCT c')
+            ->where('m IS NOT NULL')
+            ->where('u.id = :userId')
+            ->setParameter('userId', $userId)
+            ->andWhere('u IS NOT NULL')
+            ->orderBy('c.title', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    }
+
+        /**
+     * Récupérer tous les cours distincts des missions réalisées par les utilisateurs
+     *
+     * @return Courses[]
+     */
+    public function findDistinctThemesFromMissions($userId): array
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->join('c.missions', 'm')
+            ->join('m.user', 'u')
+            ->select('DISTINCT c')
+            ->where('m IS NOT NULL')
+            ->where('u.id = :userId')
+            ->setParameter('userId', $userId)
+            ->andWhere('u IS NOT NULL')
+            ->orderBy('c.title', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    }
 
 }

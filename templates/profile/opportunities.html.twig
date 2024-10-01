@@ -27,11 +27,11 @@
                         </div>
                         
                         <div class="card-body p-0">
-                            <p class="text-light"><i class="text-primary fa-solid fa-share"></i> Posutler chez {{company_name}} </p>
+                            <p class="d-flex align-items-center text-light"><i class="text-primary fa-solid fa-calendar me-3"></i> {{job.date|date("d-m-Y")}} </p>
                             <p class="card-text mb-3 text-info">{{ job.titleDescription }}</p>
                             
                             {% if job.id in listJobsApplied %}
-                                <i class="fa-solid fa-circle-check text-success"></i>
+                            <p class="d-flex align-items-center text-white"> <i class="fa-solid fa-circle-check text-success me-3"></i>Vous avez demandé la mission</p>
                             {% else %}
                                 <a aria-label="Acceptez la mission - {{company_name}}" href="{{ path('app_profile_application', { id : job.id}) }}" class="btn btn-outline-secondary text-light"> ACCEPTER LA MISSION </a>
                             {% endif %}

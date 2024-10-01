@@ -1,42 +1,50 @@
 {% extends 'base-profile.html.twig' %}
 
-{% block title %}Mes domaines d'intervention{% endblock %}
+{% block title %}Mes domaines d'intervention
+{% endblock %}
 
 {% block body %}
- 
+
 
 	<div class="col-md-12 d-flex justify-content-center py-5">
 
-        <div class="row mx-auto col-md-10 p-3">
+		<div class="row mx-auto col-md-10 p-3">
 
-            {% for skill in skills %}
+			<h1 class="text-light my-5">Les cours dans lesquels j'interviens</h1>
 
-                <div class="col-md-3 p-3">
-                    <div class="card form-shadow bg-none">
-                        <a aria-label="{{ skill.title }} - {{company_name}}" href="{{ path('app_courses_details', {id: skill.id}) }}">
-                            <img class="card-img-top smallBorderRadius" src="{{ asset('build/courses/' ~ skill.logo)}}" alt="{{ skill.title }}" title="{{ skill.title }}">
-                        </a>
-                        
-                        <div class="card-body">
-                        
-                            <a aria-label="{{ skill.title }} - {{company_name}}" href="{{ path('app_courses_details', {id: skill.id}) }}">
-                                <h5 class="card-title fw-bold text-light">{{ skill.title }}</h5>
-                            </a>
-                        </div>
-                    </div>
-                
-                </div>
+			{% for skill in skills %}
 
-            {% endfor %}
+				<div class="col-md-3 p-3">
+					<div class="card form-shadow bg-none">
+						<a aria-label="{{ skill.title }} - {{company_name}}" href="{{ path('app_courses_details', {id: skill.id}) }}">
+							{% if skill.logo is null or skill.logo == 'null' %}
+                                <img class="card-img-top smallBorderRadius" src="{{ asset('build/courses/rediger-pour-le-web.png')}}" alt="{{ skill.title }}" title="{{ skill.title }}">
+							{% else %}
+                                <img class="card-img-top smallBorderRadius" src="{{ asset('build/courses/' ~ skill.logo)}}" alt="{{ skill.title }}" title="{{ skill.title }}">
+							{% endif %}
 
-            <div class="pb-5 col-md-12 navigation">
-                {{ knp_pagination_render(skills) }}
-            </div>  
+						</a>
 
-        </div>
+						<div class="card-body">
+
+							<a aria-label="{{ skill.title }} - {{company_name}}" href="{{ path('app_courses_details', {id: skill.id}) }}">
+								<h5 class="card-title fw-bold text-light">{{ skill.title }}</h5>
+							</a>
+						</div>
+					</div>
+
+				</div>
+
+			{% endfor %}
+
+			<div class="pb-5 col-md-12 navigation">
+				{{ knp_pagination_render(skills) }}
+			</div>
+
+		</div>
 
 
-    </div>
+	</div>
 
 
 {% endblock %}

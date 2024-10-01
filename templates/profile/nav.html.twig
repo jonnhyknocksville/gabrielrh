@@ -1,175 +1,165 @@
 <div class="d-flex course-sidebar flex-column justify-content-between">
-	<ul
-		class="sidebar-nav p-3">
+    <ul class="sidebar-nav p-3">
+        {% set currentPath = app.request.pathinfo %}
 
-		<!-- Sidebar Nav -->
-		<a aria-label="Accédez aux formations vidéo sur l'Académie WS - {{company_name}}" href="https://academiews.fr/courses">
-			<li class="text-center bg-secondary smallBorderRadius my-3 px-2 py-2 text-light">
-				ACCÉDER AUX FORMATIONS VIDÉO
-			</li>
-		</a>
+        <a aria-label="Accédez aux formations vidéo sur l'Académie WS - {{company_name}}" href="https://academiews.fr/courses">
+            <li class="text-center bg-secondary smallBorderRadius my-3 px-2 py-2 text-light">
+                ACCÉDER AUX FORMATIONS VIDÉO
+            </li>
+        </a>
 
-		<a aria-label="Accédez aux offres pour vous - {{company_name}}" href="{{path('app_jobs_for_you')}}">
-			<li class="d-flex p-3 align-items-center item bg-info text-light text-center smallBorderRadius">
-				<div class="d-flex align-items-center justify-content-between w-100 title-container">
-					<div class="d-flex align-items-center">
-						<span class="lecture-name f600">
-							OFFRES SUCCEPTIBLES DE T'INTÉRESSER
-						</span>
-					</div>
-				</div>
-			</li>
-		</a>
+        <a aria-label="Accédez aux offres pour vous - {{company_name}}" href="{{ path('app_jobs_for_you') }}">
+            <li class="d-flex p-3 align-items-center item text-light text-center smallBorderRadius {% if currentPath == path('app_jobs_for_you') %}bg-primary{% else %}bg-info{% endif %}">
+                <div class="d-flex align-items-center justify-content-between w-100 title-container">
+                    <div class="d-flex align-items-center">
+                        <span class="lecture-name f600">
+                            OFFRES SUCCEPTIBLES DE T'INTÉRESSER
+                        </span>
+                    </div>
+                </div>
+            </li>
+        </a>
 
-		<a aria-label="Accédez à la modification de votre mot de passe - {{company_name}}" href="{{path('app_profile_password')}}">
-			<li class="d-flex p-3 align-items-center item">
-				<div class="d-flex align-items-center justify-content-between w-100 title-container">
-					<div class="d-flex align-items-center">
-						<span class="lecture-name f600">
-							Modifier mon mot de passe
-						</span>
-					</div>
-				</div>
-			</li>
-		</a>
+        <a aria-label="Accédez à la modification de votre mot de passe - {{company_name}}" href="{{ path('app_profile_password') }}">
+            <li class="d-flex p-3 align-items-center item {% if currentPath == path('app_profile_password') %}bg-primary text-white{% endif %}">
+                <div class="d-flex align-items-center justify-content-between w-100 title-container">
+                    <div class="d-flex align-items-center">
+                        <span class="lecture-name f600">
+                            Modifier mon mot de passe 
+                        </span>
+                    </div>
+                </div>
+            </li>
+        </a>
 
-		<a aria-label="Accédez à vos informations personelles - {{company_name}}" href="{{path('app_profile_infos')}}">
-			<li class="d-flex p-3 align-items-center item">
-				<div class="d-flex align-items-center justify-content-between w-100 title-container">
-					<div class="d-flex align-items-center">
-						<span class="lecture-name f600">
-							Mes informations personnelles
-						</span>
-						{# Afficher l'icône d'alerte rouge si un fichier est expiré #}
-						{% if hasExpiredFile %}
-							<span class="text-danger ms-2">
-								<i class="fas fa-exclamation-circle"></i>
-							</span>
-						{% endif %}
-					</div>
-				</div>
-			</li>
-		</a>
+        <a aria-label="Accédez à vos informations personnelles - {{company_name}}" href="{{ path('app_profile_infos') }}">
+            <li class="d-flex p-3 align-items-center item {% if currentPath == path('app_profile_infos') %}bg-primary text-white{% endif %}">
+                <div class="d-flex align-items-center justify-content-between w-100 title-container">
+                    <div class="d-flex align-items-center">
+                        <span class="lecture-name f600">
+                            Mes informations personnelles {% if is_granted('ROLE_ADMIN') %} (Formateur) {% endif %}
+                        </span>
+                        {% if hasExpiredFile %}
+                            <span class="text-danger ms-2">
+                                <i class="fas fa-exclamation-circle"></i>
+                            </span>
+                        {% endif %}
+                    </div>
+                </div>
+            </li>
+        </a>
 
-		<a aria-label="Accédez à vos domaines d'intervention - {{company_name}}" href="{{path('app_profile_skills')}}">
-			<li class="d-flex p-3 align-items-center item">
-				<div class="d-flex align-items-center justify-content-between w-100 title-container">
-					<div class="d-flex align-items-center">
-						<span class="lecture-name f600">
-							Mes domaines d'intervention
-						</span>
-					</div>
-				</div>
-			</li>
-		</a>
+        <a aria-label="Accédez à vos domaines d'intervention - {{company_name}}" href="{{ path('app_profile_skills') }}">
+            <li class="d-flex p-3 align-items-center item {% if currentPath == path('app_profile_skills') %}bg-primary text-white{% endif %}">
+                <div class="d-flex align-items-center justify-content-between w-100 title-container">
+                    <div class="d-flex align-items-center">
+                        <span class="lecture-name f600">
+                            Mes domaines d'intervention {% if is_granted('ROLE_ADMIN') %} (Formateur) {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </li>
+        </a>
 
-		<a aria-label="Accédez à vos domaines d'intervention - {{company_name}}" href="{{path('app_profile_generate_invoice_type', {month : 'now'|date('m'), year : 'now'|date('Y')})}}">
-			<li class="d-flex p-3 align-items-center item">
-				<div class="d-flex align-items-center justify-content-between w-100 title-container">
-					<div class="d-flex align-items-center">
-						<span class="lecture-name f600">
-							Générer une facture
-						</span>
-					</div>
-				</div>
-			</li>
-		</a>
+        <a aria-label="Générer une facture - {{company_name}}" href="{{ path('app_profile_generate_invoice_type', { month: 'now'|date('m'), year: 'now'|date('Y') }) }}">
+            <li class="d-flex p-3 align-items-center item {% if currentPath == path('app_profile_generate_invoice_type', { month: 'now'|date('m'), year: 'now'|date('Y') }) %}bg-primary text-white{% endif %}">
+                <div class="d-flex align-items-center justify-content-between w-100 title-container">
+                    <div class="d-flex align-items-center">
+                        <span class="lecture-name f600">
+                            Générer une facture {% if is_granted('ROLE_ADMIN') %} (Formateur) {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </li>
+        </a>
+        
+        <a aria-label="Accédez à vos contrats - {{company_name}}" href="{{ path('app_profile_contracts') }}">
+            <li class="d-flex p-3 align-items-center item {% if currentPath == path('app_profile_contracts') %}bg-primary text-white{% endif %}">
+                <div class="d-flex align-items-center justify-content-between w-100 title-container">
+                    <div class="d-flex align-items-center">
+                        <span class="lecture-name f600">
+                            Mes contrats {% if is_granted('ROLE_ADMIN') %} (Formateur) {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </li>
+        </a>
 
-		<a aria-label="Accédez à vos contrats - {{company_name}}" href="{{path('app_profile_contracts')}}">
-			<li class="d-flex p-3 align-items-center item">
-				<div class="d-flex align-items-center justify-content-between w-100 title-container">
-					<div class="d-flex align-items-center">
-						<span class="lecture-name f600">
-							Mes contrats
-						</span>
-					</div>
-				</div>
-			</li>
-		</a>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a aria-label="Accédez aux contrats de prestation de formation B2B - {{company_name}}" href="{{ path('app_contracts_prestations_client') }}">
+                <li class="d-flex p-3 align-items-center item {% if currentPath == path('app_contracts_prestations_client') %}bg-primary text-white{% endif %}">
+                    <div class="d-flex align-items-center justify-content-between w-100 title-container">
+                        <div class="d-flex align-items-center">
+                            <span class="lecture-name f600">
+                                Contrats de Prestation de formation B2B
+                            </span>
+                        </div>
+                    </div>
+                </li>
+            </a>
 
-		{% if is_granted('ROLE_ADMIN') %}
+            <a aria-label="Accédez à vos formateurs - {{company_name}}" href="{{ path('app_contracts_admin', { month: 'now'|date('m'), year: 'now'|date('Y') }) }}">
+                <li class="d-flex p-3 align-items-center item {% if currentPath == path('app_contracts_admin', { month: 'now'|date('m'), year: 'now'|date('Y') }) %}bg-primary text-white{% endif %}">
+                    <div class="d-flex align-items-center justify-content-between w-100 title-container">
+                        <div class="d-flex align-items-center">
+                            <span class="lecture-name f600">
+                                Mes formateurs
+                            </span>
+                        </div>
+                    </div>
+                </li>
+            </a>
 
-			<a aria-label="Accédez à vos contrats - {{company_name}}" href="{{path('app_contracts_prestations_client')}}">
-				<li class="d-flex p-3 align-items-center item">
-					<div class="d-flex align-items-center justify-content-between w-100 title-container">
-						<div class="d-flex align-items-center">
-							<span class="lecture-name f600">
-								Contrats de Prestation de formation B2B
-							</span>
-						</div>
-					</div>
-				</li>
-			</a>
+            <a aria-label="Accédez aux facturations - {{company_name}}" href="{{ path('app_invoices', { month: 'now'|date('m'), year: 'now'|date('Y') }) }}">
+                <li class="d-flex p-3 align-items-center item {% if currentPath == path('app_invoices', { month: 'now'|date('m'), year: 'now'|date('Y') }) %}bg-primary text-white{% endif %}">
+                    <div class="d-flex align-items-center justify-content-between w-100 title-container">
+                        <div class="d-flex align-items-center">
+                            <span class="lecture-name f600">
+                                Facturations
+                            </span>
+                        </div>
+                    </div>
+                </li>
+            </a>
 
-			<a aria-label="Accédez à vos contrats - {{company_name}}" href="{{path('app_contracts_admin', {month : 'now'|date('m'), year : 'now'|date('Y')})}}">
-				<li class="d-flex p-3 align-items-center item">
-					<div class="d-flex align-items-center justify-content-between w-100 title-container">
-						<div class="d-flex align-items-center">
-							<span class="lecture-name f600">
-								Mes formateurs
-							</span>
-						</div>
-					</div>
-				</li>
-			</a>
+            <a aria-label="Accédez au BackOffice - {{company_name}}" href="{{ path('admin') }}">
+                <li class="d-flex p-3 align-items-center item {% if currentPath == path('admin') %}bg-primary text-white{% endif %}">
+                    <div class="d-flex align-items-center justify-content-between w-100 title-container">
+                        <div class="d-flex align-items-center">
+                            <span class="lecture-name f600">
+                                BackOffice
+                            </span>
+                        </div>
+                    </div>
+                </li>
+            </a>
+        {% endif %}
 
-			<a aria-label="Déconnectez vous de votre profil - {{company_name}}" href="{{path('app_invoices', {month: 'now'|date('m'), year:'now'|date('Y') }) }}">
-				<li class="d-flex p-3 align-items-center item">
-					<div class="d-flex align-items-center justify-content-between w-100 title-container">
-						<div class="d-flex align-items-center">
-							<span class="lecture-name f600">
-								Facturations
-							</span>
-						</div>
-					</div>
-				</li>
-			</a>
+        <a aria-label="Déconnectez vous de votre profil - {{company_name}}" href="{{ path('app_logout') }}">
+            <li class="d-flex p-3 align-items-center item {% if currentPath == path('app_logout') %}bg-primary text-white{% endif %}">
+                <div class="d-flex align-items-center justify-content-between w-100 title-container">
+                    <div class="d-flex align-items-center">
+                        <span class="lecture-name f600">
+                            Déconnexion
+                        </span>
+                    </div>
+                </div>
+            </li>
+        </a>
 
-			<a aria-label="Admin - {{company_name}}" href="{{path('admin') }}">
-				<li class="d-flex p-3 align-items-center item">
-					<div class="d-flex align-items-center justify-content-between w-100 title-container">
-						<div class="d-flex align-items-center">
-							<span class="lecture-name f600">
-								Admin
-							</span>
-						</div>
-					</div>
-				</li>
-			</a>
-
-		{% endif %}
-
-		<a aria-label="Déconnectez vous de votre profil - {{company_name}}" href="{{path('app_logout') }}">
-			<li class="d-flex p-3 align-items-center item">
-				<div class="d-flex align-items-center justify-content-between w-100 title-container">
-					<div class="d-flex align-items-center">
-						<span class="lecture-name f600">
-							Déconnexion
-						</span>
-					</div>
-				</div>
-			</li>
-		</a>
-
-		<a aria-label="Accédez à vos contrats - {{company_name}}" href="#">
-			<li class="d-flex p-3 align-items-center item">
-				<div class="d-flex align-items-center justify-content-between w-100 title-container">
-					<div class="d-flex align-items-center">
-						<span class="lecture-name fw-bold">
-							<u>MON CA
-								{{year}}</u>
-							:
-							{{ca}}
-							€
-						</span>
-					</div>
-				</div>
-			</li>
-		</a>
-
-	</ul>
-
-	<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 1440 320">
-		<path fill="#5e24c3" fill-opacity="1" d="M0,224L26.7,208C53.3,192,107,160,160,160C213.3,160,267,192,320,181.3C373.3,171,427,117,480,122.7C533.3,128,587,192,640,202.7C693.3,213,747,171,800,138.7C853.3,107,907,85,960,96C1013.3,107,1067,149,1120,186.7C1173.3,224,1227,256,1280,240C1333.3,224,1387,160,1413,128L1440,96L1440,320L1413.3,320C1386.7,320,1333,320,1280,320C1226.7,320,1173,320,1120,320C1066.7,320,1013,320,960,320C906.7,320,853,320,800,320C746.7,320,693,320,640,320C586.7,320,533,320,480,320C426.7,320,373,320,320,320C266.7,320,213,320,160,320C106.7,320,53,320,27,320L0,320Z"></path>
-	</svg>
+        <a aria-label="Accédez à votre chiffre d'affaires - {{company_name}}" href="#">
+            <li class="d-flex p-3 align-items-center item">
+                <div class="d-flex align-items-center justify-content-between w-100 title-container">
+                    <div class="d-flex align-items-center">
+                        <span class="lecture-name fw-bold">
+                            <u>MON CA {{ year }}</u> : {{ ca }} €
+                        </span>
+                    </div>
+                </div>
+            </li>
+        </a>
+    </ul>
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 1440 320">
+        <path fill="#5e24c3" fill-opacity="1" d="M0,224L26.7,208C53.3,192,107,160,160,160C213.3,160,267,192,320,181.3C373.3,171,427,117,480,122.7C533.3,128,587,192,640,202.7C693.3,213,747,171,800,138.7C853.3,107,907,85,960,96C1013.3,107,1067,149,1120,186.7C1173.3,224,1227,256,1280,240C1333.3,224,1387,160,1413,128L1440,96L1440,320L1413.3,320C1386.7,320,1333,320,1280,320C1226.7,320,1173,320,1120,320C1066.7,320,1013,320,960,320C906.7,320,853,320,800,320C746.7,320,693,320,640,320C586.7,320,533,320,480,320C426.7,320,373,320,320,320C266.7,320,213,320,160,320C106.7,320,53,320,27,320L0,320Z"></path>
+    </svg>
 </div>

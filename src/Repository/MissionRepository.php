@@ -21,7 +21,7 @@ class MissionRepository extends ServiceEntityRepository
         parent::__construct($registry, Mission::class);
     }
 
-//    /**
+    //    /**
 //     * @return Mission[] Returns an array of Mission objects
 //     */
 //    public function findByExampleField($value): array
@@ -36,7 +36,7 @@ class MissionRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Mission
+    //    public function findOneBySomeField($value): ?Mission
 //    {
 //        return $this->createQueryBuilder('m')
 //            ->andWhere('m.exampleField = :val')
@@ -46,7 +46,8 @@ class MissionRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-    public function findMonthMissions($id, $year, $month) {
+    public function findMonthMissions($id, $year, $month)
+    {
 
         $entityManager = $this->getEntityManager();
 
@@ -65,7 +66,8 @@ class MissionRepository extends ServiceEntityRepository
 
     }
 
-    public function findAnnualMissions($id, $year) {
+    public function findAnnualMissions($id, $year)
+    {
 
         $entityManager = $this->getEntityManager();
 
@@ -83,7 +85,8 @@ class MissionRepository extends ServiceEntityRepository
     }
 
     // Méthode permettant de trouver tous les clients différents chez qui on intervient sur l'année en cours
-    public function findDistinctClientsForCurrentYear($year) {
+    public function findDistinctClientsForCurrentYear($year)
+    {
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery(
@@ -97,7 +100,9 @@ class MissionRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
-    public function findMonthlyInvoicesToGenerate($year, $month) {
+
+    public function findMonthlyInvoicesToGenerate($year, $month)
+    {
 
         $entityManager = $this->getEntityManager();
 
@@ -120,7 +125,8 @@ class MissionRepository extends ServiceEntityRepository
     /**
      * Méthode permettant de récupérer les factures que les formateurs peuvent générer chaque mois si ils n'ont pas de logiciel comptable
      */
-    public function findMonthlyInvoicesToGenerateForUser($year, $month, $idUser) {
+    public function findMonthlyInvoicesToGenerateForUser($year, $month, $idUser)
+    {
 
         $entityManager = $this->getEntityManager();
 
@@ -141,7 +147,8 @@ class MissionRepository extends ServiceEntityRepository
 
     }
 
-    public function findCaForCurrentYear($year, $userId) {
+    public function findCaForCurrentYear($year, $userId)
+    {
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery(
@@ -155,43 +162,45 @@ class MissionRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
-    public function findMissionForCustomer($year, $month, $clientId, $orderNumber) {
+    public function findMissionForCustomer($year, $month, $clientId, $orderNumber)
+    {
 
-        if(!is_null($orderNumber)) {
+        if (!is_null($orderNumber)) {
             return $this->createQueryBuilder('m')
-            ->andWhere('YEAR(m.beginAt) = :year')
-            ->andWhere('YEAR(m.endAt) = :year')
-            ->andWhere('MONTH(m.endAt) = :month')
-            ->andWhere('MONTH(m.beginAt) = :month')
-            ->andWhere('m.client = :clientId')
-            ->andWhere('m.orderNumber = :orderNumber')
-            ->setParameter('year', $year)
-            ->setParameter('month', $month)
-            ->setParameter('clientId', $clientId)
-            ->setParameter('orderNumber', $orderNumber)
-            ->getQuery()
-            ->getResult();
+                ->andWhere('YEAR(m.beginAt) = :year')
+                ->andWhere('YEAR(m.endAt) = :year')
+                ->andWhere('MONTH(m.endAt) = :month')
+                ->andWhere('MONTH(m.beginAt) = :month')
+                ->andWhere('m.client = :clientId')
+                ->andWhere('m.orderNumber = :orderNumber')
+                ->setParameter('year', $year)
+                ->setParameter('month', $month)
+                ->setParameter('clientId', $clientId)
+                ->setParameter('orderNumber', $orderNumber)
+                ->getQuery()
+                ->getResult();
         } else {
             return $this->createQueryBuilder('m')
-            ->andWhere('YEAR(m.beginAt) = :year')
-            ->andWhere('YEAR(m.endAt) = :year')
-            ->andWhere('MONTH(m.endAt) = :month')
-            ->andWhere('MONTH(m.beginAt) = :month')
-            ->andWhere('m.client = :clientId')
-            ->setParameter('year', $year)
-            ->setParameter('month', $month)
-            ->setParameter('clientId', $clientId)
-            ->getQuery()
-            ->getResult();
-        } 
+                ->andWhere('YEAR(m.beginAt) = :year')
+                ->andWhere('YEAR(m.endAt) = :year')
+                ->andWhere('MONTH(m.endAt) = :month')
+                ->andWhere('MONTH(m.beginAt) = :month')
+                ->andWhere('m.client = :clientId')
+                ->setParameter('year', $year)
+                ->setParameter('month', $month)
+                ->setParameter('clientId', $clientId)
+                ->getQuery()
+                ->getResult();
+        }
     }
 
     /**
      * Méthode permettant de récupérer toutes les missions pour l'une de mes boites qu'un formateur souhaite me faccture pour lui montrer un modele de facture
      */
-    public function findAllMissionToGenerateInvoiceForTeacher($year, $month, $clientId, $userId) {
+    public function findAllMissionToGenerateInvoiceForTeacher($year, $month, $clientId, $userId)
+    {
 
-            return $this->createQueryBuilder('m')
+        return $this->createQueryBuilder('m')
             ->andWhere('YEAR(m.beginAt) = :year')
             ->andWhere('YEAR(m.endAt) = :year')
             ->andWhere('MONTH(m.endAt) = :month')
@@ -207,25 +216,26 @@ class MissionRepository extends ServiceEntityRepository
     }
 
 
-    public function findMissionForCustomerAndOneTeacher($year, $month, $clientId, $userId) {
+    public function findMissionForCustomerAndOneTeacher($year, $month, $clientId, $userId)
+    {
 
         // dd("tptp");
         return $this->createQueryBuilder('m')
-           ->andWhere('YEAR(m.beginAt) = :year')
-           ->andWhere('YEAR(m.endAt) = :year')
-           ->andWhere('MONTH(m.endAt) = :month')
-           ->andWhere('MONTH(m.beginAt) = :month')
-           ->andWhere('m.client = :clientId')
-           ->andWhere('m.user = :userId')
-           ->setParameter('year', $year)
-           ->setParameter('month', $month)
-           ->setParameter('clientId', $clientId)
-           ->setParameter('userId', $userId)
-           ->getQuery()
-           ->getResult();
+            ->andWhere('YEAR(m.beginAt) = :year')
+            ->andWhere('YEAR(m.endAt) = :year')
+            ->andWhere('MONTH(m.endAt) = :month')
+            ->andWhere('MONTH(m.beginAt) = :month')
+            ->andWhere('m.client = :clientId')
+            ->andWhere('m.user = :userId')
+            ->setParameter('year', $year)
+            ->setParameter('month', $month)
+            ->setParameter('clientId', $clientId)
+            ->setParameter('userId', $userId)
+            ->getQuery()
+            ->getResult();
 
     }
-    
+
 
 
     //    public function findOneBySomeField($value): ?Mission
@@ -238,59 +248,63 @@ class MissionRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-    public function updateClientPaidForMissions($year, $month, $clientId, $paid) {
+    public function updateClientPaidForMissions($year, $month, $clientId, $paid)
+    {
 
-        
+
         $query = $this->createQueryBuilder('m')->update(Mission::class, 'm')
-        ->set('m.clientPaid', ':paid')
-        ->where('m.client = :clientId')
-        ->andWhere('MONTH(m.beginAt) = :month')
-        ->andWhere('MONTH(m.endAt) = :month')
-        ->andWhere('YEAR(m.beginAt) = :year')
-        ->andWhere('YEAR(m.endAt) = :year')
-        ->setParameter('clientId', $clientId)
-        ->setParameter('month', $month)
-        ->setParameter('year', $year)
-        ->setParameter('paid', $paid)
-        ->getQuery()->execute();
+            ->set('m.clientPaid', ':paid')
+            ->where('m.client = :clientId')
+            ->andWhere('MONTH(m.beginAt) = :month')
+            ->andWhere('MONTH(m.endAt) = :month')
+            ->andWhere('YEAR(m.beginAt) = :year')
+            ->andWhere('YEAR(m.endAt) = :year')
+            ->setParameter('clientId', $clientId)
+            ->setParameter('month', $month)
+            ->setParameter('year', $year)
+            ->setParameter('paid', $paid)
+            ->getQuery()->execute();
 
     }
 
-    public function updateInvoiceSentForMissions($year, $month, $clientId, $sent) {
+    public function updateInvoiceSentForMissions($year, $month, $clientId, $sent)
+    {
 
         $query = $this->createQueryBuilder('m')->update(Mission::class, 'm')
-        ->set('m.invoiceSent', ':sent')
-        ->where('m.client = :clientId')
-        ->andWhere('MONTH(m.beginAt) = :month')
-        ->andWhere('MONTH(m.endAt) = :month')
-        ->andWhere('YEAR(m.beginAt) = :year')
-        ->andWhere('YEAR(m.endAt) = :year')
-        ->setParameter('clientId', $clientId)
-        ->setParameter('month', $month)
-        ->setParameter('year', $year)
-        ->setParameter('sent', $sent)
-        ->getQuery()->execute();
+            ->set('m.invoiceSent', ':sent')
+            ->where('m.client = :clientId')
+            ->andWhere('MONTH(m.beginAt) = :month')
+            ->andWhere('MONTH(m.endAt) = :month')
+            ->andWhere('YEAR(m.beginAt) = :year')
+            ->andWhere('YEAR(m.endAt) = :year')
+            ->setParameter('clientId', $clientId)
+            ->setParameter('month', $month)
+            ->setParameter('year', $year)
+            ->setParameter('sent', $sent)
+            ->getQuery()->execute();
 
     }
 
-    public function updateTeacherPaidForMissions($year, $month, $userId, $paid) {
+    public function updateTeacherPaidForMissions($year, $month, $userId, $paid)
+    {
 
         $query = $this->createQueryBuilder('m')->update(Mission::class, 'm')
-        ->set('m.teacherPaid', ':paid')
-        ->where('m.user = :userId')
-        ->andWhere('MONTH(m.beginAt) = :month')
-        ->andWhere('MONTH(m.endAt) = :month')
-        ->andWhere('YEAR(m.beginAt) = :year')
-        ->andWhere('YEAR(m.endAt) = :year')
-        ->setParameter('userId', $userId)
-        ->setParameter('month', $month)
-        ->setParameter('year', $year)
-        ->setParameter('paid', $paid)
-        ->getQuery()->execute();
+            ->set('m.teacherPaid', ':paid')
+            ->where('m.user = :userId')
+            ->andWhere('MONTH(m.beginAt) = :month')
+            ->andWhere('MONTH(m.endAt) = :month')
+            ->andWhere('YEAR(m.beginAt) = :year')
+            ->andWhere('YEAR(m.endAt) = :year')
+            ->setParameter('userId', $userId)
+            ->setParameter('month', $month)
+            ->setParameter('year', $year)
+            ->setParameter('paid', $paid)
+            ->getQuery()->execute();
 
     }
 
-    public function findDifferentCoursesForClientAndYear($clientId, $year) {
+    public function findDifferentCoursesForClientAndYear($clientId, $year)
+    {
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery(
@@ -306,7 +320,8 @@ class MissionRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
-    public function findDifferentTeachersForClientAndCourseAndYear($clientId, $year) {
+    public function findDifferentTeachersForClientAndCourseAndYear($clientId, $year)
+    {
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery(
@@ -323,7 +338,8 @@ class MissionRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
-    public function findDistinctTeachersForCustomers($clientId, $year) {
+    public function findDistinctTeachersForCustomers($clientId, $year)
+    {
 
         $entityManager = $this->getEntityManager();
 
@@ -337,4 +353,18 @@ class MissionRepository extends ServiceEntityRepository
 
         return $query->getResult();
     }
+
+    public function findDistinctThemesFromUserMissions($userId): array
+    {
+        $qb = $this->createQueryBuilder('m')
+        ->join('m.course', 'c')
+        ->join('c.theme', 't')
+        ->select('DISTINCT t.id') // Sélection des champs du thème
+        ->where('m.user = :userId')
+        ->setParameter('userId', $userId)
+        ->orderBy('t.id', 'ASC');
+
+    return $qb->getQuery()->getResult();
+    }
+
 }

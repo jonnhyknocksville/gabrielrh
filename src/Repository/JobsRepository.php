@@ -21,7 +21,7 @@ class JobsRepository extends ServiceEntityRepository
         parent::__construct($registry, Jobs::class);
     }
 
-//    /**
+    //    /**
 //     * @return Jobs[] Returns an array of Jobs objects
 //     */
 //    public function findByExampleField($value): array
@@ -36,24 +36,37 @@ class JobsRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-   public function findJobsByCourses($listCoursesId)
-   {
-    // return $this->createQueryBuilder('j')
-    //             ->andWhere('j.course IN (:listCoursesId)')
-    //             ->setParameter('listCoursesId', $listCoursesId)
-    //             ->setMaxResults(10)
-    //             ->getQuery()
-    //             ->getArrayResult()
-    //         ;
+    public function findJobsByCourses($listCoursesId)
+    {
+        // return $this->createQueryBuilder('j')
+        //             ->andWhere('j.course IN (:listCoursesId)')
+        //             ->setParameter('listCoursesId', $listCoursesId)
+        //             ->setMaxResults(10)
+        //             ->getQuery()
+        //             ->getArrayResult()
+        //         ;
 
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery(
             "SELECT j
             FROM App\Entity\Jobs j
-            WHERE j.course IN($listCoursesId) "
+            WHERE j.course IN($listCoursesId)"
         )->setMaxResults(8);
 
         return $query->getArrayResult();
-   }
+    }
+
+    public function findJobsByThemeIds(string $themeIds): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            "SELECT j
+            FROM App\Entity\Jobs j
+            WHERE j.theme IN($themeIds)"
+        )->setMaxResults(8);
+
+        return $query->getArrayResult();
+    }
 }
