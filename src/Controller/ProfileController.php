@@ -203,7 +203,8 @@ class ProfileController extends AbstractController
             'totalAmount' => $totalAmount,
             'monthIndex' => $month,
             'year' => $year,
-            'ca' => $data[1]
+            'ca' => $data[1],
+            'hasExpiredFile' => $this->controlFilesUpadated()
         ]);
     }
 
@@ -278,6 +279,7 @@ class ProfileController extends AbstractController
             'year' => $year,
             'ca' => $data[1],
             'monthIndex' => $month,
+            'hasExpiredFile' => $this->controlFilesUpadated()
         ]);
     }
 
@@ -664,7 +666,8 @@ class ProfileController extends AbstractController
             'totalAmount' => $totalAmount,
             'monthIndex' => $month,
             'year' => $year,
-            'ca' => $data[1]
+            'ca' => $data[1],
+            'hasExpiredFile' => $this->controlFilesUpadated(),
         ]);
 
     }

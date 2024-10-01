@@ -500,8 +500,10 @@
             <div class="w-50 f-right">
                 <p class="text-center"> Pour le Prestataire </p>
                 <p class="text-center bold"> {{company_name}} </p>
-                <p class="text-center"> Représenté par Mr <span>HABBANI SAMIH</span></p>
+                <p class="text-center"> Représenté par Mr <span>{{ gerant }}</span></p>
                 <hr>
+                <br>
+                <img style="margin-left:100px;max-height:100px" src="{{ absolute_url(asset('build/tampon.png')) }}" />
             </div>
 
         </div>

@@ -18,8 +18,8 @@ class ContactTest extends KernelTestCase
         $contact->setCurrentJob("Développeur");
         $contact->setEmail("sam@mail.com");
         $contact->setIsRead(false);
-        $contact->setLastName("Habbani");
-        $contact->setFirstName("Samih");
+        $contact->setLastName("Sam");
+        $contact->setFirstName("Braiki");
         $contact->setMessage("mon msg");
         $contact->setObject("Je veux devenir formateur");
         $contact->setPhone("0123456789");
