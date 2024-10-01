@@ -5,45 +5,111 @@
 {% block body %}
 
 {% set months = [
-    "Janvier",
-    "Février",
-    "Mars",
-    "Avril",
-    "Mai",
-    "Juin",
-    "Juillet",
-    "Aout",
-    "Septembre",
-    "Octobre",
-    "Novembre",
-    "Décembre",
+    "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", 
+    "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Décembre"
 ] %}
 
-  <h1 class="text-light fst-italic text-center mt-5"> Voici vos contrats pour l'année {{year}} </h1>
-
+<h1 class="text-light fst-italic text-center mt-5"> Voici vos contrats pour l'année {{ year }} </h1>
 
 <div class="row col-md-8 mx-auto p-5">
-  <table class="table bg-color-none">
-    <thead>
-      <tr>
-        <th class="text-light bg-color-none" scope="col">Numéro de Contrat</th>
-        <th class="text-light bg-color-none" scope="col">Numéro de BDM</th>
-        <th class="text-light bg-color-none" scope="col">Mois</th>
-        <th class="text-light bg-color-none" scope="col">Télécharger</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for contract in contracts %}
-          <tr>
-              <th class="text-light bg-color-none" scope="row">C{{year}}{{contract[1]}}{{ userId }}</th>
-              <th class="text-light bg-color-none" scope="row">B{{year}}{{contract[1]}}{{ userId }}</th>
-              <td class="text-light bg-color-none">{{months[contract[1] -1]}}</td>
-              <td class="text-light bg-color-none"><a class="btn btn-info text-light" target="_blank" href="{{ path('app_contracts', {year : year, month : contract[1]})}}"> Télécharger </a></td>
-          </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+    <table class="table bg-color-none">
+        <thead>
+            <tr>
+                <th class="text-light bg-color-none" scope="col">Numéro de Contrat</th>
+                <th class="text-light bg-color-none" scope="col">Mois</th>
+                <th class="text-light bg-color-none" scope="col">Télécharger</th>
+                <th class="text-light bg-color-none" scope="col">Transmettre son contrat signé</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for missionMonth in missionsMonths %}
+                {% set month = missionMonth[1] %}
+                {% set contract = missionMonth.contract %}
+
+                <tr>
+                    <th class="text-light bg-color-none" scope="row">
+                        C{{ year }}{{ month }}{{ userId }}
+                    </th>
+                    <td class="text-light bg-color-none">{{ months[month - 1] }}</td>
+                    <td class="text-light bg-color-none">
+                      <a class="btn btn-info text-light" target="_blank" href="{{ path('app_contracts', {year : year, month : month})}}">
+                        Télécharger
+                      </a>
+                    </td>
+                    <td class="text-light bg-color-none">
+                        {% if contract and contract.signed %}
+                            <!-- Icône pour le fichier uploadé -->
+                            <a href="{{ asset('uploads/contracts/' ~ year ~ '/' ~ month ~ '/' ~ contract.contract) }}" target="_blank">
+                                <i class="fas fa-file-pdf text-success"></i>
+                            </a>
+                        {% else %}
+                            <!-- Input file si pas encore uploadé -->
+                            <form id="contract-upload-form-{{ year }}-{{ month }}" action="{{ path('app_contract_uploads', { year: year, month: month, userId: userId }) }}" method="POST" enctype="multipart/form-data">
+                                <input type="file" name="contractFile" class="contract-file-input" data-form-id="{{ year }}-{{ month }}" />
+                            </form>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 
+<!-- Popup Bootstrap 5 -->
+{% if hasExpiredFile %}
+<div class="modal fade" id="updateDocumentsModal" tabindex="-1" aria-labelledby="updateDocumentsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateDocumentsModalLabel">Documents à mettre à jour !</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Attention, certains documents administratifs ne sont plus à jour dans votre profil. L'<b>URSAFF</b> et la <b>DREETS</b> nous obligent à tenir ces documents à jour pour que vous puissiez nous facturer les prestations en cours et à venir. Merci de faire le nécessaire dans la partie "Mes informations personnelles" avant de nous envoyer votre prochaine facture/contrat.
+            </div>
+            <div class="modal-footer">
+                <a href="{{ path('app_profile_infos') }}" class="text-white btn btn-success">Mettre mes documents à jour</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Sélectionner tous les inputs file
+        const fileInputs = document.querySelectorAll('.contract-file-input');
+
+        // Afficher la modale si les documents ne sont pas à jour
+        {% if hasExpiredFile %}
+            $("#updateDocumentsModal").modal("show");
+        {% endif %}
+
+        fileInputs.forEach(input => {
+            input.addEventListener('change', function () {
+                const formId = this.getAttribute('data-form-id');
+                const form = document.getElementById('contract-upload-form-' + formId);
+                const formData = new FormData(form);
+
+                fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Contrat téléchargé avec succès');
+                    } else if (data.error) {
+                        alert('Erreur : ' + data.error);
+                    }
+                })
+                .catch(error => {
+                    alert('Erreur lors de l\'upload : ' + error.message);
+                });
+            });
+        });
+    });
+</script>
 
 {% endblock %}

@@ -81,6 +81,9 @@ class Mission
     #[ORM\ManyToOne(inversedBy: 'invoice_client_missions')]
     private ?Clients $invoice_client = null;
 
+    #[ORM\ManyToOne(inversedBy: 'missions')]
+    private ?Contract $contract = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -346,6 +349,18 @@ class Mission
     public function setInvoiceClient(?Clients $invoice_client): static
     {
         $this->invoice_client = $invoice_client;
+
+        return $this;
+    }
+
+    public function getContract(): ?Contract
+    {
+        return $this->contract;
+    }
+
+    public function setContract(?Contract $contract): static
+    {
+        $this->contract = $contract;
 
         return $this;
     }

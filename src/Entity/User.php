@@ -46,20 +46,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Courses::class, inversedBy: 'users')]
     private Collection $courses;
 
-    #[ORM\Column(length: 255, nullable:true)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $kbis = null;
 
-    #[ORM\Column(length: 255, nullable:true)]
-    private ?string $vigilance = null;
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTimeInterface $kbisUpdatedAt = null;
 
-    #[ORM\Column(length: 255, nullable:true)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $identity = null;
 
-    #[ORM\Column(length: 255, nullable:true)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $diplomas = null;
 
-    #[ORM\Column(length: 255, nullable:true)]
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTimeInterface $diplomasUpdatedAt = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $cv = null;
+
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTimeInterface $cvUpdatedAt = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: StaffApplication::class)]
     private Collection $staffApplications;
@@ -94,11 +100,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $iban = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $criminalRecord = null;
+
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTimeInterface $criminalRecordUpdatedAt = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $attestationVigilance = null;
+
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTimeInterface $attestationVigilanceUpdatedAt = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Contract::class)]
+    private Collection $contracts;
+
     public function __construct()
     {
         $this->missions = new ArrayCollection();
         $this->courses = new ArrayCollection();
         $this->staffApplications = new ArrayCollection();
+        $this->contracts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -213,8 +235,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function __toString(){
-        return  strtoupper($this->email); //or anything else
+    public function __toString()
+    {
+        return strtoupper($this->email); //or anything else
     }
 
     public function getFirstName(): ?string
@@ -241,7 +264,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getIdentifier():string
+    public function getIdentifier(): string
     {
         return $this->email;
     }
@@ -275,23 +298,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->kbis;
     }
 
-    public function setKbis(string $kbis): static
+    public function setKbis(?string $kbis): self
     {
         $this->kbis = $kbis;
-
         return $this;
     }
 
-    public function getVigilance(): ?string
+    public function getKbisUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->vigilance;
-    }
-
-    public function setVigilance(string $vigilance): static
-    {
-        $this->vigilance = $vigilance;
-
-        return $this;
+        return $this->kbisUpdatedAt;
     }
 
     public function getIdentity(): ?string
@@ -311,11 +326,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->diplomas;
     }
 
-    public function setDiplomas(string $diplomas): static
+    public function setDiplomas(?string $diplomas): self
     {
         $this->diplomas = $diplomas;
-
         return $this;
+    }
+
+    public function getDiplomasUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->diplomasUpdatedAt;
     }
 
     public function getCv(): ?string
@@ -323,11 +342,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->cv;
     }
 
-    public function setCv(string $cv): static
+    public function setCv(?string $cv): self
     {
         $this->cv = $cv;
-
         return $this;
+    }
+
+    public function getCvUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->cvUpdatedAt;
     }
 
     /**
@@ -476,6 +499,103 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIban(string $iban): static
     {
         $this->iban = $iban;
+
+        return $this;
+    }
+
+    public function getCriminalRecord(): ?string
+    {
+        return $this->criminalRecord;
+    }
+
+    public function setCriminalRecord(?string $criminalRecord): self
+    {
+        $this->criminalRecord = $criminalRecord;
+        return $this;
+    }
+
+    public function getCriminalRecordUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->criminalRecordUpdatedAt;
+    }
+
+    public function getAttestationVigilance(): ?string
+    {
+        return $this->attestationVigilance;
+    }
+
+    public function setAttestationVigilance(?string $attestationVigilance): self
+    {
+        $this->attestationVigilance = $attestationVigilance;
+        return $this;
+    }
+
+    public function getAttestationVigilanceUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->attestationVigilanceUpdatedAt;
+    }
+
+
+    public function setKbisUpdatedAt(?\DateTimeInterface $kbisUpdatedAt): static
+    {
+        $this->kbisUpdatedAt = $kbisUpdatedAt;
+
+        return $this;
+    }
+
+    public function setCvUpdatedAt(?\DateTimeInterface $cvUpdatedAt): static
+    {
+        $this->cvUpdatedAt = $cvUpdatedAt;
+
+        return $this;
+    }
+
+    public function setDiplomasUpdatedAt(?\DateTimeInterface $diplomasUpdatedAt): static
+    {
+        $this->diplomasUpdatedAt = $diplomasUpdatedAt;
+
+        return $this;
+    }
+    public function setCriminalRecordUpdatedAt(?\DateTimeInterface $criminalRecordUpdatedAt): static
+    {
+        $this->criminalRecordUpdatedAt = $criminalRecordUpdatedAt;
+
+        return $this;
+    }
+
+    public function setAttestationVigilanceUpdatedAt(?\DateTimeInterface $attestationVigilanceUpdatedAt): static
+    {
+        $this->attestationVigilanceUpdatedAt = $attestationVigilanceUpdatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Contract>
+     */
+    public function getContracts(): Collection
+    {
+        return $this->contracts;
+    }
+
+    public function addContract(Contract $contract): static
+    {
+        if (!$this->contracts->contains($contract)) {
+            $this->contracts->add($contract);
+            $contract->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContract(Contract $contract): static
+    {
+        if ($this->contracts->removeElement($contract)) {
+            // set the owning side to null (unless already changed)
+            if ($contract->getUser() === $this) {
+                $contract->setUser(null);
+            }
+        }
 
         return $this;
     }
