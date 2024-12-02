@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mission Modifiée</title>
+</head>
+<body>
+    <h1>Informations sur la mission modifiée</h1>
+     <p>ID de la mission : {{ missionId }}</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Champ</th>
+                <th>Ancienne valeur</th>
+                <th>Nouvelle valeur</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for field, values in changes %}
+                <tr>
+                    <td>{{ field }}</td>
+                    <td>{{ values.old }}</td>
+                    <td>{{ values.new }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

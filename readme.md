@@ -8,4 +8,4 @@ ssh wayskim@ssh.cluster027.hosting.ovh.net
 ##### Pour envoyer le code sur le serveur
 ##### 
 
-rsync -av --exclude '.git' --exclude 'node_modules' --exclude 'var/cache' --exclude 'var/log' --exclude 'var/sessions' --include '.env' --exclude '.idea' --exclude '.env.local' --exclude 'tests' --exclude 'vendor' ./ wayskim@ssh.cluster027.hosting.ovh.net:~/gabrielrh 
+rsync -av --exclude '.git' --exclude 'node_modules' --exclude 'var/cache' --exclude 'var/log' --exclude 'var/sessions' --exclude '.idea' --exclude '.env.local' --exclude 'tests' --exclude 'vendor' ./ wayskim@ssh.cluster027.hosting.ovh.net:~/gabrielrh 

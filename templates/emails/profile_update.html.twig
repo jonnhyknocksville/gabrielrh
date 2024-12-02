@@ -1,0 +1,13 @@
+<h1>Modification des informations concernant du formateur:</h1>
+
+<p> Nom : {{user.lastName}}</p>
+<p> Prénom : {{user.firstName}}</p>
+<p> email : {{user.email}}</p>
+
+<p>Les éléments suivants ont été modifiés sur son profil :</p>
+
+<ul>
+    {% for field in modifiedFields %}
+        <li>{{ field }}</li>
+    {% endfor %}
+</ul>

@@ -191,6 +191,24 @@ class UserType extends AbstractType
                     ]),
                 ]
             ])
+            ->add('attestationCompetence', FileType::class, [
+                'label' => 'Attestation de compétence',
+                'label_attr' => ['class' => 'text-light'],
+                'required' => false,
+                'data_class' => null,  // Si vous avez un fichier déjà existant
+                'mapped' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1M',
+                        'mimeTypes' => [
+                            'application/pdf',
+                            'application/zip',
+                        ],
+                        'mimeTypesMessage' => 'Veuillez télécharger un fichier PDF ou ZIP valide.',
+                        'maxSizeMessage' => 'Le fichier ne doit pas dépasser 1 Mo.',
+                    ]),
+                ]
+            ])
             ->add('attestationVigilance', FileType::class, [
                 'label' => 'Attestation de vigilance',
                 'label_attr' => ['class' => 'text-light'],
@@ -208,6 +226,7 @@ class UserType extends AbstractType
                         'maxSizeMessage' => 'Le fichier ne doit pas dépasser 1 Mo.',
                     ]),
                 ]
+                
             ]);
     }
 

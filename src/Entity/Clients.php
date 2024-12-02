@@ -34,7 +34,7 @@ class Clients
     private ?string $personInCharge = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $phone = null;
+    private ?string $phonePersonInCharge = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $backgroundColor = null;
@@ -81,12 +81,41 @@ class Clients
     #[ORM\OneToMany(mappedBy: 'invoice_client', targetEntity: Mission::class)]
     private Collection $invoice_client_missions;
 
+    #[ORM\Column(length: 255)]
+    private ?string $emailPersonInCharge = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $emailRepresentative = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $phoneRepresentative = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?array $emailContactToAdd = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $accountantFullName = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $accountantEmail = null;
+
+    #[ORM\OneToMany(mappedBy: 'client', targetEntity: Invoices::class)]
+    private Collection $invoices;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $accountServiceName = null;
+
+    #[ORM\OneToMany(mappedBy: 'client', targetEntity: Estimate::class)]
+    private Collection $estimates;
+
     public function __construct()
     {
         $this->missions = new ArrayCollection();
         $this->students = new ArrayCollection();
         $this->tarifications = new ArrayCollection();
         $this->invoice_client_missions = new ArrayCollection();
+        $this->invoices = new ArrayCollection();
+        $this->estimates = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -184,14 +213,14 @@ class Clients
         return $this;
     }
 
-    public function getPhone(): ?string
+    public function getPhonePersonInCharge(): ?string
     {
-        return $this->phone;
+        return $this->phonePersonInCharge;
     }
 
-    public function setPhone(?string $phone): static
+    public function setPhonePersonInCharge(?string $phonePersonInCharge): static
     {
-        $this->phone = $phone;
+        $this->phonePersonInCharge = $phonePersonInCharge;
 
         return $this;
     }
@@ -430,7 +459,196 @@ class Clients
         return $this;
     }
 
-    public function __toString(){
-        return  strtoupper($this->name . " - " . $this->commercialName . " - " . $this->city); //or anything else
+    public function __toString()
+    {
+        return strtoupper($this->name . " - " . $this->commercialName . " - " . $this->city); //or anything else
     }
+
+    public function getEmailPersonInCharge(): ?string
+    {
+        return $this->emailPersonInCharge;
+    }
+
+    public function setEmailPersonInCharge(string $emailPersonInCharge): static
+    {
+        $this->emailPersonInCharge = $emailPersonInCharge;
+
+        return $this;
+    }
+
+    public function getEmailRepresentative(): ?string
+    {
+        return $this->emailRepresentative;
+    }
+
+    public function setEmailRepresentative(string $emailRepresentative): static
+    {
+        $this->emailRepresentative = $emailRepresentative;
+
+        return $this;
+    }
+
+    public function getPhoneRepresentative(): ?string
+    {
+        return $this->phoneRepresentative;
+    }
+
+    public function setPhoneRepresentative(string $phoneRepresentative): static
+    {
+        $this->phoneRepresentative = $phoneRepresentative;
+
+        return $this;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getEmailContactToAdd(): ?array
+    {
+        return $this->emailContactToAdd;
+    }
+
+    /**
+     * @param array|null $emailContactToAdd
+     * @return $this
+     */
+    public function setEmailContactToAdd(?array $emailContactToAdd): self
+    {
+        $this->emailContactToAdd = $emailContactToAdd;
+        return $this;
+    }
+
+    /**
+     * Ajoute un email au tableau emailContactToAdd
+     * 
+     * @param string $email
+     * @return $this
+     */
+    public function addEmailContact(string $email): self
+    {
+        if ($this->emailContactToAdd === null) {
+            $this->emailContactToAdd = [];
+        }
+
+        if (!in_array($email, $this->emailContactToAdd)) {
+            $this->emailContactToAdd[] = $email;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Supprime un email du tableau emailContactToAdd
+     * 
+     * @param string $email
+     * @return $this
+     */
+    public function removeEmailContact(string $email): self
+    {
+        if ($this->emailContactToAdd !== null) {
+            $index = array_search($email, $this->emailContactToAdd);
+            if ($index !== false) {
+                unset($this->emailContactToAdd[$index]);
+                $this->emailContactToAdd = array_values($this->emailContactToAdd); // Réindexe le tableau
+            }
+        }
+        return $this;
+    }
+
+    public function getAccountantFullName(): ?string
+    {
+        return $this->accountantFullName;
+    }
+
+    public function setAccountantFullName(?string $accountantFullName): static
+    {
+        $this->accountantFullName = $accountantFullName;
+
+        return $this;
+    }
+
+    public function getAccountantEmail(): ?string
+    {
+        return $this->accountantEmail;
+    }
+
+    public function setAccountantEmail(?string $accountantEmail): static
+    {
+        $this->accountantEmail = $accountantEmail;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Invoices>
+     */
+    public function getInvoices(): Collection
+    {
+        return $this->invoices;
+    }
+
+    public function addInvoice(Invoices $invoice): static
+    {
+        if (!$this->invoices->contains($invoice)) {
+            $this->invoices->add($invoice);
+            $invoice->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInvoice(Invoices $invoice): static
+    {
+        if ($this->invoices->removeElement($invoice)) {
+            // set the owning side to null (unless already changed)
+            if ($invoice->getClient() === $this) {
+                $invoice->setClient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getAccountServiceName(): ?string
+    {
+        return $this->accountServiceName;
+    }
+
+    public function setAccountServiceName(?string $accountServiceName): static
+    {
+        $this->accountServiceName = $accountServiceName;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Estimate>
+     */
+    public function getEstimates(): Collection
+    {
+        return $this->estimates;
+    }
+
+    public function addEstimate(Estimate $estimate): static
+    {
+        if (!$this->estimates->contains($estimate)) {
+            $this->estimates->add($estimate);
+            $estimate->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEstimate(Estimate $estimate): static
+    {
+        if ($this->estimates->removeElement($estimate)) {
+            // set the owning side to null (unless already changed)
+            if ($estimate->getClient() === $this) {
+                $estimate->setClient(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

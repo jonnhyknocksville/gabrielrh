@@ -148,10 +148,19 @@
 							Numéro de Commande :
 							{{orderNumber}}
 						{% endif %}
+						{% if contractNumber is not null and contractNumber is defined %}
+							Numéro de contrat :
+							{{contractNumber}}
+						{% endif %}
 					</p>
 				</div>
 
 				<div class="right flex-column">
+					{% if client.accountServiceName is not null and client.accountServiceName is defined %}
+						<p class="m-0 fw400 font-weight-bold">
+							{{client.accountServiceName}}
+						</p>
+					{% endif %}
 					<p class="m-0 fw400 font-weight-bold">
 						{{client.name}}
 					</p>
@@ -227,6 +236,9 @@
 											{# les prestations #}
 											{% if loop.index == 1 %}
 												<p class="m-0 fw400">{{data.course}}
+													{% if codeModule is not null and codeModule is defined %}
+														<br>Code module : {{data.codeModule}}
+													{% endif %}
 												</p>
 												<p class="m-0 fw400">
 													{{data.student.student}}
@@ -292,7 +304,7 @@
 						</tbody>
 					</table>
 					<p class="m-0 font-weight-bold mt-3">
-						TVA non applicable, art. 293 B du CGI
+						TVA non applicable, Art. 261.4.4 A du CGI
 					</p>
 				</div>
 
@@ -348,9 +360,11 @@
 			<div class="row flex-column mt-5">
 				<p class="m-0 font-weight-bold">Mode de paiement: Virement bancaire
 				</p>
-				<p class="m-0 font-weight-bold">Banque : {{bank}}
+				<p class="m-0 font-weight-bold">Banque :
+					{{bank}}
 				</p>
-				<p class="m-0 font-weight-bold">IBAN : {{iban}}
+				<p class="m-0 font-weight-bold">IBAN :
+					{{iban}}
 				</p>
 			</div>
 
@@ -361,10 +375,16 @@
 					Prestation de services | Pénalités en cas de retard : 3 fois le taux légal | Indemnité en cas de retard : 40€ | Aucun escompte en cas de paiement anticipé
 				</p>
 				<p class="text-center m-0">
-					{{company_name}}, SASU immatriculée sous le SIREN {{siren}} | RCS {{siren}}
+					{{company_name}}, SASU immatriculée sous le SIREN
+					{{siren}}
+					| RCS
+					{{siren}}
 				</p>
 				<p class="text-center m-0">
-					N°TVA {{num_tva}} | APE {{naf_ape}}
+					N°TVA
+					{{num_tva}}
+					| APE
+					{{naf_ape}}
 				</p>
 
 			</div>

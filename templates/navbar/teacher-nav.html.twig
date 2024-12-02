@@ -1,37 +1,46 @@
+<nav class="navbar align-items-start navbar-expand-lg bg-dark py-3 px-0 w-100">
+    <div class="container-fluid bg-secondary-dark">
+        
+        <div class="logo-smartphone d-flex flex-column align-items-start logo ms-3">
+            <a aria-label="Retournez à la page d'accueil - {{company_name}}" href="{{ path('app_home') }}">
+                <img src="{{ asset('build/logo.png') }}" width="auto" height="40px" title="{{company_name}}" alt="{{company_name}}">
+            </a>
+        </div>
 
-        <nav class="navbar align-items-start navbar-expand-lg bg-dark py-3 px-0 w-100">
-            <div class="container-fluid bg-secondary-dark">
-                
-                <div class="logo-smartphone d-flex flex-column align-items-start logo ms-3">
-                    <a aria-label="Retournez à la page d'accueil - {{company_name}}" href="{{ path('app_home') }}">
-                        <img src="{{ asset('build/logo.png')}}" width="auto" height="40px" title="{{company_name}}" alt="{{company_name}}">
-                    </a>
-                </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon">
+            <i class="text-secondary fas fa-bars" style="font-size:28px;"></i>
+            </span>
+        </button>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon">
-                    <i class="text-secondary fas fa-bars" style="font-size:28px;"></i>
-                    </span>
-                </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="full-screen d-flex align-items-center navbar-nav ms-auto">
+                <ul class="d-flex align-items-center navbar-nav">
+                    <li class="nav-item px-1 py-1">
+                        <a class="me-5 text-white" href="mailto:{{ mail_address }}?subject=Votre sujet ici&body=Votre message ici">Une question? 👉🏼 {{ mail_address }}</a>
+                    </li>
 
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <div class="full-screen d-flex align-items-center navbar-nav ms-auto">
-                        <ul class="d-flex align-items-center navbar-nav">
-                            <li class="nav-item px-1 py-1">
-                                <a class="me-5 text-white" href="mailto:{{mail_address}}?subject=Votre sujet ici&body=Votre message ici">Une question? 👉🏼 {{mail_address}}</a>
-                            </li>
-                            <li class="nav-item px-1 py-1">
-                                <a aria-label="Mon planning - {{company_name}}" class="smallBorderRadius px-3 bg-secondary text-light nav-link " href="{{ path('app_teacher_calendar') }}">Mon planning</a>
-                            </li>
-                            <li class="nav-item px-1 py-1">
-                                <a aria-label="Mon profil - {{company_name}}" class="smallBorderRadius px-3 text-light nav-link " href="{{ path('app_profile') }}">Mon profil</a>
-                            </li>
-                            <li class="nav-item px-1 py-1">
-                                <a aria-label="Ce déconnectez de mon compte - {{company_name}}" class="smallBorderRadius px-3 text-light nav-link " href="{{ path('app_logout') }}">Se déconnecter</a>
-                            </li>
-                        </ul>
-                        
-                    </div>
-                </div>
+                    {# Affiche les liens pour les formateurs et les clients uniquement si l'utilisateur a le rôle ROLE_ADMIN #}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav-item px-1 py-1">
+                            <a aria-label="Mes formateurs - {{ company_name }}" class="smallBorderRadius px-3 text-light nav-link" href="{{ path('students_list') }}">Mes formateurs</a>
+                        </li>
+                        <li class="nav-item px-1 py-1">
+                            <a aria-label="Mes clients - {{ company_name }}" class="smallBorderRadius px-3 text-light nav-link" href="{{ path('clients_list') }}">Mes clients</a>
+                        </li>
+                    {% endif %}
+
+                    <li class="nav-item px-1 py-1">
+                        <a aria-label="Mon planning - {{ company_name }}" class="smallBorderRadius px-3 bg-secondary text-light nav-link" href="{{ path('app_teacher_calendar') }}">Mon planning</a>
+                    </li>
+                    <li class="nav-item px-1 py-1">
+                        <a aria-label="Mon profil - {{ company_name }}" class="smallBorderRadius px-3 text-light nav-link" href="{{ path('app_profile') }}">Mon profil</a>
+                    </li>
+                    <li class="nav-item px-1 py-1">
+                        <a aria-label="Se déconnecter de mon compte - {{ company_name }}" class="smallBorderRadius px-3 text-light nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
+                    </li>
+                </ul>
             </div>
-        </nav>
+        </div>
+    </div>
+</nav>

@@ -96,16 +96,15 @@ $('.updateClientPaid').on('change', function () {
   const month = $(this).parent().parent().find('.month').val();
   const year = $(this).parent().parent().find('.year').val();
 
-  console.log(month);
-
   let checked;
-  if ($(this).hasClass("checked")) {
+  if (!$(this).is(':checked')) {
     checked = 0;
     $(this).removeClass("checked");
   } else {
     checked = 1;
     $(this).addClass("checked");
   }
+
 
   let myData = {
     clientId: $(this).parent().parent().find(".clientId").val(),
@@ -119,7 +118,6 @@ $('.updateClientPaid').on('change', function () {
     type: "POST",
     async: true,
     success: function (data) {
-      console.log("toto");
     },
     error: function (xhr, ajaxOptions, thrownError) {
 
@@ -135,16 +133,16 @@ $('.updateInvoiceSent').on('change', function () {
   const month = $(this).parent().parent().find('.month').val();
   const year = $(this).parent().parent().find('.year').val();
 
-  console.log(month);
-
   let checked;
-  if ($(this).hasClass("checked")) {
+  if (!$(this).is(':checked')) {
     checked = 0;
     $(this).removeClass("checked");
   } else {
     checked = 1;
     $(this).addClass("checked");
   }
+
+  console.log("checked" + checked);
 
   let myData = {
     clientId: $(this).parent().parent().find(".clientId").val(),
@@ -158,7 +156,6 @@ $('.updateInvoiceSent').on('change', function () {
     type: "POST",
     async: true,
     success: function (data) {
-      console.log("toto");
     },
     error: function (xhr, ajaxOptions, thrownError) {
 
@@ -174,7 +171,7 @@ $('.updateTeacherPaid').on('change', function () {
   const month = $(this).parent().parent().find('.month').val();
 
   let checked;
-  if ($(this).hasClass("checked")) {
+  if (!$(this).is(':checked')) {
     checked = 0;
     $(this).removeClass("checked");
   } else {
@@ -194,7 +191,6 @@ $('.updateTeacherPaid').on('change', function () {
     type: "POST",
     async: true,
     success: function (data) {
-      console.log("toto");
     },
     error: function (xhr, ajaxOptions, thrownError) {
 

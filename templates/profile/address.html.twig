@@ -1,117 +1,142 @@
 {% extends 'base-profile.html.twig' %}
 
-{% block title %}Modifier mes informations{% endblock %}
+{% block title %}Modifier mes informations
+{% endblock %}
 
 {% block body %}
-    <div class="row col-md-10 mx-auto">
-        <h1 class="text-light my-5">Modifier mes informations</h1>
+	<div class="row col-md-10 mx-auto">
+		<h1 class="text-light my-5">Modifier mes informations</h1>
+        <p class="text-white">Uniquement au format PDF ou ZIP, moins d'1 Mo </p>
+		{% for notice in app.flashes('success') %}
+			<div class="alert alert-success">
+				{{ notice }}
+			</div>
+		{% endfor %}
 
-        {% for notice in app.flashes('success') %}
-            <div class="alert alert-success">
-                {{ notice }}
-            </div>
-        {% endfor %}
+		{{ form_start(form, {'attr': {'class': 'row'}}) }}
 
-        {{ form_start(form, {'attr': {'class': 'row'}}) }}
+		<div class="col-md-6">
+			{{ form_row(form.firstName) }}
+			{{ form_row(form.lastName) }}
+			{{ form_row(form.address) }}
+			{{ form_row(form.city) }}
+			{{ form_row(form.postalCode) }}
+			{{ form_row(form.email) }}
+			{{ form_row(form.phone) }}
+			{{ form_row(form.company) }}
+			{{ form_row(form.siret) }}
+			{{ form_row(form.naf) }}
+			{{ form_row(form.legalForm) }}
+			{{ form_row(form.iban) }}
+		</div>
 
-        <div class="col-md-6">
-            {{ form_row(form.firstName) }}
-            {{ form_row(form.lastName) }}
-            {{ form_row(form.address) }}
-            {{ form_row(form.city) }}
-            {{ form_row(form.postalCode) }}
-            {{ form_row(form.email) }}
-            {{ form_row(form.phone) }}
-            {{ form_row(form.company) }}
-            {{ form_row(form.siret) }}
-            {{ form_row(form.naf) }}
-            {{ form_row(form.legalForm) }}
-            {{ form_row(form.iban) }}
-        </div>
+		<div class="col-md-6">
+			<div class="mb-3">
+				{{ form_row(form.kbis) }}
+				{% if app.user.kbis %}
+					<a class="text-success" href="{{ asset('uploads/kbis/' ~ app.user.kbis) }}">Télécharger le document actuel</a>
+					<p class="text-info">
+						Dernière mise à jour :
+						{{ app.user.kbisUpdatedAt ? app.user.kbisUpdatedAt|date('d/m/Y') : 'Non disponible' }}
+						{% if app.user.kbisUpdatedAt and app.user.kbisUpdatedAt < date().modify('-6 months') %}
+							<i class="fas fa-exclamation-circle text-danger"></i>
+							<span class="text-warning">Document expiré</span>
+						{% endif %}
+					</p>
+				{% else %}
+					<p class="text-warning">Pas de fichier disponible</p>
+				{% endif %}
+			</div>
 
-        <div class="col-md-6">
-            <div class="mb-3">
-                {{ form_row(form.kbis) }}
-                {% if app.user.kbis %}
-                    <a class="text-success" href="{{ asset('uploads/kbis/' ~ app.user.kbis) }}">Télécharger le document actuel</a>
-                    <p class="text-info">
-                        Dernière mise à jour : {{ app.user.kbisUpdatedAt ? app.user.kbisUpdatedAt|date('d/m/Y') : 'Non disponible' }}
-                        {% if app.user.kbisUpdatedAt and app.user.kbisUpdatedAt < date().modify('-6 months') %}
-                            <i class="fas fa-exclamation-circle text-danger"></i>
-                            <span class="text-warning">Document expiré</span>
-                        {% endif %}
-                    </p>
-                {% else %}
-                    <p class="text-warning">Pas de fichier disponible</p>
-                {% endif %}
-            </div>
+			<div class="mb-3">
+				{{ form_row(form.cv) }}
+				{% if app.user.cv %}
+					<a class="text-success" href="{{ asset('uploads/cv/' ~ app.user.cv) }}">Télécharger le document actuel</a>
+					<p class="text-info">
+						Dernière mise à jour :
+						{{ app.user.cvUpdatedAt ? app.user.cvUpdatedAt|date('d/m/Y') : 'Non disponible' }}
+						{% if app.user.cvUpdatedAt and app.user.cvUpdatedAt < date().modify('-6 months') %}
+							<i class="fas fa-exclamation-circle text-danger"></i>
+							<span class="text-warning">Document expiré</span>
+						{% endif %}
+					</p>
+				{% else %}
+					<p class="text-warning">Pas de fichier disponible</p>
+				{% endif %}
+			</div>
 
-            <div class="mb-3">
-                {{ form_row(form.cv) }}
-                {% if app.user.cv %}
-                    <a class="text-success" href="{{ asset('uploads/cv/' ~ app.user.cv) }}">Télécharger le document actuel</a>
-                    <p class="text-info">
-                        Dernière mise à jour : {{ app.user.cvUpdatedAt ? app.user.cvUpdatedAt|date('d/m/Y') : 'Non disponible' }}
-                        {% if app.user.cvUpdatedAt and app.user.cvUpdatedAt < date().modify('-6 months') %}
-                            <i class="fas fa-exclamation-circle text-danger"></i>
-                            <span class="text-warning">Document expiré</span>
-                        {% endif %}
-                    </p>
-                {% else %}
-                    <p class="text-warning">Pas de fichier disponible</p>
-                {% endif %}
-            </div>
+			<div class="mb-3">
+				{{ form_row(form.diplomas) }}
+				{% if app.user.diplomas %}
+					<a class="text-success" href="{{ asset('uploads/diplomas/' ~ app.user.diplomas) }}">Télécharger le document actuel</a>
+					<p class="text-info">
+						Dernière mise à jour :
+						{{ app.user.diplomasUpdatedAt ? app.user.diplomasUpdatedAt|date('d/m/Y') : 'Non disponible' }}
+						{% if app.user.diplomasUpdatedAt and app.user.diplomasUpdatedAt < date().modify('-6 months') %}
+							<i class="fas fa-exclamation-circle text-danger"></i>
+							<span class="text-warning">Document expiré</span>
+						{% endif %}
+					</p>
+				{% else %}
+					<p class="text-warning">Pas de fichier disponible</p>
+				{% endif %}
+			</div>
 
-            <div class="mb-3">
-                {{ form_row(form.diplomas) }}
-                {% if app.user.diplomas %}
-                    <a class="text-success" href="{{ asset('uploads/diplomas/' ~ app.user.diplomas) }}">Télécharger le document actuel</a>
-                    <p class="text-info">
-                        Dernière mise à jour : {{ app.user.diplomasUpdatedAt ? app.user.diplomasUpdatedAt|date('d/m/Y') : 'Non disponible' }}
-                        {% if app.user.diplomasUpdatedAt and app.user.diplomasUpdatedAt < date().modify('-6 months') %}
-                            <i class="fas fa-exclamation-circle text-danger"></i>
-                            <span class="text-warning">Document expiré</span>
-                        {% endif %}
-                    </p>
-                {% else %}
-                    <p class="text-warning">Pas de fichier disponible</p>
-                {% endif %}
-            </div>
+			<div class="mb-3">
+				{{ form_row(form.criminalRecord) }}
+				{% if app.user.criminalRecord %}
+					<a class="text-success" href="{{ asset('uploads/criminalRecords/' ~ app.user.criminalRecord) }}">Télécharger le document actuel</a>
+					<p class="text-info">
+						Dernière mise à jour :
+						{{ app.user.criminalRecordUpdatedAt ? app.user.criminalRecordUpdatedAt|date('d/m/Y') : 'Non disponible' }}
+						{% if app.user.criminalRecordUpdatedAt and app.user.criminalRecordUpdatedAt < date().modify('-6 months') %}
+							<i class="fas fa-exclamation-circle text-danger"></i>
+							<span class="text-warning">Document expiré</span>
+						{% endif %}
+					</p>
+				{% else %}
+					<p class="text-warning">Pas de fichier disponible</p>
+				{% endif %}
+			</div>
 
-            <div class="mb-3">
-                {{ form_row(form.criminalRecord) }}
-                {% if app.user.criminalRecord %}
-                    <a class="text-success" href="{{ asset('uploads/criminalRecords/' ~ app.user.criminalRecord) }}">Télécharger le document actuel</a>
-                    <p class="text-info">
-                        Dernière mise à jour : {{ app.user.criminalRecordUpdatedAt ? app.user.criminalRecordUpdatedAt|date('d/m/Y') : 'Non disponible' }}
-                        {% if app.user.criminalRecordUpdatedAt and app.user.criminalRecordUpdatedAt < date().modify('-6 months') %}
-                            <i class="fas fa-exclamation-circle text-danger"></i>
-                            <span class="text-warning">Document expiré</span>
-                        {% endif %}
-                    </p>
-                {% else %}
-                    <p class="text-warning">Pas de fichier disponible</p>
-                {% endif %}
-            </div>
+			<div class="mb-3">
+				{{ form_row(form.attestationVigilance) }}
+				{% if app.user.attestationVigilance %}
+					<a class="text-success" href="{{ asset('uploads/vigilance/' ~ app.user.attestationVigilance) }}">Télécharger le document actuel</a>
+					<p class="text-info">
+						Dernière mise à jour :
+						{{ app.user.attestationVigilanceUpdatedAt ? app.user.attestationVigilanceUpdatedAt|date('d/m/Y') : 'Non disponible' }}
+						{% if app.user.attestationVigilanceUpdatedAt and app.user.attestationVigilanceUpdatedAt < date().modify('-6 months') %}
+							<i class="fas fa-exclamation-circle text-danger"></i>
+							<span class="text-warning">Document expiré</span>
+						{% endif %}
+					</p>
+				{% else %}
+					<p class="text-warning">Pas de fichier disponible</p>
+				{% endif %}
+			</div>
 
-            <div class="mb-3">
-                {{ form_row(form.attestationVigilance) }}
-                {% if app.user.attestationVigilance %}
-                    <a class="text-success" href="{{ asset('uploads/vigilance/' ~ app.user.attestationVigilance) }}">Télécharger le document actuel</a>
-                    <p class="text-info">
-                        Dernière mise à jour : {{ app.user.attestationVigilanceUpdatedAt ? app.user.attestationVigilanceUpdatedAt|date('d/m/Y') : 'Non disponible' }}
-                        {% if app.user.attestationVigilanceUpdatedAt and app.user.attestationVigilanceUpdatedAt < date().modify('-6 months') %}
-                            <i class="fas fa-exclamation-circle text-danger"></i>
-                            <span class="text-warning">Document expiré</span>
-                        {% endif %}
-                    </p>
-                {% else %}
-                    <p class="text-warning">Pas de fichier disponible</p>
-                {% endif %}
-            </div>
-        </div>
+		<div class="mb-3">
+			{{ form_row(form.attestationCompetence) }}
+			{% if app.user.attestationCompetence %}
+				<a class="text-success" href="{{ asset('uploads/competence/' ~ app.user.attestationCompetence) }}">Télécharger l'attestation de compétence actuelle</a>
+				<p class="text-info">
+					Dernière mise à jour :
+					{{ app.user.attestationCompetenceUpdatedAt ? app.user.attestationCompetenceUpdatedAt|date('d/m/Y') : 'Non disponible' }}
+					{% if app.user.attestationCompetenceUpdatedAt and app.user.attestationCompetenceUpdatedAt < date().modify('-6 months') %}
+						<i class="fas fa-exclamation-circle text-danger"></i>
+						<span class="text-warning">Document expiré</span>
+					{% endif %}
+				</p>
+			{% else %}
+				<a class="text-success" href="{{ asset('Attestation de compétence.docx') }}">Télécharger modèle</a><br>
+				<p class="text-warning">Pas de fichier disponible</p>
+			{% endif %}
+		</div>
 
-        <button type="submit" class="btn btn-primary">Enregistrer</button>
-        {{ form_end(form) }}
-    </div>
+		</div>
+
+		<button type="submit" class="btn btn-primary">Enregistrer</button>
+		{{ form_end(form) }}
+	</div>
 {% endblock %}

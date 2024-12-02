@@ -9,6 +9,7 @@ parameters:
     app.path.courses_images: build/courses/
     app.path.themes_images: build/themes/
     app.mail_address: "%env(MAIL_ADDRESS)%"
+    app.mail_address_dsn: "%env(MAIL_ADDRESS_DSN)%"
     nom_entreprise: '%env(NOM_ENTREPRISE)%'
     siret: '%env(SIRET)%'
     uploads_directory: '%kernel.project_dir%/public/uploads'

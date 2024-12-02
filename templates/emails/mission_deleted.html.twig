@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mission Supprimée</title>
+</head>
+<body>
+    <h1>Informations sur la mission supprimée</h1>
+    <ul>
+        <li>ID: {{ mission.id }}</li>
+        <li>Client: {{ mission.client }}</li>
+        <li>Étudiant: {{ mission.student }}</li>
+        <li>Cours: {{ mission.course }}</li>
+        <li>Utilisateur: {{ mission.user }}</li>
+        <li>Date de début: {{ mission.beginAt }}</li>
+        <li>Date de fin: {{ mission.endAt }}</li>
+        <li>Rémunération: {{ mission.remuneration }}</li>
+        <li>Taux horaire: {{ mission.hourlyRate }}</li>
+    </ul>
+
+    <h2>Requête SQL pour réinsérer la mission</h2>
+    <pre>{{ insertQuery }}</pre>
+</body>
+</html>

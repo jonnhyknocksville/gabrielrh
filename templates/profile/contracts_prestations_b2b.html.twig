@@ -13,6 +13,7 @@
       <tr>
         <th class="text-light bg-color-none" scope="col">Client</th>
         <th class="text-light bg-color-none" scope="col">Télécharger</th>
+        <th class="text-light bg-color-none" scope="col">Envoyer</th>
       </tr>
     </thead>
     <tbody>
@@ -20,11 +21,64 @@
           <tr>
               <td class="text-light bg-color-none">{{client.name}} - {{client.commercialName}} - {{client.city}}</td>
               <td class="text-light bg-color-none"><a class="btn btn-info text-light" target="_blank" href="{{ path('app_contracts_b2b_for_current_year', {clientId: client.id, year : year})}}"> Télécharger </a></td>
+              <td class="text-light bg-color-none">
+                <button class="btn btn-success text-light send-contract-email" data-client-id="{{ client.id }}">Envoyer</button>
+              </td>
           </tr>
       {% endfor %}
     </tbody>
   </table>
 </div>
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function() {
+    const sendContractButtons = document.querySelectorAll(".send-contract-email");
+
+    sendContractButtons.forEach(button => {
+        button.addEventListener("click", function() {
+            const clientId = this.getAttribute("data-client-id");
+            // Fetch client details from the server
+            fetch(`/client-details/${clientId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erreur serveur');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+
+                    const year = '{{ year }}';
+
+                    // Construire le contenu de l'email
+                    const subject = encodeURIComponent(`Contrat pour l'année ${year}`);
+                    const body = encodeURIComponent(
+                        `Bonjour ${data.personInCharge},\n\n` +
+                        `J'espère que vous allez bien et que votre semaine se passe bien.\n` +
+                        `Je me permets de vous contacter pour envoyer le contrat pour nos futures prestations pour l'année ${year}, que vous trouverez en pièce jointe.\n\n` +
+                        `Pourriez-vous me le retourner signé et me confirmer la bonne réception?\n\n` +
+                        `Je vous remercie pour votre aide et vous souhaite une superbe journée.\n\n` +
+                        `Bien cordialement,\n\n` +
+                        `{{ responsable_pedagogique }} \n\n` +
+                        `{{ company_name }}`
+                    );
+
+                    // Configuration du lien mailto avec cc
+                    const mailtoLink = `mailto:${data.emailPersonInCharge}?cc=${data.emailRepresentative}&subject=${subject}&body=${body}`;
+
+                    // Ouvrir le lien mailto
+                    window.location.href = mailtoLink;
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                });
+        });
+    });
+});
+
+
+</script>
 
 
 {% endblock %}

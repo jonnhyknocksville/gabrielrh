@@ -21,6 +21,7 @@ twig:
         iban: '%env(IBAN)%'
         naf_ape: '%env(NAF_APE)%'
         bank: '%env(BANK)%'
+        responsable_pedagogique: '%env(RESPONSABLE_PEDAGOGIQUE)%'
 
 when@test:
     twig:

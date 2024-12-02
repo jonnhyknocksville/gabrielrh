@@ -84,6 +84,12 @@ class Mission
     #[ORM\ManyToOne(inversedBy: 'missions')]
     private ?Contract $contract = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $codeModule = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $contractNumber = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -361,6 +367,30 @@ class Mission
     public function setContract(?Contract $contract): static
     {
         $this->contract = $contract;
+
+        return $this;
+    }
+
+    public function getCodeModule(): ?string
+    {
+        return $this->codeModule;
+    }
+
+    public function setCodeModule(?string $codeModule): static
+    {
+        $this->codeModule = $codeModule;
+
+        return $this;
+    }
+
+    public function getContractNumber(): ?string
+    {
+        return $this->contractNumber;
+    }
+
+    public function setContractNumber(?string $contractNumber): static
+    {
+        $this->contractNumber = $contractNumber;
 
         return $this;
     }

@@ -325,7 +325,7 @@ class MissionRepository extends ServiceEntityRepository
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery(
-            "SELECT c.title, s.student, SUM(m.hours * m.nbrDays) as totalHours, u.firstName, u.lastName
+            "SELECT c.title, s.student, SUM(m.hours) as totalHours, u.firstName, u.lastName
             FROM App\Entity\Mission m
             INNER JOIN App\Entity\Students s WITH s.id = m.student 
             INNER JOIN App\Entity\Courses c WITH c.id = m.course 

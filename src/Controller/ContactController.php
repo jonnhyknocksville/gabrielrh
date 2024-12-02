@@ -41,7 +41,7 @@ class ContactController extends AbstractController
 
                 // Envoie d'un email à Formation WS pour le notifier
                 $email = (new TemplatedEmail())
-                ->from(new Address($this->params->get('app.mail_address'), 'Formation WS - Contact'))
+                ->from(new Address($this->params->get('app.mail_address_dsn'), 'Formation WS - Contact'))
                 ->to($this->params->get('app.mail_address'))
                 ->subject('Message de ' . $contact->getFirstname() . ' ' . $contact->getLastname() . ' ' )
                 ->htmlTemplate('contact/email.html.twig')

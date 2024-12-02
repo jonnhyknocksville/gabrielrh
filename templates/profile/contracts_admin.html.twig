@@ -65,8 +65,8 @@
           <tr>
               <th class="text-light bg-color-none" scope="row">C{{year}}{{monthIndex}}/{{invoice["id"]}}</th>
               <th class="text-light bg-color-none" scope="row">B{{year}}{{monthIndex}}/{{invoice["id"]}}</th>
-              <th class="text-light bg-color-none" scope="row">{{months[monthIndex -1]}}</th>
               <th class="text-light bg-color-none" scope="row">{{invoice["name"]}}</th>
+              <th class="text-light bg-color-none" scope="row">{{months[monthIndex -1]}}</th>
               <td class="text-light bg-color-none">
               <a class="btn btn-info text-light" target="_blank" href="{{ path('app_contracts_admin_download', {year : year, month : monthIndex, teacherId : invoice["id"]})}}"> Télécharger </a></td>
               <td class="bg-color-none"> 

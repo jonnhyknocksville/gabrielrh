@@ -260,7 +260,7 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Fws');
+            ->setTitle('Gabriel RH');
     }
 
     public function configureMenuItems(): iterable
@@ -273,29 +273,29 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Nos thématiques', 'fas fa-list', Themes::class);
 
 
-        yield MenuItem::section('Nos offres actuelles');
-        yield MenuItem::linkToCrud('Nos offres', 'fas fa-list', Jobs::class);
-        yield MenuItem::linkToCrud('Advantages', 'fas fa-list', Advantages::class);
-        yield MenuItem::linkToCrud('FAQ', 'fas fa-list', FaqTeachers::class);
+        yield MenuItem::section('Placment de formateurs');
+        yield MenuItem::linkToCrud('Nos offres du moment', 'fas fa-list', Jobs::class);
+        // yield MenuItem::linkToCrud('Advantages d\'une offre', 'fas fa-list', Advantages::class);
+        // yield MenuItem::linkToCrud('FAQ', 'fas fa-list', FaqTeachers::class);
         yield MenuItem::linkToCrud('Candidatures spontanée', 'fas fa-list', TeacherApplication::class);
         yield MenuItem::linkToCrud('Réponses à une offre', 'fas fa-list', JobApplication::class);
 
-        yield MenuItem::section('Staff');
-        yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-list', User::class);
-        yield MenuItem::linkToCrud('Missions', 'fas fa-list', Mission::class);
-        yield MenuItem::linkToCrud('StaffApplication', 'fas fa-list', StaffApplication::class);
+        yield MenuItem::section('Notre équipe');
+        yield MenuItem::linkToCrud('Utilisateurs/Formateurs', 'fas fa-list', User::class);
+        yield MenuItem::linkToCrud('Missions de formation plannifiées', 'fas fa-list', Mission::class);
+        yield MenuItem::linkToCrud('Les demandes formateurs', 'fas fa-list', StaffApplication::class);
 
         yield MenuItem::section('Clients');
-        yield MenuItem::linkToCrud('Besoins pros', 'fas fa-list', ProfessionalsNeeds::class);
-        yield MenuItem::linkToCrud('Clients', 'fas fa-list', Clients::class);
-        yield MenuItem::linkToCrud('Etudiants', 'fas fa-list', Students::class);
+        yield MenuItem::linkToCrud('Nos clients', 'fas fa-list', Clients::class);
+        yield MenuItem::linkToCrud('Promotions avec tarifs', 'fas fa-list', Students::class);
+        yield MenuItem::linkToCrud('Besoins clients', 'fas fa-list', ProfessionalsNeeds::class);
         // yield MenuItem::linkToCrud('Tarifications', 'fas fa-list', Tarification::class);
 
         yield MenuItem::section('Prise de contact');
-        yield MenuItem::linkToCrud('Contact', 'fas fa-list', Contact::class);
+        yield MenuItem::linkToCrud('Les emails reçus', 'fas fa-list', Contact::class);
 
         yield MenuItem::section('Importation');
-        yield MenuItem::linkToRoute('Importer Missions', 'fas fa-file-import', 'admin_import_missions');
+        yield MenuItem::linkToRoute('Créer des missions avec Excel', 'fas fa-file-import', 'admin_import_missions');
 
     }
 

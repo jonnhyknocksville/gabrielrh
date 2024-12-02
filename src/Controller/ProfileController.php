@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Clients;
 use App\Entity\Contract;
 use App\Entity\Courses;
+use App\Entity\Estimate;
+use App\Entity\Invoices;
 use App\Entity\Jobs;
 use App\Entity\Mission;
 use App\Entity\StaffApplication;
@@ -12,10 +14,15 @@ use App\Entity\Themes;
 use App\Entity\User;
 use App\Form\ChangePasswordType;
 use App\Form\UserType;
+use App\Repository\ClientsRepository;
+use App\Repository\EstimateRepository;
+use App\Repository\InvoicesRepository;
+use App\Service\MailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -339,17 +346,20 @@ class ProfileController extends AbstractController
         EntityManagerInterface $em,
         Filesystem $filesystem,
         User $user,
-        EntityManagerInterface $doctrine
+        EntityManagerInterface $doctrine,
+        MailService $mailService
     ): Response {
 
         $user = $this->getUser();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
+        $modifiedFields = [];
 
         $data = $this->getValues($doctrine);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $attachments = [];
             $currentDate = (new \DateTime())->format('Y-m-d'); // Récupère la date actuelle pour le nommage des fichiers
 
             // Gestion du KBIS
@@ -368,6 +378,9 @@ class ProfileController extends AbstractController
                 // Mise à jour du fichier et de la date
                 $user->setKbis($newFilename);
                 $user->setKbisUpdatedAt(new \DateTime());
+                $modifiedFields[] = 'KBIS';
+                $attachments[] = $this->getParameter('uploads_directory') . '/kbis/' . $newFilename;
+
             }
 
             // Gestion de l'attestation de vigilance
@@ -385,6 +398,8 @@ class ProfileController extends AbstractController
                 // Mise à jour du fichier et de la date
                 $user->setAttestationVigilance($newFilename);
                 $user->setAttestationVigilanceUpdatedAt(new \DateTime());
+                $modifiedFields[] = 'Attestation de vigilance';
+                $attachments[] = $this->getParameter(name: 'uploads_directory') . '/vigilance/' . $newFilename;
             }
 
             // Gestion du casier judiciaire (criminalRecord)
@@ -402,6 +417,9 @@ class ProfileController extends AbstractController
                 // Mise à jour du fichier et de la date
                 $user->setCriminalRecord($newFilename);
                 $user->setCriminalRecordUpdatedAt(new \DateTime());
+                $modifiedFields[] = 'Casier judiciaire';
+                $attachments[] = $this->getParameter(name: 'uploads_directory') . '/criminalRecords/' . $newFilename;
+
             }
 
             // Gestion des diplômes (diplomas)
@@ -419,6 +437,9 @@ class ProfileController extends AbstractController
                 // Mise à jour du fichier et de la date
                 $user->setDiplomas($newFilename);
                 $user->setDiplomasUpdatedAt(new \DateTime());
+                $modifiedFields[] = 'Diplômes';
+                $attachments[] = $this->getParameter(name: 'uploads_directory') . '/diplomas/' . $newFilename;
+
             }
 
             // Gestion du CV
@@ -436,10 +457,42 @@ class ProfileController extends AbstractController
                 // Mise à jour du fichier et de la date
                 $user->setCV($newFilename);
                 $user->setCvUpdatedAt(new \DateTime());
+                $modifiedFields[] = 'CV';
+                $attachments[] = $this->getParameter(name: 'uploads_directory') . '/cv/' . $newFilename;
+
+            }
+
+            $attestationCompetenceFile = $form->get('attestationCompetence')->getData();
+            if (!is_null($attestationCompetenceFile)) {
+                // Supprimer l'ancien fichier s'il existe
+                if ($user->getAttestationCompetence()) {
+                    $filesystem->remove($this->getParameter('uploads_directory') . '/competence/' . $user->getAttestationCompetence());
+                }
+
+                // Renommer et sauvegarder le fichier
+                $newFilename = $user->getLastName() . '_' . $user->getFirstName() . '_' . $currentDate . '.' . $attestationCompetenceFile->guessExtension();
+                $attestationCompetenceFile->move($this->getParameter('uploads_directory') . '/competence', $newFilename);
+
+                // Mise à jour du fichier et de la date
+                $user->setAttestationCompetence($newFilename);
+                $user->setAttestationCompetenceUpdatedAt(new \DateTime());
+                $modifiedFields[] = 'Attestation de compétence';
+                $attachments[] = $this->getParameter('uploads_directory') . '/competence/' . $newFilename;
             }
 
             // Enregistrement en base de données
             $em->flush();
+
+            // Si des champs ont été modifiés, on envoie un email
+            if (!empty($modifiedFields)) {
+                $mailData = [
+                    'modifiedFields' => $modifiedFields,
+                    'user' => $user
+                ];
+
+                // Envoyer l'email avec pièces jointes si des fichiers ont été uploadés
+                $mailService->SendMailWithAttachments($mailData, $this->params->get('app.mail_address'), 'Modifications des informations formateurs', 'emails/profile_update.html.twig', $attachments);
+            }
 
             $this->addFlash('success', 'Votre modifications ont bien été apportées !');
 
@@ -602,8 +655,6 @@ class ProfileController extends AbstractController
 
         $invoices = $doctrine->getRepository(Mission::class)->findMonthlyInvoicesToGenerate($year, $month);
 
-        // dd($invoices);
-
         $invoicesToShow = NULL;
         foreach ($invoices as $invoice) {
 
@@ -617,6 +668,7 @@ class ProfileController extends AbstractController
                 $invoicesToShow[$client . "_" . $invoice->getOrderNumber()]['invoiceSent'] = $invoice->isInvoiceSent();
                 $invoicesToShow[$client . "_" . $invoice->getOrderNumber()]['orderNumber'] = $invoice->getOrderNumber();
                 $invoicesToShow[$client . "_" . $invoice->getOrderNumber()]['city'] = $invoice->getClient()->getCity();
+                $invoicesToShow[$client . "_" . $invoice->getOrderNumber()]['personInCharge'] = $invoice->getClient()->getPersonInCharge();
 
                 if (isset($invoicesToShow[$client . "_" . $invoice->getOrderNumber()]['sum'])) {
                     $invoicesToShow[$client . "_" . $invoice->getOrderNumber()]['sum'] += (float) round($invoice->getHours() * $invoice->getStudent()->getHourlyPrice());
@@ -641,6 +693,8 @@ class ProfileController extends AbstractController
                     $invoicesToShow[$client . "_" . $newMission->getOrderNumber()]['invoiceSent'] = $newMission->isInvoiceSent();
                     $invoicesToShow[$client . "_" . $newMission->getOrderNumber()]['orderNumber'] = $newMission->getOrderNumber();
                     $invoicesToShow[$client . "_" . $newMission->getOrderNumber()]['city'] = $newMission->getClient()->getCity();
+                    $invoicesToShow[$client . "_" . $invoice->getOrderNumber()]['personInCharge'] = $invoice->getClient()->getPersonInCharge();
+
                     if (isset($invoicesToShow[$client . "_" . $newMission->getOrderNumber()]['sum'])) {
                         $invoicesToShow[$client . "_" . $newMission->getOrderNumber()]['sum'] += (float) round($invoice->getHours() * $invoice->getStudent()->getHourlyPrice());
                     } else {
@@ -802,6 +856,174 @@ class ProfileController extends AbstractController
         Request $request,
         EntityManagerInterface $doctrine,
         PaginatorInterface $paginator,
+        InvoicesRepository $invoicesRepository,
+        ClientsRepository $clientsRepository,
+        EntityManagerInterface $entityManager,
+        int $year,
+        int $month,
+        int $clientId,
+        $orderNumber = null
+    ): Response {
+
+        // TO CORRECT NAME OF PDF
+        if (in_array('ROLE_TEACHER', $this->getUser()->getRoles(), true)) {
+
+            $data = $this->getValues($doctrine);
+
+            // $dateTime = new \DateTime("now");
+            $dateTime = new \DateTime(sprintf('%04d-%02d-01', $year, $month));
+            $missions = $doctrine->getRepository(Mission::class)->findMissionForCustomer($year, $month, $clientId, $orderNumber);
+            $client = $doctrine->getRepository(Clients::class)->find($clientId);
+            $invoice = NULL;
+            // va falloir regrouper les missions par formateurs et par cours
+            // TODO
+            // dd($missions);
+            $course = NULL;
+            $user = NULL;
+            $missionsForInvoice = NULL;
+            $totalAmount = NULL;
+            $orderNumber = NULL;
+            $contractNumber = NULL;
+            $codeModule = NULL;
+
+            // dd($missions);
+
+            foreach ($missions as $mission) {
+
+                $course = $mission->getCourse();
+                $user = $mission->getUser()->getId();
+
+                if (is_null($orderNumber) && !is_null($mission->getOrderNumber())) {
+                    $orderNumber = $mission->getOrderNumber();
+                }
+
+                if (is_null($contractNumber) && !is_null($mission->getContractNumber())) {
+                    $contractNumber = $mission->getContractNumber();
+                }
+
+                if (is_null($codeModule) && !is_null($mission->getCodeModule())) {
+                    $codeModule = $mission->getCodeModule();
+                }
+
+                if ($mission->getBeginAt() == $mission->getEndAt()) {
+                    $missionsForInvoice[$user][$mission->getCourse()->getId() . $mission->getStudent()->getId()][] = $mission;
+                    $totalAmount += round($mission->getHours() * $mission->getStudent()->getHourlyPrice(), 2);
+
+                } else {
+                    // si il s'agit d'une mission sur plusieurs jours
+                    // faut que je décortique la mission
+                    $nbrOfDayForMission = ($mission->getEndAt()->format("d") - $mission->getBeginAt()->format("d")) + 1; // 5
+
+                    for ($i = 0; $i < $nbrOfDayForMission; $i++) {
+                        $newMission = clone $mission;
+                        $dateTimeForIteration = new \DateTime;
+
+                        if ($i == 0) {
+                            $dateTimeForIteration->setDate(
+                                $mission->getBeginAt()->format("Y"),
+                                $mission->getBeginAt()->format("m"),
+                                $mission->getBeginAt()->format("d")
+                            );
+                        } else {
+                            $dateTimeForIteration->setDate(
+                                $mission->getBeginAt()->format("Y"),
+                                $mission->getBeginAt()->format("m"),
+                                $mission->getBeginAt()->format("d") + $i
+                            );
+                        }
+
+                        $newMission->setBeginAt($dateTimeForIteration);
+                        $totalAmount += round($newMission->getHours() * $newMission->getStudent()->getHourlyPrice(), 2);
+                        $missionsForInvoice[$user][$newMission->getCourse()->getId() . $newMission->getStudent()->getId()][] = $newMission;
+                    }
+
+                }
+
+            }
+
+            // pour récupérer l'année et le mois actuel pour les dates de factures et d'échéances
+            $year = $dateTime->format("Y");
+            // dd($month);
+
+            $month = $dateTime->format("m");
+
+            $invoiceDate = new \DateTime($year . '-' . $month . '-01');
+            $invoiceDate = $invoiceDate->modify('first day of next month');
+
+            $dateEcheance = new \DateTime($year . '-' . $month . '-01');
+            $dateEcheance = $dateEcheance->modify('first day of next month');
+            $dateEcheance = $dateEcheance->modify('first day of next month');
+
+            $invoiceDate = $invoiceDate->format('d-m-Y');
+            $invoiceDateEcheance = $dateEcheance->format('d-m-Y');
+
+            $date = new \DateTime($year . '-' . $month . '-01');
+            // $date = $date->modify( 'first day of next month' );
+            //$invoiceNumber = "F" . $date->format("Ym") . '_' . $clientId;
+            // dd(round($totalAmount, 2));
+
+            // Vérifie si une facture existe déjà
+            $existingInvoice = $invoicesRepository->findInvoiceByMonthAndYear($clientId, $year, $month);
+
+            if ($existingInvoice) {
+                // Si elle existe, on récupère le numéro de la facture
+                $invoiceNumber = $existingInvoice->getId();
+            } else {
+                // Si elle n'existe pas, on crée une nouvelle facture
+                $client = $clientsRepository->find($clientId);
+                if (!$client) {
+                    throw $this->createNotFoundException('Client not found');
+                }
+    
+                $newInvoice = new Invoices();
+                $newInvoice->setClient($client);
+                $newInvoice->setYear($year);
+                $newInvoice->setMonth($month);
+    
+                $entityManager->persist($newInvoice);
+                $entityManager->flush();
+    
+                // Récupère l'ID de la nouvelle facture
+                $invoiceNumber = $newInvoice->getId();
+            }
+
+            $data = [
+                'missions' => $missionsForInvoice,
+                'teacher' => $user,
+                'invoiceNumber' => "N°".$invoiceNumber,
+                'invoiceDate' => $invoiceDate,
+                'invoiceDateEcheance' => $invoiceDateEcheance,
+                'totalAmount' => round($totalAmount, 2),
+                'client' => $client,
+                'orderNumber' => $orderNumber,
+                'contractNumber' => $contractNumber,
+                'codeModule' => $codeModule
+            ];
+            $html = $this->renderView('profile/invoices-template.html.twig', $data);
+            $dompdf = new Dompdf(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true]);
+            $dompdf->loadHtml($html);
+            $dompdf->render();
+
+            // dd($missionsForInvoice);
+
+            return new Response(
+                $dompdf->stream($this->params->get('nom_entreprise') . " - Facture n°" . $invoiceNumber . " - " . $client->getName(), ["Attachment" => false]),
+                Response::HTTP_OK,
+                ['Content-Type' => 'application/pdf']
+            );
+        } else {
+            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+        }
+    }
+
+    #[Route('/profile/invoices/{year}/{month}/{clientId}/{orderNumber}', name: 'app_generate_devis')]
+    public function generateEstimate(
+        Request $request,
+        EntityManagerInterface $doctrine,
+        PaginatorInterface $paginator,
+        EstimateRepository $estimateRepository,
+        ClientsRepository $clientsRepository,
+        EntityManagerInterface $entityManager,
         int $year,
         int $month,
         int $clientId,
@@ -874,38 +1096,55 @@ class ProfileController extends AbstractController
 
             }
 
-            // pour récupérer l'année et le mois actuel pour les dates de factures et d'échéances
-            $year = $dateTime->format("Y");
-            // dd($month);
-
-            $month = $dateTime->format("m");
-
-            $invoiceDate = new \DateTime($year . '-' . $month . '-01');
-            $invoiceDate = $invoiceDate->modify('first day of next month');
+            $devisDate = new \DateTime();
+            $devisDate = $devisDate->format('d-m-Y');
 
             $dateEcheance = new \DateTime($year . '-' . $month . '-01');
             $dateEcheance = $dateEcheance->modify('first day of next month');
             $dateEcheance = $dateEcheance->modify('first day of next month');
 
-            $invoiceDate = $invoiceDate->format('d-m-Y');
-            $invoiceDateEcheance = $dateEcheance->format('d-m-Y');
+            $devisDateEcheance = $dateEcheance->format('d-m-Y');
 
-            $date = new \DateTime($year . '-' . $month . '-01');
             // $date = $date->modify( 'first day of next month' );
-            $invoiceNumber = "F" . $date->format("Ym") . '_' . $clientId;
+            //$devisNumber = "F" . $date->format("Ym") . '_' . $clientId;
             // dd(round($totalAmount, 2));
+
+            // Vérifie si une facture existe déjà
+            $existingDevis = $estimateRepository->findEstimateByMonthAndYear($clientId, $year, $month);
+
+            if ($existingDevis) {
+                // Si elle existe, on récupère le numéro de la facture
+                $devisNumber = $existingDevis->getId();
+            } else {
+                // Si elle n'existe pas, on crée une nouvelle facture
+                $client = $clientsRepository->find($clientId);
+                if (!$client) {
+                    throw $this->createNotFoundException('Client not found');
+                }
+    
+                $newInvoice = new Estimate();
+                $newInvoice->setClient($client);
+                $newInvoice->setYear($year);
+                $newInvoice->setMonth($month);
+    
+                $entityManager->persist($newInvoice);
+                $entityManager->flush();
+    
+                // Récupère l'ID de la nouvelle facture
+                $devisNumber = $newInvoice->getId();
+            }
 
             $data = [
                 'missions' => $missionsForInvoice,
                 'teacher' => $user,
-                'invoiceNumber' => $invoiceNumber,
-                'invoiceDate' => $invoiceDate,
-                'invoiceDateEcheance' => $invoiceDateEcheance,
+                'devisNumber' => "N°".$devisNumber,
+                'devisDate' => $devisDate,
+                'devisDateEcheance' => $devisDateEcheance,
                 'totalAmount' => round($totalAmount, 2),
                 'client' => $client,
                 'orderNumber' => $orderNumber
             ];
-            $html = $this->renderView('profile/invoices-template.html.twig', $data);
+            $html = $this->renderView('profile/devis-template.html.twig', $data);
             $dompdf = new Dompdf(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true]);
             $dompdf->loadHtml($html);
             $dompdf->render();
@@ -913,7 +1152,7 @@ class ProfileController extends AbstractController
             // dd($missionsForInvoice);
 
             return new Response(
-                $dompdf->stream($this->params->get('nom_entreprise') . " - " . $invoiceNumber, ["Attachment" => false]),
+                $dompdf->stream($this->params->get('nom_entreprise') . " - Facture n°" . $devisNumber . " - " . $client->getName(), ["Attachment" => false]),
                 Response::HTTP_OK,
                 ['Content-Type' => 'application/pdf']
             );
@@ -1109,7 +1348,7 @@ class ProfileController extends AbstractController
             }
         }
 
-        return [$year, $ca];
+        return [$year, round($ca, 2)];
 
     }
 
@@ -1137,6 +1376,17 @@ class ProfileController extends AbstractController
         $sixMonthsAgo = $currentDate->modify('-6 months');
         $hasExpiredFile = false;
 
+        if (
+            is_null($user->getKbisUpdatedAt())
+            || is_null($user->getCvUpdatedAt())
+            || is_null($user->getDiplomasUpdatedAt())
+            || is_null($user->getCriminalRecordUpdatedAt())
+            || is_null($user->getAttestationVigilanceUpdatedAt())
+            || is_null($user->getAttestationCompetenceUpdatedAt())
+        ) {
+            return true;
+        }
+
         // Vérifier si un des fichiers est plus vieux que 6 mois
         if ($user->getKbisUpdatedAt() && $user->getKbisUpdatedAt() < $sixMonthsAgo) {
             $hasExpiredFile = true;
@@ -1149,9 +1399,37 @@ class ProfileController extends AbstractController
         } elseif ($user->getAttestationVigilanceUpdatedAt() && $user->getAttestationVigilanceUpdatedAt() < $sixMonthsAgo) {
             $hasExpiredFile = true;
         }
+        elseif ($user->getAttestationCompetenceUpdatedAt() && $user->getAttestationCompetenceUpdatedAt() < $sixMonthsAgo) {
+            $hasExpiredFile = true;
+        }
 
         return $hasExpiredFile;
 
+    }
+
+    #[Route('/responsable-details/{id}', name: 'responsable_details', methods: ['GET'])]
+    public function responsableDetails(int $id, ClientsRepository $clientRepository): JsonResponse
+    {
+        $client = $clientRepository->find($id);
+
+        if (!$client) {
+            return new JsonResponse(['error' => 'Responsable pédagogique introuvable'], 404);
+        }
+
+        return new JsonResponse([
+            'name' => $client->getName(),
+            'city' => $client->getCity(),
+            'address' => $client->getAddress(),
+            'postalCode' => $client->getPostalCode(),
+            'personInCharge' => $client->getPersonInCharge(),
+            'representative' => $client->getPersonInCharge(),
+            'emailPersonInCharge' => $client->getEmailPersonInCharge(),
+            'emailRepresentative' => $client->getEmailRepresentative(),
+            'phonePersonInCharge' => $client->getPhonePersonInCharge(),
+            'phoneRepresentative' => $client->getPhoneRepresentative(),
+            'accountantEmail' => $client->getAccountantEmail(),
+            'emailContactToAdd' => $client->getEmailContactToAdd(),
+        ]);
     }
 
 }

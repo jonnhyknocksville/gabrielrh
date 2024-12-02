@@ -48,7 +48,7 @@ class TeachersController extends AbstractController
 
             // Envoie d'un email à Formation WS pour le notifier
             $email = (new TemplatedEmail())
-                ->from(new Address($this->params->get('app.mail_address'), 'Formation WS - Recrutement'))
+                ->from(new Address($this->params->get('app.mail_address_dsn'), 'Formation WS - Recrutement'))
                 ->to($this->params->get('app.mail_address'))
                 ->subject('Nouvelle demande de Recrutement')
                 ->htmlTemplate('teachers/email.html.twig')

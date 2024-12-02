@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Clients{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h2>Liste des Clients</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Nom Commercial</th>
+                <th>Ville</th>
+                <th>Représentant</th>
+                <th>Personne en Charge</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for client in clients %}
+                <tr>
+                    <td>{{ client.name }}</td>
+                    <td>{{ client.commercialName }}</td>
+                    <td>{{ client.city }}</td>
+                    <td>{{ client.representative }}</td>
+                    <td>{{ client.personInCharge }}</td>
+                    <td>
+                        <button class="btn btn-info btn-sm" onclick="loadClientDetails({{ client.id }})" data-bs-toggle="modal" data-bs-target="#clientModal">+ Infos</button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="pb-5 col-md-12 navigation">
+        {{ knp_pagination_render(clients) }}
+    </div>  
+</div>
+
+<!-- Modal -->
+<!-- Modal -->
+<div class="modal fade" id="clientModal" style="z-index:9999" tabindex="-1" aria-labelledby="clientModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="clientModalLabel">Détails du Client</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="max-height: 80vh; overflow-y: auto;">
+                <p><strong>Nom :</strong> <span id="client-name"></span></p>
+                <p><strong>Nom Commercial :</strong> <span id="client-commercialName"></span></p>
+                <p><strong>Adresse :</strong> <span id="client-address"></span></p>
+                <p><strong>Ville :</strong> <span id="client-city"></span></p>
+                <p><strong>Code Postal :</strong> <span id="client-postalCode"></span></p>
+                <p><strong>Responsable pédagogique :</strong> <span id="client-personInCharge"></span></p>
+                <p><strong>Directeur/directrice :</strong> <span id="client-representative"></span></p>
+                <p><strong>Email Responsable pédagogique :</strong> <span id="client-emailPersonInCharge"></span></p>
+                <p><strong>Email directeur/directrice :</strong> <span id="client-emailRepresentative"></span></p>
+                <p><strong>Téléphone Responsable pédagogique :</strong> <span id="client-phone-in-charge"></span></p>
+                <p><strong>Téléphone Directeur/directrice :</strong> <span id="client-phone-representative"></span></p>
+                <p><strong>Couleur de Fond :</strong> <span id="client-backgroundColor"></span></p>
+                <p><strong>SIRET :</strong> <span id="client-siret"></span></p>
+                <p><strong>Nombre Agrément :</strong> <span id="client-nbrAgrement"></span></p>
+                <p><strong>NAF :</strong> <span id="client-naf"></span></p>
+                <p><strong>Forme Juridique :</strong> <span id="client-legalForm"></span></p>
+                <p><strong>Capital Social :</strong> <span id="client-socialCapital"></span></p>
+                <p><strong>Adresse de Mission :</strong> <span id="client-missionAddress"></span></p>
+                <p><strong>Client de Mission :</strong> <span id="client-missionClient"></span></p>
+                <p><strong>Code Postal de Mission :</strong> <span id="client-missionPostalCode"></span></p>
+                <p><strong>Ville de Mission :</strong> <span id="client-missionCity"></span></p>
+                <!-- Ajoutez d'autres champs si nécessaire -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+async function loadClientDetails(clientId) {
+    const response = await fetch(`/clients/${clientId}`);
+    const data = await response.json();
+
+    document.getElementById('client-name').innerText = data.name;
+    document.getElementById('client-commercialName').innerText = data.commercialName;
+    document.getElementById('client-address').innerText = data.address;
+    document.getElementById('client-city').innerText = data.city;
+    document.getElementById('client-postalCode').innerText = data.postalCode;
+    document.getElementById('client-personInCharge').innerText = data.personInCharge;
+    document.getElementById('client-representative').innerText = data.representative;
+    document.getElementById('client-phone-in-charge').innerText = data.phonePersonInCharge;
+    document.getElementById('client-phone-representative').innerText = data.phoneRepresentative;
+    document.getElementById('client-backgroundColor').innerText = data.backgroundColor;
+    document.getElementById('client-siret').innerText = data.siret;
+    document.getElementById('client-nbrAgrement').innerText = data.nbrAgrement;
+    document.getElementById('client-naf').innerText = data.naf;
+    document.getElementById('client-legalForm').innerText = data.legalForm;
+    document.getElementById('client-socialCapital').innerText = data.socialCapital;
+    document.getElementById('client-missionAddress').innerText = data.missionAddress;
+    document.getElementById('client-missionClient').innerText = data.missionClient;
+    document.getElementById('client-missionPostalCode').innerText = data.missionPostalCode;
+    document.getElementById('client-missionCity').innerText = data.missionCity;
+    document.getElementById('client-emailPersonInCharge').innerText = data.emailPersonInCharge;
+    document.getElementById('client-emailRepresentative').innerText = data.emailRepresentative;
+    // Ajoutez d'autres informations si nécessaire
+}
+
+</script>
+{% endblock %}

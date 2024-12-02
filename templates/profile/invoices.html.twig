@@ -3,104 +3,196 @@
 {% block title %}Générer une facture{% endblock %}
 
 {% block body %}
-
-
 {% set months = [
-    "Janvier",
-    "Février",
-    "Mars",
-    "Avril",
-    "Mai",
-    "Juin",
-    "Juillet",
-    "Aout",
-    "Septembre",
-    "Octobre",
-    "Novembre",
-    "Décembre",
+    "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
+    "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Décembre"
 ] %}
 
-  <h1 class="text-light fst-italic text-center mt-5"> Voici vos factures pour le mois {{months[monthIndex -1]}} </h1>
+<h1 class="text-light fst-italic text-center mt-5">Voici vos factures pour le mois {{ months[monthIndex - 1] }}</h1>
 
-<div class="row col-md-8 mx-auto p-5">
+<div class="row col-md-12 mx-auto p-5">
 
-  <div class="row col-md-8 mx-auto p-5">
-
-    <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        Sélectionner un mois
-        </button>
-        <ul class="dropdown-menu">
-            <li class="dropdown-item"><a href="{{path('app_invoices', {year : year, month : 1})}}"> Janvier </a> </li>
-            <li class="dropdown-item"><a href="{{path('app_invoices', {year : year, month : 2})}}"> Février </a> </li>
-            <li class="dropdown-item"><a href="{{path('app_invoices', {year : year, month : 3})}}"> Mars </a> </li>
-            <li class="dropdown-item"><a href="{{path('app_invoices', {year : year, month : 4})}}"> Avril </a> </li>
-            <li class="dropdown-item"><a href="{{path('app_invoices', {year : year, month : 5})}}"> Mai </a> </li>
-            <li class="dropdown-item"><a href="{{path('app_invoices', {year : year, month : 6})}}"> Juin </a> </li>
-            <li class="dropdown-item"><a href="{{path('app_invoices', {year : year, month : 7})}}"> Juillet </a> </li>
-            <li class="dropdown-item"><a href="{{path('app_invoices', {year : year, month : 8})}}"> Aout </a> </li>
-            <li class="dropdown-item"><a href="{{path('app_invoices', {year : year, month : 9})}}"> Septembre </a> </li>
-            <li class="dropdown-item"><a href="{{path('app_invoices', {year : year, month : 10})}}"> Octobre </a> </li>
-            <li class="dropdown-item"><a href="{{path('app_invoices', {year : year, month : 11})}}"> Novembre </a> </li>
-            <li class="dropdown-item"><a href="{{path('app_invoices', {year : year, month : 12})}}"> Décembre </a> </li>
-        </ul>
+    <div class="row col-md-12 mx-auto p-5">
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Sélectionner un mois
+            </button>
+            <ul class="dropdown-menu">
+                {% for i in 1..12 %}
+                    <li class="dropdown-item">
+                        <a href="{{ path('app_invoices', {year: year, month: i}) }}">{{ months[i - 1] }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
-   
+
+    <table class="table bg-color-none">
+        <thead>
+            <tr>
+                <th class="text-light bg-color-none" scope="col">Responsable pédagogique</th>
+                {# <th class="text-light bg-color-none" scope="col">Numéro de Facture</th> #}
+                <th class="text-light bg-color-none" scope="col">Client</th>
+                <th class="text-light bg-color-none" scope="col">Mois</th>
+                <th class="text-light bg-color-none" scope="col">Devis</th>
+                <th class="text-light bg-color-none" scope="col">Télécharger</th>
+                <th class="text-light bg-color-none" scope="col">Payé</th>
+                <th class="text-light bg-color-none" scope="col">Envoyé</th>
+                <th class="text-light bg-color-none" scope="col">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for invoice in invoices %}
+                <tr>
+                    <th class="text-light bg-color-none" scope="row">
+                        {{ invoice["personInCharge"] }}
+                        <span data-id="{{ invoice["id"] }}" class="info-icon"><i class="ms-1 fa-solid fa-circle-info info-icon" style="cursor: pointer;"></i></span>
+                    </th>
+                    {# <th class="text-light bg-color-none" scope="row">F{{ year }}{{ monthIndex }}/{{ invoice["id"] }}</th> #}
+                    <th class="text-light bg-color-none" scope="row">{{ invoice["name"] }} - {{ invoice["city"] }}</th>
+                    <th class="text-light bg-color-none" scope="row">{{ months[monthIndex - 1] }}</th>
+                    <td class="text-light bg-color-none">
+                        <a class="btn btn-info text-light" target="_blank" href="{{ path('app_generate_devis', {orderNumber: invoice["orderNumber"], year: year, month: monthIndex, clientId: invoice["id"]}) }}">
+                            Devis
+                        </a>
+                    </td>
+                    <td class="text-light bg-color-none">
+                        <a class="btn btn-success text-light" target="_blank" href="{{ path('app_generate_invoice', {orderNumber: invoice["orderNumber"], year: year, month: monthIndex, clientId: invoice["id"]}) }}">
+                            Télécharger
+                        </a>
+                    </td>
+                    <td class="bg-color-none">
+                        <form action="" method="post">
+                            <input type="hidden" name="month" class="month" value="{{ monthIndex }}" />
+                            <input type="hidden" name="year" class="year" value="{{ year }}" />
+                            <input type="hidden" name="clientId" class="clientId" value="{{ invoice["id"] }}" />
+                            <div class="form-check form-switch">
+                                <input class="form-check-input updateClientPaid" type="checkbox" {{ invoice["clientPaid"] ? 'checked' : '' }}>
+                            </div>
+                        </form>
+                    </td>
+                    <td class="bg-color-none">
+                        <form action="" method="post">
+                            <input type="hidden" name="month" class="month" value="{{ monthIndex }}" />
+                            <input type="hidden" name="year" class="year" value="{{ year }}" />
+                            <input type="hidden" name="clientId" class="clientId" value="{{ invoice["id"] }}" />
+                            <div class="form-check form-switch">
+                                <input class="form-check-input updateInvoiceSent" type="checkbox" {{ invoice["invoiceSent"] ? 'checked' : '' }}>
+                            </div>
+                        </form>
+                    </td>
+                    <th class="text-light bg-color-none" scope="row">{{ invoice["sum"]|round(2) }}€</th>
+                </tr>
+            {% endfor %}
+            <tr style="border:none">
+                <th class="text-light bg-color-none" style="text-align:right;border:none" colspan="8" scope="row">CA : {{ totalAmount|round(2) }}€</th>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
-  <table class="table bg-color-none">
-    <thead>
-      <tr>
-        <th class="text-light bg-color-none" scope="col">Numéro de Facture</th>
-        <th class="text-light bg-color-none" scope="col">Clients</th>
-        <th class="text-light bg-color-none" scope="col">Mois</th>
-        <th class="text-light bg-color-none" scope="col">Télécharger</th>
-        <th class="text-light bg-color-none" scope="col">Status</th>
-        <th class="text-light bg-color-none" scope="col">Envoyé</th>
-        <th class="text-light bg-color-none" scope="col">Total</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for invoice in invoices %}
-          <tr>
-              <th class="text-light bg-color-none" scope="row">F{{year}}{{monthIndex}}/{{invoice["id"]}}</th>
-              <th class="text-light bg-color-none" scope="row">{{months[monthIndex -1]}}</th>
-              <th class="text-light bg-color-none" scope="row">{{invoice["name"]}} - {{invoice["city"]}}</th>
-              <td class="text-light bg-color-none"><a class="btn btn-info text-light" target="_blank" href="{{ path('app_generate_invoice', {orderNumber : invoice["orderNumber"], year : year, month : monthIndex, clientId : invoice["id"]})}}"> Télécharger </a></td>
-              <td class="bg-color-none"> 
-                <div class="d-flex align-items-center form-check form-switch bg-none">
-                  <form action="" method="post">
-                    <input type="hidden" name="month" class="month" value="{{ monthIndex }}" />
-                    <input type="hidden" name="year" class="year" value="{{ year }}" />
-                    <input type="hidden" name="clientId" class="clientId" value="{{ invoice["id"] }}" />
-                    {# {{dump(invoice["clientPaid"])}} #}
-                    <div class="form-check form-switch">
-                      <input class="form-check-input updateClientPaid {{ (invoice["clientPaid"] is not null and invoice["clientPaid"] == true) ? 'checked' : '' }}" {{ (invoice["clientPaid"] is not null and invoice["clientPaid"] == true) ? 'checked' : '' }} name="paid" type="checkbox" > 
-                    </div>
-                </div>
-                  </form>
-              </td>
-              <td class="bg-color-none"> 
-                <div class="d-flex align-items-center form-check form-switch bg-none">
-                  <form action="" method="post">
-                    <input type="hidden" name="month" class="month" value="{{ monthIndex }}" />
-                    <input type="hidden" name="year" class="year" value="{{ year }}" />
-                    <input type="hidden" name="clientId" class="clientId" value="{{ invoice["id"] }}" />
-                    {# {{dump(invoice["clientPaid"])}} #}
-                    <div class="form-check form-switch">
-                      <input class="form-check-input updateInvoiceSent {{ (invoice["invoiceSent"] is not null and invoice["invoiceSent"] == true) ? 'checked' : '' }}" {{ (invoice["invoiceSent"] is not null and invoice["invoiceSent"] == true) ? 'checked' : '' }} name="sent" type="checkbox" > 
-                    </div>
-                </div>
-                  </form>
-              </td>
-              <th class="text-light bg-color-none" scope="row">{{invoice["sum"]|round(2)}}€</th>
-          </tr> 
-      {% endfor %}
-          <tr style="border:none">
-            <th class="text-light bg-color-none" style="text-align:right;border:none" colspan="7" scope="row">{{totalAmount|round(2)}}€</th>
-          </tr> 
-    </tbody>
-  </table>
+<!-- Modal Bootstrap -->
+<!-- Modal Bootstrap pour afficher les détails -->
+<div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="infoModalLabel">Détails du Responsable</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
+      <div class="modal-body" id="modalContent">
+        <!-- Contenu chargé dynamiquement via JavaScript -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <a id="sendInvoiceLink" href="#" class="btn btn-success text-white">Envoyer facture</a>
+      </div>
+    </div>
+  </div>
 </div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const infoIcons = document.querySelectorAll(".info-icon");
+
+        infoIcons.forEach(icon => {
+            icon.addEventListener("click", function() {
+                const clientId = this.getAttribute("data-id");
+
+            fetch(`/responsable-details/${clientId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erreur serveur');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const month = '{{ months[monthIndex - 1] }}';
+                    const year = '{{ year }}';
+                    const invoiceCity = data.city;
+
+                    // Mise à jour du contenu du modal
+                    document.getElementById('modalContent').innerHTML = `
+                        <p><b>Nom</b>: ${data.name}</p>
+                        <p><b>Responsable pédagogique</b>: ${data.personInCharge}</p>
+                        <p><b>Téléphone responsable pédagogique</b>: ${data.phonePersonInCharge}</p>
+                        <p><b>Email responsable pédagogique</b>: ${data.emailPersonInCharge}</p>
+                        <p><b>Directeur/Directrice</b>: ${data.representative}</p>
+                        <p><b>Téléphone Directeur/Directrice</b>: ${data.phoneRepresentative}</p>
+                        <p><b>Email Directeur/Directrice</b>: ${data.emailRepresentative}</p>
+                        <p><b>Ville</b>: ${data.city}</p>
+                        <p><b>Adresse</b>: ${data.address}</p>
+                        <p><b>Email</b>: ${data.email}</p>
+                    `;
+
+                    // Mise à jour du lien "Envoyer facture"
+                    const sendInvoiceLink = document.getElementById('sendInvoiceLink');
+                    const subject = encodeURIComponent(`Facture - ${month} ${year}`);
+                    const body = encodeURIComponent(
+                        `Bonjour à toutes et à tous,\n\n` +
+                        `J'espère que vous allez bien et que votre semaine se passe bien.\n` +
+                        `Je vous envoie via ce courriel nos factures pour nos interventions du mois de ${month} ${year} sur votre campus de ${invoiceCity}.\n\n` +
+                        `Pourriez-vous me confirmer la bonne réception?\n\n` +
+                        `Je vous remercie par avance et vous souhaite une excellente fin de journée.\n\n` +
+                        `Bon weekend à vous.\n\n` +
+                        `Bien cordialement,\n\n` +
+                        `{{ responsable_pedagogique }} \n\n` +
+                        `{{ company_name }}`
+                    );
+
+                    const emailContactToAdd = data.emailContactToAdd || [];
+                    // Définition de l'email principal
+                    let primaryEmail = data.accountantEmail || data.emailRepresentative;
+
+                    // Construction de la chaîne des destinataires en copie, en excluant `emailRepresentative` si c'est le destinataire principal
+                    let ccEmails;
+
+                    if (!data.accountantEmail) {
+                        ccEmails = [data.emailPersonInCharge, ...emailContactToAdd];
+                    } else {
+                        ccEmails = [data.emailPersonInCharge, ...emailContactToAdd];
+                        ccEmails.push(data.emailRepresentative);
+                    }
+
+                    ccEmails.push("gestion.gabriel.rh@gmail.com");
+
+                    // Filtrer les valeurs nulles et assembler la liste de cc
+                    ccEmails = ccEmails.filter(Boolean).join(',');
+
+                    // Création du lien mailto
+                    sendInvoiceLink.href = `mailto:${primaryEmail}?cc=${ccEmails}&subject=${subject}&body=${body}`;
+
+
+                    // Affichage du modal
+                    $("#infoModal").modal("show");
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                });
+            });
+        });
+    });
+</script>
 
 {% endblock %}

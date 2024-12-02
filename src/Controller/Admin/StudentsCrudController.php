@@ -27,12 +27,11 @@ class StudentsCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            // IdField::new('id'),
-            TextField::new('student'),
-            AssociationField::new('client'),
-            TextField::new('hourlyPrice'),
-            TextField::new('DailyPrice'),
+            IdField::new('id', 'ID')->onlyOnIndex(),
+            TextField::new('student', 'Promotion'),
+            AssociationField::new('client', 'Client'),
+            TextField::new('hourlyPrice', 'Tarif Horaire'),
+            TextField::new('DailyPrice', 'Tarif Journalier'),
         ];
     }
-    
 }

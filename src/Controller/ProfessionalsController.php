@@ -50,7 +50,7 @@ class ProfessionalsController extends AbstractController
 
             // Envoie d'un email à Formation WS pour le notifier
             $email = (new TemplatedEmail())
-            ->from(new Address($this->params->get('app.mail_address'), 'Formation WS - Collaboration'))
+            ->from(new Address($this->params->get('app.mail_address_dsn'), 'Formation WS - Collaboration'))
             ->to($this->params->get('app.mail_address'))
             ->subject('Message de ' . $contact->getFirstname() . ' ' . $contact->getLastname() . ' ' )
             ->htmlTemplate('professionals/email.html.twig')
@@ -108,7 +108,7 @@ class ProfessionalsController extends AbstractController
 
             // Envoie d'un email à Formation WS pour le notifier
             $email = (new TemplatedEmail())
-            ->from(new Address($this->params->get('app.mail_address'), 'Formation WS - Collaboration'))
+            ->from(new Address($this->params->get('app.mail_address_dsn'), 'Formation WS - Collaboration'))
             ->to($this->params->get('app.mail_address'))
             ->subject('Message de ' . $need->getFirstname() . ' ' . $need->getLastname() . ' ' )
             ->htmlTemplate('professionals/email.html.twig')
@@ -156,8 +156,8 @@ class ProfessionalsController extends AbstractController
 
                 // Envoie d'un email à Formation WS pour le notifier
                 // $email = (new TemplatedEmail())
-                //     ->from(new Address($this->params->get('app.mail_address'), 'Formation WS - Recrutement'))
-                //     ->to($this->params->get('app.mail_address'))
+                //     ->from(new Address($this->params->get('app.mail_address_dsn'), 'Formation WS - Recrutement'))
+                //     ->to($this->params->get('app.mail_address_dsn'))
                 //     ->subject('Une mission a été créer')
                 //     ->htmlTemplate('professionals/email-mission.html.twig')
                 //     ->context([

@@ -1,0 +1,114 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Étudiants{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h2>Liste des Étudiants</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Email</th>
+                <th>Cours</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for teacher in teachers %}
+                <tr>
+                    <td>{{ teacher.lastName }}</td>
+                    <td>{{ teacher.firstName }}</td>
+                    <td>{{ teacher.email }}</td>
+                    {% set displayedCourses = [] %}
+
+                    <td>
+                        {% for mission in teacher.missions %}
+                            {% if mission.course not in displayedCourses %}
+                                <span class="badge bg-success">{{ mission.course }}</span>
+                                {% set displayedCourses = displayedCourses | merge([mission.course]) %}
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                <td>
+                    <button class="btn btn-info btn-sm" onclick="loadTeacherDetails({{ teacher.id }})" data-bs-toggle="modal" data-bs-target="#teacherModal">+ Infos</button>
+                </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pb-5 col-md-12 navigation">
+        {{ knp_pagination_render(teachers) }}
+    </div>  
+</div>
+
+<!-- Modal -->
+<!-- Modal -->
+<div class="modal fade" id="teacherModal" tabindex="-1" aria-labelledby="teacherModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="teacherModalLabel">Détails du Teacher</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="max-height: 80vh; overflow-y: auto;">
+                <p><strong>Nom :</strong> <span id="teacher-lastName"></span></p>
+                <p><strong>Prénom :</strong> <span id="teacher-firstName"></span></p>
+                <p><strong>Email :</strong> <span id="teacher-email"></span></p>
+                <p><strong>SIRET :</strong> <span id="teacher-siret"></span></p>
+                <p><strong>Adresse :</strong> <span id="teacher-address"></span></p>
+                <p><strong>Entreprise :</strong> <span id="teacher-company"></span></p>
+                <p><strong>Forme Juridique :</strong> <span id="teacher-legalForm"></span></p>
+                <p><strong>Téléphone :</strong> <span id="teacher-phone"></span></p>
+                <p><strong>Code Postal :</strong> <span id="teacher-postalCode"></span></p>
+                <p><strong>Ville :</strong> <span id="teacher-city"></span></p>
+                <p><strong>NAF :</strong> <span id="teacher-naf"></span></p>
+                <p><strong>IBAN :</strong> <span id="teacher-iban"></span></p>
+
+                <p><strong>KBIS :</strong> <a href="#" id="teacher-kbis" download>KBIS (Télécharger)</a></p>
+                <p><strong>Diplômes :</strong> <a href="#" id="teacher-diplomas" download>Diplômes (Télécharger)</a></p>
+                <p><strong>Casier Judiciaire :</strong> <a href="#" id="teacher-criminalRecord" download>Casier Judiciaire (Télécharger)</a></p>
+                <p><strong>CV :</strong> <a href="#" id="teacher-cv" download>CV (Télécharger)</a></p>
+                <p><strong>Attestation de Vigilance :</strong> <a href="#" id="teacher-attestationVigilance" download>Attestation de Vigilance (Télécharger)</a></p>
+                <p><strong>Attestation de Compétence :</strong> <a href="#" id="teacher-attestationCompetence" download>Attestation de Compétence (Télécharger)</a></p>
+                <!-- Ajoutez d'autres champs si nécessaire -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+async function loadTeacherDetails(teacherId) {
+    const response = await fetch(`/teachers/${teacherId}`);
+    const data = await response.json();
+
+    document.getElementById('teacher-lastName').innerText = data.lastName;
+    document.getElementById('teacher-firstName').innerText = data.firstName;
+    document.getElementById('teacher-email').innerText = data.email;
+    document.getElementById('teacher-siret').innerText = data.siret;
+    document.getElementById('teacher-address').innerText = data.address;
+    document.getElementById('teacher-company').innerText = data.company;
+    document.getElementById('teacher-legalForm').innerText = data.legalForm;
+    document.getElementById('teacher-phone').innerText = data.phone;
+    document.getElementById('teacher-postalCode').innerText = data.postalCode;
+    document.getElementById('teacher-city').innerText = data.city;
+    document.getElementById('teacher-naf').innerText = data.naf;
+    document.getElementById('teacher-iban').innerText = data.iban;
+
+    document.getElementById('teacher-kbis').href = data.kbis || '#';
+    document.getElementById('teacher-diplomas').href = data.diplomas || '#';
+    document.getElementById('teacher-criminalRecord').href = data.criminalRecord || '#';
+    document.getElementById('teacher-cv').href = data.cv || '#';
+    document.getElementById('teacher-attestationVigilance').href = data.attestationVigilance || '#';
+    document.getElementById('teacher-attestationCompetence').href = data.attestationCompetence || '#';
+    // Ajoutez d'autres informations si nécessaire
+}
+
+</script>
+{% endblock %}

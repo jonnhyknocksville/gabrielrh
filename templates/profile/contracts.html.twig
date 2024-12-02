@@ -103,6 +103,7 @@
                     } else if (data.error) {
                         alert('Erreur : ' + data.error);
                     }
+                    window.location.reload(true);
                 })
                 .catch(error => {
                     alert('Erreur lors de l\'upload : ' + error.message);

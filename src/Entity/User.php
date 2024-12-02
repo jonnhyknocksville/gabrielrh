@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -114,6 +115,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Contract::class)]
     private Collection $contracts;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $attestationCompetence = null;
+
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTimeInterface $attestationCompetenceUpdatedAt = null;
 
     public function __construct()
     {
@@ -596,6 +603,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $contract->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAttestationCompetence(): ?string
+    {
+        return $this->attestationCompetence;
+    }
+
+    public function setAttestationCompetence(string $attestationCompetence): static
+    {
+        $this->attestationCompetence = $attestationCompetence;
+
+        return $this;
+    }
+
+    public function getAttestationCompetenceUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->attestationCompetenceUpdatedAt;
+    }
+
+    public function setAttestationCompetenceUpdatedAt(\DateTimeInterface $attestationCompetenceUpdatedAt): static
+    {
+        $this->attestationCompetenceUpdatedAt = $attestationCompetenceUpdatedAt;
 
         return $this;
     }

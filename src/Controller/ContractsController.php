@@ -6,6 +6,7 @@ use App\Entity\Clients;
 use App\Entity\Contract;
 use App\Entity\Mission;
 use App\Entity\User;
+use App\Service\MailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Dompdf\Dompdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -118,7 +119,7 @@ class ContractsController extends AbstractController
     #[Route('/contracts/b2b/{clientId}/{year}', name: 'app_contracts_b2b_for_current_year')]
     public function generate_contrats_for_year(EntityManagerInterface $doctrine, int $clientId, int $year): Response
     {
-
+ 
         $client = $doctrine->getRepository(Clients::class)->find($clientId);
         $courses = $doctrine->getRepository(Mission::class)->findDifferentCoursesForClientAndYear($clientId, $year);
         $teachers = $doctrine->getRepository(Mission::class)->findDistinctTeachersForCustomers($clientId, $year);
@@ -246,7 +247,12 @@ class ContractsController extends AbstractController
     }
 
     #[Route('/contract/upload/{year}/{month}/{userId}', name: 'app_contract_uploads', methods: ['POST'])]
-    public function upload_contract(Request $request, EntityManagerInterface $doctrine, int $userId, int $month, int $year): Response
+    public function upload_contract(Request $request,
+        EntityManagerInterface $doctrine,
+        int $userId,
+        int $month,
+        int $year,
+        MailService $mailService): Response
     {
         $user = $doctrine->getRepository(User::class)->find($userId);
 
@@ -285,15 +291,34 @@ class ContractsController extends AbstractController
             return $this->json(['error' => 'Failed to save file: ' . $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
+        // Construire une date en utilisant l'année, le mois, et le jour 01
+        $contractDate = new \DateTime("$year-$month-01");
         // Mettre à jour la base de données
         $contract = new Contract();
         $contract->setUser($user);
-        $contract->setDate(new \DateTime());
+        $contract->setDate($contractDate);
         $contract->setSigned(true);
         $contract->setContract($newFilename);
 
         $doctrine->persist($contract);
         $doctrine->flush();
+
+        // Préparer les données de l'email
+        $mailData = [
+            'user' => $user,
+            'contract' => $contract,
+            'year' => $year,
+            'month' => $month
+        ];
+
+        // Envoyer l'email avec la pièce jointe
+        $mailService->SendMailWithAttachments(
+            $mailData, 
+            $this->params->get('app.mail_address'), // Adresse email du destinataire
+            'Nouveau contrat signé uploadé', 
+            'emails/contract_uploaded.html.twig', 
+            [$filePath] // Pièce jointe
+        );
 
         return $this->json(['success' => 'Contract uploaded successfully'], Response::HTTP_OK);
     }

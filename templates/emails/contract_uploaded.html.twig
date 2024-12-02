@@ -1,0 +1,13 @@
+<h1>Nouveau contrat signé uploadé</h1>
+
+<p>Un nouveau contrat signé a été uploadé pour l'utilisateur :</p>
+
+<ul>
+    <li><strong>Nom :</strong> {{ user.lastName }}</li>
+    <li><strong>Prénom :</strong> {{ user.firstName }}</li>
+    <li><strong>Mois :</strong> {{ month }}</li>
+    <li><strong>Année :</strong> {{ year }}</li>
+    <li><strong>Date d'upload :</strong> {{ contract.date|date('d/m/Y') }}</li>
+</ul>
+
+<p>Vous trouverez ci-joint le contrat signé.</p>
