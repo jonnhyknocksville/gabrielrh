@@ -141,16 +141,18 @@
 						{{invoiceDateEcheance}}
 					</p>
 					<p class="m-0 fw400">
-						Date limite de réglement : Exigible sous 30 jours
+						Date limite de paiement : Exigible sous 30 jours
 					</p>
 					<p class="m-0 fw400">
 						{% if orderNumber is not null and orderNumber is defined %}
 							Numéro de Commande :
 							{{orderNumber}}
 						{% endif %}
-						{% if contractNumber is not null and contractNumber is defined %}
-							Numéro de contrat :
-							{{contractNumber}}
+						{% if contractsNumber is defined and contractsNumber is not empty %}
+								Numéro(s) de contrat(s) : 
+								{% for contractNumber in contractsNumber %}
+									 {{ contractNumber }} - </li>
+								{% endfor %}
 						{% endif %}
 					</p>
 				</div>
@@ -236,8 +238,11 @@
 											{# les prestations #}
 											{% if loop.index == 1 %}
 												<p class="m-0 fw400">{{data.course}}
-													{% if codeModule is not null and codeModule is defined %}
+													{% if data.codeModule is not null and data.codeModule is defined %}
 														<br>Code module : {{data.codeModule}}
+													{% endif %}
+													{% if data.contractNumber is not null and data.contractNumber is defined %}
+														<br>Numéro de contrat : {{data.contractNumber}}
 													{% endif %}
 												</p>
 												<p class="m-0 fw400">
