@@ -90,6 +90,9 @@ class Mission
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $contractNumber = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $titleMission = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -391,6 +394,18 @@ class Mission
     public function setContractNumber(?string $contractNumber): static
     {
         $this->contractNumber = $contractNumber;
+
+        return $this;
+    }
+
+    public function getTitleMission(): ?string
+    {
+        return $this->titleMission;
+    }
+
+    public function setTitleMission(?string $titleMission): static
+    {
+        $this->titleMission = $titleMission;
 
         return $this;
     }

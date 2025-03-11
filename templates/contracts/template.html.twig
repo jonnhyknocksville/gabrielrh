@@ -150,7 +150,7 @@
 
 					{% for mission in missions %}
 						<tr>
-							<td style="border-bottom:1px solid black;">
+							<td style="border-bottom:1px solid black;"> 
 								<b>{{mission.beginAt|date("d-m-Y")}}</b>
 							</td>
 							<td style="border-bottom:1px solid black;text-align:center">{{mission.scheduleTime}}</td>
@@ -161,8 +161,8 @@
 								-
 								{{mission.client.postalCode}}
 								{{mission.client.city}}</td>
-							<td style="border-bottom:1px solid black;text-align:center">{{mission.hourlyRate}}</td>
-							<td style="border-bottom:1px solid black;text-align:center">{{mission.remuneration}}</td>
+							<td style="border-bottom:1px solid black;text-align:center">{{mission.hourlyRate|round(2)}}</td>
+							<td style="border-bottom:1px solid black;text-align:center">{{mission.remuneration|round(2)}}</td>
 						</tr>
 					{% endfor %}
 
@@ -186,7 +186,7 @@
 			</div>
 			<div style="float:right;">
 				<p style="text-align:right;line-height:5px">Total Net de Taxe :
-					<b>{{totalAmount}}</b>
+					<b>{{totalAmount|round(2)}}</b>
 					€.</p>
 				<p style="text-align:right;line-height:5px">
 					<b>{{ missions|length }}</b>

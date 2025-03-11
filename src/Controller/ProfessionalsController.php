@@ -96,8 +96,6 @@ class ProfessionalsController extends AbstractController
         $need->setMotive('J\'ai besoin de formateurs');
         $need->setMessage('Pouvez-vous me trouver un formateur en... ');
         
-        // dd($need);
-
         $form = $this->createForm(FindTeachersType::class, $need);
         $form->handleRequest($request);
 

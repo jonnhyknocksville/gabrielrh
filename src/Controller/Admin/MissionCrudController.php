@@ -217,7 +217,7 @@ class MissionCrudController extends AbstractCrudController
             'tarification' => $mission->getTarification() ? $mission->getTarification()->getId() : null,
             'orderNumber' => $mission->getOrderNumber(),
             'contractNumber' => $mission->getContractNumber(),
-            'codeModule' => $mission->getCodeMule(),
+            'codeModule' => $mission->getCodeModule(),
             'teacherPaid' => $mission->isTeacherPaid() ? 1 : 0,
             'clientPaid' => $mission->isClientPaid() ? 1 : 0,
             'invoiceSent' => $mission->isInvoiceSent() ? 1 : 0,
@@ -280,6 +280,8 @@ class MissionCrudController extends AbstractCrudController
             AssociationField::new('user', 'Utilisateur'),
             DateField::new('beginAt', 'Date de début'),
             DateField::new('endAt', 'Date de fin'),
+            TextField::new('titleMission', 'Titre de la mission')
+            ->setFormTypeOption('empty_data', 'Prestations de formation'),
             ChoiceField::new('startTime', 'Heure de début')
                 ->setChoices([
                     '8h00' => '8h00',
@@ -301,6 +303,9 @@ class MissionCrudController extends AbstractCrudController
                     '13h45' => '13h45',
                     '14h00' => '14h00',
                     '14h15' => '14h15',
+                    '14h30' => '14h30',
+                    '15h30' => '15h30',
+                    '16h30' => '16h30',
                     '16h45' => '16h45',
                 ]),
             ChoiceField::new('scheduleTime', 'Plage horaire')
@@ -322,11 +327,13 @@ class MissionCrudController extends AbstractCrudController
                     '09h00-12h30' => '09h00-12h30',
                     '09h00-12h00' => '09h00-12h00',
                     '09h00-13h00' => '09h00-13h00',
+                    '09h00-17h00' => '09h00-17h00',
                     '10h00-13h00' => '10h00-13h00',
                     '10h00-15h00' => '10h00-15h00',
                     '10h00-17h00' => '10h00-17h00',
                     '09h30-13h00' => '09h30-13h00',
                     '13h00-15h30' => '13h00-15h30',
+                    '13h30-15h30' => '13h30-15h30',
                     '13h00-17h00' => '13h00-17h00',
                     '13h45-17h00' => '13h45-17h00',
                     '13h00-18h15' => '13h00-18h15',
@@ -336,21 +343,41 @@ class MissionCrudController extends AbstractCrudController
                     '14h00-17h30' => '14h00-17h30',
                     '14h00-18h00' => '14h00-18h00',
                     '14h00-19h00' => '14h00-19h00',
+                    '15h30-18h30' => '15h30-18h30',
                 ]),
             ChoiceField::new('hours', 'Nombre d\'heures')
                 ->setChoices([
                     '1' => '1',
                     '1.5' => '1.5',
                     '2' => '2',
+                    '2.5' => '2.5',
                     '3' => '3',
                     '3.5' => '3.5',
                     '4' => '4',
+                    '4.5' => '4.5',
                     '5' => '5',
+                    '5.5' => '5.5',
                     '6' => '6',
+                    '6.5' => '6.5',
                     '7' => '7',
+                    '7.5' => '7.5',
                     '8' => '8',
+                    '8.5' => '8.5',
                     '9' => '9',
+                    '9.5' => '9.5',
                     '10' => '10',
+                    '10.5' => '10.5',
+                    '11' => '11',
+                    '12' => '12',
+                    '13' => '13',
+                    '14' => '14',
+                    '15' => '15',
+                    '16' => '16',
+                    '17' => '17',
+                    '18' => '18',
+                    '19' => '19',
+                    '20' => '20',
+                    '21' => '21'
                 ]),
             ChoiceField::new('intervention', 'Type d\'intervention')
                 ->setChoices([
@@ -367,6 +394,8 @@ class MissionCrudController extends AbstractCrudController
             BooleanField::new('teacherPaid', 'Professeur payé'),
             BooleanField::new('clientPaid', 'Client payé'),
             BooleanField::new('invoiceSent', 'Facture envoyée'),
+            BooleanField::new('invoiceSent', 'Facture envoyée'),
+            AssociationField::new('invoice_client', 'Client à qui facturer'),
         ];
     }
 

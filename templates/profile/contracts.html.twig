@@ -9,7 +9,29 @@
     "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Décembre"
 ] %}
 
-<h1 class="text-light fst-italic text-center mt-5"> Voici vos contrats pour l'année {{ year }} </h1>
+<h1 class="text-light fst-italic text-center mt-5"> Voici vos contrats pour l'année {{ selectedYear }} </h1>
+
+<div class="row col-md-8 mx-auto p-5">
+    <form method="GET" action="{{ path('app_profile_contracts') }}" class="mb-4">
+        <div class="row align-items-center">
+            <div class="col-auto">
+                <label for="year" class="form-label fw-bold text-white">Sélectionnez une année :</label>
+            </div>
+            <div class="col-auto">
+                <select name="year" id="year" class="form-select" onchange="this.form.submit()">
+                    {% set currentYear = currentYear|default(date().format('Y')) %}
+                    {% set years = [currentYear - 1, currentYear, currentYear + 1] %}
+
+                    {% for year in years %}
+                        <option value="{{ year }}" {% if year == selectedYear %}selected{% endif %}>
+                            {{ year }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </form>
+</div>
 
 <div class="row col-md-8 mx-auto p-5">
     <table class="table bg-color-none">
@@ -39,13 +61,13 @@
                     <td class="text-light bg-color-none">
                         {% if contract and contract.signed %}
                             <!-- Icône pour le fichier uploadé -->
-                            <a href="{{ asset('uploads/contracts/' ~ year ~ '/' ~ month ~ '/' ~ contract.contract) }}" target="_blank">
+                            <a href="{{ asset('uploads/contracts/' ~ selectedYear ~ '/' ~ month ~ '/' ~ contract.contract) }}" target="_blank">
                                 <i class="fas fa-file-pdf text-success"></i>
                             </a>
                         {% else %}
                             <!-- Input file si pas encore uploadé -->
-                            <form id="contract-upload-form-{{ year }}-{{ month }}" action="{{ path('app_contract_uploads', { year: year, month: month, userId: userId }) }}" method="POST" enctype="multipart/form-data">
-                                <input type="file" name="contractFile" class="contract-file-input" data-form-id="{{ year }}-{{ month }}" />
+                            <form id="contract-upload-form-{{ selectedYear }}-{{ month }}" action="{{ path('app_contract_uploads', { year: selectedYear, month: month, userId: userId }) }}" method="POST" enctype="multipart/form-data">
+                                <input type="file" name="contractFile" class="contract-file-input" data-form-id="{{ selectedYear }}-{{ month }}" />
                             </form>
                         {% endif %}
                     </td>

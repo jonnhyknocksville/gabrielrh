@@ -103,13 +103,15 @@ class ProfileController extends AbstractController
 
         $userId = $this->getUser()->getId();
         $dateTime = new \DateTime("now");
-        $year = $dateTime->format("Y");
+
+        // Récupérer l'année sélectionnée (ou prendre l'année en cours par défaut)
+        $selectedYear = $request->query->get('year', $dateTime->format("Y"));
 
         // Récupérer les mois distincts des missions
-        $missionsMonths = $doctrine->getRepository(Mission::class)->findAnnualMissions($userId, $year);
+        $missionsMonths = $doctrine->getRepository(Mission::class)->findAnnualMissions($userId, $selectedYear);
 
         // Récupérer les contrats de l'utilisateur pour l'année donnée
-        $contracts = $doctrine->getRepository(Contract::class)->findContractsForUserAndYear($userId, $year);
+        $contracts = $doctrine->getRepository(Contract::class)->findContractsForUserAndYear($userId, $selectedYear);
 
         // Transformer les contrats pour un accès facile par mois
         $contractsByMonth = [];
@@ -128,6 +130,7 @@ class ProfileController extends AbstractController
             'missionsMonths' => $missionsMonths,
             'userId' => $userId,
             'year' => $data[0],
+            'selectedYear' => $selectedYear,
             'hasExpiredFile' => $this->controlFilesUpadated(),
             'ca' => $data[1]
         ]);
@@ -204,9 +207,6 @@ class ProfileController extends AbstractController
 
         }
 
-        // dd($invoicesToShow);
-        // dd($invoices);
-        // dd($missions);
         return $this->render('profile/generate_invoice_type.html.twig', [
             'invoices' => $invoicesToShow,
             'totalAmount' => $totalAmount,
@@ -229,7 +229,6 @@ class ProfileController extends AbstractController
         $data = $this->getValues($doctrine);
         $invoices = $doctrine->getRepository(Mission::class)->findMonthlyInvoicesToGenerate($year, $month);
 
-        // dd($invoices);
 
         $invoicesToShow = NULL;
         foreach ($invoices as $invoice) {
@@ -281,7 +280,6 @@ class ProfileController extends AbstractController
 
         }
 
-        // dd($missions);
         return $this->render('profile/contracts_admin.html.twig', [
             'invoices' => $invoicesToShow,
             'totalAmount' => $totalAmount,
@@ -568,7 +566,6 @@ class ProfileController extends AbstractController
             // $dateTime = new \DateTime("now");
             // $year = $dateTime->format("Y");
 
-            // dd($paid);
             // mettre à jour le paiment client de toutes les missions
             $doctrine->getRepository(Mission::class)->updateClientPaidForMissions($year, $month, $clientId, $paid);
 
@@ -595,11 +592,9 @@ class ProfileController extends AbstractController
             $month = $request->get('month');
             $year = $request->get('year');
             $sent = $request->get('sent');
-            // dd($sent);
             // $dateTime = new \DateTime("now");
             // $year = $dateTime->format("Y");
 
-            // dd($sent);
             // mettre à jour le paiment client de toutes les missions
             $doctrine->getRepository(Mission::class)->updateInvoiceSentForMissions($year, $month, $clientId, $sent);
 
@@ -627,7 +622,6 @@ class ProfileController extends AbstractController
             $dateTime = new \DateTime("now");
             $year = $dateTime->format("Y");
 
-            // dd($paid);
             // mettre à jour le paiment client de toutes les missions
             $doctrine->getRepository(Mission::class)->updateTeacherPaidForMissions($year, $month, $teacherId, $paid);
 
@@ -669,11 +663,12 @@ class ProfileController extends AbstractController
                 $invoicesToShow[$client . "_" . $invoice->getOrderNumber()]['orderNumber'] = $invoice->getOrderNumber();
                 $invoicesToShow[$client . "_" . $invoice->getOrderNumber()]['city'] = $invoice->getClient()->getCity();
                 $invoicesToShow[$client . "_" . $invoice->getOrderNumber()]['personInCharge'] = $invoice->getClient()->getPersonInCharge();
+                $invoicesToShow[$client . "_" . $invoice->getOrderNumber()]['titleMission'] = $invoice->getTitleMission();
 
                 if (isset($invoicesToShow[$client . "_" . $invoice->getOrderNumber()]['sum'])) {
-                    $invoicesToShow[$client . "_" . $invoice->getOrderNumber()]['sum'] += (float) round($invoice->getHours() * $invoice->getStudent()->getHourlyPrice());
+                    $invoicesToShow[$client . "_" . $invoice->getOrderNumber()]['sum'] += (float) round($invoice->getHours() * $invoice->getStudent()->getHourlyPrice(), 2);
                 } else {
-                    $invoicesToShow[$client . "_" . $invoice->getOrderNumber()]['sum'] = (float) $invoice->getHours() * $invoice->getStudent()->getHourlyPrice();
+                    $invoicesToShow[$client . "_" . $invoice->getOrderNumber()]['sum'] = (float) round($invoice->getHours() * $invoice->getStudent()->getHourlyPrice(), 2);
                 }
 
 
@@ -694,11 +689,13 @@ class ProfileController extends AbstractController
                     $invoicesToShow[$client . "_" . $newMission->getOrderNumber()]['orderNumber'] = $newMission->getOrderNumber();
                     $invoicesToShow[$client . "_" . $newMission->getOrderNumber()]['city'] = $newMission->getClient()->getCity();
                     $invoicesToShow[$client . "_" . $invoice->getOrderNumber()]['personInCharge'] = $invoice->getClient()->getPersonInCharge();
+                    $invoicesToShow[$client . "_" . $invoice->getOrderNumber()]['personInCharge'] = $invoice->getClient()->getPersonInCharge();
+                    $invoicesToShow[$client . "_" . $invoice->getOrderNumber()]['titleMission'] = $invoice->getTitleMission();
 
                     if (isset($invoicesToShow[$client . "_" . $newMission->getOrderNumber()]['sum'])) {
-                        $invoicesToShow[$client . "_" . $newMission->getOrderNumber()]['sum'] += (float) round($invoice->getHours() * $invoice->getStudent()->getHourlyPrice());
+                        $invoicesToShow[$client . "_" . $newMission->getOrderNumber()]['sum'] += (float) round($invoice->getHours() * $invoice->getStudent()->getHourlyPrice(), 2);
                     } else {
-                        $invoicesToShow[$client . "_" . $newMission->getOrderNumber()]['sum'] = (float) round($invoice->getHours() * $invoice->getStudent()->getHourlyPrice());
+                        $invoicesToShow[$client . "_" . $newMission->getOrderNumber()]['sum'] = (float) round($invoice->getHours() * $invoice->getStudent()->getHourlyPrice(), 2);
                     }
 
                 }
@@ -711,14 +708,11 @@ class ProfileController extends AbstractController
 
                 $totalAmount += $invoiceToShow["sum"];
 
-
             }
 
         }
 
-        // dd($invoicesToShow);
-        // dd($invoices);
-        // dd($missions);
+
         return $this->render('profile/invoices.html.twig', [
             'invoices' => $invoicesToShow,
             'totalAmount' => $totalAmount,
@@ -754,13 +748,10 @@ class ProfileController extends AbstractController
             $invoice = NULL;
             // va falloir regrouper les missions par formateurs et par cours
             // TODO
-            // dd($missions);
             $course = NULL;
             $user = NULL;
             $missionsForInvoice = NULL;
             $totalAmount = NULL;
-
-            // dd($missions);
 
             foreach ($missions as $mission) {
 
@@ -819,7 +810,6 @@ class ProfileController extends AbstractController
 
             $date = new \DateTime($year . '-' . $month . '-01');
             $invoiceNumber = "F" . $date->format("Ym") . '_' . $this->getUser()->getId() . '_' . $clientId;
-            // dd(round($totalAmount, 2));
 
             $data = [
                 'missions' => $missionsForInvoice,
@@ -837,8 +827,6 @@ class ProfileController extends AbstractController
             $dompdf = new Dompdf(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true]);
             $dompdf->loadHtml($html);
             $dompdf->render();
-
-            // dd($missionsForInvoice);
 
             return new Response(
                 $dompdf->stream($this->params->get('nom_entreprise') . " - " . $invoiceNumber, ["Attachment" => false]),
@@ -877,16 +865,13 @@ class ProfileController extends AbstractController
             $invoice = NULL;
             // va falloir regrouper les missions par formateurs et par cours
             // TODO
-            // dd($missions);
             $course = NULL;
             $user = NULL;
             $missionsForInvoice = NULL;
             $totalAmount = NULL;
             $orderNumber = NULL;
-            $contractNumber = NULL;
+            $contractsNumber = [];
             $codeModule = NULL;
-
-            // dd($missions);
 
             foreach ($missions as $mission) {
 
@@ -897,8 +882,8 @@ class ProfileController extends AbstractController
                     $orderNumber = $mission->getOrderNumber();
                 }
 
-                if (is_null($contractNumber) && !is_null($mission->getContractNumber())) {
-                    $contractNumber = $mission->getContractNumber();
+                if (!is_null($mission->getContractNumber()) && !in_array($mission->getContractNumber(), $contractsNumber) ) {
+                    array_push($contractsNumber,$mission->getContractNumber());
                 }
 
                 if (is_null($codeModule) && !is_null($mission->getCodeModule())) {
@@ -943,7 +928,6 @@ class ProfileController extends AbstractController
 
             // pour récupérer l'année et le mois actuel pour les dates de factures et d'échéances
             $year = $dateTime->format("Y");
-            // dd($month);
 
             $month = $dateTime->format("m");
 
@@ -960,7 +944,6 @@ class ProfileController extends AbstractController
             $date = new \DateTime($year . '-' . $month . '-01');
             // $date = $date->modify( 'first day of next month' );
             //$invoiceNumber = "F" . $date->format("Ym") . '_' . $clientId;
-            // dd(round($totalAmount, 2));
 
             // Vérifie si une facture existe déjà
             $existingInvoice = $invoicesRepository->findInvoiceByMonthAndYear($clientId, $year, $month);
@@ -974,15 +957,15 @@ class ProfileController extends AbstractController
                 if (!$client) {
                     throw $this->createNotFoundException('Client not found');
                 }
-    
+
                 $newInvoice = new Invoices();
                 $newInvoice->setClient($client);
                 $newInvoice->setYear($year);
                 $newInvoice->setMonth($month);
-    
+
                 $entityManager->persist($newInvoice);
                 $entityManager->flush();
-    
+
                 // Récupère l'ID de la nouvelle facture
                 $invoiceNumber = $newInvoice->getId();
             }
@@ -990,27 +973,35 @@ class ProfileController extends AbstractController
             $data = [
                 'missions' => $missionsForInvoice,
                 'teacher' => $user,
-                'invoiceNumber' => "N°".$invoiceNumber,
+                'invoiceNumber' => "N°" . $invoiceNumber,
                 'invoiceDate' => $invoiceDate,
                 'invoiceDateEcheance' => $invoiceDateEcheance,
                 'totalAmount' => round($totalAmount, 2),
                 'client' => $client,
                 'orderNumber' => $orderNumber,
-                'contractNumber' => $contractNumber,
+                'contractsNumber' => $contractsNumber,
                 'codeModule' => $codeModule
             ];
+
             $html = $this->renderView('profile/invoices-template.html.twig', $data);
+
+            // Génération du PDF
             $dompdf = new Dompdf(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true]);
             $dompdf->loadHtml($html);
             $dompdf->render();
 
-            // dd($missionsForInvoice);
+            // Envoi du PDF en réponse HTTP
+            $responseContent = $dompdf->output();
 
             return new Response(
-                $dompdf->stream($this->params->get('nom_entreprise') . " - Facture n°" . $invoiceNumber . " - " . $client->getName(), ["Attachment" => false]),
+                $responseContent,
                 Response::HTTP_OK,
-                ['Content-Type' => 'application/pdf']
+                [
+                    'Content-Type' => 'application/pdf',
+                    'Content-Disposition' => 'inline; filename="Facture-' . $invoiceNumber . '.pdf"',
+                ]
             );
+
         } else {
             return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
         }
@@ -1042,14 +1033,11 @@ class ProfileController extends AbstractController
             $invoice = NULL;
             // va falloir regrouper les missions par formateurs et par cours
             // TODO
-            // dd($missions);
             $course = NULL;
             $user = NULL;
             $missionsForInvoice = NULL;
             $totalAmount = NULL;
             $orderNumber = NULL;
-
-            // dd($missions);
 
             foreach ($missions as $mission) {
 
@@ -1107,7 +1095,6 @@ class ProfileController extends AbstractController
 
             // $date = $date->modify( 'first day of next month' );
             //$devisNumber = "F" . $date->format("Ym") . '_' . $clientId;
-            // dd(round($totalAmount, 2));
 
             // Vérifie si une facture existe déjà
             $existingDevis = $estimateRepository->findEstimateByMonthAndYear($clientId, $year, $month);
@@ -1121,15 +1108,15 @@ class ProfileController extends AbstractController
                 if (!$client) {
                     throw $this->createNotFoundException('Client not found');
                 }
-    
+
                 $newInvoice = new Estimate();
                 $newInvoice->setClient($client);
                 $newInvoice->setYear($year);
                 $newInvoice->setMonth($month);
-    
+
                 $entityManager->persist($newInvoice);
                 $entityManager->flush();
-    
+
                 // Récupère l'ID de la nouvelle facture
                 $devisNumber = $newInvoice->getId();
             }
@@ -1137,7 +1124,7 @@ class ProfileController extends AbstractController
             $data = [
                 'missions' => $missionsForInvoice,
                 'teacher' => $user,
-                'devisNumber' => "N°".$devisNumber,
+                'devisNumber' => "N°" . $devisNumber,
                 'devisDate' => $devisDate,
                 'devisDateEcheance' => $devisDateEcheance,
                 'totalAmount' => round($totalAmount, 2),
@@ -1148,8 +1135,6 @@ class ProfileController extends AbstractController
             $dompdf = new Dompdf(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true]);
             $dompdf->loadHtml($html);
             $dompdf->render();
-
-            // dd($missionsForInvoice);
 
             return new Response(
                 $dompdf->stream($this->params->get('nom_entreprise') . " - Facture n°" . $devisNumber . " - " . $client->getName(), ["Attachment" => false]),
@@ -1261,11 +1246,9 @@ class ProfileController extends AbstractController
                 'orderNumber' => $orderNumber
             ];
             $html = $this->renderView('profile/invoices-template.html.twig', $data);
-            $dompdf = new Dompdf(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true]);
+            $dompdf = new Dompdf(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => false]);
             $dompdf->loadHtml($html);
             $dompdf->render();
-
-            // dd($missionsForInvoice);
 
             return new Response(
                 $dompdf->stream($this->params->get('nom_entreprise') . " - " . $invoiceNumber, ["Attachment" => false]),
@@ -1398,8 +1381,7 @@ class ProfileController extends AbstractController
             $hasExpiredFile = true;
         } elseif ($user->getAttestationVigilanceUpdatedAt() && $user->getAttestationVigilanceUpdatedAt() < $sixMonthsAgo) {
             $hasExpiredFile = true;
-        }
-        elseif ($user->getAttestationCompetenceUpdatedAt() && $user->getAttestationCompetenceUpdatedAt() < $sixMonthsAgo) {
+        } elseif ($user->getAttestationCompetenceUpdatedAt() && $user->getAttestationCompetenceUpdatedAt() < $sixMonthsAgo) {
             $hasExpiredFile = true;
         }
 
