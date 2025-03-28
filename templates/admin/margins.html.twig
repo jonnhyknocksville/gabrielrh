@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Synthèse Financière Mensuelle{% endblock %}
+
+{% block body %}
+<div class="container my-5">
+    <h1 class="mb-4 text-center">📊 Synthèse Financière Mensuelle</h1>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th><i class="bi bi-calendar3"></i> Mois</th>
+                    <th><i class="bi bi-person-badge"></i> Formateur</th>
+                    <th><i class="bi bi-cash-coin"></i> Payé</th>
+                    <th><i class="bi bi-file-earmark-text"></i> Facturé</th>
+                    <th><i class="bi bi-graph-up-arrow"></i> Marge</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set total_paid = 0 %}
+                {% set total_billed = 0 %}
+                {% set total_profit = 0 %}
+
+                {% for row in data %}
+                    {% set margin = row.profit + 0 %}
+                    {% set total_paid = total_paid + row.total_paid %}
+                    {% set total_billed = total_billed + row.total_billed %}
+                    {% set total_profit = total_profit + row.profit %}
+
+                    <tr>
+                        <td>{{ '%02d'|format(row.month) }}/{{ row.year }}</td>
+                        <td>{{ row.teacher_name }}</td>
+                        <td>{{ row.total_paid|number_format(2, ',', ' ') }} €</td>
+                        <td>{{ row.total_billed|number_format(2, ',', ' ') }} €</td>
+                        <td>
+                            <span class="badge {{ margin >= 0 ? 'bg-success' : 'bg-danger' }}">
+                                {{ row.profit|number_format(2, ',', ' ') }} €
+                            </span>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center">Aucune donnée disponible</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+
+            <tfoot class="table-light fw-bold">
+                <tr>
+                    <td colspan="2" class="text-end">Total :</td>
+                    <td>{{ total_paid|number_format(2, ',', ' ') }} €</td>
+                    <td>{{ total_billed|number_format(2, ',', ' ') }} €</td>
+                    <td>{{ total_profit|number_format(2, ',', ' ') }} €</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+{% endblock %}

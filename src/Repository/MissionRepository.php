@@ -215,6 +215,32 @@ class MissionRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findGetMonthlyProfitsByTeacherRaw(): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+    
+        $sql = "
+            SELECT 
+                u.id AS user_id,
+                CONCAT(u.first_name, ' ', u.last_name) AS teacher_name,
+                YEAR(m.begin_at) AS year,
+                MONTH(m.begin_at) AS month,
+                SUM(CAST(m.hours AS DECIMAL(10,2)) * CAST(m.hourly_rate AS DECIMAL(10,2))) AS total_paid,
+                SUM(CAST(m.hours AS DECIMAL(10,2)) * CAST(s.hourly_price AS DECIMAL(10,2))) AS total_billed,
+                SUM(CAST(m.hours AS DECIMAL(10,2)) * (CAST(s.hourly_price AS DECIMAL(10,2)) - CAST(m.hourly_rate AS DECIMAL(10,2)))) AS profit
+            FROM mission m
+            JOIN user u ON m.user_id = u.id
+            JOIN students s ON m.student_id = s.id
+            WHERE u.first_name <> 'Samih'
+            GROUP BY u.id, teacher_name, YEAR(m.begin_at), MONTH(m.begin_at)
+            ORDER BY year ASC, month ASC
+        ";
+    
+        return $conn->executeQuery($sql)->fetchAllAssociative();
+    }
+    
+    
+
 
     public function findMissionForCustomerAndOneTeacher($year, $month, $clientId, $userId)
     {

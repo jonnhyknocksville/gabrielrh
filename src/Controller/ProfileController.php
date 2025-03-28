@@ -17,6 +17,7 @@ use App\Form\UserType;
 use App\Repository\ClientsRepository;
 use App\Repository\EstimateRepository;
 use App\Repository\InvoicesRepository;
+use App\Repository\MissionRepository;
 use App\Service\MailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -148,6 +149,8 @@ class ProfileController extends AbstractController
         int $month,
     ): Response {
 
+        // Calcul
+
         $data = $this->getValues($doctrine);
         $idUser = $this->getUser()->getId();
         $invoices = $doctrine->getRepository(Mission::class)->findMonthlyInvoicesToGenerateForUser($year, $month, $idUser);
@@ -165,9 +168,9 @@ class ProfileController extends AbstractController
                 $invoicesToShow[$client . "_"]['userId'] = $invoice->getUser()->getId();
 
                 if (isset($invoicesToShow[$client . "_"]['sum'])) {
-                    $invoicesToShow[$client . "_"]['sum'] += (float) round($invoice->getRemuneration());
+                    $invoicesToShow[$client . "_"]['sum'] += (float) round($invoice->getRemuneration(), 2);
                 } else {
-                    $invoicesToShow[$client . "_"]['sum'] = (float) $invoice->getRemuneration();
+                    $invoicesToShow[$client . "_"]['sum'] = (float) round($invoice->getRemuneration(), 2);
                 }
 
 
@@ -187,9 +190,9 @@ class ProfileController extends AbstractController
                     $invoicesToShow[$client . "_"]['userId'] = $invoice->getUser()->getId();
 
                     if (isset($invoicesToShow[$client . "_"]['sum'])) {
-                        $invoicesToShow[$client . "_"]['sum'] += (float) round($invoice->getRemuneration());
+                        $invoicesToShow[$client . "_"]['sum'] += (float) round($invoice->getRemuneration(), 2);
                     } else {
-                        $invoicesToShow[$client . "_"]['sum'] = (float) round($invoice->getRemuneration());
+                        $invoicesToShow[$client . "_"]['sum'] = (float) round($invoice->getRemuneration(), 2);
                     }
 
                 }
@@ -199,10 +202,7 @@ class ProfileController extends AbstractController
             $totalAmount = NULL;
 
             foreach ($invoicesToShow as $invoiceToShow) {
-
                 $totalAmount += $invoiceToShow["sum"];
-
-
             }
 
         }
@@ -1411,6 +1411,16 @@ class ProfileController extends AbstractController
             'phoneRepresentative' => $client->getPhoneRepresentative(),
             'accountantEmail' => $client->getAccountantEmail(),
             'emailContactToAdd' => $client->getEmailContactToAdd(),
+        ]);
+    }
+
+    #[Route('/biz/marges', name: 'admin_margins')]
+    public function margins(MissionRepository $repo): Response
+    {
+        $data = $repo->findGetMonthlyProfitsByTeacherRaw();
+
+        return $this->render('admin/margins.html.twig', [
+            'data' => $data
         ]);
     }
 
